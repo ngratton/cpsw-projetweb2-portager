@@ -9,12 +9,12 @@
     <title>Portager</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row" id="header">
-            <div class="col-8">
+    <div class="container-fluid"> <!--header -->
+        <div class="row align-items-center" id="header">
+            <div class="col-6 offset-2" id="colHeader">
                 <img src="../images/portager_noir.svg">
             </div>
-            <div class="col-4" id="signup">
+            <div class="col-3" id="signup">
                 <a href="#">Déjà inscrit?</a>
                 <button type="button" class="btn btn-secondary">Se connecter</button>
             </div>
@@ -25,31 +25,116 @@
                 <button type="button" class="btn btn-primary">S'enregistrer</button>
             </div>
         </div>
-        <div class="container-fluid" id="search">
-            <div class="row">
+        <div class="container"> <!-- recherche -->
+            <div class="row align-items-center" id="search">
                 <div class="col">
-                    <div class="form-group">
+                    <div class="form-group form-check-inline">
                         <input class="form-control form-control-lg" type="text" placeholder="Recherche...">
                         <button type="button" class="btn btn-secondary">Chercher</button>
                     </div>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <p>Rechercher par                
+                                    <input class="form-check-input" type="radio" id="inlineCheckbox1" value="option1">
+                                    <label class="form-check-label" for="inlineCheckbox1">Plants</label>
+                                    <input class="form-check-input" type="radio" id="inlineCheckbox2" value="option2">
+                                    <label class="form-check-label" for="inlineCheckbox1">Villes</label>
+                                    <input class="form-check-input" type="radio" id="inlineCheckbox3" value="option3">
+                                    <label class="form-check-label" for="inlineCheckbox1">Étiquettes</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="nouveauxPlants"> <!-- Nouveaux plants -->
+                <div class="col">
+                    <h3>Nouveaux plans près de chez vous</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="../images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ Nom du plant }}</h5>
+                            <p class="card-text">{{ Ville }}</p>
+                            <p class="card-text">{{ Jardinier }} {{ Note jardinier }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-3">
+                    <img class="pubAccueil" src="../images/ad_768-90.png">
+                </div>
+                <div class="col-3"></div>
+                <div class="col-3"></div>
+            </div>
+            <div class="row" id="cotePlants"> <!-- Plants les mieux côtés -->
+                <div class="col">
+                    <h3>Potagers les mieux côtés</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="../images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ Nom du plant }}</h5>
+                            <p class="card-text">{{ Ville }}</p>
+                            <p class="card-text">{{ Jardinier }} {{ Note jardinier }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="merch"> <!-- Marchandise -->
+                <div class="col">
+                    <h3>Montrez fièrement votre sens du partage !</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="../images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ Nom du plant }}</h5>
+                            <p class="card-text">{{ Ville }}</p>
+                            <p class="card-text">{{ Jardinier }} {{ Note jardinier }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="populaire"> <!-- Plants Populaire -->
+                <div class="col">
+                    <h3>Plants les plus populaires</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="../images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ Nom du plant }}</h5>
+                            <p class="card-text">{{ Ville }}</p>
+                            <p class="card-text">{{ Jardinier }} {{ Note jardinier }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="plus">
+                <div class="col offset-6">
+                    <button type="button" class="btn btn-primary">En voir plus...</button>
                 </div>
             </div>
         </div>
-        <div class="row" id="nouveauxPlants">
-            <div class="col">
-                <h3>Nouveaux plans près de chez vous</h3>
-            </div>
-        </div>
+    </div>
+    <div class="container-fluid" id="footer"> <!-- footer -->
         <div class="row">
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="../images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">{{ Nom du plant }}</h5>
-                      <p class="card-text">{{ Ville }}</p>
-                      <p class="card-text">{{ Jardinier }} {{ Note jardinier }}</p>
-                    </div>
-                  </div>
+            <div class="col offset-9">
+                <img src="../images/_LOGOS/portager_blanc.svg">
             </div>
         </div>
     </div>
