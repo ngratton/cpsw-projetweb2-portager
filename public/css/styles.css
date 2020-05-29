@@ -54,7 +54,7 @@ nav {
     flex-direction: column;
     margin-top: -50px;
     z-index: 5;
-    width: 1200px;
+    width: 100%;
     height: 233px;
     bottom: 150px;
     color: white;
@@ -67,7 +67,8 @@ nav {
     background: #32373D 0% 0% no-repeat padding-box;
     border-radius: 6px;
     opacity: 1;
-    padding: 10px 20px 10px 20px;
+    width: 24%;
+    height: 20%;
     font-weight: bold;
 }
 
@@ -82,7 +83,7 @@ nav {
 }
 
 .form-group {
-    width: 700px;
+    width: 70%;
     height: auto;
     text-align: center;
     flex-direction: row;
@@ -90,6 +91,8 @@ nav {
 }
 
 .form-group button {
+    width: 20%;
+    height: 20%;
     margin-left: 10px;
     padding: 10px;
 }
@@ -131,8 +134,8 @@ nav {
 .pubAccueil {
     top: 1392px;
     left: 586px;
-    width: 728px;
-    height: 90px;
+    width: 78%;
+    height: 100%;
 }
 
 #cotePlants {
@@ -151,8 +154,8 @@ nav {
 }
 
 #plus button {
-    width: 205px;
-    height: 60px;
+    width: 30%;
+    height: 20%;
     top: 2913px;
     left: 848px;
     border: none;
@@ -169,7 +172,7 @@ nav {
 }
 
 #footer img {
-    width: 200px;
+    width: 80%;
     height: auto;
     margin-top: 78.07px;
 }
