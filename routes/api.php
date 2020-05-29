@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/**
+ * Profil utilisateurs
+ */
+Route::get('/profile/{userId}', 'ProfileController@show');
+Route::put('/profile/{userId}', 'ProfileController@store');
+Route::patch('/profile/{userId}', 'ProfileController@update');
+Route::delete('/profile/{userId}', 'ProfileController@destroy');
