@@ -1,4 +1,8 @@
-# **Portager** | Projet Web 2
+<div style="text-align: center; background-color: #F0FBFF; border-radius: 16px; margin: 20px;">
+    <img src="https://nicholasgratton.com/img/portager_noir_100px.png" style="height: 80px; text-align: center; margin: 20px;">
+</div>
+
+# **Portager** | Projet Web 2 | Cobayes Media
 
 ## **INSTALLATION**
 
