@@ -15,15 +15,15 @@ class CreatePlantsTable extends Migration
     {
         Schema::create('plants', function (Blueprint $table) {
             $table->id();
-            $table->type();
-            $table->nom();
-            $table->description();
-            $table->cm_entre_plants();
-            $table->cm_entre_rangs();
-            $table->jours_maturation();
-            $table->voisinage_fav();
-            $table->remarques();
-            $table->images();
+            $table->string('type');
+            $table->string('nom');
+            $table->string('description');
+            $table->float('cm_entre_plants');
+            $table->float('cm_entre_rangs');
+            $table->float('jours_maturation');
+            $table->string('voisinage_fav');
+            $table->string('remarques');
+            $table->string('images');           
             $table->timestamps();
         });
     }
