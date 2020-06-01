@@ -11,7 +11,7 @@ class PlantSeeder extends Seeder
      */
     public function run()
     {
-        $file = fopen("DB-plants.csv","r");
+        
            
         $row = 1;
         if (($handle = fopen("DB-plants.csv", "r")) !== FALSE) {
@@ -20,15 +20,15 @@ class PlantSeeder extends Seeder
                 $row++;
                                                         
                     DB::table('plants')->insert([
-                        'type' => $data[1],
-                        'nom' => $data[2],
-                        'description' => $data[3],
-                        'cm_entre_plants' => $data[4],
-                        'cm_entre_rangs' => $data[5],
-                        'jours_maturation' => $data[6],
+                        'type' => $data[0],
+                        'nom' => $data[1],
+                        'description' => $data[2],
+                        'cm_entre_plants' => $data[3],
+                        'cm_entre_rangs' => $data[3],
+                        'jours_maturation' => $data[5],
                         'voisinage_fav' => $data[6],
-                        'remarques' => $data[8],
-                        'images' => $data[9],
+                        'remarques' => $data[7],
+                        'images' => $data[8],
                     ]);
             
              }

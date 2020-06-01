@@ -17,12 +17,12 @@ class CreatePlantsTable extends Migration
             $table->id();
             $table->string('type');
             $table->string('nom');
-            $table->string('description');
-            $table->float('cm_entre_plants');
-            $table->float('cm_entre_rangs');
-            $table->float('jours_maturation');
+            $table->text('description');
+            $table->string('cm_entre_plants');
+            $table->string('cm_entre_rangs');
+            $table->string('jours_maturation');
             $table->string('voisinage_fav');
-            $table->string('remarques');
+            $table->text('remarques');
             $table->string('images');           
             $table->timestamps();
         });
