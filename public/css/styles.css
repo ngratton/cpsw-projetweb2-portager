@@ -116,20 +116,6 @@ nav {
     margin-right: 10px;
 }
 
-#searchUser {
-    display: flex;
-    flex-direction: column;
-    margin-top: -50px;
-    z-index: 5;
-    width: 100%;
-    height: 150px;
-    bottom: 150px;
-    color: white;
-    background-color: #9BC53D;
-    border-radius: 25px;
-    text-align: center;
-}
-
 #nouveauxPlants {
     margin-top: 80px;
     margin-bottom: 30px;
@@ -196,6 +182,7 @@ nav {
     border: none;
     background-color: #9BC53D;
     font-weight: bold;
+    margin-top: 30px;
     margin-bottom: 250px;
 }
 
@@ -204,7 +191,17 @@ nav {
     margin-bottom: 30px;
 }
 
+#jardinier img {
+    width: 100%;
+    height: 100%;
+}
+
 #jardinierDescription {
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+    align-items: center;
+    justify-content: space-between;
     box-shadow: 0px 5px 10px #00000029;
 }
 
@@ -259,7 +256,6 @@ nav {
 
 #evaluations {
     background-color: #A7C6DA;
-    margin-bottom: 50px;
 }
 
 #footer {
