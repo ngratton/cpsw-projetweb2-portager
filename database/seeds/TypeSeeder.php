@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PlantSeeder extends Seeder
+class TypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class PlantSeeder extends Seeder
      */
     public function run()
     {
-        
+         
            
         $row = 1;
         if (($handle = fopen("DB-plants.csv", "r")) !== FALSE) {
@@ -19,7 +19,7 @@ class PlantSeeder extends Seeder
                 
                 $row++;
                                                         
-                    DB::table('plants')->insert([
+                    DB::table('types')->insert([
                         'type' => $data[0],
                         'nom' => $data[1],
                         'description' => $data[2],
@@ -37,5 +37,4 @@ class PlantSeeder extends Seeder
         
         fclose($handle);
     }
-    }
-
+}
