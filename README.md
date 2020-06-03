@@ -12,7 +12,7 @@
 2. Taper `composer install` dans le Terminal de VS Code
 3. Copier *.env.exemple* et renommer ***.env***
 4. Taper `php artisan key:generate` dans le Terminal
-5. Taper `npm install && npm dev run` dans le Terminal
+5. Taper `npm install && npm run dev` dans le Terminal
 6. Soit configurer Wamp avec un VirtualHost pointant au dossier "/public" ou taper `php artisan serve` dans le Terminal.
 
 ### Créer une base de données
