@@ -16,10 +16,20 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'first_name' => 'Admin',
-            'last_name' => 'inistrateur',
-            'email' => 'admin@admin.com',
+            'last_name' => 'Istrateur',
+            'email' => 'admin@portager.qc.ca',
             'password' => Hash::make('portager'),
+            'user_role' => 'Administrateur',
             'api_token' => 'VVGsozaUcRnHdr4qCcyAm9xKVDuGLVo8nxrcWV1NI3i2K5hX6yxhaUWh7FM57TWQ83lAVeJvCaN8m9Vb',
+        ]);
+
+        DB::table('users')->insert([
+            'first_name' => 'Utilisateur',
+            'last_name' => 'Lambda',
+            'email' => 'user@portager.qc.ca',
+            'password' => Hash::make('portager'),
+            'user_role' => 'Utilisateur',
+            'api_token' => 'ho8ubW89aIWH7JOjEVB8XrtD3FWVtnhQQGNsrP3Egp2sxsktHSUIGyB8EHp9sOFiwvXHeALFLbOcsU73',
         ]);
     }
 }

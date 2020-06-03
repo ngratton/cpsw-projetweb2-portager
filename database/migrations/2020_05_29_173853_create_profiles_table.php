@@ -15,14 +15,10 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('address_1');
-            $table->string('address_2')->nullable();
-            $table->string('city');
-            $table->string('prov');
-            $table->string('country');
-            $table->string('postal_code');
-            $table->text('bio')->nullable();
             $table->string('profil_photo_path')->nullable();
+            $table->text('bio')->nullable();
+            $table->integer('jardine_depuis');
+            $table->set('tags_jardiniers', ['Amateur', 'Autosuffisant', 'Biologique', 'Ecologique', 'Communautaire', 'Conventionnel']);
             $table->integer('fk_users_id')->unique();
             $table->tinyInteger('est_actif');
             $table->timestamps();

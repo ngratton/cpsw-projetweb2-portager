@@ -36,14 +36,10 @@ class ProfileController extends Controller
     public function store(Request $request, $userId)
     {
         $profile = new Profile();
-        $profile->address_1 = $request->address_1;
-        $profile->address_2 = $request->address_2;
-        $profile->city = $request->city;
-        $profile->prov = $request->prov;
-        $profile->country = $request->country;
-        $profile->postal_code = $request->postal_code;
-        $profile->bio = $request->bio;
         $profile->profil_photo_path = $request->profil_photo_path;
+        $profile->bio = $request->bio;
+        $profile->jardine_depuis = $request->jardine_depuis;
+        $profile->tags_jardiniers = $request->tags_jardiniers;
         $profile->fk_users_id = $userId;
         $profile->est_actif = 1;
         $profile->save();
@@ -80,17 +76,13 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $userId)
     {
-        $profile = Profile::where('fk_users_id', $userId)
-                        ->update([
-                            "address_1" => $request->address_1,
-                            "address_2" => $request->address_2,
-                            "city" => $request->city,
-                            "prov" => $request->prov,
-                            "country" => $request->country,
-                            "postal_code" => $request->postal_code,
-                            "bio" => $request->bio,
-                            "profil_photo_path" => $request->profil_photo_path,
-                        ]);
+        Profile::where('fk_users_id', $userId)
+                ->update([
+                    "bio" => $request->bio,
+                    "profil_photo_path" => $request->profil_photo_path,
+                    "jardine_depuis" => $request->jardine_depuis,
+                    "tags_jardiniers" => $request->tags_jardiniers,
+                ]);
     }
 
     /**

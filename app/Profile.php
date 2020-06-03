@@ -12,13 +12,10 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'address_1',
-        'address_2',
-        'city',
-        'prov',
-        'country',
-        'postal_code',
-        'bio',
         'profil_photo_path',
+        'bio',
+        'jardine_depuis',
+        'tags_jardiniers',
+        'fk_users_id',
     ];
 }
