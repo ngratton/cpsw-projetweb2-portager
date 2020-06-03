@@ -30,6 +30,17 @@ nav {
     background-size: cover;
 }
 
+#bannerUser {
+    color: white;
+    font-style: italic;
+    z-index: -5;
+    width: 100%;
+    height: 300px;
+    background-image: url("../images/hero/iStock_000040952852Small.jpg");
+    background-position: 0% 50%;
+    background-size: cover;
+}
+
 #banner h1 {
     margin-top: 110px;
     margin-bottom: 20px;
@@ -54,7 +65,7 @@ nav {
     flex-direction: column;
     margin-top: -50px;
     z-index: 5;
-    width: 1200px;
+    width: 100%;
     height: 233px;
     bottom: 150px;
     color: white;
@@ -67,7 +78,8 @@ nav {
     background: #32373D 0% 0% no-repeat padding-box;
     border-radius: 6px;
     opacity: 1;
-    padding: 10px 20px 10px 20px;
+    width: 24%;
+    height: 20%;
     font-weight: bold;
 }
 
@@ -82,7 +94,7 @@ nav {
 }
 
 .form-group {
-    width: 700px;
+    width: 70%;
     height: auto;
     text-align: center;
     flex-direction: row;
@@ -90,6 +102,8 @@ nav {
 }
 
 .form-group button {
+    width: 20%;
+    height: 20%;
     margin-left: 10px;
     padding: 10px;
 }
@@ -113,7 +127,7 @@ nav {
     height: 350px;
     border-radius: 50px;
     margin-bottom: 50px;
-    box-shadow: 0px 5px 10px #00000029;;
+    box-shadow: 0px 5px 10px #00000029;
 }
 
 .card button {
@@ -128,11 +142,21 @@ nav {
     height: 210px;
 }
 
+#cardUser {
+    font-size: 14px;
+    width: 210px;
+    height: 300px;
+    border-radius: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    box-shadow: 0px 5px 10px #00000029;
+}
+
 .pubAccueil {
     top: 1392px;
     left: 586px;
-    width: 728px;
-    height: 90px;
+    width: 78%;
+    height: 100%;
 }
 
 #cotePlants {
@@ -151,14 +175,102 @@ nav {
 }
 
 #plus button {
-    width: 205px;
-    height: 60px;
+    width: 30%;
+    height: 20%;
     top: 2913px;
     left: 848px;
     border: none;
     background-color: #9BC53D;
     font-weight: bold;
+    margin-top: 30px;
     margin-bottom: 250px;
+}
+
+#jardinier {
+    margin-top: 80px;
+    margin-bottom: 30px;
+}
+
+#jardinier img {
+    width: 100%;
+    height: 100%;
+}
+
+#jardinierDescription {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 200px;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0px 5px 10px #00000029;
+}
+
+.etoile {
+    margin-left: 30px;
+}
+
+.btn-group-vertical {
+    margin-left: 450px;
+}
+
+#jardinierBio {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 5px 10px #00000029;
+    margin-bottom: 30px;
+}
+
+#etiquettes {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    box-shadow: 0px 5px 10px #00000029;
+    margin-bottom: 30px;
+}
+
+#etiquettes ul {
+    list-style-type: none;
+}
+
+#etiquettes li {
+    width: 100%;
+    background-color: #CFFFB3;
+    border-radius: 50px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#potagerAdministre {
+    z-index: -5;
+    text-align: right;
+    padding-top: 40px;
+    margin-bottom: 50px;
+    width: 100%;
+    height: 300px;
+    background-image: linear-gradient(to left, rgba(255,255,255, 1), rgba(255,255,255, 0)), url("../images/Potager_placeholders/unnamed.jpg");
+    background-position: 0% 50%;
+    background-size: cover;
+}
+
+#potagerAdministre button {
+    border: none;
+    background-color: #9BC53D;
+    color: #332E0A;
+}
+
+#adminTitre h3 {
+    margin-bottom: 20px;
+}
+
+#evaluationTitre {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#evaluations {
+    background-color: #DFFFCC;
 }
 
 #footer {
@@ -169,7 +281,7 @@ nav {
 }
 
 #footer img {
-    width: 200px;
+    width: 80%;
     height: auto;
     margin-top: 78.07px;
 }
