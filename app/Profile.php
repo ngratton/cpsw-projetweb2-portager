@@ -17,5 +17,6 @@ class Profile extends Model
         'jardine_depuis',
         'tags_jardiniers',
         'fk_users_id',
+        'profile_visites',
     ];
 }
