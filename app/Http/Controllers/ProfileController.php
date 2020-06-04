@@ -53,7 +53,7 @@ class ProfileController extends Controller
      */
     public function show($userId)
     {
-        return Profile::where('fk_users_id', $userId)->get();
+        return Profile::where('fk_users_id', $userId)->first();
     }
 
     /**
@@ -76,13 +76,12 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $userId)
     {
-        Profile::where('fk_users_id', $userId)
-                ->update([
-                    "bio" => $request->bio,
-                    "profil_photo_path" => $request->profil_photo_path,
-                    "jardine_depuis" => $request->jardine_depuis,
-                    "tags_jardiniers" => $request->tags_jardiniers,
-                ]);
+        $profile = Profile::where('fk_users_id', $userId)->first();
+        $profile->profil_photo_path = $request->profil_photo_path;
+        $profile->bio = $request->bio;
+        $profile->jardine_depuis = $request->jardine_depuis;
+        $profile->tags_jardiniers = $request->tags_jardiniers;
+        $profile->save();
     }
 
     /**
@@ -91,8 +90,23 @@ class ProfileController extends Controller
      * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Profile $profile)
+    public function destroy(Profile $profile, $userId)
     {
-        //
+        $potager = Potager::where('fk_users_id', $userId)->first();
+        $potager->destroy();
+    }
+
+    /**
+     * Ajoute une visite simple au potager - peut être spammé !
+     *
+     * @param  \App\Profile  $profile
+     * @param  $userId passé dans la route depuis Vue
+     * @return \Illuminate\Http\Response
+     */
+    public function addvisit(Profile $profile, $userId)
+    {
+        $profile = Profile::where('fk_users_id', $userId)->first();
+        $profile->profile_visits++;
+        $profile->save();
     }
 }

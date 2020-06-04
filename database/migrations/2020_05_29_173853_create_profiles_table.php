@@ -21,6 +21,7 @@ class CreateProfilesTable extends Migration
             $table->set('tags_jardiniers', ['Amateur', 'Autosuffisant', 'Biologique', 'Ecologique', 'Communautaire', 'Conventionnel']);
             $table->integer('fk_users_id')->unique();
             $table->tinyInteger('est_actif')->default(1);
+            $table->integer('profile_visits')->nullable()->default(0);
             $table->timestamps();
         });
     }
