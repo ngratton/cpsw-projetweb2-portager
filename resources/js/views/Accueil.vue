@@ -18,6 +18,7 @@
                 <li class="nav-item">
                 <a class="nav-link" href="#">Boutique</a>
                 </li>
+            </ul>
             </div>
         </nav>
     </div>

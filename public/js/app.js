@@ -2105,8 +2105,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Accueil',
+  data: function data() {
+    return {
+      data: 0
+    };
+  },
+  props: {},
+  components: {},
+  mounted: function mounted() {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Potager.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Potager.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Potager',
   data: function data() {
     return {
       data: 0
@@ -37687,8 +37718,407 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {}
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
+        _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("img", { attrs: { src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/portager_noir.svg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())) } })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "navbarSupportedContent" }
+            },
+            [
+              _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+                _c("li", { staticClass: "nav-item" }, [
+                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                    _vm._v("Plants")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                    _vm._v("Carte des potagers")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                    _vm._v("Boutique")
+                  ])
+                ])
+              ])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid", attrs: { id: "banner" } }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col" }, [
+              _c("h1", [
+                _vm._v("Nam urna erat,"),
+                _c("br"),
+                _vm._v("tempor at auctor.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  staticStyle: {
+                    "background-color": "#FFDD00",
+                    color: "#332E0A"
+                  },
+                  attrs: { type: "button" }
+                },
+                [_vm._v("S'enregistrer")]
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  staticStyle: { "background-color": "#717C89" },
+                  attrs: { type: "button" }
+                },
+                [_vm._v("Se connecter")]
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "container", attrs: { id: "search" } }, [
+          _c("div", { staticClass: "row align-items-center" }, [
+            _c("div", { staticClass: "col" }, [
+              _c("div", { staticClass: "form-group form-check-inline" }, [
+                _c("input", {
+                  staticClass: "form-control form-control-lg",
+                  attrs: { type: "text", placeholder: "Recherche..." }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("Chercher")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row align-items-center" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("p", [
+                      _vm._v(
+                        "Rechercher par            \r\n                                    "
+                      ),
+                      _c("input", {
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "radio",
+                          id: "inlineCheckbox1",
+                          value: "option1"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "inlineCheckbox1" }
+                        },
+                        [_vm._v("Plants")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "radio",
+                          id: "inlineCheckbox2",
+                          value: "option2"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "inlineCheckbox1" }
+                        },
+                        [_vm._v("Villes")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "radio",
+                          id: "inlineCheckbox3",
+                          value: "option3"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "inlineCheckbox1" }
+                        },
+                        [_vm._v("Étiquettes")]
+                      )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row align-items-center" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("p", [_vm._v("Ou")])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row align-items-center" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("p", [
+                      _vm._v("Naviguez par "),
+                      _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "container", attrs: { id: "content" } }, [
+        _c("div", { staticClass: "row", attrs: { id: "nouveauxPlants" } }, [
+          _c("div", { staticClass: "col" }, [
+            _c("h3", [_vm._v("Nouveaux plans près de chez vous")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: {
+                  src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/Plants_placeholders/green-bean.jpg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                  alt: "..."
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v("Nom du plant")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v("Jardinier Note Jardinier")
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col offset-2" }, [
+            _c("img", {
+              staticClass: "pubAccueil",
+              attrs: { src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/ad_768-90.png'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())) }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row", attrs: { id: "cotePlants" } }, [
+          _c("div", { staticClass: "col" }, [
+            _c("h3", [_vm._v("Potagers les mieux côtés")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: {
+                  src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/Plants_placeholders/green-bean.jpg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                  alt: "..."
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "card-text",
+                    staticStyle: { "text-align": "right" }
+                  },
+                  [_vm._v("Note Jardinier")]
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row", attrs: { id: "merch" } }, [
+          _c("div", { staticClass: "col-lg" }, [
+            _c("h3", [_vm._v("Montrez fièrement votre sens du partage !")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: {
+                  src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/Plants_placeholders/green-bean.jpg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                  alt: "..."
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v("Nom produit")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "card-text",
+                    staticStyle: { "text-align": "right" }
+                  },
+                  [_vm._v("Prix")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("Acheter")]
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row", attrs: { id: "populaire" } }, [
+          _c("div", { staticClass: "col" }, [
+            _c("h3", [_vm._v("Plants les plus populaires")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: {
+                  src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/Plants_placeholders/green-bean.jpg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                  alt: "..."
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "card-text",
+                    staticStyle: { "text-align": "right" }
+                  },
+                  [_vm._v("Note Jardinier")]
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row", attrs: { id: "plus" } }, [
+          _c("div", { staticClass: "col offset-5" }, [
+            _c(
+              "button",
+              { staticClass: "btn btn-primary", attrs: { type: "button" } },
+              [_vm._v("En voir plus...")]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid", attrs: { id: "footer" } }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col offset-9" }, [
+              _c("img", {
+                attrs: { src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/_LOGOS/portager_blanc.svg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())) }
+              })
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Potager.vue?vue&type=template&id=9c74314e&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Potager.vue?vue&type=template&id=9c74314e& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("h1", [_vm._v("voici un potager")])
+}
 var staticRenderFns = []
+render._withStripped = true
 
 
 
@@ -53028,6 +53458,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _views_Accueil__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/Accueil */ "./resources/js/views/Accueil.vue");
+/* harmony import */ var _views_Potager__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/Potager */ "./resources/js/views/Potager.vue");
+
 
 
 
@@ -53037,6 +53469,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/',
     name: _views_Accueil__WEBPACK_IMPORTED_MODULE_2__["default"],
     component: _views_Accueil__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }, {
+    path: '/potager',
+    name: _views_Potager__WEBPACK_IMPORTED_MODULE_3__["default"],
+    component: _views_Potager__WEBPACK_IMPORTED_MODULE_3__["default"]
   }],
   mode: 'history'
 }));
@@ -53107,6 +53543,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Accueil_vue_vue_type_template_id_66aca1e5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Accueil_vue_vue_type_template_id_66aca1e5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/Potager.vue":
+/*!****************************************!*\
+  !*** ./resources/js/views/Potager.vue ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Potager_vue_vue_type_template_id_9c74314e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Potager.vue?vue&type=template&id=9c74314e& */ "./resources/js/views/Potager.vue?vue&type=template&id=9c74314e&");
+/* harmony import */ var _Potager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Potager.vue?vue&type=script&lang=js& */ "./resources/js/views/Potager.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Potager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Potager_vue_vue_type_template_id_9c74314e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Potager_vue_vue_type_template_id_9c74314e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/Potager.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/Potager.vue?vue&type=script&lang=js&":
+/*!*****************************************************************!*\
+  !*** ./resources/js/views/Potager.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Potager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Potager.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Potager.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Potager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/Potager.vue?vue&type=template&id=9c74314e&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/views/Potager.vue?vue&type=template&id=9c74314e& ***!
+  \***********************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Potager_vue_vue_type_template_id_9c74314e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Potager.vue?vue&type=template&id=9c74314e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Potager.vue?vue&type=template&id=9c74314e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Potager_vue_vue_type_template_id_9c74314e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Potager_vue_vue_type_template_id_9c74314e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
