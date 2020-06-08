@@ -382,10 +382,16 @@ nav {
     max-width: 110%;
 }
 
+#carte {
+    max-width: 455px;
+}
+
 #carte img {
-    max-width: 470px;
+    max-width: 460px;
     height: 90%;
 }
+
+.img-center {margin:0 auto;}
 
 #footer {
     width: 100%;
