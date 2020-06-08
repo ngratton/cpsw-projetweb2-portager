@@ -12,19 +12,19 @@ export default new VueRouter({
         
         { 
         path: '/',
-        name: Accueil,
+        name: 'Accueil',
         component: Accueil
         },
 
         { 
         path: '/potager',
-        name: Potager,
+        name: 'Potager',
         component: Potager
         },
 
         { 
         path: '/profil',
-        name: ProfilUtilisateur,
+        name: 'ProfilUtilisateur',
         component: ProfilUtilisateur
         },
          
