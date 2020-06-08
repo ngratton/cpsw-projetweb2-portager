@@ -1919,9 +1919,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App'
 });
@@ -2130,6 +2127,115 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -37694,11 +37800,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [_c("h1", [_vm._v("Hello")]), _vm._v(" "), _c("router-view")],
-    1
-  )
+  return _c("div", [_c("router-view")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37733,7 +37835,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
         _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
           _c("div", { staticClass: "col" }, [
-            _c("img", { attrs: { src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/portager_noir.svg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())) } })
+            _c("img", { attrs: { src: "/images/portager_noir.svg" } })
           ]),
           _vm._v(" "),
           _c(
@@ -37926,7 +38028,7 @@ var staticRenderFns = [
               _c("img", {
                 staticClass: "card-img-top",
                 attrs: {
-                  src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/Plants_placeholders/green-bean.jpg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                  src: "/images/Plants_placeholders/green-bean.jpg",
                   alt: "..."
                 }
               }),
@@ -37950,7 +38052,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "col offset-2" }, [
             _c("img", {
               staticClass: "pubAccueil",
-              attrs: { src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/ad_768-90.png'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())) }
+              attrs: { src: "/images/ad_768-90.png" }
             })
           ])
         ]),
@@ -37967,7 +38069,7 @@ var staticRenderFns = [
               _c("img", {
                 staticClass: "card-img-top",
                 attrs: {
-                  src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/Plants_placeholders/green-bean.jpg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                  src: "/images/Plants_placeholders/green-bean.jpg",
                   alt: "..."
                 }
               }),
@@ -38002,7 +38104,7 @@ var staticRenderFns = [
               _c("img", {
                 staticClass: "card-img-top",
                 attrs: {
-                  src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/Plants_placeholders/green-bean.jpg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                  src: "/images/Plants_placeholders/green-bean.jpg",
                   alt: "..."
                 }
               }),
@@ -38046,7 +38148,7 @@ var staticRenderFns = [
               _c("img", {
                 staticClass: "card-img-top",
                 attrs: {
-                  src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/Plants_placeholders/green-bean.jpg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+                  src: "/images/Plants_placeholders/green-bean.jpg",
                   alt: "..."
                 }
               }),
@@ -38084,9 +38186,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col offset-9" }, [
-              _c("img", {
-                attrs: { src: __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './assets/_LOGOS/portager_blanc.svg'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())) }
-              })
+              _c("img", { attrs: { src: "/images/_LOGOS/portager_blanc.svg" } })
             ])
           ])
         ])
@@ -38115,9 +38215,274 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("voici un potager")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
+        _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("img", { attrs: { src: "/images/portager_noir.svg" } })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "navbarSupportedContent" }
+            },
+            [
+              _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+                _c("li", { staticClass: "nav-item" }, [
+                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                    _vm._v("Plants")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                    _vm._v("Carte des potagers")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                    _vm._v("Boutique")
+                  ])
+                ])
+              ])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "container-fluid", attrs: { id: "bannerPotager" } },
+        [
+          _c("div", { staticClass: "container" }, [
+            _c("div", { staticClass: "row" })
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "container", attrs: { id: "search" } }, [
+          _c("div", { staticClass: "row align-items-center" }, [
+            _c("div", { staticClass: "col" }, [
+              _c("div", { staticClass: "form-group form-check-inline" }, [
+                _c("input", {
+                  staticClass: "form-control form-control-lg",
+                  attrs: { type: "text", placeholder: "Recherche..." }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("Chercher")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row align-items-center" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("p", [
+                      _vm._v(
+                        "Rechercher par            \n                                "
+                      ),
+                      _c("input", {
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "radio",
+                          id: "inlineCheckbox1",
+                          value: "option1"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "inlineCheckbox1" }
+                        },
+                        [_vm._v("Plants")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "radio",
+                          id: "inlineCheckbox2",
+                          value: "option2"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "inlineCheckbox1" }
+                        },
+                        [_vm._v("Villes")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "radio",
+                          id: "inlineCheckbox3",
+                          value: "option3"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "inlineCheckbox1" }
+                        },
+                        [_vm._v("Étiquettes")]
+                      )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row align-items-center" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("p", [_vm._v("Ou")])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row align-items-center" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("p", [
+                      _vm._v("Naviguez par "),
+                      _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c(
+          "div",
+          { staticClass: "row align-items-center", attrs: { id: "potager" } },
+          [
+            _c("div", { staticClass: "col" }, [
+              _c("img", {
+                attrs: {
+                  src:
+                    "/images/Potager_placeholders/689870-couple-drummondville.jpg",
+                  alt: "..."
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-9", attrs: { id: "potagerDescription" } },
+              [
+                _c("div", [
+                  _c("h5", [_vm._v("Potager entretenu avec amour par")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Utilisateur  note ")]),
+                  _vm._v(" "),
+                  _c("h5", [_vm._v("Description")]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit officiis ratione expedita quam neque laborum suscipit, et fuga at ducimus, sunt, doloremque quis adipisci. Obcaecati exercitationem maxime corporis earum. Nihil."
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                    _vm._v(
+                      "Le potager contient # plants de légumes, # plants de fruits et # plants de fines herbes."
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col", attrs: { id: "adminTitre" } }, [
+            _c("h3", [_vm._v("Dans ce potager...")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card", attrs: { id: "cardPotager" } }, [
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: {
+                  src: "/images/Plants_placeholders/GRAFTED-VEG.jpg",
+                  alt: "..."
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v("Nom du plant")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    staticStyle: { "background-color": "#9FCC3B" },
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("Voir le plant")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    staticStyle: {
+                      "background-color": "#FFDD00",
+                      color: "#332E0A"
+                    },
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("Offrir un échange")]
+                )
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid", attrs: { id: "footer" } }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col offset-9" }, [
+              _c("img", { attrs: { src: "/images/_LOGOS/portager_blanc.svg" } })
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -5,7 +5,7 @@
      <div class="container" id="colHeader">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="col">
-                <img src="../images/portager_noir.svg">
+                <img src="/images/portager_noir.svg">
             </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -82,7 +82,7 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <img src="../images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
+                    <img src="/images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Nom du plant</h5>
                         <p class="card-text">Ville</p>
@@ -93,7 +93,7 @@
         </div>
         <div class="row">
             <div class="col offset-2">
-                <img class="pubAccueil" src="../images/ad_768-90.png">
+                <img class="pubAccueil" src="/images/ad_768-90.png">
             </div>
         </div>
         <div class="row" id="cotePlants"> <!-- Plants les mieux côtés -->
@@ -104,7 +104,7 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <img src="../images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
+                    <img src="/images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Jardinier</h5>
                         <p class="card-text">Ville</p>
@@ -121,7 +121,7 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <img src="../images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
+                    <img src="/images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Nom produit</h5>
                         <p class="card-text" style="text-align: right;">Prix</p>
@@ -138,7 +138,7 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <img src="../images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
+                    <img src="/images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Jardinier</h5>
                         <p class="card-text">Ville</p>
@@ -157,7 +157,7 @@
         <div class="container">
             <div class="row">
                 <div class="col offset-9">
-                    <img src="../images/_LOGOS/portager_blanc.svg">
+                    <img src="/images/_LOGOS/portager_blanc.svg">
                 </div>
             </div>
         </div>

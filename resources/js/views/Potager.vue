@@ -1,7 +1,116 @@
 
 
 <template>
-    <h1>voici un potager</h1>
+    <div>
+        <div class="container" id="colHeader">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="col">
+                <img src="/images/portager_noir.svg">
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="#">Plants</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Carte des potagers</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Boutique</a>
+                </li>
+            </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container-fluid" id="bannerPotager">
+        <div class="container">
+            <div class="row"> <!--banner-->
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="container" id="search"> <!-- recherche -->
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="form-group form-check-inline">
+                        <input class="form-control form-control-lg" type="text" placeholder="Recherche...">
+                        <button type="button" class="btn btn-secondary">Chercher</button>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <p>Rechercher par            
+                                    <input class="form-check-input" type="radio" id="inlineCheckbox1" value="option1">
+                                    <label class="form-check-label" for="inlineCheckbox1">Plants</label>
+                                    <input class="form-check-input" type="radio" id="inlineCheckbox2" value="option2">
+                                    <label class="form-check-label" for="inlineCheckbox1">Villes</label>
+                                    <input class="form-check-input" type="radio" id="inlineCheckbox3" value="option3">
+                                    <label class="form-check-label" for="inlineCheckbox1">Étiquettes</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <p>Ou</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <p>Naviguez par <a href="#">Catégories</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row align-items-center" id="potager">
+            <div class="col">
+                <img src="/images/Potager_placeholders/689870-couple-drummondville.jpg" alt="...">
+            </div>
+            <div class="col-9" id="potagerDescription">
+                <div>
+                    <h5>Potager entretenu avec amour par</h5>
+                    <p>Utilisateur  note </p>
+                    <h5>Description</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit officiis ratione expedita quam neque laborum suscipit, et fuga at ducimus, sunt, doloremque quis adipisci. Obcaecati exercitationem maxime corporis earum. Nihil.</p>
+                    <p style="font-weight: bold;">Le potager contient # plants de légumes, # plants de fruits et # plants de fines herbes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="adminTitre">
+                <h3>Dans ce potager...</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card" id="cardPotager">
+                    <img src="/images/Plants_placeholders/GRAFTED-VEG.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Nom du plant</h5>
+                        <button type="button" class="btn btn-primary" style="background-color: #9FCC3B;">Voir le plant</button>
+                        <button type="button" class="btn btn-secondary" style="background-color: #FFDD00; color: #332E0A;">Offrir un échange</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="footer"> <!-- footer -->
+        <div class="container">
+            <div class="row">
+                <div class="col offset-9">
+                    <img src="/images/_LOGOS/portager_blanc.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 </template>
 
 <script>
