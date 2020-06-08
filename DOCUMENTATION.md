@@ -20,6 +20,7 @@ Deux utilisateurs sont seedé dans la DB pour fin de développement.
 - Nom de famille : Istrateur
 - Courriel : **admin@portager.com**
 - Mot de passe : **portager**
+- Rôle : Administateur
 
 Un profil utilisaeur n'est pas créé pour cet id.
 
@@ -29,6 +30,7 @@ Un profil utilisaeur n'est pas créé pour cet id.
 - Nom de famille: Lambda
 - Courriel : **user@portager.com**
 - Mot de passe : **portager**
+- Rôle : Utilisateur
 
 Un profil utilisateur de base a été créé pour cet utilisateur. Voir section ci-dessous pour plus de détails.
 
