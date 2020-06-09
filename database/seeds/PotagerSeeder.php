@@ -14,15 +14,18 @@ class PotagerSeeder extends Seeder
     {
         $faker = Faker\Factory::create('fr_CA');
 
-        $potager = new Potager();
-        $potager->address_1 = $faker->streetAddress;
-        $potager->city = $faker->city;
-        $potager->prov = 'Qc';
-        $potager->country = 'Canada';
-        $potager->postal_code = $faker->postcode;
-        $potager->tags_potagers = 'Communautaire';
-        $potager->fk_users_id = 2;
-        $potager->est_actif = 1;
-        $potager->save();
+        for($i = 2; $i <= 10; $i++) {
+            $potager = new Potager();
+            $potager->address_1 = $faker->streetAddress;
+            $potager->city = $faker->city;
+            $potager->prov = 'Qc';
+            $potager->country = 'Canada';
+            $potager->postal_code = $faker->postcode;
+            $potager->tags_potagers = 'Communautaire';
+            $potager->fk_users_id = $i;
+            $potager->est_actif = 1;
+            $potager->save();
+        }
+
     }
 }

@@ -43,3 +43,9 @@ Route::put('/potager/{userId}', 'PotagerController@store');             // Créa
 Route::patch('/potager/{userId}', 'PotagerController@update');          // Modification d'un potager
 Route::delete('/potager/{userId}', 'PotagerController@destroy');        // Suppression d'un potager
 Route::post('/potager/{userId}/visit', 'PotagerController@addvisit');   // Ping de visite; lorsque la méthode est appelé, ajoute incrémente automatiquement de 1
+
+/**
+ * Plants
+ */
+Route::get('/plants', 'PlantController@index');
+Route::put('/plant/new', 'PlantController@store');             // Création d'un plant

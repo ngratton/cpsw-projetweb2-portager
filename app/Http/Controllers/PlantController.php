@@ -33,20 +33,20 @@ class PlantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $potagerId)
+    public function store(Request $request)
     {
         $plant = new Plant();
-        $plant->fk_types_id = $request->fk_types_id;
-        $plant->description = $request->description;
-        $plant->est_partage = $request->est_partage;
-        $plant->est_actif = $request->est_actif;
-        $plant->fk_potagers_id = $potagerId;
+        $plant->fk_types_id = $request->type;
+        $plant->description = $request->desc;
+        $plant->est_actif = $request->actif;
+        $plant->est_partage = $request->partage;
+        $plant->fk_potagers_id = $request->potagerid;
+        // $plant->photo_path = $request->photo;
 
-        if($request->file('photo') != null) {
-            // $path = $request->file('image')->store('images');
-            $path = Image::make($request->file('photo'))->resize(210,210)->save('')
-            $plant->photo_path = $path;
-        }
+        /**
+         * TODO : Gérer l'import de la photo et modification des dimensions avec Intervension
+         */
+        // $photo =
 
         $plant->save();
     }
