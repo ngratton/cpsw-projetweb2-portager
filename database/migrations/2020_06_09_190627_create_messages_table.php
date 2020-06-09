@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMessageTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateMessageTable extends Migration
      */
     public function up()
     {
-        Schema::create('message', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->text('contenu');
-            // $table->foreignId('user_id')->constrained();
+            $table->integer('from_id');
+            $table->foreign('from_id')->on('users')->references('id');
+            $table->integer('to_id');
+            $table->foreign('to_id')->on('users')->references('id');
             $table->timestamps();
         });
     }
