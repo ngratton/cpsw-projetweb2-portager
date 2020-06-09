@@ -1991,6 +1991,45 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NouveauPlant.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NouveauPlant.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'NouveauPlant',
+  data: function data() {
+    return {
+      data: 0
+    };
+  },
+  props: {},
+  components: {},
+  mounted: function mounted() {},
+  methods: {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PiedPage.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PiedPage.vue?vue&type=script&lang=js& ***!
@@ -2018,6 +2057,84 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PiedPage',
+  data: function data() {
+    return {
+      data: 0
+    };
+  },
+  props: {},
+  components: {},
+  mounted: function mounted() {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantCote.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PlantCote.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'PlantCote',
+  data: function data() {
+    return {
+      data: 0
+    };
+  },
+  props: {},
+  components: {},
+  mounted: function mounted() {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantPopulaire.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PlantPopulaire.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'PlantPopulaire',
   data: function data() {
     return {
       data: 0
@@ -2085,10 +2202,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Recherche',
+  data: function data() {
+    return {
+      data: 0
+    };
+  },
+  props: {},
+  components: {},
+  mounted: function mounted() {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UnPotager.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UnPotager.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Recherche',
+  name: 'UnPotager',
   data: function data() {
     return {
       data: 0
@@ -2111,6 +2286,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Entete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Entete */ "./resources/js/components/Entete.vue");
+/* harmony import */ var _components_Recherche__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Recherche */ "./resources/js/components/Recherche.vue");
+/* harmony import */ var _components_PiedPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/PiedPage */ "./resources/js/components/PiedPage.vue");
+/* harmony import */ var _components_PlantCote__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/PlantCote */ "./resources/js/components/PlantCote.vue");
+/* harmony import */ var _components_NouveauPlant__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/NouveauPlant */ "./resources/js/components/NouveauPlant.vue");
+/* harmony import */ var _components_PlantPopulaire__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/PlantPopulaire */ "./resources/js/components/PlantPopulaire.vue");
 //
 //
 //
@@ -2195,91 +2376,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Accueil',
   data: function data() {
@@ -2288,7 +2390,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {},
-  components: {},
+  components: {
+    Entete: _components_Entete__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Recherche: _components_Recherche__WEBPACK_IMPORTED_MODULE_1__["default"],
+    NouveauPlant: _components_NouveauPlant__WEBPACK_IMPORTED_MODULE_4__["default"],
+    PlantCote: _components_PlantCote__WEBPACK_IMPORTED_MODULE_3__["default"],
+    PlantPopulaire: _components_PlantPopulaire__WEBPACK_IMPORTED_MODULE_5__["default"],
+    PiedPage: _components_PiedPage__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   mounted: function mounted() {},
   methods: {}
 });
@@ -2306,8 +2415,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Entete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Entete */ "./resources/js/components/Entete.vue");
 /* harmony import */ var _components_Recherche__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Recherche */ "./resources/js/components/Recherche.vue");
-/* harmony import */ var _components_CartePotager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/CartePotager */ "./resources/js/components/CartePotager.vue");
-/* harmony import */ var _components_PiedPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/PiedPage */ "./resources/js/components/PiedPage.vue");
+/* harmony import */ var _components_UnPotager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/UnPotager */ "./resources/js/components/UnPotager.vue");
+/* harmony import */ var _components_CartePotager__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/CartePotager */ "./resources/js/components/CartePotager.vue");
+/* harmony import */ var _components_PiedPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PiedPage */ "./resources/js/components/PiedPage.vue");
 //
 //
 //
@@ -2367,34 +2477,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -2410,8 +2493,9 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Entete: _components_Entete__WEBPACK_IMPORTED_MODULE_0__["default"],
     Recherche: _components_Recherche__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CartePotager: _components_CartePotager__WEBPACK_IMPORTED_MODULE_2__["default"],
-    PiedPage: _components_PiedPage__WEBPACK_IMPORTED_MODULE_3__["default"]
+    UnPotager: _components_UnPotager__WEBPACK_IMPORTED_MODULE_2__["default"],
+    CartePotager: _components_CartePotager__WEBPACK_IMPORTED_MODULE_3__["default"],
+    PiedPage: _components_PiedPage__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   mounted: function mounted() {},
   methods: {}
@@ -38280,6 +38364,57 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NouveauPlant.vue?vue&type=template&id=f0eb0ac2&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NouveauPlant.vue?vue&type=template&id=f0eb0ac2& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "card" }, [
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: {
+            src: "/images/Plants_placeholders/green-bean.jpg",
+            alt: "..."
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("h5", { staticClass: "card-title" }, [_vm._v("Nom du plant")]),
+          _vm._v(" "),
+          _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
+          _vm._v(" "),
+          _c("p", { staticClass: "card-text" }, [
+            _vm._v("Jardinier Note Jardinier")
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PiedPage.vue?vue&type=template&id=0c7ea4f2&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PiedPage.vue?vue&type=template&id=0c7ea4f2& ***!
@@ -38310,6 +38445,118 @@ var staticRenderFns = [
               _c("img", { attrs: { src: "/images/_LOGOS/portager_blanc.svg" } })
             ])
           ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantCote.vue?vue&type=template&id=42a3c70d&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PlantCote.vue?vue&type=template&id=42a3c70d& ***!
+  \************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "card" }, [
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: {
+            src: "/images/Plants_placeholders/green-bean.jpg",
+            alt: "..."
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
+          _vm._v(" "),
+          _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass: "card-text",
+              staticStyle: { "text-align": "right" }
+            },
+            [_vm._v("Note Jardinier")]
+          )
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantPopulaire.vue?vue&type=template&id=b0c0cbfa&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PlantPopulaire.vue?vue&type=template&id=b0c0cbfa& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "card" }, [
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: {
+            src: "/images/Plants_placeholders/green-bean.jpg",
+            alt: "..."
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
+          _vm._v(" "),
+          _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass: "card-text",
+              staticStyle: { "text-align": "right" }
+            },
+            [_vm._v("Note Jardinier")]
+          )
         ])
       ])
     ])
@@ -38455,10 +38702,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Accueil.vue?vue&type=template&id=66aca1e5&":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Accueil.vue?vue&type=template&id=66aca1e5& ***!
-  \*****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UnPotager.vue?vue&type=template&id=77ffacf4&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UnPotager.vue?vue&type=template&id=77ffacf4& ***!
+  \************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -38478,44 +38725,185 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
-        _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
+      _c(
+        "div",
+        { staticClass: "row align-items-center", attrs: { id: "potager" } },
+        [
           _c("div", { staticClass: "col" }, [
-            _c("img", { attrs: { src: "/images/portager_noir.svg" } })
+            _c("img", {
+              attrs: {
+                src:
+                  "/images/Potager_placeholders/689870-couple-drummondville.jpg",
+                alt: "..."
+              }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "thumbnail",
+              attrs: {
+                src:
+                  "/images/Potager_placeholders/689870-couple-drummondville.jpg",
+                alt: "..."
+              }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "thumbnail",
+              attrs: {
+                src:
+                  "/images/Potager_placeholders/2017-09-11-11.49.39-660x495.jpg",
+                alt: "..."
+              }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "thumbnail",
+              attrs: {
+                src: "/images/Potager_placeholders/potager 2.jpg",
+                alt: "..."
+              }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "thumbnail",
+              attrs: {
+                src: "/images/Potager_placeholders/unnamed.jpg",
+                alt: "..."
+              }
+            })
           ]),
           _vm._v(" "),
           _c(
             "div",
-            {
-              staticClass: "collapse navbar-collapse",
-              attrs: { id: "navbarSupportedContent" }
-            },
+            { staticClass: "col-9", attrs: { id: "potagerDescription" } },
             [
-              _c("ul", { staticClass: "navbar-nav mr-auto" }, [
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Plants")
-                  ])
+              _c("div", { staticClass: "gauche" }, [
+                _c("h6", [_vm._v("Potager entretenu avec amour par")]),
+                _vm._v(" "),
+                _c("p", [_vm._v(" Utilisateur  note ")]),
+                _vm._v(" "),
+                _c("h6", [_vm._v("Description")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit officiis ratione expedita quam neque laborum suscipit, et fuga at ducimus, sunt, doloremque quis adipisci. Obcaecati exercitationem maxime corporis earum. Nihil."
+                  )
                 ]),
                 _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Carte des potagers")
-                  ])
-                ]),
+                _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                  _vm._v(
+                    "Le potager contient  #  plants de légumes,  #  plants de fruits et  #  plants de fines herbes."
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "droite" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    staticStyle: {
+                      "background-color": "#FFDD00",
+                      color: "#332E0A"
+                    },
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("Contacter  jardinier ")]
+                ),
                 _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Boutique")
-                  ])
+                _c("h6", [_vm._v("Étiquettes")]),
+                _vm._v(" "),
+                _c("ul", [
+                  _c("li", [_vm._v("Biologique")]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v("Culture en serre")]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v("Biologique")]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v("Biologique")]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v("Biologique")])
                 ])
               ])
             ]
           )
-        ])
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Accueil.vue?vue&type=template&id=66aca1e5&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Accueil.vue?vue&type=template&id=66aca1e5& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("entete"),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid" }, [_c("recherche")], 1),
+      _vm._v(" "),
+      _c("div", { staticClass: "container", attrs: { id: "content" } }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [_c("nouveau-plant")], 1)
+        ]),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [_c("plant-cote")], 1)
+        ]),
+        _vm._v(" "),
+        _vm._m(4),
+        _vm._v(" "),
+        _vm._m(5),
+        _vm._v(" "),
+        _vm._m(6),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [_c("plant-populaire")], 1)
+        ]),
+        _vm._v(" "),
+        _vm._m(7)
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "container-fluid", attrs: { id: "banner" } }, [
+      _c("pied-page")
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "banner" } },
+      [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col" }, [
@@ -38551,291 +38939,110 @@ var staticRenderFns = [
             ])
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "container", attrs: { id: "search" } }, [
-          _c("div", { staticClass: "row align-items-center" }, [
-            _c("div", { staticClass: "col" }, [
-              _c("div", { staticClass: "form-group form-check-inline" }, [
-                _c("input", {
-                  staticClass: "form-control form-control-lg",
-                  attrs: { type: "text", placeholder: "Recherche..." }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Chercher")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("div", { staticClass: "form-check form-check-inline" }, [
-                    _c("p", [
-                      _vm._v(
-                        "Rechercher par            \r\n                                    "
-                      ),
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "inlineCheckbox1",
-                          value: "option1"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineCheckbox1" }
-                        },
-                        [_vm._v("Plants")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "inlineCheckbox2",
-                          value: "option2"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineCheckbox1" }
-                        },
-                        [_vm._v("Villes")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "inlineCheckbox3",
-                          value: "option3"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineCheckbox1" }
-                        },
-                        [_vm._v("Étiquettes")]
-                      )
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("div", { staticClass: "form-check form-check-inline" }, [
-                    _c("p", [_vm._v("Ou")])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("div", { staticClass: "form-check form-check-inline" }, [
-                    _c("p", [
-                      _vm._v("Naviguez par "),
-                      _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container", attrs: { id: "content" } }, [
-        _c("div", { staticClass: "row", attrs: { id: "nouveauxPlants" } }, [
-          _c("div", { staticClass: "col" }, [
-            _c("h3", [_vm._v("Nouveaux plans près de chez vous")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("img", {
-                staticClass: "card-img-top",
-                attrs: {
-                  src: "/images/Plants_placeholders/green-bean.jpg",
-                  alt: "..."
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v("Nom du plant")
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _vm._v("Jardinier Note Jardinier")
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col offset-2" }, [
-            _c("img", {
-              staticClass: "pubAccueil",
-              attrs: { src: "/images/ad_768-90.png" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row", attrs: { id: "cotePlants" } }, [
-          _c("div", { staticClass: "col" }, [
-            _c("h3", [_vm._v("Potagers les mieux côtés")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("img", {
-                staticClass: "card-img-top",
-                attrs: {
-                  src: "/images/Plants_placeholders/green-bean.jpg",
-                  alt: "..."
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
-                _vm._v(" "),
-                _c(
-                  "p",
-                  {
-                    staticClass: "card-text",
-                    staticStyle: { "text-align": "right" }
-                  },
-                  [_vm._v("Note Jardinier")]
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row", attrs: { id: "merch" } }, [
-          _c("div", { staticClass: "col-lg" }, [
-            _c("h3", [_vm._v("Montrez fièrement votre sens du partage !")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("img", {
-                staticClass: "card-img-top",
-                attrs: {
-                  src: "/images/Plants_placeholders/green-bean.jpg",
-                  alt: "..."
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v("Nom produit")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "p",
-                  {
-                    staticClass: "card-text",
-                    staticStyle: { "text-align": "right" }
-                  },
-                  [_vm._v("Prix")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Acheter")]
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row", attrs: { id: "populaire" } }, [
-          _c("div", { staticClass: "col" }, [
-            _c("h3", [_vm._v("Plants les plus populaires")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("img", {
-                staticClass: "card-img-top",
-                attrs: {
-                  src: "/images/Plants_placeholders/green-bean.jpg",
-                  alt: "..."
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
-                _vm._v(" "),
-                _c(
-                  "p",
-                  {
-                    staticClass: "card-text",
-                    staticStyle: { "text-align": "right" }
-                  },
-                  [_vm._v("Note Jardinier")]
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row", attrs: { id: "plus" } }, [
-          _c("div", { staticClass: "col offset-5" }, [
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "nouveauxPlants" } }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h3", [_vm._v("Nouveaux plants près de chez vous")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col offset-2" }, [
+        _c("img", {
+          staticClass: "pubAccueil",
+          attrs: { src: "/images/ad_768-90.png" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "cotePlants" } }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h3", [_vm._v("Potagers les mieux côtés")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "merch" } }, [
+      _c("div", { staticClass: "col-lg" }, [
+        _c("h3", [_vm._v("Montrez fièrement votre sens du partage !")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("img", {
+            staticClass: "card-img-top",
+            attrs: {
+              src: "/images/Plants_placeholders/green-bean.jpg",
+              alt: "..."
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [_vm._v("Nom produit")]),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                staticClass: "card-text",
+                staticStyle: { "text-align": "right" }
+              },
+              [_vm._v("Prix")]
+            ),
+            _vm._v(" "),
             _c(
               "button",
-              { staticClass: "btn btn-primary", attrs: { type: "button" } },
-              [_vm._v("En voir plus...")]
+              { staticClass: "btn btn-secondary", attrs: { type: "button" } },
+              [_vm._v("Acheter")]
             )
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid", attrs: { id: "footer" } }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col offset-9" }, [
-              _c("img", { attrs: { src: "/images/_LOGOS/portager_blanc.svg" } })
-            ])
-          ])
-        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "populaire" } }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h3", [_vm._v("Plants les plus populaires")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "plus" } }, [
+      _c("div", { staticClass: "col offset-5" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "button" } },
+          [_vm._v("En voir plus...")]
+        )
       ])
     ])
   }
@@ -38870,39 +39077,44 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid" }, [_c("recherche")], 1),
       _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _c("div", { staticClass: "row contentPotager" }, [
-          _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+      _c(
+        "div",
+        { staticClass: "container" },
+        [
+          _c("un-potager"),
           _vm._v(" "),
-          _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+          _vm._m(1),
           _vm._v(" "),
-          _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+          _c("div", { staticClass: "row contentPotager" }, [
+            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "w-100" })
+          ]),
           _vm._v(" "),
-          _vm._m(3),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-100" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row contentPotager" }, [
-          _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-          _vm._v(" "),
-          _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-          _vm._v(" "),
-          _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-          _vm._v(" "),
-          _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-          _vm._v(" "),
-          _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-100" })
-        ])
-      ]),
+          _c("div", { staticClass: "row contentPotager" }, [
+            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
+            _vm._v(" "),
+            _c("div", { staticClass: "w-100" })
+          ])
+        ],
+        1
+      ),
       _vm._v(" "),
-      _c("PiedPage")
+      _c("pied-page")
     ],
     1
   )
@@ -38919,115 +39131,6 @@ var staticRenderFns = [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row" })
         ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "row align-items-center", attrs: { id: "potager" } },
-      [
-        _c("div", { staticClass: "col" }, [
-          _c("img", {
-            attrs: {
-              src:
-                "/images/Potager_placeholders/689870-couple-drummondville.jpg",
-              alt: "..."
-            }
-          }),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "thumbnail",
-            attrs: {
-              src:
-                "/images/Potager_placeholders/689870-couple-drummondville.jpg",
-              alt: "..."
-            }
-          }),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "thumbnail",
-            attrs: {
-              src:
-                "/images/Potager_placeholders/2017-09-11-11.49.39-660x495.jpg",
-              alt: "..."
-            }
-          }),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "thumbnail",
-            attrs: {
-              src: "/images/Potager_placeholders/potager 2.jpg",
-              alt: "..."
-            }
-          }),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "thumbnail",
-            attrs: {
-              src: "/images/Potager_placeholders/unnamed.jpg",
-              alt: "..."
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-9", attrs: { id: "potagerDescription" } },
-          [
-            _c("div", { staticClass: "gauche" }, [
-              _c("h6", [_vm._v("Potager entretenu avec amour par")]),
-              _vm._v(" "),
-              _c("p", [_vm._v(" Utilisateur  note ")]),
-              _vm._v(" "),
-              _c("h6", [_vm._v("Description")]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit officiis ratione expedita quam neque laborum suscipit, et fuga at ducimus, sunt, doloremque quis adipisci. Obcaecati exercitationem maxime corporis earum. Nihil."
-                )
-              ]),
-              _vm._v(" "),
-              _c("p", { staticStyle: { "font-weight": "bold" } }, [
-                _vm._v(
-                  "Le potager contient  #  plants de légumes,  #  plants de fruits et  #  plants de fines herbes."
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "droite" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-secondary",
-                  staticStyle: {
-                    "background-color": "#FFDD00",
-                    color: "#332E0A"
-                  },
-                  attrs: { type: "button" }
-                },
-                [_vm._v("Contacter  jardinier ")]
-              ),
-              _vm._v(" "),
-              _c("h6", [_vm._v("Étiquettes")]),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [_vm._v("Biologique")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Culture en serre")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Biologique")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Biologique")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Biologique")])
-              ])
-            ])
-          ]
-        )
       ]
     )
   },
@@ -54855,6 +54958,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/NouveauPlant.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/NouveauPlant.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NouveauPlant_vue_vue_type_template_id_f0eb0ac2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NouveauPlant.vue?vue&type=template&id=f0eb0ac2& */ "./resources/js/components/NouveauPlant.vue?vue&type=template&id=f0eb0ac2&");
+/* harmony import */ var _NouveauPlant_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NouveauPlant.vue?vue&type=script&lang=js& */ "./resources/js/components/NouveauPlant.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NouveauPlant_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NouveauPlant_vue_vue_type_template_id_f0eb0ac2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NouveauPlant_vue_vue_type_template_id_f0eb0ac2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/NouveauPlant.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/NouveauPlant.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/NouveauPlant.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NouveauPlant_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./NouveauPlant.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NouveauPlant.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NouveauPlant_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/NouveauPlant.vue?vue&type=template&id=f0eb0ac2&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/NouveauPlant.vue?vue&type=template&id=f0eb0ac2& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NouveauPlant_vue_vue_type_template_id_f0eb0ac2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./NouveauPlant.vue?vue&type=template&id=f0eb0ac2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NouveauPlant.vue?vue&type=template&id=f0eb0ac2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NouveauPlant_vue_vue_type_template_id_f0eb0ac2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NouveauPlant_vue_vue_type_template_id_f0eb0ac2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/PiedPage.vue":
 /*!**********************************************!*\
   !*** ./resources/js/components/PiedPage.vue ***!
@@ -54924,6 +55096,144 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/PlantCote.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/PlantCote.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PlantCote_vue_vue_type_template_id_42a3c70d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PlantCote.vue?vue&type=template&id=42a3c70d& */ "./resources/js/components/PlantCote.vue?vue&type=template&id=42a3c70d&");
+/* harmony import */ var _PlantCote_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlantCote.vue?vue&type=script&lang=js& */ "./resources/js/components/PlantCote.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PlantCote_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PlantCote_vue_vue_type_template_id_42a3c70d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PlantCote_vue_vue_type_template_id_42a3c70d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PlantCote.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PlantCote.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/PlantCote.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlantCote_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PlantCote.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantCote.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlantCote_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PlantCote.vue?vue&type=template&id=42a3c70d&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/PlantCote.vue?vue&type=template&id=42a3c70d& ***!
+  \******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlantCote_vue_vue_type_template_id_42a3c70d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PlantCote.vue?vue&type=template&id=42a3c70d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantCote.vue?vue&type=template&id=42a3c70d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlantCote_vue_vue_type_template_id_42a3c70d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlantCote_vue_vue_type_template_id_42a3c70d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PlantPopulaire.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/PlantPopulaire.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PlantPopulaire_vue_vue_type_template_id_b0c0cbfa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PlantPopulaire.vue?vue&type=template&id=b0c0cbfa& */ "./resources/js/components/PlantPopulaire.vue?vue&type=template&id=b0c0cbfa&");
+/* harmony import */ var _PlantPopulaire_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlantPopulaire.vue?vue&type=script&lang=js& */ "./resources/js/components/PlantPopulaire.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PlantPopulaire_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PlantPopulaire_vue_vue_type_template_id_b0c0cbfa___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PlantPopulaire_vue_vue_type_template_id_b0c0cbfa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PlantPopulaire.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PlantPopulaire.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/PlantPopulaire.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlantPopulaire_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PlantPopulaire.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantPopulaire.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlantPopulaire_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PlantPopulaire.vue?vue&type=template&id=b0c0cbfa&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/PlantPopulaire.vue?vue&type=template&id=b0c0cbfa& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlantPopulaire_vue_vue_type_template_id_b0c0cbfa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PlantPopulaire.vue?vue&type=template&id=b0c0cbfa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantPopulaire.vue?vue&type=template&id=b0c0cbfa&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlantPopulaire_vue_vue_type_template_id_b0c0cbfa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlantPopulaire_vue_vue_type_template_id_b0c0cbfa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Recherche.vue":
 /*!***********************************************!*\
   !*** ./resources/js/components/Recherche.vue ***!
@@ -54988,6 +55298,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Recherche_vue_vue_type_template_id_2ceedaa0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Recherche_vue_vue_type_template_id_2ceedaa0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/UnPotager.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/UnPotager.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UnPotager_vue_vue_type_template_id_77ffacf4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UnPotager.vue?vue&type=template&id=77ffacf4& */ "./resources/js/components/UnPotager.vue?vue&type=template&id=77ffacf4&");
+/* harmony import */ var _UnPotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UnPotager.vue?vue&type=script&lang=js& */ "./resources/js/components/UnPotager.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UnPotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UnPotager_vue_vue_type_template_id_77ffacf4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UnPotager_vue_vue_type_template_id_77ffacf4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/UnPotager.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/UnPotager.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/UnPotager.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UnPotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./UnPotager.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UnPotager.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UnPotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/UnPotager.vue?vue&type=template&id=77ffacf4&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/UnPotager.vue?vue&type=template&id=77ffacf4& ***!
+  \******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UnPotager_vue_vue_type_template_id_77ffacf4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./UnPotager.vue?vue&type=template&id=77ffacf4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UnPotager.vue?vue&type=template&id=77ffacf4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UnPotager_vue_vue_type_template_id_77ffacf4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UnPotager_vue_vue_type_template_id_77ffacf4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
