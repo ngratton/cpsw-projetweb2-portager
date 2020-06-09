@@ -285,6 +285,7 @@ nav {
 }
 
 #potager {
+    width: 103%;
     margin-top: 80px;
     margin-bottom: 30px;
 }
@@ -328,6 +329,7 @@ nav {
 
 .droite {
     float: right;
+    width: 24%;
 }
 
 .droite button {
@@ -368,22 +370,23 @@ nav {
 }
 
 .card img {
-    width: 208px;
+    width: 100%;
 }
 
 .card {
-    max-width: 210px;
+    max-width: 120%;
 }
 
 .contentPotager {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: 103%;
     max-width: 110%;
 }
 
 #carte {
-    max-width: 455px;
+    max-width: 40%;
 }
 
 #carte img {
