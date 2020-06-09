@@ -15,14 +15,18 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('profil_photo_path')->nullable();
+            $table->string('profil_photo_path')->nullable()->default('https://img.pizza/210/210/');
             $table->text('bio')->nullable();
             $table->integer('jardine_depuis');
             $table->set('tags_jardiniers', ['Amateur', 'Autosuffisant', 'Biologique', 'Ecologique', 'Communautaire', 'Conventionnel']);
-            $table->integer('fk_users_id')->unique();
+            $table->unsignedBigInteger('fk_users_id')->unique();
             $table->tinyInteger('est_actif')->default(1);
             $table->integer('profile_visits')->nullable()->default(0);
             $table->timestamps();
+        });
+
+        Schema::table('profiles', function(Blueprint $table) {
+            $table->foreign('fk_users_id')->references('id')->on('users');
         });
     }
 
