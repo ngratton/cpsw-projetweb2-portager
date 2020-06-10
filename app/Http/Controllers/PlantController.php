@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Plant;
 use Illuminate\Http\Request;
+use Image;
+use Carbon\Carbon;
 
 class PlantController extends Controller
 {
@@ -41,14 +43,35 @@ class PlantController extends Controller
         $plant->est_actif = $request->actif;
         $plant->est_partage = $request->partage;
         $plant->fk_potagers_id = $request->potagerid;
-        // $plant->photo_path = $request->photo;
+
+        // Nom de la photo
+        $imageData = $request->get('photo');
 
         /**
-         * TODO : Gérer l'import de la photo et modification des dimensions avec Intervension
+         * Store l'image originale
          */
-        // $photo =
+        $imageOriginale = Image::make($imageData);
+        // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
+        $fileNameOriginale = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+        $imageOriginale->save(public_path('storage/images/plants/').$fileNameOriginale);
+        // Ajout à la base de données
+        $plant->photo = './storage/images/plants/'.$fileNameOriginale;
 
+        /**
+         * Store une image miniature
+         */
+        // Obtienr l'image et la redimentionne l'image en 210 x 210 px (card)
+        $imageMiniature = Image::make($imageData)->fit(210, 210, null, 'center');
+        // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
+        $fileNameMiniature = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+        $imageMiniature->save(public_path('storage/images/plants/miniatures/').$fileNameMiniature);
+        // Ajout à la base de données
+        $plant->photo_mini = './storage/images/plants/miniatures/'.$fileNameMiniature;
+
+        // Sauvegarder la nouvelle plante
         $plant->save();
+
+        return 'Succes';
     }
 
     /**

@@ -15,7 +15,8 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('profil_photo_path')->nullable()->default('https://img.pizza/210/210/');
+            $table->string('photo')->nullable()->default('./storage/profile_pardefault.svg');
+            $table->string('photo_mini')->nullable()->default('./storage/profile_pardefault.svg');
             $table->text('bio')->nullable();
             $table->integer('jardine_depuis');
             $table->set('tags_jardiniers', ['Amateur', 'Autosuffisant', 'Biologique', 'Ecologique', 'Communautaire', 'Conventionnel']);

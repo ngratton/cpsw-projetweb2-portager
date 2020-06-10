@@ -32,6 +32,7 @@ Route::post('/profile/{userId}/visit', 'ProfileController@addvisit');   // Ping 
 /**
  * Type de plants
  */
+Route::get('/type-plants/all', 'TypeController@index');                 // Obtenir l'ensemble des types de plants
 
 
 /**
@@ -47,5 +48,5 @@ Route::post('/potager/{userId}/visit', 'PotagerController@addvisit');   // Ping 
 /**
  * Plants
  */
-Route::get('/plants', 'PlantController@index');
-Route::put('/plant/new', 'PlantController@store');             // Création d'un plant
+Route::get('/plants', 'PlantController@index');                         // Affichage de tous les plants
+Route::put('/plant/new', 'PlantController@store');                      // Création d'un plant

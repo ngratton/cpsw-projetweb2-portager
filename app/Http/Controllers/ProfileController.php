@@ -36,12 +36,40 @@ class ProfileController extends Controller
     public function store(Request $request, $userId)
     {
         $profile = new Profile();
-        $profile->profil_photo_path = $request->profil_photo_path;
+        // $profile->photo = $request->profil_photo_path;
         $profile->bio = $request->bio;
         $profile->jardine_depuis = $request->jardine_depuis;
         $profile->tags_jardiniers = $request->tags_jardiniers;
         $profile->fk_users_id = $userId;
         $profile->est_actif = 1;
+
+        // Nom de la photo
+        $imageData = $request->get('photo');
+
+        /**
+         * Store l'image originale
+         */
+        $imageOriginale = Image::make($imageData);
+        $imgOgPath = 'storage/images/profile/';
+        // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
+        $fileNameOriginale = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+        $imageOriginale->save(public_path($imgOgPath).$fileNameOriginale);
+        // Ajout à la base de données
+        $profile->photo = './'.$imgOgPath . $fileNameOriginale;
+
+        /**
+         * Store une image miniature
+         */
+        // Obtienr l'image et la redimentionne l'image en 210 x 210 px (card)
+        $imageMiniature = Image::make($imageData)->fit(210, 210, null, 'center');
+        $imgMiniPath = 'storage/images/profil/miniatures/';
+        // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
+        $fileNameMiniature = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+        $imageMiniature->save(public_path($imgMiniPath).$fileNameMiniature);
+        // Ajout à la base de données
+        $profile->photo_mini = './'.$imgMiniPath . $fileNameMiniature;
+
+
         $profile->save();
     }
 
