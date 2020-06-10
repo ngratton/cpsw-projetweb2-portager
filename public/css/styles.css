@@ -396,10 +396,6 @@ nav {
 
 .img-center {margin:0 auto;}
 
-#imageGauche {
-    /* width: 100%; */
-    /* background: transparent url('../images/hero/girl-tomatoes-shutterstock_440076301_0.jpg') 0% 0% no-repeat padding-box; */
-}
 
 .imgConnection {
     width: 100%;
@@ -407,10 +403,21 @@ nav {
 }
 
 .grosseImageConnexion {
-    height: 200%;
+    height: 227%;
     width: 100%;
-    background: transparent url('../images/hero/girl-tomatoes-shutterstock_440076301_0.jpg') 0% 0% no-repeat padding-box;
-    background-size: 130%;
+    background-image: url('../images/hero/girl-tomatoes-shutterstock_440076301_0.jpg');
+    background-repeat: no-repeat;
+    background-position: 50% 80%;
+    background-size: 150% 100%;
+  }
+
+.grosseImageInscription {
+    height: 173%;
+    width: 100%;
+    background-image: url("../images/hero/gardener.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 80%;
+    background-size: 104% 100%;
   }
 
 .logoConnection img {
@@ -461,6 +468,32 @@ nav {
     text-align: left;
 }
 
+#Inscription {
+    top: 200px;
+}
+
+.formInscription {
+    width: 375px;
+    height: 420px;
+    top: 200px;
+    padding: 10px 10px 10px 10px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 5px 10px #00000029;
+    border-radius: 16px;
+    opacity: 1;
+}
+
+.formInscription button {
+    width: 320px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.formInscription input {
+    width: 320px;
+}
+
 #footer {
     width: 100%;
     height: 344px;
@@ -472,4 +505,87 @@ nav {
     width: 80%;
     height: auto;
     margin-top: 78.07px;
+}
+
+@media screen and (max-width: 650px) {
+    #Connexion {
+        top: 200px;
+        max-width: none;
+    }
+
+    .grosseImageConnexion {
+        height: 227%;
+        width: 100%;
+        background-image: none;
+        background-repeat: no-repeat;
+        background-position: 50% 80%;
+        background-size: 150% 100%;
+      }
+
+      .formConnection {
+        width: 375px;
+        height: 291px;
+        top: 200px;
+        padding: 10px 10px 10px 10px;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 5px 10px #00000029;
+        border-radius: 16px;
+        opacity: 1;
+    }
+
+    .formConnection button {
+        width: 300px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+        font-weight: bold;
+    }
+    
+    .formConnection input {
+        width: 300px;
+    }
+    
+    .formConnection a {
+        text-align: center;
+        font: 10px/12px Inter;
+        letter-spacing: 0px;
+        color: #717C89;
+        opacity: 1;
+    }
+
+    #Inscription {
+        top: 200px;
+        max-width: none;
+    }
+    
+    .grosseImageInscription {
+        height: 173%;
+        width: 100%;
+        background-image: none;
+        background-repeat: no-repeat;
+        background-position: 50% 80%;
+        background-size: 104% 100%;
+      }
+
+      .formInscription {
+        width: 375px;
+        height: 420px;
+        max-width: none;
+        top: 200px;
+        padding: 10px 10px 10px 10px;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 5px 10px #00000029;
+        border-radius: 16px;
+        opacity: 1;
+    }
+
+      .formInscription button {
+        width: 300px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+        font-weight: bold;
+    }
+    
+    .formInscription input {
+        width: 300px;
+    }
 }
