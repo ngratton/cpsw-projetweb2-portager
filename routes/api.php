@@ -43,3 +43,11 @@ Route::put('/potager/{userId}', 'PotagerController@store');             // Créa
 Route::patch('/potager/{userId}', 'PotagerController@update');          // Modification d'un potager
 Route::delete('/potager/{userId}', 'PotagerController@destroy');        // Suppression d'un potager
 Route::post('/potager/{userId}/visit', 'PotagerController@addvisit');   // Ping de visite; lorsque la méthode est appelé, ajoute incrémente automatiquement de 1
+
+/**
+ * Messages
+ */
+Route::get('/messages', 'MessageController@index');                     // Ensemble des messages des conversations de l'usager
+Route::get('/messages/{userId}', 'MessageController@show');             // Ensemble des messages des conversations de l'usager avec un interlocuteur
+Route::post('/messages/create', 'MessageController@create');           // envoi de messages
+

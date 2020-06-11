@@ -2021,28 +2021,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Recherche',
+  name: 'Messagerie',
   data: function data() {
     return {
-      data: {
-        isActive: false
-      }
+      message: 'brocoli'
     };
   },
   props: {},
   components: {},
-  mounted: function mounted() {//     Axios.get("/api/talent/"+this.nom_fr).then(response => {
-    //     this.talent = response.data;
-    // });
+  mounted: function mounted() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages").then(function (response) {
+      _this.message = response.data;
+      console.log(_this.message);
+    });
   },
   methods: {
-    openForm: function openForm() {
-      this.isActive = true; // document.getElementById("myForm").style.display = "block";
-    },
-    closeForm: function closeForm() {
-      document.getElementById("myForm").style.display = "none";
+    envoiMessage: function envoiMessage(item) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/messages", {
+        contenu: this.item.contenu,
+        from_id: this.item.userId,
+        to_id: this.item.userId
+      }).then(function (data) {
+        console.log(data);
+      });
     }
   }
 });
@@ -2351,6 +2368,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_PlantCote__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PlantCote */ "./resources/js/components/PlantCote.vue");
 /* harmony import */ var _components_NouveauPlant__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/NouveauPlant */ "./resources/js/components/NouveauPlant.vue");
 /* harmony import */ var _components_PlantPopulaire__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/PlantPopulaire */ "./resources/js/components/PlantPopulaire.vue");
+//
 //
 //
 //
@@ -7206,7 +7224,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* {box-sizing: border-box;} */\r\n\r\n/* Button used to open the chat form - fixed at the bottom of the page */\n.open-button {\r\n  background-color: #555;\r\n  color: white;\r\n  padding: 16px 20px;\r\n  border: none;\r\n  cursor: pointer;\r\n  opacity: 0.8;\r\n  position: fixed;\r\n  bottom: 23px;\r\n  right: 28px;\r\n  width: 280px;\n}\r\n\r\n/* The popup chat - hidden by default */\n.active {\r\n  display: none;\r\n  position: fixed;\r\n  bottom: 0;\r\n  right: 15px;\r\n  border: 3px solid #f1f1f1;\r\n  z-index: 9;\n}\r\n\r\n/* Add styles to the form container */\n.form-container {\r\n  max-width: 300px;\r\n  padding: 10px;\r\n  background-color: white;\n}\r\n\r\n/* Full-width textarea */\n.form-container textarea {\r\n  width: 100%;\r\n  padding: 15px;\r\n  margin: 5px 0 22px 0;\r\n  border: none;\r\n  background: #f1f1f1;\r\n  resize: none;\r\n  min-height: 200px;\n}\r\n\r\n/* When the textarea gets focus, do something */\n.form-container textarea:focus {\r\n  background-color: #ddd;\r\n  outline: none;\n}\r\n\r\n/* Set a style for the submit/login button */\n.form-container .btn {\r\n  background-color: #4CAF50;\r\n  color: white;\r\n  padding: 16px 20px;\r\n  border: none;\r\n  cursor: pointer;\r\n  width: 100%;\r\n  margin-bottom:10px;\r\n  opacity: 0.8;\n}\r\n\r\n/* Add a red background color to the cancel button */\n.form-container .cancel {\r\n  background-color: red;\n}\r\n\r\n/* Add some hover effects to buttons */\n.form-container .btn:hover, .open-button:hover {\r\n  opacity: 1;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#liste-conversations{\r\n  background-color: rgb(216, 223, 206);\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#redaction textarea{\r\n  width: 100%;\n}\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -39086,43 +39104,54 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("button", { on: { click: _vm.openForm } }, [_vm._v("Messagerie")]),
-    _vm._v(" "),
-    _c("div", { class: { active: _vm.isActive }, attrs: { id: "myForm" } }, [
-      _c(
-        "form",
-        {
-          staticClass: "form-container",
-          attrs: { action: "/action_page.php" }
-        },
-        [
-          _c("h1", [_vm._v("Messagerie")]),
-          _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _c("textarea", {
-            attrs: {
-              placeholder: "Écrivez votre message..",
-              name: "msg",
-              required: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
-            _vm._v("Envoyer")
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn cancel",
-              attrs: { type: "button" },
-              on: { click: _vm.closeForm }
-            },
-            [_vm._v("Fermer")]
-          )
-        ]
-      )
+    _c("div", { staticClass: "container", attrs: { id: "messagerie" } }, [
+      _c("div", { staticClass: "row" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-9", attrs: { id: "conversation-active" } },
+          [
+            _c("h2", [_vm._v("David")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { id: "conversation" } },
+              _vm._l(_vm.message, function(item) {
+                return _c("div", { key: item, staticClass: "message" }, [
+                  _c("h3", { attrs: { id: "nom-utilisateur" } }, [
+                    _vm._v(" " + _vm._s(item.nomUtilisateur))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { attrs: { id: "contenu" } }, [
+                    _vm._v(_vm._s(item.contenu))
+                  ])
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { attrs: { id: "redaction" } }, [
+              _c("textarea", {
+                attrs: { placeholder: "Rédigez un message..", required: "" }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  on: {
+                    click: function($event) {
+                      return _vm.envoiMessage(_vm.item)
+                    }
+                  }
+                },
+                [_vm._v("Envoyer")]
+              )
+            ])
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -39131,9 +39160,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "msg" } }, [
-      _c("b", [_vm._v("Message")])
-    ])
+    return _c(
+      "div",
+      { staticClass: "col-3", attrs: { id: "liste-conversations" } },
+      [
+        _c("h2", [_vm._v("Messages")]),
+        _vm._v(" "),
+        _c("div", { attrs: { id: "conversations" } }, [
+          _vm._v("\n          david "),
+          _c("br"),
+          _vm._v("\n          Jasmine\n        ")
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -39634,6 +39673,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("messagerie"),
+      _vm._v(" "),
       _c("entete"),
       _vm._v(" "),
       _vm._m(0),

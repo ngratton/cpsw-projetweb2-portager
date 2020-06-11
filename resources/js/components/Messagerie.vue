@@ -1,18 +1,30 @@
 <template>
   
     <div>  
-        <button v-on:click="openForm">Messagerie</button>     
-        <div id="myForm" v-bind:class="{ active: isActive }">
-            <form action="/action_page.php" class="form-container">
-            <h1>Messagerie</h1>
-
-            <label for="msg"><b>Message</b></label>
-            <textarea placeholder="Écrivez votre message.." name="msg" required></textarea>
-
-            <button type="submit" class="btn">Envoyer</button>
-            <button type="button" class="btn cancel" v-on:click="closeForm">Fermer</button>
-            </form>
-        </div> 
+      <div class="container" id="messagerie">
+        <div class="row">
+          <div class="col-3" id="liste-conversations">
+            <h2>Messages</h2>
+            <div id="conversations" >
+              david <br>
+              Jasmine
+            </div>
+            </div>
+            <div class="col-9" id="conversation-active">
+            <h2>David</h2>
+            <div id="conversation">
+              <div class="message" v-for="item in message" :key="item">
+                <h3 id="nom-utilisateur"> {{ item.nomUtilisateur }}</h3>
+                 <p id="contenu">{{ item.contenu }}</p>
+              </div>
+            </div>
+            <div id="redaction">
+              <textarea placeholder="Rédigez un message.." required></textarea>
+              <button class="btn btn-success" v-on:click="envoiMessage(item)">Envoyer</button> 
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
 </template>
@@ -20,12 +32,10 @@
 <script>
     import Axios from "axios";
     export default {
-        name: 'Recherche', 
+        name: 'Messagerie', 
         data() {
             return {  
-                data: {
-                     isActive: false,
-                },
+               message: 'brocoli',
             };
         
         },
@@ -36,95 +46,52 @@
 
         },
         mounted() {
-        //     Axios.get("/api/talent/"+this.nom_fr).then(response => {
-        //     this.talent = response.data;
-        // });
+            Axios.get("/api/messages").then(response => {
+            this.message = response.data;
+            console.log(this.message)
+        });
         
         },
         methods: {
-            openForm() {
-                 this.isActive = true  
-            // document.getElementById("myForm").style.display = "block";
-            },
+           envoiMessage(item) {
 
-            closeForm() {
-            document.getElementById("myForm").style.display = "none";
-            }
+             Axios.post("/api/messages", {
+                contenu: this.item.contenu,
+                from_id: this.item.userId,
+                to_id: this.item.userId,
+               
+              }).then(data => {
+              
+              console.log(data)
+             
+              })
+            },       
         },
     }
 </script>
 
 <style lang="css">
-/* {box-sizing: border-box;} */
-
-/* Button used to open the chat form - fixed at the bottom of the page */
-.open-button {
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 280px;
+#messagerie {
+  
+  border: solid yellowgreen 2px;
 }
 
-/* The popup chat - hidden by default */
-.active {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  right: 15px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
+#liste-conversations{
+  background-color: rgb(216, 223, 206);
 }
 
-/* Add styles to the form container */
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
+#conversation-active{
+  background-color: rgb(255, 255, 255);
 }
 
-/* Full-width textarea */
-.form-container textarea {
+#conversation {
+  background-color: rgb(250, 250, 250);
+}
+
+#redaction textarea{
   width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
-  resize: none;
-  min-height: 200px;
 }
 
-/* When the textarea gets focus, do something */
-.form-container textarea:focus {
-  background-color: #ddd;
-  outline: none;
-}
 
-/* Set a style for the submit/login button */
-.form-container .btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
-}
-
-/* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
-}
 
 </style>
