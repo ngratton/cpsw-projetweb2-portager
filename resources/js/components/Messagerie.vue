@@ -35,7 +35,8 @@
         name: 'Messagerie', 
         data() {
             return {  
-               message: 'brocoli',
+               message: '',
+               userId: 1,
             };
         
         },
@@ -46,19 +47,31 @@
 
         },
         mounted() {
-            Axios.get("/api/messages").then(response => {
-            this.message = response.data;
-            console.log(this.message)
-        });
-        
+          this.getData()
         },
         methods: {
+
+          getData() {
+
+             Axios.get("/api/profile/" + this.userId).then(response => {
+              this.user = response.data;
+              console.log(this.user)
+            });
+        
+
+
+            Axios.get("/api/messages").then(response => {
+              this.message = response.data;
+              console.log(this.message)
+            });
+        
+          },
            envoiMessage(item) {
 
-             Axios.post("/api/messages", {
+             Axios.post("/api/messages/create", {
                 contenu: this.item.contenu,
-                from_id: this.item.userId,
-                to_id: this.item.userId,
+                from_id: this.item.fromUserId,
+                to_id: this.item.toUserId,
                
               }).then(data => {
               

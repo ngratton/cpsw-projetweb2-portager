@@ -2038,25 +2038,33 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Messagerie',
   data: function data() {
     return {
-      message: 'brocoli'
+      message: '',
+      userId: 1
     };
   },
   props: {},
   components: {},
   mounted: function mounted() {
-    var _this = this;
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages").then(function (response) {
-      _this.message = response.data;
-      console.log(_this.message);
-    });
+    this.getData();
   },
   methods: {
+    getData: function getData() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/profile/" + this.userId).then(function (response) {
+        _this.user = response.data;
+        console.log(_this.user);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages").then(function (response) {
+        _this.message = response.data;
+        console.log(_this.message);
+      });
+    },
     envoiMessage: function envoiMessage(item) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/messages", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/messages/create", {
         contenu: this.item.contenu,
-        from_id: this.item.userId,
-        to_id: this.item.userId
+        from_id: this.item.fromUserId,
+        to_id: this.item.toUserId
       }).then(function (data) {
         console.log(data);
       });

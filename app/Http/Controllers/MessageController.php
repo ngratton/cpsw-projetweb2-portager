@@ -22,9 +22,13 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($userId)
+    public function create($fromUserId, $toUserId)
     {
-        //
+        $message = new Message();
+        $message->contenu = $request->contenu;
+        $message->from_id = $FromUserId;
+        $message->to_id = $toUserId;
+        $potager->save();
     }
 
     /**
