@@ -2033,13 +2033,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Messagerie',
   data: function data() {
     return {
       message: '',
-      userId: 1
+      userId: 1,
+      username: '',
+      contenu: '',
+      toUserId: 1,
+      fromUserId: 1
     };
   },
   props: {},
@@ -2051,22 +2057,21 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/profile/" + this.userId).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.userId).then(function (response) {
         _this.user = response.data;
-        console.log(_this.user);
+        _this.username = _this.user.name;
+        console.log(_this.username);
       });
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages").then(function (response) {
         _this.message = response.data;
         console.log(_this.message);
       });
     },
-    envoiMessage: function envoiMessage(item) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/messages/create", {
-        contenu: this.item.contenu,
-        from_id: this.item.fromUserId,
-        to_id: this.item.toUserId
-      }).then(function (data) {
-        console.log(data);
+    envoiMessage: function envoiMessage() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/messages/store", {
+        contenu: this.contenu,
+        from_id: this.fromUserId,
+        to_id: this.toUserId
       });
     }
   }
@@ -39114,7 +39119,19 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "container", attrs: { id: "messagerie" } }, [
       _c("div", { staticClass: "row" }, [
-        _vm._m(0),
+        _c(
+          "div",
+          { staticClass: "col-3", attrs: { id: "liste-conversations" } },
+          [
+            _c("h2", [_vm._v("Messages")]),
+            _vm._v(" "),
+            _c("div", { attrs: { id: "conversations" } }, [
+              _vm._v("\n          " + _vm._s(_vm.username) + " "),
+              _c("br"),
+              _vm._v("\n          Jasmine\n        ")
+            ])
+          ]
+        ),
         _vm._v(" "),
         _c(
           "div",
@@ -39126,7 +39143,7 @@ var render = function() {
               "div",
               { attrs: { id: "conversation" } },
               _vm._l(_vm.message, function(item) {
-                return _c("div", { key: item, staticClass: "message" }, [
+                return _c("div", { key: item.id, staticClass: "message" }, [
                   _c("h3", { attrs: { id: "nom-utilisateur" } }, [
                     _vm._v(" " + _vm._s(item.nomUtilisateur))
                   ]),
@@ -39140,21 +39157,52 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { attrs: { id: "redaction" } }, [
-              _c("textarea", {
-                attrs: { placeholder: "Rédigez un message..", required: "" }
-              }),
-              _vm._v(" "),
               _c(
-                "button",
+                "form",
                 {
-                  staticClass: "btn btn-success",
+                  attrs: { action: "./api/messages/create", method: "POST" },
                   on: {
-                    click: function($event) {
-                      return _vm.envoiMessage(_vm.item)
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.envoiMessage()
                     }
                   }
                 },
-                [_vm._v("Envoyer")]
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.contenu,
+                        expression: "contenu"
+                      }
+                    ],
+                    attrs: {
+                      type: "text",
+                      name: "message",
+                      placeholder: "Redigez un message.."
+                    },
+                    domProps: { value: _vm.contenu },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.contenu = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success",
+                      attrs: { type: "submit", value: "Envoyer un message" }
+                    },
+                    [_vm._v("Envoyer")]
+                  )
+                ]
               )
             ])
           ]
@@ -39163,26 +39211,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-3", attrs: { id: "liste-conversations" } },
-      [
-        _c("h2", [_vm._v("Messages")]),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "conversations" } }, [
-          _vm._v("\n          david "),
-          _c("br"),
-          _vm._v("\n          Jasmine\n        ")
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

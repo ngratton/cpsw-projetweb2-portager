@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Message;
+use App\User;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return Message::all();
+       $users = User::all(); 
+       return $users;
     }
 
     /**
@@ -22,13 +23,9 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($fromUserId, $toUserId)
+    public function create()
     {
-        $message = new Message();
-        $message->contenu = $request->contenu;
-        $message->from_id = $FromUserId;
-        $message->to_id = $toUserId;
-        $potager->save();
+        //
     }
 
     /**
@@ -39,28 +36,27 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        Message::create($request->all());
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Message  $message
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($userId)
+    public function show(User $user)
     {
-        return Message::where('fk_users_id', $userId)->get();
+        return $user;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Message  $message
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Message $message)
+    public function edit(User $user)
     {
         //
     }
@@ -69,10 +65,10 @@ class MessageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Message  $message
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Message $message)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -80,10 +76,10 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Message  $message
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Message $message)
+    public function destroy(User $user)
     {
         //
     }

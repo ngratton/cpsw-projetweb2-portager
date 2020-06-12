@@ -5,22 +5,24 @@
         <div class="row">
           <div class="col-3" id="liste-conversations">
             <h2>Messages</h2>
-            <div id="conversations" >
-              david <br>
+            <div id="conversations">
+              {{ username }} <br>
               Jasmine
             </div>
             </div>
             <div class="col-9" id="conversation-active">
             <h2>David</h2>
             <div id="conversation">
-              <div class="message" v-for="item in message" :key="item">
+              <div class="message" v-for="item in message" :key="item.id">
                 <h3 id="nom-utilisateur"> {{ item.nomUtilisateur }}</h3>
                  <p id="contenu">{{ item.contenu }}</p>
               </div>
             </div>
             <div id="redaction">
-              <textarea placeholder="Rédigez un message.." required></textarea>
-              <button class="btn btn-success" v-on:click="envoiMessage(item)">Envoyer</button> 
+            <form action="./api/messages/create" method="POST" @submit.prevent="envoiMessage()">
+              <input type="text" name="message" v-model="contenu" placeholder="Redigez un message.."></input>
+              <button type="submit" value="Envoyer un message" class="btn btn-success">Envoyer</button> 
+            </form>
             </div>
           </div>
         </div>
@@ -37,6 +39,10 @@
             return {  
                message: '',
                userId: 1,
+               username: '',
+               contenu: '',
+               toUserId: 1,
+               fromUserId: 1,
             };
         
         },
@@ -52,31 +58,28 @@
         methods: {
 
           getData() {
-
-             Axios.get("/api/profile/" + this.userId).then(response => {
-              this.user = response.data;
-              console.log(this.user)
+          
+             Axios.get("/api/users/" + this.userId).then(response => {
+              this.user = response.data
+              this.username = this.user.name
+              console.log(this.username)
             });
         
 
 
             Axios.get("/api/messages").then(response => {
-              this.message = response.data;
+              this.message = response.data
               console.log(this.message)
             });
         
           },
-           envoiMessage(item) {
+           envoiMessage() {
 
-             Axios.post("/api/messages/create", {
-                contenu: this.item.contenu,
-                from_id: this.item.fromUserId,
-                to_id: this.item.toUserId,
+             Axios.post("/api/messages/store", {
+                contenu: this.contenu,
+                from_id: this.fromUserId,
+                to_id: this.toUserId,
                
-              }).then(data => {
-              
-              console.log(data)
-             
               })
             },       
         },
