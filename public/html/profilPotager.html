@@ -4,28 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/inscriptionStyles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Portager</title>
 </head>
 <body>
-    <div class="container-fluid" id="colHeader">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="col">
-                <img src="../images/portager_noir.svg">
+    <div class="container-fluid" id="colHeaderProfil">
+            <div class="col-2">
+                <img id="logo" src="../images/portager_noir.svg">
             </div>
-        </nav>
+            <div class="col-6 offset-3">
+                <img id="barreProgression" src="../images/BarreProfil.PNG">
+            </div>
     </div>
     <div class="container-fluid" id="profil">
-        <div class="row align-items-center" id="profilJardinierTitre">
-            <div class="col-4">
-                <h4>Complétez votre profil de jardinier, {{ prenom }}</h4>
-            </div>
-            <div class="col-1 offset-3">
-                <a href="#"><p>Compléter plus tard</p></a>
-            </div>
-            <div class="col-4">
-                <button type="button" class="btn btn-primary">Passez à l'étape suivante</button><br>
+        <div class="container-fluid" id="profilTitre">
+            <div class="row align-items-center" id="profilJardinierTitre">
+                <div class="col-5">
+                    <h3>Complétez votre profil de jardinier, {{ prenom }}</h3>
+                </div>
+                <div class="col-2 offset-1" id="plusTard">
+                    <a href="#"><p>Compléter plus tard</p></a>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary">Passez à l'étape suivante</button><br>
+                </div>
             </div>
         </div>
         <div class="row" id="creationProfil">
@@ -66,12 +69,6 @@
                     </td>
                     </tr>
                 </table>
-                    <!-- <p>Amateur</p>
-                    <p>Bologique</p>
-                    <p>Conventionnel</p>
-                    <p>Autosuffisant</p>
-                    <p>Communautaire</p>
-                    <p>Écologique</p> -->
             </div>
          </div>
     </div>
