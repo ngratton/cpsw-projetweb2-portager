@@ -15,20 +15,20 @@ class CreatePlantsTable extends Migration
     {
         Schema::create('plants', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('fk_types_id');
+            $table->unsignedBigInteger('type_id');
             $table->text('description')->nullable();
             $table->string('photo')->default('https://img.pizza/420/420/');
             $table->string('photo_mini')->default('https://img.pizza/210/210/');
             $table->tinyInteger('est_partage')->default(1);
             $table->tinyInteger('est_actif')->default(1);
             $table->integer('plants_visits')->nullable()->default(0);
-            $table->unsignedBigInteger('fk_potagers_id');
+            $table->unsignedBigInteger('potager_id');
             $table->timestamps();
         });
 
         Schema::table('plants', function (Blueprint $table) {
-            $table->foreign('fk_types_id')->references('id')->on('types');
-            $table->foreign('fk_potagers_id')->references('id')->on('potagers');
+            $table->foreign('type_id')->references('id')->on('types');
+            $table->foreign('potager_id')->references('id')->on('potagers');
         });
     }
 

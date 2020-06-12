@@ -20,14 +20,14 @@ class CreateProfilesTable extends Migration
             $table->text('bio')->nullable();
             $table->integer('jardine_depuis');
             $table->set('tags_jardiniers', ['Amateur', 'Autosuffisant', 'Biologique', 'Ecologique', 'Communautaire', 'Conventionnel']);
-            $table->unsignedBigInteger('fk_users_id')->unique();
+            $table->unsignedBigInteger('user_id')->unique();
             $table->tinyInteger('est_actif')->default(1);
             $table->integer('profile_visits')->nullable()->default(0);
             $table->timestamps();
         });
 
         Schema::table('profiles', function(Blueprint $table) {
-            $table->foreign('fk_users_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

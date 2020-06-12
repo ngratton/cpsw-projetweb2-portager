@@ -23,14 +23,14 @@ class CreatePotagersTable extends Migration
             $table->string('postal_code');
             $table->string('photos_path')->nullable()->default('https://img.pizza/210/210/');
             $table->set('tags_potagers', ['Biologique', 'En terre', 'En serre', 'En pot', 'En bacs', "Interieur", 'Agriculture urbaine', 'Communautaire']);
-            $table->unsignedBigInteger('fk_users_id')->unique();
+            $table->unsignedBigInteger('user_id')->unique();
             $table->tinyInteger('est_actif');
             $table->integer('potagers_visits')->nullable()->default(0);
             $table->timestamps();
         });
 
         Schema::table('potagers', function(Blueprint $table) {
-            $table->foreign('fk_users_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
