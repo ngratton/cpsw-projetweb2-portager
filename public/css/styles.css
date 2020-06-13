@@ -108,6 +108,7 @@ nav {
 .btn {
     padding: 10px 30px;
     transition: all .2s ease;
+    font-weight: bold;
 }
 
 .btn:hover {
@@ -124,6 +125,7 @@ nav {
 .btn-primary:hover {
     background-color: hsl(52, 100%, 60%);
     color: #332E0A;
+    border: 1px solid hsl(52, 100%, 60%);
 }
 
 .btn-secondary {
@@ -132,10 +134,22 @@ nav {
     border: 1px solid #9FCC3B;
 }
 
+.btn-secondary:hover {
+    background-color: hsl(79, 59%, 62%);
+    border: 1px solid hsl(79, 59%, 62%);
+}
+
 .btn-tertiary {
     background-color: #717C89;
     color: white;
     border: 1px solid #717C89;
+}
+
+.btn-tertiary:hover {
+    background-color: hsl(213, 10%, 59%);
+    color: white;
+    border: 1px solid hsl(213, 10%, 59%);
+
 }
 
 #search {
@@ -179,7 +193,6 @@ nav {
 .form-group button {
     width: 20%;
     height: 20%;
-    margin-left: 10px;
     padding: 10px;
 }
 
@@ -462,103 +475,6 @@ nav {
     margin:0 auto;
 }
 
-.imgConnection {
-    width: 100%;
-    height: 150%;
-}
-
-.grosseImageConnexion {
-    height: 227%;
-    width: 100%;
-    background-image: url('../images/hero/girl-tomatoes-shutterstock_440076301_0.jpg');
-    background-repeat: no-repeat;
-    background-position: 50% 80%;
-    background-size: 150% 100%;
-  }
-
-.grosseImageInscription {
-    height: 173%;
-    width: 100%;
-    background-image: url("../images/hero/gardener.jpg");
-    background-repeat: no-repeat;
-    background-position: 50% 80%;
-    background-size: 104% 100%;
-  }
-
-.logoConnection img {
-    width: 30%;
-    height: 30%;
-    margin-left: 10%;
-    margin-bottom: 5%;
-    display: block;
-}
-
-#Connexion {
-    top: 200px;
-}
-
-.formConnection {
-    width: 375px;
-    height: 291px;
-    top: 200px;
-    padding: 10px 10px 10px 10px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 5px 10px #00000029;
-    border-radius: 16px;
-    opacity: 1;
-}
-
-.formConnection button {
-    width: 320px;
-    margin-bottom: 10px;
-    margin-left: 20px;
-    font-weight: bold;
-}
-
-.formConnection input {
-    width: 320px;
-}
-
-.formConnection a {
-    text-align: center;
-    font: 10px/12px Inter;
-    letter-spacing: 0px;
-    color: #717C89;
-    opacity: 1;
-}
-
-.form-group {
-    margin-top: 10px;
-    margin-left: 20px;
-    text-align: left;
-}
-
-#Inscription {
-    top: 200px;
-}
-
-.formInscription {
-    width: 375px;
-    height: 420px;
-    top: 200px;
-    padding: 10px 10px 10px 10px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 5px 10px #00000029;
-    border-radius: 16px;
-    opacity: 1;
-}
-
-.formInscription button {
-    width: 320px;
-    margin-bottom: 10px;
-    margin-left: 20px;
-    font-weight: bold;
-}
-
-.formInscription input {
-    width: 320px;
-}
-
 #profil {
     margin-top: 100px;
     text-align: center;
@@ -577,7 +493,7 @@ nav {
 
 #profilTitre button {
     font-weight: bold;
-    background-color: #FFDD00; 
+    background-color: #FFDD00;
     color: #332E0A;
     border: none;
     margin-left: 5%;
