@@ -80,7 +80,6 @@ export default {
                 last_name: '',
                 email: '',
                 password: '',
-                // password_confirmed: '',
             },
             errors: [],
         }
@@ -104,8 +103,7 @@ export default {
                     }
                 })
         }
-    } // methods
-
+    }, // methods
 }
 </script>
 
@@ -118,7 +116,6 @@ export default {
     }
 
     #inscription {
-        text-align: center;
 
         #logo {
             max-height: 70px;

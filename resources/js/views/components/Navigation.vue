@@ -29,7 +29,7 @@
 import User from '../../api/User'
 
 export default {
-    name: 'navigation',
+    name: 'Navigation',
     data() {
         return {
             is_connected: false,

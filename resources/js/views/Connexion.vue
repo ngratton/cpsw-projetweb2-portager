@@ -50,7 +50,12 @@
                 },
                 errors: [],
             }
-        },
+        }, //data
+        mounted() {
+            // Renomme le document pour le titre de la page
+            let titreOg = document.title
+            document.title = 'Connexion | ' + titreOg
+        }, //mounted
         methods: {
             connexion() {
                 User.connexion(this.form)
@@ -63,8 +68,15 @@
                             this.errors = error.response.data.errors
                         }
                     })
+            },
+            deconnexion() {
+                User.deconnexion()
+                    .then(() => {
+                        localStorage.remoteItem('auth')
+                        this.$router.go()
+                    })
             }
-        }
+        }, // methods
     }
 </script>
 
