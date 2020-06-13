@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('inscription', 'InscriptionController@inscription');
+Route::post('/connexion', 'ConnexionController@connexion');
+Route::post('/deconnexion', 'ConnexionController@deconnexion');
 
 /**
  * Profil utilisateurs
