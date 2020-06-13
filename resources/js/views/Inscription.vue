@@ -7,7 +7,9 @@
             <div class="col-md d-flex justify-content-center align-items-center" id="inscription">
 
                 <div>
-                    <img src="/images/portager_noir.svg" id="logo">
+                    <div class="logoConnection">
+                        <img  src="/images/portager_noir.svg" id="logo">
+                    </div>
                     <div class="formInscription">
                         <form>
                             <div class="form-group">
@@ -86,8 +88,8 @@ export default {
     }, // data
 
     mounted() {
-        let titreOg = document.title
-        document.title = 'Inscription | ' + titreOg
+        // let titreOg = document.title
+        // document.title = 'Inscription | ' + titreOg
     }, // mounted
 
     methods: {
@@ -117,8 +119,14 @@ export default {
 
     #inscription {
 
+
+        .logoConnection {
+            text-align: center;
+        }
+
         #logo {
             max-height: 70px;
+            margin: 0 auto;
             margin-bottom: 30px;
         }
     }

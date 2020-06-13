@@ -8,5 +8,13 @@ const app = new Vue({
     components: {
 
     },
-    router
+    router,
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title = to.meta.title || 'Some Default Title';
+            }
+        },
+    }
 });

@@ -13,35 +13,52 @@ export default new VueRouter({
     routes: [
 
         {
-        path: '/',
-        name: 'Accueil',
-        component: Accueil,
+            path: '/',
+            name: 'Accueil',
+            component: Accueil,
+            meta: {
+                title: 'Portager | Cultivez votre sens du partage',
+            },
         },
 
         {
-        path: '/inscription',
-        name: 'Inscription',
-        component: Inscription,
+            path: '/inscription',
+            name: 'Inscription',
+            component: Inscription,
+            meta: {
+                title: 'Inscription | Portager | Cultivez votre sens du partage',
+            },
         },
 
         {
-        path: '/connexion',
-        name: 'Connexion',
-        component: Connexion,
+            path: '/connexion',
+            name: 'Connexion',
+            component: Connexion,
+            meta: {
+                title: 'Connexion | Portager | Cultivez votre sens du partage',
+            },
         },
 
         {
-        path: '/potager',
-        name: 'Potager',
-        component: Potager,
+            path: '/potager',
+            name: 'Potager',
+            component: Potager,
+            meta: {
+                title: 'Potager | Portager | Cultivez votre sens du partage',
+            },
         },
 
         {
-        path: '/profil',
-        name: 'ProfilUtilisateur',
-        component: ProfilUtilisateur,
+            path: '/profil',
+            name: 'ProfilUtilisateur',
+            component: ProfilUtilisateur,
+            meta: {
+                title: 'Profil | Portager | Cultivez votre sens du partage',
+            },
         },
 
     ],
-    mode: 'history'
+    mode: 'history',
 });
+
+

@@ -53,8 +53,8 @@
         }, //data
         mounted() {
             // Renomme le document pour le titre de la page
-            let titreOg = document.title
-            document.title = 'Connexion | ' + titreOg
+            // let titreOg = document.title
+            // document.title = 'Connexion | ' + titreOg
         }, //mounted
         methods: {
             connexion() {
@@ -90,7 +90,7 @@
 
 .imgConnection {
     width: 100%;
-    height: 150%;
+    // height: 100%;
 }
 
 .grosseImageConnexion {
@@ -103,10 +103,14 @@
   }
 
 #connexion {
-    text-align: center;
+
+    .logoConnection {
+        text-align: center;
+    }
 
     #logo {
         max-height: 70px;
+        margin: 0 auto;
         margin-bottom: 30px;
     }
 }
@@ -114,6 +118,7 @@
 .formConnection {
     max-width: 375px;
     padding: 30px;
+    background-color: white;
     box-shadow: 0px 5px 10px #00000029;
     border-radius: 16px;
 

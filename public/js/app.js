@@ -2150,10 +2150,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   //data
-  mounted: function mounted() {
-    // Renomme le document pour le titre de la page
-    var titreOg = document.title;
-    document.title = 'Connexion | ' + titreOg;
+  mounted: function mounted() {// Renomme le document pour le titre de la page
+    // let titreOg = document.title
+    // document.title = 'Connexion | ' + titreOg
   },
   //mounted
   methods: {
@@ -2267,6 +2266,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2281,9 +2282,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   // data
-  mounted: function mounted() {
-    var titreOg = document.title;
-    document.title = 'Inscription | ' + titreOg;
+  mounted: function mounted() {// let titreOg = document.title
+    // document.title = 'Inscription | ' + titreOg
   },
   // mounted
   methods: {
@@ -7153,7 +7153,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#imageGauche,\n#connexion {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n}\n.imgConnection {\n  width: 100%;\n  height: 150%;\n}\n.grosseImageConnexion {\n  height: 100%;\n  width: 100%;\n  background-image: url(\"/images/hero/girl-tomatoes-shutterstock_440076301_0.jpg\");\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n#connexion {\n  text-align: center;\n}\n#connexion #logo {\n  max-height: 70px;\n  margin-bottom: 30px;\n}\n.formConnection {\n  max-width: 375px;\n  padding: 30px;\n  box-shadow: 0px 5px 10px #00000029;\n  border-radius: 16px;\n}\n.formConnection .form-group {\n  width: 100%;\n}\n.formConnection .form-group input {\n  width: 100%;\n}\n.formConnection .form-group input:focus {\n  border: 1px solid #9FCC3B;\n  outline: none;\n  box-shadow: none;\n}\n.formConnection label {\n  font-size: 12px;\n  color: #717C89;\n}\n.formConnection button {\n  width: 100%;\n}\n.formConnection a {\n  text-align: center;\n  color: #717C89;\n  font-size: 0.7rem;\n}", ""]);
+exports.push([module.i, "#imageGauche,\n#connexion {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n}\n.imgConnection {\n  width: 100%;\n}\n.grosseImageConnexion {\n  height: 100%;\n  width: 100%;\n  background-image: url(\"/images/hero/girl-tomatoes-shutterstock_440076301_0.jpg\");\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n#connexion .logoConnection {\n  text-align: center;\n}\n#connexion #logo {\n  max-height: 70px;\n  margin: 0 auto;\n  margin-bottom: 30px;\n}\n.formConnection {\n  max-width: 375px;\n  padding: 30px;\n  background-color: white;\n  box-shadow: 0px 5px 10px #00000029;\n  border-radius: 16px;\n}\n.formConnection .form-group {\n  width: 100%;\n}\n.formConnection .form-group input {\n  width: 100%;\n}\n.formConnection .form-group input:focus {\n  border: 1px solid #9FCC3B;\n  outline: none;\n  box-shadow: none;\n}\n.formConnection label {\n  font-size: 12px;\n  color: #717C89;\n}\n.formConnection button {\n  width: 100%;\n}\n.formConnection a {\n  text-align: center;\n  color: #717C89;\n  font-size: 0.7rem;\n}", ""]);
 
 // exports
 
@@ -7172,7 +7172,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#imageGauche,\n#inscription {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n}\n#inscription #logo {\n  max-height: 70px;\n  margin-bottom: 30px;\n}\n.grosseImageInscription {\n  height: 100%;\n  width: 100%;\n  background-image: url(\"/images/hero/gardener.jpg\");\n  background-repeat: no-repeat;\n  background-position: 80%;\n  background-size: cover;\n}\n.formInscription {\n  width: 375px;\n  padding: 30px 20px;\n  background: white;\n  box-shadow: 0px 5px 10px #00000029;\n  border-radius: 16px;\n}\n.formInscription .form-group {\n  width: 100%;\n}\n.formInscription .form-group input {\n  width: 100%;\n}\n.formInscription .form-group input:focus {\n  border: 1px solid #9FCC3B;\n  outline: none;\n  box-shadow: none;\n}\n.formInscription label {\n  font-size: 12px;\n  color: #717C89;\n}\n.formInscription button {\n  width: 100%;\n  font-weight: bold;\n}", ""]);
+exports.push([module.i, "#imageGauche,\n#inscription {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n}\n#inscription .logoConnection {\n  text-align: center;\n}\n#inscription #logo {\n  max-height: 70px;\n  margin: 0 auto;\n  margin-bottom: 30px;\n}\n.grosseImageInscription {\n  height: 100%;\n  width: 100%;\n  background-image: url(\"/images/hero/gardener.jpg\");\n  background-repeat: no-repeat;\n  background-position: 80%;\n  background-size: cover;\n}\n.formInscription {\n  width: 375px;\n  padding: 30px 20px;\n  background: white;\n  box-shadow: 0px 5px 10px #00000029;\n  border-radius: 16px;\n}\n.formInscription .form-group {\n  width: 100%;\n}\n.formInscription .form-group input {\n  width: 100%;\n}\n.formInscription .form-group input:focus {\n  border: 1px solid #9FCC3B;\n  outline: none;\n  box-shadow: none;\n}\n.formInscription label {\n  font-size: 12px;\n  color: #717C89;\n}\n.formInscription button {\n  width: 100%;\n  font-weight: bold;\n}", ""]);
 
 // exports
 
@@ -40258,9 +40258,7 @@ var render = function() {
           },
           [
             _c("div", [
-              _c("img", {
-                attrs: { src: "/images/portager_noir.svg", id: "logo" }
-              }),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "formInscription" }, [
                 _c("form", [
@@ -40466,6 +40464,14 @@ var staticRenderFns = [
       { staticClass: "col-md d-none d-md-flex", attrs: { id: "imageGauche" } },
       [_c("div", { staticClass: "grosseImageInscription" })]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "logoConnection" }, [
+      _c("img", { attrs: { src: "/images/portager_noir.svg", id: "logo" } })
+    ])
   }
 ]
 render._withStripped = true
@@ -56583,7 +56589,15 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   components: {},
-  router: _router_js__WEBPACK_IMPORTED_MODULE_1__["default"]
+  router: _router_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  watch: {
+    $route: {
+      immediate: true,
+      handler: function handler(to, from) {
+        document.title = to.meta.title || 'Some Default Title';
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -56662,23 +56676,38 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   routes: [{
     path: '/',
     name: 'Accueil',
-    component: _views_Accueil__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _views_Accueil__WEBPACK_IMPORTED_MODULE_2__["default"],
+    meta: {
+      title: 'Portager | Cultivez votre sens du partage'
+    }
   }, {
     path: '/inscription',
     name: 'Inscription',
-    component: _views_Inscription__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _views_Inscription__WEBPACK_IMPORTED_MODULE_5__["default"],
+    meta: {
+      title: 'Inscription | Portager | Cultivez votre sens du partage'
+    }
   }, {
     path: '/connexion',
     name: 'Connexion',
-    component: _views_Connexion__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _views_Connexion__WEBPACK_IMPORTED_MODULE_6__["default"],
+    meta: {
+      title: 'Connexion | Portager | Cultivez votre sens du partage'
+    }
   }, {
     path: '/potager',
     name: 'Potager',
-    component: _views_Potager__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _views_Potager__WEBPACK_IMPORTED_MODULE_3__["default"],
+    meta: {
+      title: 'Potager | Portager | Cultivez votre sens du partage'
+    }
   }, {
     path: '/profil',
     name: 'ProfilUtilisateur',
-    component: _views_ProfilUtilisateur__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _views_ProfilUtilisateur__WEBPACK_IMPORTED_MODULE_4__["default"],
+    meta: {
+      title: 'Profil | Portager | Cultivez votre sens du partage'
+    }
   }],
   mode: 'history'
 }));
@@ -57070,15 +57099,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************************!*\
   !*** ./resources/js/views/components/Navigation.vue ***!
   \******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Navigation_vue_vue_type_template_id_4b3050de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Navigation.vue?vue&type=template&id=4b3050de& */ "./resources/js/views/components/Navigation.vue?vue&type=template&id=4b3050de&");
 /* harmony import */ var _Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Navigation.vue?vue&type=script&lang=js& */ "./resources/js/views/components/Navigation.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -57108,7 +57136,7 @@ component.options.__file = "resources/js/views/components/Navigation.vue"
 /*!*******************************************************************************!*\
   !*** ./resources/js/views/components/Navigation.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
