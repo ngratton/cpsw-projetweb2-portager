@@ -22,7 +22,7 @@ class PotagerSeeder extends Seeder
             $potager->country = 'Canada';
             $potager->postal_code = $faker->postcode;
             $potager->tags_potagers = 'Communautaire';
-            $potager->fk_users_id = $i;
+            $potager->user_id = $i;
             $potager->est_actif = 1;
             $potager->save();
         }
