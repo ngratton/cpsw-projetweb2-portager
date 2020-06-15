@@ -135,3 +135,75 @@ nav {
     padding-right: 30px;
     padding-left: 30px;
 }
+
+#profilPotager {
+    margin-top: 100px;
+    text-align: center;
+}
+
+#profilPotager h4 {
+    font-family: Roboto Slab;
+    color: #717C89;
+}
+
+#profilPotager a {
+    font-size: 10px;
+    color: #717C89;
+}
+
+#creationPotager {
+    background-color: #FFFFFF;
+    width: 85%;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 5px 10px #00000029;
+    margin-left: 100px;
+    border-radius: 16px;
+    opacity: 1;
+    margin-top: 2%;
+    padding: 20px 10px 100px 20px;
+    text-align: left;
+}
+
+#trouver input {
+    width: 100px;
+}
+
+#trouver button {
+    position: absolute;
+    width: 160px;
+    height: 50px;
+    background: #9FCC3B 0% 0% no-repeat padding-box;
+    color: #FFFFFF;
+    box-shadow: 0px 3px 10px #00000029;
+    border-radius: 6px;
+    opacity: 1;
+    border: none;
+    margin-top: 25px;
+}
+
+#creationPotager input {
+    width: 370px;
+}
+
+#pays input {
+    width: 160px;
+}
+
+#profilPotagerImages img {
+    margin-right: 15px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+#profilPotagerImages button {
+    float: right;
+    width: 200px;
+    height: 50px;
+    background: #9FCC3B 0% 0% no-repeat padding-box;
+    color: #FFFFFF;
+    box-shadow: 0px 3px 10px #00000029;
+    border-radius: 6px;
+    opacity: 1;
+    border: none;
+    margin-right: 20px;
+}
