@@ -14,17 +14,7 @@ class RatingPotagerController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return RatingPotager::all();
     }
 
     /**
@@ -33,9 +23,15 @@ class RatingPotagerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $userId, $potagerId)
     {
-        //
+        $rating = new RatingPotager();
+        // $rating->user_id = Auth::user()->id();
+        $rating->user_id = $userId;
+        $rating->rating = $request->rating;
+        $rating->comment = $request->comment;
+        $rating->potager_id = $potagerId;
+        $rating->save();
     }
 
     /**
@@ -44,20 +40,9 @@ class RatingPotagerController extends Controller
      * @param  \App\RatingPotager  $ratingPotager
      * @return \Illuminate\Http\Response
      */
-    public function show(RatingPotager $ratingPotager)
+    public function show(RatingPotager $ratingPotager, $potagerId)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\RatingPotager  $ratingPotager
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(RatingPotager $ratingPotager)
-    {
-        //
+        return RatingPotager::where('potager_id', $potagerId)->get();
     }
 
     /**
@@ -67,7 +52,7 @@ class RatingPotagerController extends Controller
      * @param  \App\RatingPotager  $ratingPotager
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RatingPotager $ratingPotager)
+    public function update(Request $request, $potagerId)
     {
         //
     }
@@ -78,8 +63,33 @@ class RatingPotagerController extends Controller
      * @param  \App\RatingPotager  $ratingPotager
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RatingPotager $ratingPotager)
+    public function destroy(RatingPotager $ratingPotager, $commentId)
     {
-        //
+        $comment = RatingPotager::find($commentId)->get();
+        $comment->destroy();
+    }
+
+    /**
+     * Calcule la moyenne de note pour ce plant.
+     *
+     * @param  \App\RatingPotager  $ratingPotager
+     * @param  $commentId
+     * @return \Illuminate\Http\Response
+     */
+    public function average(RatingPotager  $ratingPotager, $potagerId)
+    {
+        $evaluations = RatingPotager::where('potager_id', $potagerId)->get();
+
+        $total = 0;
+        $count = 0;
+
+        foreach($evaluations as $note) {
+            $total = $total + $note->rating;
+            $count++;
+        }
+
+        $avg = round(($total / $count), 1);
+
+        return $avg;
     }
 }

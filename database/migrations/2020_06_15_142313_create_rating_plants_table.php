@@ -15,6 +15,10 @@ class CreateRatingPlantsTable extends Migration
     {
         Schema::create('rating_plants', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('user_id');
+            $table->integer('rating');
+            $table->string('comment');
+            $table->unsignedInteger('plant_id');
             $table->timestamps();
         });
     }

@@ -14,28 +14,7 @@ class RatingPlantController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return RatingPlant::all();
     }
 
     /**
@@ -44,9 +23,10 @@ class RatingPlantController extends Controller
      * @param  \App\RatingPlant  $ratingPlant
      * @return \Illuminate\Http\Response
      */
-    public function show(RatingPlant $ratingPlant)
+    public function show(RatingPlant $ratingPlant, $plantId)
     {
-        //
+        $rating = RatingPlant::where('plant_id', $plantId)-get();
+        return $rating;
     }
 
     /**
@@ -61,25 +41,14 @@ class RatingPlantController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RatingPlant  $ratingPlant
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, RatingPlant $ratingPlant)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\RatingPlant  $ratingPlant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RatingPlant $ratingPlant)
+    public function destroy(RatingPlant $ratingPlant, $commentId)
     {
-        //
+        $rating = RatingPlant::find($commentId);
+        $rating->destroy();
     }
 }

@@ -63,21 +63,25 @@ Route::post('/plant/{plantId}/visit', 'PlantController@addvisit');              
 /**
  * Rating - profil
  */
-Route::get('/evaluation/profiles', 'ProfileRatingController@index');
-Route::get('/evaluation/profile/{profileId}', 'ProfileRatingController@show');
-Route::put('/evaluation/profile/{userId}/{profileId}', 'ProfileRatingController@store');
-Route::delete('/evaluation/profile/{commentId}', 'ProfileRatingController@destroy');
+Route::get('/evaluation/profiles', 'RatingProfileController@index');
+Route::get('/evaluation/profile/{profileId}', 'RatingProfileController@show');
+Route::get('/evaluation/profile/avg/{profileId}', 'RatingProfileController@average');
+Route::put('/evaluation/profile/{userId}/{profileId}', 'RatingProfileController@store');
+Route::delete('/evaluation/profile/{commentId}', 'RatingProfileController@destroy');
 
 /**
  * Rating - Potager
  */
-Route::get('/evaluation/potager/{potagerId}', 'PotagerRatingController@index');
-Route::put('/evaluation/potager/{userId}/{potagerId}', 'PotagerRatingController@store');
-Route::delete('/evaluation/potager/{commentId}', 'PotagerRatingController@destroy');
+Route::get('/evaluation/potager/{potagerId}', 'RatingPotagerController@index');
+Route::get('/evaluation/potager/{potagerId}', 'RatingProfileController@show');
+Route::get('/evaluation/potager/avg/{potagerId}', 'RatingProfileController@average');
+Route::put('/evaluation/potager/{userId}/{potagerId}', 'RatingPotagerController@store');
+Route::delete('/evaluation/potager/{commentId}', 'RatingPotagerController@destroy');
 
 /**
  * Rating - Plant
  */
-Route::get('/evaluation/plant/{plantId}', 'PlantRatingController@index');
-Route::put('/evaluation/plant/{userId}/{plantId}', 'PlantRatingController@store');
-Route::delete('/evaluation/plant/{commentId}', 'PlantRatingController@destroy');
+Route::get('/evaluation/plant/{plantId}', 'RatingPlantController@index');
+Route::get('/evaluation/plant/{plantId}', 'RatingPlantController@show');
+Route::put('/evaluation/plant/{userId}/{plantId}', 'RatingPlantController@store');
+Route::delete('/evaluation/plant/{commentId}', 'RatingPlantController@destroy');

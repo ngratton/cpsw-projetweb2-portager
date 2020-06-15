@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Profile;
-use App\ProfileRating;
+use App\RatingProfile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class ProfileRatingController extends Controller
+class RatingProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,7 @@ class ProfileRatingController extends Controller
      */
     public function index()
     {
-        return ProfileRating::all();
+        return RatingProfile::all();
     }
 
     /**
@@ -27,7 +25,7 @@ class ProfileRatingController extends Controller
      */
     public function store(Request $request, $userId, $profileId)
     {
-        $rating = new ProfileRating();
+        $rating = new RatingProfile();
         // $rating->user_id = Auth::user()->id();
         $rating->user_id = $userId;
         $rating->rating = $request->rating;
@@ -39,19 +37,19 @@ class ProfileRatingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ProfileRating  $profileRating
+     * @param  \App\RatingProfile  $ratingProfile
      * @return \Illuminate\Http\Response
      */
-    public function show(ProfileRating $profileRating, $profileId)
+    public function show(RatingProfile $ratingProfile, $profileId)
     {
-        return ProfileRating::where('profile_id', $profileId)->get();
+        return RatingProfile::where('profile_id', $profileId)->get();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ProfileRating  $profileRating
+     * @param  \App\RatingProfile  $ratingProfile
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $profileId)
@@ -62,12 +60,36 @@ class ProfileRatingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ProfileRating  $profileRating
+     * @param  \App\RatingProfile  $ratingProfile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProfileRating $profileRating, $commentId)
+    public function destroy(RatingProfile $ratingProfile, $commentId)
     {
-        $comment = ProfileRating::find($commentId)->get();
+        $comment = RatingProfile::find($commentId)->get();
         $comment->destroy();
+    }
+
+    /**
+     * Calcule la moyenne de note pour ce plant.
+     *
+     * @param  \App\RatingProfile  $ratingProfile
+     * @param  $commentId
+     * @return \Illuminate\Http\Response
+     */
+    public function average(RatingProfile  $ratingProfile, $profileId)
+    {
+        $evaluations = RatingProfile::where('profile_id', $profileId)->get();
+
+        $total = 0;
+        $count = 0;
+
+        foreach($evaluations as $note) {
+            $total = $total + $note->rating;
+            $count++;
+        }
+
+        $avg = round(($total / $count), 1);
+
+        return $avg;
     }
 }

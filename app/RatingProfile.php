@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProfileRating extends Model
+class RatingProfile extends Model
 {
     protected $fillable = [
         'user_id',
