@@ -49,4 +49,31 @@ Route::post('/potager/{userId}/visit', 'PotagerController@addvisit');   // Ping 
  * Plants
  */
 Route::get('/plants', 'PlantController@index');                         // Affichage de tous les plants
+Route::get('/plant/{plantId}', 'PlantController@show');                      // Création d'un plant
 Route::put('/plant/new', 'PlantController@store');                      // Création d'un plant
+Route::patch('/plant/{plantId}', 'PlantController@update');                      // Création d'un plant
+Route::delete('/plant/{plantId}', 'PlantController@destroy');                      // Création d'un plant
+Route::post('/plant/{plantId}/visit', 'PlantController@addvisit');                      // Création d'un plant
+
+
+/**
+ * Rating - profil
+ */
+Route::get('/evaluation/profiles', 'ProfileRatingController@index');
+Route::get('/evaluation/profile/{profileId}', 'ProfileRatingController@show');
+Route::put('/evaluation/profile/{userId}/{profileId}', 'ProfileRatingController@store');
+Route::delete('/evaluation/profile/{commentId}', 'ProfileRatingController@destroy');
+
+/**
+ * Rating - Potager
+ */
+Route::get('/evaluation/potager/{potagerId}', 'PotagerRatingController@index');
+Route::put('/evaluation/potager/{userId}/{potagerId}', 'PotagerRatingController@store');
+Route::delete('/evaluation/potager/{commentId}', 'PotagerRatingController@destroy');
+
+/**
+ * Rating - Plant
+ */
+Route::get('/evaluation/plant/{plantId}', 'PlantRatingController@index');
+Route::put('/evaluation/plant/{userId}/{plantId}', 'PlantRatingController@store');
+Route::delete('/evaluation/plant/{commentId}', 'PlantRatingController@destroy');

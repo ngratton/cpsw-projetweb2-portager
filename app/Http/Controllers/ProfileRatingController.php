@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Profile;
 use App\ProfileRating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileRatingController extends Controller
 {
@@ -14,17 +16,7 @@ class ProfileRatingController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ProfileRating::all();
     }
 
     /**
@@ -33,9 +25,15 @@ class ProfileRatingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $userId, $profileId)
     {
-        //
+        $rating = new ProfileRating();
+        // $rating->user_id = Auth::user()->id();
+        $rating->user_id = $userId;
+        $rating->rating = $request->rating;
+        $rating->comment = $request->comment;
+        $rating->profile_id = $profileId;
+        $rating->save();
     }
 
     /**
@@ -44,20 +42,9 @@ class ProfileRatingController extends Controller
      * @param  \App\ProfileRating  $profileRating
      * @return \Illuminate\Http\Response
      */
-    public function show(ProfileRating $profileRating)
+    public function show(ProfileRating $profileRating, $profileId)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ProfileRating  $profileRating
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProfileRating $profileRating)
-    {
-        //
+        return ProfileRating::where('profile_id', $profileId)->get();
     }
 
     /**
@@ -67,7 +54,7 @@ class ProfileRatingController extends Controller
      * @param  \App\ProfileRating  $profileRating
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProfileRating $profileRating)
+    public function update(Request $request, $profileId)
     {
         //
     }
@@ -78,8 +65,9 @@ class ProfileRatingController extends Controller
      * @param  \App\ProfileRating  $profileRating
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProfileRating $profileRating)
+    public function destroy(ProfileRating $profileRating, $commentId)
     {
-        //
+        $comment = ProfileRating::find($commentId)->get();
+        $comment->destroy();
     }
 }
