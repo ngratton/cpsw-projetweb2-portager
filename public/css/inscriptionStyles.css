@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
+@import url('https://rsms.me/inter/inter.css');
+
 body {
     background-color: #F7FDFF !important;
     margin: 0;
@@ -52,6 +55,7 @@ nav {
 #profil h4 {
     font-family: Roboto Slab;
     color: #717C89;
+    font-weight: bold;
 }
 
 #profil a {
@@ -121,6 +125,19 @@ nav {
     opacity: 1;
 }
 
+#etiquetteJardin h4 {
+    color: #32373D;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 42px;
+    text-align: left;
+}
+
+#etiquetteJardin p {
+    margin-left: 42px;
+    font-size: 12px;
+}
+
 #etiquetteProfilJardinier ul {
     list-style-type: none;
 }
@@ -134,6 +151,10 @@ nav {
     margin-bottom: 20px;
     padding-right: 30px;
     padding-left: 30px;
+}
+
+#etiquetteProfilJardinier li:hover {
+    background-color: #9FCC3B;
 }
 
 #profilPotager {
@@ -164,6 +185,11 @@ nav {
     text-align: left;
 }
 
+#creationPotager h6 {
+    font-weight: bold;
+    font-size: 16px;
+}
+
 #trouver input {
     width: 100px;
 }
@@ -181,12 +207,29 @@ nav {
     margin-top: 25px;
 }
 
+#etiquettesPotager h6 {
+    color: #32373D;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 42px;
+    text-align: left;
+}
+
+#etiquettesPotager p {
+    margin-left: 42px;
+    font-size: 12px;
+}
+
 #creationPotager input {
     width: 370px;
 }
 
 #pays input {
     width: 160px;
+}
+
+#profilPotagerImages {
+    margin-left: 50px;
 }
 
 #profilPotagerImages img {

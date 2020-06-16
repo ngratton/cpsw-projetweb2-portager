@@ -36,7 +36,7 @@
                 <form>
                     <div class="form-row">
                         <div class="col">
-                            <h4>Indiquez-nous où se trouve votre potager</h4><br>
+                            <h6>Indiquez-nous où se trouve votre potager</h6><br>
                             <label for="adresse">Adresse</label>
                             <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp"><br>
                             <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp">
@@ -70,7 +70,7 @@
                 </form>
             </div>
             <div class="col-3" id="profilPotagerImages">
-                <h4>Ajouter des photos de votre potager</h4>
+                <h6>Ajouter des photos de votre potager</h6>
                 <p style="font-size:12px;">Téléverser jusqu'à {{ X }} photos; au moins une est requise.</p>
                 <img src="../images/potager_pardefault_100px.png">
                 <img src="../images/potager_pardefault_100px.png">
@@ -80,9 +80,9 @@
                 <img src="../images/potager_pardefault_100px.png">
                 <button type="button" input type="file" id="photo" class="btn btn-primary">Téléverser une photo</button>
             </div>
-            <div class="col-3 offset-1">
-                <h4>Quel type de jardinier êtes-vous ?</h4>
-                <p style="font-size:12px;">Cochez tous ceux qui s'appliquent.</p>
+            <div class="col-3 offset-1" id="etiquettesPotager">
+                <h6>Quel type de potager est-ce ?</h6>
+                <p>Cochez tous ceux qui s'appliquent.</p>
                 <table width="100%" id="etiquetteProfilJardinier">
                     <tr>
                     <td>
