@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ProfileSeeder::class,
             TypeSeeder::class,
+            PotagerSeeder::class,
+            PlantSeeder::class,
           ]);
     }
 }
