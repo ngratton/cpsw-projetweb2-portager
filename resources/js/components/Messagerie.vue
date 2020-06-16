@@ -2,19 +2,35 @@
   
     <div>  
       <div class="container" id="messagerie">
+        <div class="row" id="haut-messagerie">
+          <div class="col-3">
+            <h3>Recents</h3>
+          </div>
+          <div class="col-9">
+            <h3>{{ titreConvo }}</h3>
+          </div>
+        </div>
         <div class="row">
-          <div class="col-3" id="liste-conversations">
-            <h2>Conversations</h2>
-            <div id="conversations" v-for="convo in lesUsers" :key="convo.id">
+          <div class="col-3" id="liste-conversations">           
+            <div class="container" id="conversations" v-for="convo in lesUsers" :key="convo.id">
               <h4 v-on:click="toggle(convo)">{{ convo.name }}</h4> <br>
             </div>
             </div>
             <div class="col-9" id="conversation-active">
-            <h2>{{ titreConvo }}</h2>
             <div id="conversation">
               <div class="message" v-for="item in message" :key="item.id">
-                <h3 id="nom-utilisateur"> {{ item.nomUtilisateur }}</h3>
+                <div v-if="item.id == userId" id="un-message-from">
+                    <h3 id="nom-utilisateur"> </h3>
                  <p id="contenu">{{ item.contenu }}</p>
+                 <p id="contenu">{{ item.created_at }}</p>
+                </div>
+
+                <div v-if="item.id != userId" id="un-message-to">
+                     <h3 id="nom-utilisateur"> </h3>
+                      <p id="contenu">{{ item.contenu }}</p>
+                      <p id="contenu">{{ item.created_at }}</p>
+                </div>
+              
               </div>
             </div>
             <div id="redaction">
@@ -37,14 +53,16 @@
         data() {
             return {  
                message: '',
-               userId: 1,
+               userId: 1,         //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
                username: '',
                contenu: '',
                toUserId: '',
-               fromUserId: 1,
                user: '',
                lesUsers: '',
                titreConvo: '',
+               interlocuteurId: '',
+               messageDate: '',
+               
             };
         
         },
@@ -67,6 +85,9 @@
               this.username = this.user.name
               console.log(this.username)
             });
+
+            
+
         
           // Selectionne tous les utilisateurs
             Axios.get("/api/users").then(response => {
@@ -75,8 +96,9 @@
               console.log(this.lesUsers)
             });
 
+
           // Selectionne les messages 
-           this.listeMessages()
+           
         
           },
 
@@ -84,23 +106,40 @@
               this.titreConvo = convo.name
               this.toUserId = convo.id
               console.log('vous avez choisi ' + convo.name, convo.id)
+
+
+              this.listeMessages()
+
+
+              // Selectionne l'interlocuteur selon son id
+             Axios.get("/api/users/" + this.toUserId).then(response => {
+              this.interlocuteur = response.data
+              this.interlocuteurName = this.interlocuteur.name
+              console.log(this.interlocuteurName)
+            });
+              
             },
+
+
+
            envoiMessage() {
 
              Axios.post("/api/messages/store", {
                 contenu: this.contenu,
-                from_id: this.fromUserId,
+                from_id: this.userId,
                 to_id: this.toUserId,
                
               })
 
-              this.listeMessages()
+             
             },  
             
             listeMessages() {
-               Axios.get("/api/messages").then(response => {
-              this.message = response.data
-              console.log(this.message)
+               Axios.get("/api/messages/" + this.userId + "/" + this.toUserId).then(response => {              
+                   this.message = response.data
+                   this.messageDate = response.data.created_at
+                console.log(this.message)              
+                
             });
             },
         },
@@ -113,8 +152,18 @@
   border: solid yellowgreen 2px;
 }
 
+#haut-messagerie {
+  background-color: rgb(197, 201, 152);
+}
+
+#conversations {
+  width: 100%;
+  border: solid yellowgreen 0.5px;
+}
+
 #liste-conversations{
   background-color: rgb(216, 223, 206);
+  width: 100%;
 }
 
 #conversation-active{
@@ -125,7 +174,12 @@
   background-color: rgb(250, 250, 250);
 }
 
+#liste-conversations :hover {
+  background-color: rgb(158, 179, 134);
+}
+
 #text-container {
+  margin: 0px;
   width: 100%;
 }
 

@@ -22,13 +22,9 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($fromUserId, $toUserId)
+    public function create()
     {
-        $message = new Message();
-        $message->contenu = $request->contenu;
-        $message->from_id = $FromUserId;
-        $message->to_id = $toUserId;
-        $potager->save();
+        //
     }
 
     /**
@@ -49,9 +45,19 @@ class MessageController extends Controller
      * @param  \App\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function show($userId)
+    public function show($userId, $toUserId)
     {
-        return Message::where('fk_users_id', $userId)->get();
+        // return Message::where('from_id', $userId)->get();
+
+       DB::table('messages')
+        //    ->where('name', '=', 'John')
+        ->where('from_id', '=', $userId)
+        ->where('to_id', '=', $toUserId)
+        //    ->where(function ($query) {
+        //        $query->where('from_id', '=', $userId)
+        //              ->orWhere('to_id', '=', $toUserId);
+        //    })
+           ->get();
     }
 
     /**

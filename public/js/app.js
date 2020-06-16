@@ -2034,6 +2034,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Messagerie',
@@ -2041,13 +2057,15 @@ __webpack_require__.r(__webpack_exports__);
     return {
       message: '',
       userId: 1,
+      //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
       username: '',
       contenu: '',
       toUserId: '',
-      fromUserId: 1,
       user: '',
       lesUsers: '',
-      titreConvo: ''
+      titreConvo: '',
+      interlocuteurId: '',
+      messageDate: ''
     };
   },
   props: {},
@@ -2070,28 +2088,35 @@ __webpack_require__.r(__webpack_exports__);
         _this.lesUsers = response.data;
         console.log(_this.lesUsers);
       }); // Selectionne les messages 
-
-      this.listeMessages();
     },
     toggle: function toggle(convo) {
+      var _this2 = this;
+
       this.titreConvo = convo.name;
       this.toUserId = convo.id;
       console.log('vous avez choisi ' + convo.name, convo.id);
+      this.listeMessages(); // Selectionne l'interlocuteur selon son id
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.toUserId).then(function (response) {
+        _this2.interlocuteur = response.data;
+        _this2.interlocuteurName = _this2.interlocuteur.name;
+        console.log(_this2.interlocuteurName);
+      });
     },
     envoiMessage: function envoiMessage() {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/messages/store", {
         contenu: this.contenu,
-        from_id: this.fromUserId,
+        from_id: this.userId,
         to_id: this.toUserId
       });
-      this.listeMessages();
     },
     listeMessages: function listeMessages() {
-      var _this2 = this;
+      var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages").then(function (response) {
-        _this2.message = response.data;
-        console.log(_this2.message);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId + "/" + this.toUserId).then(function (response) {
+        _this3.message = response.data;
+        _this3.messageDate = response.data.created_at;
+        console.log(_this3.message);
       });
     }
   }
@@ -7257,7 +7282,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#liste-conversations{\r\n  background-color: rgb(216, 223, 206);\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#text-container {\r\n  width: 100%;\n}\r\n\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(216, 223, 206);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(158, 179, 134);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -39138,56 +39163,82 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "container", attrs: { id: "messagerie" } }, [
+      _c("div", { staticClass: "row", attrs: { id: "haut-messagerie" } }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-9" }, [
+          _c("h3", [_vm._v(_vm._s(_vm.titreConvo))])
+        ])
+      ]),
+      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c(
           "div",
           { staticClass: "col-3", attrs: { id: "liste-conversations" } },
-          [
-            _c("h2", [_vm._v("Conversations")]),
-            _vm._v(" "),
-            _vm._l(_vm.lesUsers, function(convo) {
-              return _c(
-                "div",
-                { key: convo.id, attrs: { id: "conversations" } },
-                [
-                  _c(
-                    "h4",
-                    {
-                      on: {
-                        click: function($event) {
-                          return _vm.toggle(convo)
-                        }
+          _vm._l(_vm.lesUsers, function(convo) {
+            return _c(
+              "div",
+              {
+                key: convo.id,
+                staticClass: "container",
+                attrs: { id: "conversations" }
+              },
+              [
+                _c(
+                  "h4",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.toggle(convo)
                       }
-                    },
-                    [_vm._v(_vm._s(convo.name))]
-                  ),
-                  _vm._v(" "),
-                  _c("br")
-                ]
-              )
-            })
-          ],
-          2
+                    }
+                  },
+                  [_vm._v(_vm._s(convo.name))]
+                ),
+                _vm._v(" "),
+                _c("br")
+              ]
+            )
+          }),
+          0
         ),
         _vm._v(" "),
         _c(
           "div",
           { staticClass: "col-9", attrs: { id: "conversation-active" } },
           [
-            _c("h2", [_vm._v(_vm._s(_vm.titreConvo))]),
-            _vm._v(" "),
             _c(
               "div",
               { attrs: { id: "conversation" } },
               _vm._l(_vm.message, function(item) {
                 return _c("div", { key: item.id, staticClass: "message" }, [
-                  _c("h3", { attrs: { id: "nom-utilisateur" } }, [
-                    _vm._v(" " + _vm._s(item.nomUtilisateur))
-                  ]),
+                  item.id == _vm.userId
+                    ? _c("div", { attrs: { id: "un-message-from" } }, [
+                        _c("h3", { attrs: { id: "nom-utilisateur" } }),
+                        _vm._v(" "),
+                        _c("p", { attrs: { id: "contenu" } }, [
+                          _vm._v(_vm._s(item.contenu))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { attrs: { id: "contenu" } }, [
+                          _vm._v(_vm._s(item.created_at))
+                        ])
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("p", { attrs: { id: "contenu" } }, [
-                    _vm._v(_vm._s(item.contenu))
-                  ])
+                  item.id != _vm.userId
+                    ? _c("div", { attrs: { id: "un-message-to" } }, [
+                        _c("h3", { attrs: { id: "nom-utilisateur" } }),
+                        _vm._v(" "),
+                        _c("p", { attrs: { id: "contenu" } }, [
+                          _vm._v(_vm._s(item.contenu))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { attrs: { id: "contenu" } }, [
+                          _vm._v(_vm._s(item.created_at))
+                        ])
+                      ])
+                    : _vm._e()
                 ])
               }),
               0
@@ -39249,7 +39300,14 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3" }, [_c("h3", [_vm._v("Recents")])])
+  }
+]
 render._withStripped = true
 
 
