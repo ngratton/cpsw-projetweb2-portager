@@ -45,23 +45,23 @@
         data() {
             return {
                 form: {
-                    email: '',
-                    password: '',
+                    email: 'user@portager.com',
+                    password: 'portager',
                 },
                 errors: [],
+                user: {},
             }
         }, //data
         mounted() {
-            // Renomme le document pour le titre de la page
-            // let titreOg = document.title
-            // document.title = 'Connexion | ' + titreOg
+            //
         }, //mounted
         methods: {
             connexion() {
                 User.connexion(this.form)
-                    .then(() => {
-                        localStorage.setItem('auth', 'true')
-                        this.$router.push({ name: 'Accueil' })
+                    .then(response => {
+                        let user = axios.get('api/user').then(user => {
+                            this.user = user.data
+                        })
                     })
                     .catch(error => {
                         if(error.response.status === 422) {
@@ -72,7 +72,6 @@
             deconnexion() {
                 User.deconnexion()
                     .then(() => {
-                        localStorage.remoteItem('auth')
                         this.$router.go()
                     })
             }

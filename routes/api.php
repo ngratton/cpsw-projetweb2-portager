@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('inscription', 'InscriptionController@inscription');
+Route::post('/inscription', 'InscriptionController@inscription');
 Route::post('/connexion', 'ConnexionController@connexion');
 Route::post('/deconnexion', 'ConnexionController@deconnexion');
 

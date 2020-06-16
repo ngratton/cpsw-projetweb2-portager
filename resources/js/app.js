@@ -9,6 +9,14 @@ const app = new Vue({
 
     },
     router,
+    data: {
+        active_user: {},
+    },
+    methods: {
+        getActiveUser(user) {
+            this.active_user = user
+        }
+    },
     watch: {
         $route: {
             immediate: true,

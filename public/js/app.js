@@ -2143,27 +2143,24 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        email: '',
-        password: ''
+        email: 'user@portager.com',
+        password: 'portager'
       },
-      errors: []
+      errors: [],
+      user: {}
     };
   },
   //data
-  mounted: function mounted() {// Renomme le document pour le titre de la page
-    // let titreOg = document.title
-    // document.title = 'Connexion | ' + titreOg
+  mounted: function mounted() {//
   },
   //mounted
   methods: {
     connexion: function connexion() {
       var _this = this;
 
-      _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].connexion(this.form).then(function () {
-        localStorage.setItem('auth', 'true');
-
-        _this.$router.push({
-          name: 'Accueil'
+      _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].connexion(this.form).then(function (response) {
+        var user = axios.get('api/user').then(function (user) {
+          _this.user = user.data;
         });
       })["catch"](function (error) {
         if (error.response.status === 422) {
@@ -2175,8 +2172,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].deconnexion().then(function () {
-        localStorage.remoteItem('auth');
-
         _this2.$router.go();
       });
     }
@@ -56444,26 +56439,6 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/api/Api.js":
-/*!*********************************!*\
-  !*** ./resources/js/api/Api.js ***!
-  \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
-var Api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: 'http://portager.localhost/api'
-});
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.withCredentials = true;
-/* harmony default export */ __webpack_exports__["default"] = (Api);
-
-/***/ }),
-
 /***/ "./resources/js/api/Csrf.js":
 /*!**********************************!*\
   !*** ./resources/js/api/Csrf.js ***!
@@ -56473,11 +56448,9 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.withCredentials = true;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "./resources/js/api/Api.js");
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   getCookie: function getCookie() {
-    return _Api__WEBPACK_IMPORTED_MODULE_0__["default"].get('/csrf-cookie');
+    return axios.get('sanctum/csrf-cookie');
   }
 });
 
@@ -56494,7 +56467,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Api */ "./resources/js/api/Api.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Csrf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Csrf */ "./resources/js/api/Csrf.js");
 
 
@@ -56515,7 +56489,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _Csrf__WEBPACK_IMPORTED_MODULE_2__["default"].getCookie();
 
             case 2:
-              return _context.abrupt("return", _Api__WEBPACK_IMPORTED_MODULE_1__["default"].post('/inscription', form));
+              return _context.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/register', form));
 
             case 3:
             case "end":
@@ -56535,7 +56509,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _Csrf__WEBPACK_IMPORTED_MODULE_2__["default"].getCookie();
 
             case 2:
-              return _context2.abrupt("return", _Api__WEBPACK_IMPORTED_MODULE_1__["default"].post('/connexion', form));
+              return _context2.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/login', form));
 
             case 3:
             case "end":
@@ -56555,7 +56529,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _Csrf__WEBPACK_IMPORTED_MODULE_2__["default"].getCookie();
 
             case 2:
-              return _context3.abrupt("return", _Api__WEBPACK_IMPORTED_MODULE_1__["default"].post('/deconnexion'));
+              return _context3.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/logout'));
 
             case 3:
             case "end":
@@ -56590,6 +56564,14 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   components: {},
   router: _router_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  data: {
+    active_user: {}
+  },
+  methods: {
+    getActiveUser: function getActiveUser(user) {
+      this.active_user = user;
+    }
+  },
   watch: {
     $route: {
       immediate: true,
