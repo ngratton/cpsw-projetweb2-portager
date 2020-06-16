@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let Api = axios.create({
-    baseURL: 'http://portager.localhost/api'
+    baseURL: '/api'
 })
 
 axios.defaults.withCredentials = true;

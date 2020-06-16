@@ -1,7 +1,5 @@
-import Api from './Api'
-
 export default {
     getCookie() {
-        return Api.get('/csrf-cookie')
+        return axios.get('sanctum/csrf-cookie')
     }
 }
