@@ -2138,6 +2138,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -40212,7 +40214,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
-      _c("p", [_vm._v("J'ai oublié mon mot de passe")])
+      _c("p", { staticClass: "mt-3" }, [_vm._v("J'ai oublié mon mot de passe")])
     ])
   }
 ]

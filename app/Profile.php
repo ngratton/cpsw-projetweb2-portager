@@ -18,6 +18,6 @@ class Profile extends Model
         'jardine_depuis',
         'tags_jardiniers',
         'user_id',
-        'profile_visites',
+        'profile_visits',
     ];
 }

@@ -27,7 +27,9 @@
                                 </span>
                             </div>
                             <button type="submit" @click.prevent="connexion" class="btn btn-primary">CONNEXION</button>
-                            <a href="#"><p>J'ai oublié mon mot de passe</p></a>
+                            <a href="#">
+                                <p class="mt-3">J'ai oublié mon mot de passe</p>
+                            </a>
                         </form>
                     </div>
                 </div>

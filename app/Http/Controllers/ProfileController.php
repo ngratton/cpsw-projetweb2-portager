@@ -18,16 +18,6 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -36,7 +26,6 @@ class ProfileController extends Controller
     public function store(Request $request, $userId)
     {
         $profile = new Profile();
-        // $profile->photo = $request->profil_photo_path;
         $profile->bio = $request->bio;
         $profile->jardine_depuis = $request->jardine_depuis;
         $profile->tags_jardiniers = $request->tags_jardiniers;
@@ -81,7 +70,14 @@ class ProfileController extends Controller
      */
     public function show($userId)
     {
-        return Profile::where('user_id', $userId)->first();
+        $profile = Profile::where('user_id', $userId)->first();
+
+        // Transforme les tags de String à Array
+        $tags = $profile->tags_jardiniers;
+        $tagsTmp = explode(',', $tags);
+        $profile->tags_jardiniers = $tagsTmp;
+
+        return $profile;
     }
 
     /**

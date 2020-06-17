@@ -1,5 +1,6 @@
 <?php
 
+use App\Profile;
 use Illuminate\Database\Seeder;
 
 class ProfileSeeder extends Seeder
@@ -11,12 +12,16 @@ class ProfileSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('profiles')->insert([
-            'photo' => './storage/profile_pardefault.svg',
-            'bio' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et dapibus ex, nec luctus nunc. Curabitur gravida purus justo, quis lacinia turpis efficitur eget. Morbi aliquam, lacus eu dignissim dignissim, neque nibh sollicitudin justo, ac convallis augue ligula ut felis. Maecenas accumsan lobortis aliquam. Nunc condimentum nec orci vel vehicula. Mauris consequat sed lectus non malesuada. Nunc efficitur ipsum suscipit, finibus lacus in, pharetra neque. Praesent nec nibh convallis libero sollicitudin convallis eu eu metus. Nunc et mi turpis. Proin iaculis sapien quis leo varius tincidunt. Sed volutpat lacus sed molestie pellentesque.',
-            'jardine_depuis' => '2004',
-            'tags_jardiniers' => 'Autosuffisant,Communautaire,Écologique',
-            'user_id' => 2,
-        ]);
+        $faker = Faker\Factory::create('fr_CA');
+
+        for($i = 2; $i <= 10; $i++) {
+            $profile = new Profile();
+            $profile->photo = './storage/profile_pardefault.svg';
+            $profile->bio = $faker->paragraph($nbSentences = 3, $variableNbSentences = true);
+            $profile->jardine_depuis = strval(rand($min=1980, $max=2020));
+            $profile->tags_jardiniers = 'Écologique,Communautaire';
+            $profile->user_id = $i;
+            $profile->save();
+        }
     }
 }

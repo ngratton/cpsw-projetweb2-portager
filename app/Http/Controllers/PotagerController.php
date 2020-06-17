@@ -57,7 +57,14 @@ class PotagerController extends Controller
      */
     public function show($userId)
     {
-        return Potager::where('user_id', $userId)->get();
+        $potager = Potager::where('user_id', $userId)->get();
+
+        // Transforme les tags de String à Array
+        $tags = $potager->tags_potagers;
+        $tagsTmp = explode(',', $tags);
+        $potager->tags_potagers = $tagsTmp;
+
+        return $potager;
     }
 
     /**
