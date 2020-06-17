@@ -2056,16 +2056,16 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       message: '',
-      userId: 1,
+      userId: '1',
       //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
       username: '',
       contenu: '',
       toUserId: '',
       user: '',
       lesUsers: '',
-      titreConvo: '',
+      toUserName: '',
       interlocuteurId: '',
-      messageDate: ''
+      isActive: true
     };
   },
   props: {},
@@ -2090,18 +2090,11 @@ __webpack_require__.r(__webpack_exports__);
       }); // Selectionne les messages 
     },
     toggle: function toggle(convo) {
-      var _this2 = this;
-
-      this.titreConvo = convo.name;
+      this.isActive = false;
+      this.toUserName = convo.first_name + ' ' + convo.last_name;
       this.toUserId = convo.id;
-      console.log('vous avez choisi ' + convo.name, convo.id);
-      this.listeMessages(); // Selectionne l'interlocuteur selon son id
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.toUserId).then(function (response) {
-        _this2.interlocuteur = response.data;
-        _this2.interlocuteurName = _this2.interlocuteur.name;
-        console.log(_this2.interlocuteurName);
-      });
+      console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id);
+      this.listeMessages();
     },
     envoiMessage: function envoiMessage() {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/messages/store", {
@@ -2109,15 +2102,21 @@ __webpack_require__.r(__webpack_exports__);
         from_id: this.userId,
         to_id: this.toUserId
       });
+      this.listeMessages();
     },
     listeMessages: function listeMessages() {
-      var _this3 = this;
+      var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId + "/" + this.toUserId).then(function (response) {
-        _this3.message = response.data;
-        _this3.messageDate = response.data.created_at;
-        console.log(_this3.message);
+        _this2.message = response.data;
+        _this2.messageDate = response.data.created_at;
+        console.log(_this2.message);
       });
+    },
+    // Transorme le format de l'heure d'envoi d'un message
+    transformerDate: function transformerDate(temps) {
+      // temps.slice(11,11)
+      return temps.substring(0, 16);
     }
   }
 });
@@ -7282,7 +7281,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(216, 223, 206);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(158, 179, 134);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\r\n\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-top: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(216, 223, 206);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(158, 179, 134);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -39167,7 +39166,7 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "col-9" }, [
-          _c("h3", [_vm._v(_vm._s(_vm.titreConvo))])
+          _c("h3", [_vm._v(_vm._s(_vm.toUserName))])
         ])
       ]),
       _vm._v(" "),
@@ -39181,20 +39180,15 @@ var render = function() {
               {
                 key: convo.id,
                 staticClass: "container",
-                attrs: { id: "conversations" }
+                attrs: { id: "conversations" },
+                on: {
+                  click: function($event) {
+                    return _vm.toggle(convo)
+                  }
+                }
               },
               [
-                _c(
-                  "h4",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.toggle(convo)
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(convo.name))]
-                ),
+                _c("h4", [_vm._v(_vm._s(convo.first_name))]),
                 _vm._v(" "),
                 _c("br")
               ]
@@ -39207,93 +39201,123 @@ var render = function() {
           "div",
           { staticClass: "col-9", attrs: { id: "conversation-active" } },
           [
+            _c("div", { staticClass: "row justify-content-between" }, [
+              _c(
+                "div",
+                { attrs: { id: "conversation" } },
+                _vm._l(_vm.message, function(item) {
+                  return _c("div", { key: item.id, staticClass: "message" }, [
+                    item.from_id == _vm.userId
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "col-16",
+                            attrs: { id: "un-message-from" }
+                          },
+                          [
+                            _c("h3", { staticClass: "nom-utilisateur" }, [
+                              _vm._v(" " + _vm._s(_vm.username))
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "contenu" }, [
+                              _vm._v(_vm._s(item.contenu))
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "temps" }, [
+                              _vm._v(
+                                _vm._s(_vm.transformerDate(item.created_at))
+                              )
+                            ])
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    item.from_id != _vm.userId
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "col-16",
+                            attrs: { id: "un-message-to" }
+                          },
+                          [
+                            _c("h3", { staticClass: "nom-utilisateur" }, [
+                              _vm._v(_vm._s(_vm.toUserName))
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "contenu" }, [
+                              _vm._v(_vm._s(item.contenu))
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "temps" }, [
+                              _vm._v(_vm._s(item.created_at))
+                            ])
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("br")
+                  ])
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
             _c(
               "div",
-              { attrs: { id: "conversation" } },
-              _vm._l(_vm.message, function(item) {
-                return _c("div", { key: item.id, staticClass: "message" }, [
-                  item.id == _vm.userId
-                    ? _c("div", { attrs: { id: "un-message-from" } }, [
-                        _c("h3", { attrs: { id: "nom-utilisateur" } }),
-                        _vm._v(" "),
-                        _c("p", { attrs: { id: "contenu" } }, [
-                          _vm._v(_vm._s(item.contenu))
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { attrs: { id: "contenu" } }, [
-                          _vm._v(_vm._s(item.created_at))
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  item.id != _vm.userId
-                    ? _c("div", { attrs: { id: "un-message-to" } }, [
-                        _c("h3", { attrs: { id: "nom-utilisateur" } }),
-                        _vm._v(" "),
-                        _c("p", { attrs: { id: "contenu" } }, [
-                          _vm._v(_vm._s(item.contenu))
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { attrs: { id: "contenu" } }, [
-                          _vm._v(_vm._s(item.created_at))
-                        ])
-                      ])
-                    : _vm._e()
-                ])
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c("div", { attrs: { id: "redaction" } }, [
-              _c(
-                "form",
-                {
-                  attrs: { action: "./api/messages/create", method: "POST" },
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.envoiMessage()
-                    }
-                  }
-                },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.contenu,
-                        expression: "contenu"
-                      }
-                    ],
-                    attrs: {
-                      id: "text-container",
-                      type: "text",
-                      name: "message",
-                      placeholder: "Rédigez un message.."
-                    },
-                    domProps: { value: _vm.contenu },
+              { class: { active: _vm.isActive }, attrs: { id: "redaction" } },
+              [
+                _c(
+                  "form",
+                  {
+                    attrs: { action: "./api/messages/create", method: "POST" },
                     on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.contenu = $event.target.value
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.envoiMessage()
                       }
                     }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success",
-                      attrs: { type: "submit", value: "Envoyer un message" }
-                    },
-                    [_vm._v("Envoyer")]
-                  )
-                ]
-              )
-            ])
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.contenu,
+                          expression: "contenu"
+                        }
+                      ],
+                      attrs: {
+                        id: "text-container",
+                        type: "text",
+                        name: "message",
+                        placeholder: "Rédigez un message.."
+                      },
+                      domProps: { value: _vm.contenu },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.contenu = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit", value: "Envoyer un message" }
+                      },
+                      [_vm._v("Envoyer")]
+                    )
+                  ]
+                )
+              ]
+            )
           ]
         )
       ])

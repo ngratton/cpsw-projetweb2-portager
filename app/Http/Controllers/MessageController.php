@@ -47,17 +47,11 @@ class MessageController extends Controller
      */
     public function show($userId, $toUserId)
     {
-        // return Message::where('from_id', $userId)->get();
-
-       DB::table('messages')
-        //    ->where('name', '=', 'John')
-        ->where('from_id', '=', $userId)
+        
+        return Message::
+        where('from_id', '=', $userId)
         ->where('to_id', '=', $toUserId)
-        //    ->where(function ($query) {
-        //        $query->where('from_id', '=', $userId)
-        //              ->orWhere('to_id', '=', $toUserId);
-        //    })
-           ->get();
+        ->get();
     }
 
     /**

@@ -7,33 +7,33 @@
             <h3>Recents</h3>
           </div>
           <div class="col-9">
-            <h3>{{ titreConvo }}</h3>
+            <h3>{{ toUserName }}</h3>
           </div>
         </div>
         <div class="row">
           <div class="col-3" id="liste-conversations">           
-            <div class="container" id="conversations" v-for="convo in lesUsers" :key="convo.id">
-              <h4 v-on:click="toggle(convo)">{{ convo.name }}</h4> <br>
+            <div v-on:click="toggle(convo)" class="container" id="conversations" v-for="convo in lesUsers" :key="convo.id">
+              <h4>{{ convo.first_name }}</h4> <br>
             </div>
             </div>
             <div class="col-9" id="conversation-active">
-            <div id="conversation">
-              <div class="message" v-for="item in message" :key="item.id">
-                <div v-if="item.id == userId" id="un-message-from">
-                    <h3 id="nom-utilisateur"> </h3>
-                 <p id="contenu">{{ item.contenu }}</p>
-                 <p id="contenu">{{ item.created_at }}</p>
+              <div class="row justify-content-between">
+              <div id="conversation">
+                <div class="message" v-for="item in message" :key="item.id">
+                  <div class="col-16" v-if="item.from_id == userId" id="un-message-from">
+                      <h3 class="nom-utilisateur"> {{ username }}</h3>
+                  <p class="contenu">{{ item.contenu }}</p>
+                  <p class="temps">{{ transformerDate(item.created_at) }}</p>
+                  </div> <br>
+                  <div class="col-16" v-if="item.from_id != userId" id="un-message-to">
+                      <h3 class="nom-utilisateur">{{ toUserName }}</h3>
+                        <p class="contenu">{{ item.contenu }}</p>
+                        <p class="temps">{{ item.created_at }}</p>
+                  </div> <br>           
                 </div>
-
-                <div v-if="item.id != userId" id="un-message-to">
-                     <h3 id="nom-utilisateur"> </h3>
-                      <p id="contenu">{{ item.contenu }}</p>
-                      <p id="contenu">{{ item.created_at }}</p>
-                </div>
-              
               </div>
             </div>
-            <div id="redaction">
+            <div id="redaction" v-bind:class="{ active: isActive }">
             <form action="./api/messages/create" method="POST" @submit.prevent="envoiMessage()">
               <input id="text-container" type="text" name="message" v-model="contenu" placeholder="Rédigez un message..">
               <button type="submit" value="Envoyer un message" class="btn btn-success">Envoyer</button> 
@@ -53,15 +53,15 @@
         data() {
             return {  
                message: '',
-               userId: 1,         //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
+               userId: '1',         //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
                username: '',
                contenu: '',
                toUserId: '',
                user: '',
                lesUsers: '',
-               titreConvo: '',
+               toUserName: '',
                interlocuteurId: '',
-               messageDate: '',
+               isActive: true,
                
             };
         
@@ -103,20 +103,14 @@
           },
 
            toggle(convo) {
-              this.titreConvo = convo.name
+             this.isActive = false
+              this.toUserName = convo.first_name + ' ' + convo.last_name
               this.toUserId = convo.id
-              console.log('vous avez choisi ' + convo.name, convo.id)
+              console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id)
 
 
               this.listeMessages()
 
-
-              // Selectionne l'interlocuteur selon son id
-             Axios.get("/api/users/" + this.toUserId).then(response => {
-              this.interlocuteur = response.data
-              this.interlocuteurName = this.interlocuteur.name
-              console.log(this.interlocuteurName)
-            });
               
             },
 
@@ -130,8 +124,7 @@
                 to_id: this.toUserId,
                
               })
-
-             
+              this.listeMessages()
             },  
             
             listeMessages() {
@@ -142,6 +135,11 @@
                 
             });
             },
+              // Transorme le format de l'heure d'envoi d'un message
+            transformerDate(temps) {
+              // temps.slice(11,11)
+              return temps.substring(0,16)
+            }
         },
     }
 </script>
@@ -158,7 +156,7 @@
 
 #conversations {
   width: 100%;
-  border: solid yellowgreen 0.5px;
+  border-top: solid yellowgreen 0.5px;
 }
 
 #liste-conversations{
@@ -181,6 +179,30 @@
 #text-container {
   margin: 0px;
   width: 100%;
+}
+
+#un-message-from{
+  color: rgb(10, 6, 6);
+  border-radius: 10px;
+  background-color: rgb(194, 235, 129);
+  padding: 10px;
+  margin: 5px;
+}
+
+#un-message-to {
+  color: rgb(10, 6, 6);
+  border-radius: 10px;
+  background-color: rgb(127, 189, 194);
+  padding: 10px;
+  margin: 5px;
+}
+
+.btn-success {
+  margin: 5px;
+}
+
+.active {
+  display: none;
 }
 
 
