@@ -15,14 +15,19 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('profil_photo_path')->nullable();
+            $table->string('photo')->nullable()->default('./storage/profile_pardefault.svg');
+            $table->string('photo_mini')->nullable()->default('./storage/profile_pardefault.svg');
             $table->text('bio')->nullable();
             $table->integer('jardine_depuis');
             $table->set('tags_jardiniers', ['Amateur', 'Autosuffisant', 'Biologique', 'Ecologique', 'Communautaire', 'Conventionnel']);
-            $table->integer('fk_users_id')->unique();
+            $table->unsignedBigInteger('user_id')->unique();
             $table->tinyInteger('est_actif')->default(1);
             $table->integer('profile_visits')->nullable()->default(0);
             $table->timestamps();
+        });
+
+        Schema::table('profiles', function(Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

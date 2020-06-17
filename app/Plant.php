@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Plant extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,12 +12,13 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'photo',
-        'photo_mini',
-        'bio',
-        'jardine_depuis',
-        'tags_jardiniers',
+        'type_id',
+        'description',
+        'photo_path',
+        'est_partage',
+        'est_actif',
+        'plants_visits',
+        'potager_id',
         'user_id',
-        'profile_visits',
     ];
 }

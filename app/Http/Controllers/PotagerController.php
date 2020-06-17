@@ -14,7 +14,18 @@ class PotagerController extends Controller
      */
     public function index()
     {
-        return Potager::all();
+        $potagers = Potager::all();
+
+        foreach($potagers as $potager) {
+            if($potager->tags_potagers) {
+                // Transforme les tags de String à Array
+                $tags = $potager->tags_potagers;
+                $tagsTmp = explode(',', $tags);
+                $potager->tags_potagers = $tagsTmp;
+            }
+        }
+
+        return $potagers;
     }
 
     /**
@@ -44,7 +55,7 @@ class PotagerController extends Controller
         $potager->postal_code = $request->postal_code;
         $potager->photos_path = $request->photos_path;
         $potager->tags_potagers = $request->tags_potagers;
-        $potager->fk_users_id = $userId;
+        $potager->user_id = $userId;
         $potager->est_actif = 1;
         $potager->save();
     }
@@ -57,7 +68,18 @@ class PotagerController extends Controller
      */
     public function show($userId)
     {
-        return Potager::where('fk_users_id', $userId)->get();
+        $potagers = Potager::where('user_id', $userId)->get();
+
+        foreach($potagers as $potager) {
+            if($potager->tags_potagers) {
+                // Transforme les tags de String à Array
+                $tags = $potager->tags_potagers;
+                $tagsTmp = explode(',', $tags);
+                $potager->tags_potagers = $tagsTmp;
+            }
+        }
+
+        return $potagers;
     }
 
     /**
@@ -80,7 +102,7 @@ class PotagerController extends Controller
      */
     public function update(Request $request, $userId)
     {
-        $potager = Potager::where('fk_users_id', $userId)->get();
+        $potager = Potager::where('user_id', $userId)->get();
         $potager->address_1 = $request->address_1;
         $potager->address_2 = $request->address_2;
         $potager->city = $request->city;
@@ -88,7 +110,7 @@ class PotagerController extends Controller
         $potager->postal_code = $request->postal_code;
         $potager->photos_path = $request->photos_path;
         $potager->tags_potagers = $request->tags_potagers;
-        $potager->fk_users_id = $userId;
+        $potager->user_id = $userId;
         $potager->est_actif = 1;
         $potager->save();
     }
@@ -101,7 +123,7 @@ class PotagerController extends Controller
      */
     public function destroy(Potager $potager, $userId)
     {
-        $potager = Potager::where('fk_users_id', $userId)->first();
+        $potager = Potager::where('user_id', $userId)->first();
         $potager->destroy();
     }
 
@@ -114,7 +136,7 @@ class PotagerController extends Controller
      */
     public function addvisit(Potager $potager, $userId)
     {
-        $potager = Potager::where('fk_users_id', $userId)->first();
+        $potager = Potager::where('user_id', $userId)->first();
         $potager->potager_visits++;
         $potager->save();
     }

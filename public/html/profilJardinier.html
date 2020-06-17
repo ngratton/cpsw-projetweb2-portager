@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/inscriptionStyles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Portager</title>
+</head>
+<body>
+    <div class="container-fluid" id="colHeaderProfil">
+            <div class="col-2">
+                <img id="logo" src="../images/portager_noir.svg">
+            </div>
+            <div class="col-6 offset-3">
+                <img id="barreProgression" src="../images/BarreProfil.PNG">
+            </div>
+    </div>
+    <div class="container-fluid" id="profil">
+        <div class="container-fluid" id="profilTitre">
+            <div class="row align-items-center" id="profilJardinierTitre">
+                <div class="col-5">
+                    <h3>Complétez votre profil de jardinier, {{ prenom }}</h3>
+                </div>
+                <div class="col-2 offset-1" id="plusTard">
+                    <a href="#"><p>Compléter plus tard</p></a>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary">Passez à l'étape suivante</button><br>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="creationProfil">
+            <div class="col-4">
+                <form>
+                    <div class="form-group">
+                        <h4>Ajoutez une photo de profil</h4><br>
+                        <img src="../images/profil_pardefault_100px.png">
+                        <button type="button" input type="file" id="photo" class="btn btn-primary">Téléverser une photo</button>
+                    </div>
+                    <div class="form-group">
+                        <h4>Depuis quelle année jardinez-vous?</h4>
+                        <input type="text" class="form-control" id="annee" aria-describedby="emailHelp">
+                    </div>
+                </form>
+            </div>
+            <div class="col-3">
+                <h4>Parlez-nous de vous (cette description s'affichera sur votre profil public)</h4>
+                <textarea class="form-control" id="texteProfil" rows="5" cols="50"></textarea>
+            </div>
+            <div class="col-3 offset-1" id="etiquetteJardin">
+                <h4>Quel type de jardinier êtes-vous ?</h4>
+                <p style="font-size:12px;">Cochez tous ceux qui s'appliquent.</p>
+                <table width="100%" id="etiquetteProfilJardinier">
+                    <tr>
+                    <td>
+                    <ul>
+                        <li>Amateur</li>
+                        <li>Biologique</li>
+                        <li>Conventionnel</li>
+                    </ul>
+                    </td>
+                        <td><ul>
+                        <li>Autosuffisant</li>
+                        <li>Communautaire</li>
+                        <li>Écologique</li>
+                    </ul>
+                    </td>
+                    </tr>
+                </table>
+            </div>
+         </div>
+    </div>
+</body>
+</html>

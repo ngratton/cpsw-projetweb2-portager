@@ -8,12 +8,16 @@
 
 ### Setup de l'environnement de dev
 
-1. Cloner le repo avec VS Code
-2. Taper `composer install` dans le Terminal de VS Code
-3. Copier *.env.exemple* et renommer ***.env***
-4. Taper `php artisan key:generate` dans le Terminal
-5. Taper `npm install && npm run dev` dans le Terminal
-6. Soit configurer Wamp avec un VirtualHost pointant au dossier "/public" ou taper `php artisan serve` dans le Terminal.
+1. Créer un VirtualHost dans WAMP; le nommer `portager.loc` (!important) et le pointer sur le dossier `/public`
+2. Cloner le repo avec VS Code
+3. Taper `composer install` dans le Terminal de VS Code
+4. Copier *`.env.exemple`* et renommer ***`.env`***
+5. Ajouter ou ajouter les lignes suivantes :
+    - `SESSION_DOMAIN=portager.loc`
+	- `SESSION_DRIVER=cookie`
+    - `SANCTUM_STATEFUL_DOMAINS=portager.loc`
+6. Taper `php artisan key:generate` dans le Terminal
+7. Taper `npm install && npm run dev` dans le Terminal
 
 ### Créer une base de données
 
@@ -28,8 +32,14 @@
 ### À chaque fois, avant de développer
 
 1. Faire un pull de GitHub -- reprendre la branche sur laquelle vous travailliez *ou* bien en créer une nouvelle. **NE PAS TRAVAILLER SUR LE *MASTER***.
-2. Pour s'assurer d'avoir les dernières informations dans votre base de données locale, refaire les migrations et les seeders.
-    - `php artisan migrate:refresh -seed`
+2. Pour s'assurer d'avoir les dernières informations dans votre base de données locale, refaire les migrations et les seeders. 
+    - `php artisan migrate:refresh --seed`
+> Un lot de plants, potagers et utilisateurs sont configuré dans le seeder pour qu'on ait en permanance de le donnée avec laquelle travailler.
+
+    > Possible que vous ayez une erreur à ce stade-ci.
+    > - Exécuter la commande `composer dump-autoload`
+    > - Puis, réexécutez `php artisan migrate:refresh -seed`.
+
 3. Commencer le développement
     - `npm run watch`
 
@@ -37,3 +47,4 @@
 
 1. Faire un `commit` des changements (Stage changes)
 2. Faire un `push` pour les fichiers sur GitHub
+3. Lorsque le feature est terminé, faire un `merge` de la branche avec le `master`.

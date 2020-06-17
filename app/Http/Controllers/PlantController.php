@@ -2,19 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Profile;
+use App\Plant;
 use Illuminate\Http\Request;
+use Image;
+use Carbon\Carbon;
 
-class ProfileController extends Controller
+class PlantController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Display a listing of the resource.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function index()
     {
-        // $this->middleware('auth');
+        return Plant::all();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -23,14 +35,14 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $userId)
+    public function store(Request $request)
     {
-        $profile = new Profile();
-        $profile->bio = $request->bio;
-        $profile->jardine_depuis = $request->jardine_depuis;
-        $profile->tags_jardiniers = $request->tags_jardiniers;
-        $profile->user_id = $userId;
-        $profile->est_actif = 1;
+        $plant = new Plant();
+        $plant->type_id = $request->type;
+        $plant->description = $request->desc;
+        $plant->est_actif = $request->actif;
+        $plant->est_partage = $request->partage;
+        $plant->potager_id = $request->potagerid;
 
         // Nom de la photo
         $imageData = $request->get('photo');
@@ -39,62 +51,67 @@ class ProfileController extends Controller
          * Store l'image originale
          */
         $imageOriginale = Image::make($imageData);
-        $imgOgPath = 'storage/images/profile/';
         // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
         $fileNameOriginale = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
-        $imageOriginale->save(public_path($imgOgPath).$fileNameOriginale);
+        $imageOriginale->save(public_path('storage/images/plants/').$fileNameOriginale);
         // Ajout à la base de données
-        $profile->photo = './'.$imgOgPath . $fileNameOriginale;
+        $plant->photo = './storage/images/plants/'.$fileNameOriginale;
 
         /**
          * Store une image miniature
          */
         // Obtienr l'image et la redimentionne l'image en 210 x 210 px (card)
         $imageMiniature = Image::make($imageData)->fit(210, 210, null, 'center');
-        $imgMiniPath = 'storage/images/profil/miniatures/';
         // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
         $fileNameMiniature = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
-        $imageMiniature->save(public_path($imgMiniPath).$fileNameMiniature);
+        $imageMiniature->save(public_path('storage/images/plants/miniatures/').$fileNameMiniature);
         // Ajout à la base de données
-        $profile->photo_mini = './'.$imgMiniPath . $fileNameMiniature;
+        $plant->photo_mini = './storage/images/plants/miniatures/'.$fileNameMiniature;
 
+        // Sauvegarder la nouvelle plante
+        $plant->save();
 
-        $profile->save();
+        return 'Succes';
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Profile  $profile
+     * @param  \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function show($userId)
+    public function show(Plant $plant, $plantId)
     {
-        $profile = Profile::where('user_id', $userId)->first();
+        return Plant::find($plantId);
+    }
 
-        // Transforme les tags de String à Array
-        $tags = $profile->tags_jardiniers;
-        $tagsTmp = explode(',', $tags);
-        $profile->tags_jardiniers = $tagsTmp;
-
-        return $profile;
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Plant  $plant
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Plant $plant)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Profile  $profile
+     * @param  \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $userId)
+    public function update(Request $request, Plant $plant, $plantId)
     {
-        $profile = Profile::where('user_id', $userId)->first();
-        $profile->bio = $request->bio;
-        $profile->jardine_depuis = $request->jardine_depuis;
-        $profile->tags_jardiniers = $request->tags_jardiniers;
+        $plant = new Plant();
+        $plant->type_id = $request->type;
+        $plant->description = $request->desc;
+        $plant->est_actif = $request->actif;
+        $plant->est_partage = $request->partage;
+        $plant->potager_id = $request->potagerid;
 
-        // Si une nouvelle photo est uploadé, la traitée
         if($request->get('photo')) {
             // Nom de la photo
             $imageData = $request->get('photo');
@@ -105,9 +122,9 @@ class ProfileController extends Controller
             $imageOriginale = Image::make($imageData);
             // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
             $fileNameOriginale = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
-            $imageOriginale->save(public_path('storage/images/profile/').$fileNameOriginale);
+            $imageOriginale->save(public_path('storage/images/plants/').$fileNameOriginale);
             // Ajout à la base de données
-            $profile->photo = './storage/images/plants/'.$fileNameOriginale;
+            $plant->photo = './storage/images/plants/'.$fileNameOriginale;
 
             /**
              * Store une image miniature
@@ -116,37 +133,23 @@ class ProfileController extends Controller
             $imageMiniature = Image::make($imageData)->fit(210, 210, null, 'center');
             // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
             $fileNameMiniature = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
-            $imageMiniature->save(public_path('storage/images/profile/miniatures/').$fileNameMiniature);
+            $imageMiniature->save(public_path('storage/images/plants/miniatures/').$fileNameMiniature);
             // Ajout à la base de données
-            $profile->photo_mini = './storage/images/profile/miniatures/'.$fileNameMiniature;
+            $plant->photo_mini = './storage/images/plants/miniatures/'.$fileNameMiniature;
         }
 
-        $profile->save();
+        // Sauvegarder la nouvelle plante
+        $plant->save();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Profile  $profile
+     * @param  \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Profile $profile, $userId)
+    public function destroy(Plant $plant)
     {
-        $potager = Potager::where('user_id', $userId)->first();
-        $potager->destroy();
-    }
-
-    /**
-     * Ajoute une visite simple au potager - peut être spammé !
-     *
-     * @param  \App\Profile  $profile
-     * @param  $userId passé dans la route depuis Vue
-     * @return \Illuminate\Http\Response
-     */
-    public function addvisit(Profile $profile, $userId)
-    {
-        $profile = Profile::where('user_id', $userId)->first();
-        $profile->profile_visits++;
-        $profile->save();
+        //
     }
 }

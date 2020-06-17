@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/inscriptionStyles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Portager</title>
+</head>
+<body>
+    <div class="container-fluid" id="colHeaderProfil">
+            <div class="col-2">
+                <img id="logo" src="../images/portager_noir.svg">
+            </div>
+            <div class="col-6 offset-3">
+                <img id="barreProgression" src="../images/BarreProfilPotager.PNG">
+            </div>
+    </div>
+    <div class="container-fluid" id="profilPotager">
+        <div class="container-fluid" id="profilTitre">
+            <div class="row align-items-center" id="profilPotagerTitre">
+                <div class="col-3">
+                    <h3>Créer votre potager</h3>
+                </div>
+                <div class="col-2 offset-3" id="plusTard">
+                    <a href="#"><p>Compléter plus tard</p></a>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-primary">Passez à l'étape suivante</button><br>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="creationPotager">
+            <div class="col-4">
+                <form>
+                    <div class="form-row">
+                        <div class="col">
+                            <h6>Indiquez-nous où se trouve votre potager</h6><br>
+                            <label for="adresse">Adresse</label>
+                            <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp"><br>
+                            <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="ville">Ville</label>
+                            <input type="text" class="form-control" id="ville" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="form-row" id="pays">
+                        <div class="col-md-5">
+                            <label for="province">Province</label>
+                            <input type="text" class="form-control" id="province" aria-describedby="emailHelp">
+                        </div>
+                        <div class="col-md-5">
+                            <label for="pays">Pays</label>
+                            <input type="text" class="form-control" id="pays" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="form-row" id="trouver">
+                        <div class="col-md-5">
+                            <label for="codePostal">Code postal</label>
+                            <input type="text" class="form-control" id="codePostal" aria-describedby="emailHelp" style="width: 160px;">
+                        </div>
+                        <div class="col-md-5">
+                            <button type="button" input type="file" id="photo" class="btn btn-primary">Trouver</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-3" id="profilPotagerImages">
+                <h6>Ajouter des photos de votre potager</h6>
+                <p style="font-size:12px;">Téléverser jusqu'à {{ X }} photos; au moins une est requise.</p>
+                <img src="../images/potager_pardefault_100px.png">
+                <img src="../images/potager_pardefault_100px.png">
+                <img src="../images/potager_pardefault_100px.png">
+                <img src="../images/potager_pardefault_100px.png">
+                <img src="../images/potager_pardefault_100px.png">
+                <img src="../images/potager_pardefault_100px.png">
+                <button type="button" input type="file" id="photo" class="btn btn-primary">Téléverser une photo</button>
+            </div>
+            <div class="col-3 offset-1" id="etiquettesPotager">
+                <h6>Quel type de potager est-ce ?</h6>
+                <p>Cochez tous ceux qui s'appliquent.</p>
+                <table width="100%" id="etiquetteProfilJardinier">
+                    <tr>
+                    <td>
+                    <ul>
+                        <li>Biologique</li>
+                        <li>Intérieur</li>
+                        <li>En pot</li>
+                        <li>Communautaire</li>
+                        <li>En terre</li>
+                    </ul>
+                    </td>
+                        <td><ul>
+                        <li>Conventionel</li>
+                        <li>En serre</li>
+                        <li>En bacs</li>
+                        <li>Urbain</li>
+                        <li>Monoculture</li>
+                    </ul>
+                    </td>
+                    </tr>
+                </table>
+            </div>
+         </div>
+    </div>
+</body>
+</html>

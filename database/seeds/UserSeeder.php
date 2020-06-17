@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\User;
 
 class UserSeeder extends Seeder
 {
@@ -31,5 +32,18 @@ class UserSeeder extends Seeder
             'user_role' => 'Utilisateur',
             'api_token' => 'ho8ubW89aIWH7JOjEVB8XrtD3FWVtnhQQGNsrP3Egp2sxsktHSUIGyB8EHp9sOFiwvXHeALFLbOcsU73',
         ]);
+
+        $faker = Faker\Factory::create('fr_CA');
+
+        for($i = 3; $i <= 10; $i++) {
+            $user = new User();
+            $user->first_name = $faker->firstName;
+            $user->last_name = $faker->lastName;
+            $user->email = $faker->unique()->safeEmail;
+            $user->password = bcrypt('portager');
+            $user->user_role = 'Utilisateur';
+            $user->api_token = Str::random(80);
+            $user->save();
+        }
     }
 }
