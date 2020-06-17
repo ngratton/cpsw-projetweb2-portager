@@ -105,16 +105,12 @@
             
 
         
-          // Selectionne tous les utilisateurs
+          // Selectionne tous les utilisateurs(temporaire)
             Axios.get("/api/users").then(response => {
               this.lesUsers = response.data
              
               console.log(this.lesUsers)
-            });
-
-
-          // Selectionne les messages 
-           
+            });          
         
           },
 
@@ -130,8 +126,6 @@
               
             },
 
-
-
            envoiMessage() {
 
              Axios.post("/api/messages/store", {
@@ -143,6 +137,7 @@
               this.listeMessages()
             },  
             
+            // Selectionne les messages selon les id des utilisateurs dans la conversation
             listeMessages() {
                Axios.get("/api/messages/" + this.userId + "/" + this.toUserId).then(response => {              
                    this.message = response.data

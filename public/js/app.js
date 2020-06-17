@@ -2098,12 +2098,12 @@ __webpack_require__.r(__webpack_exports__);
         _this.user = response.data;
         _this.username = _this.user.name;
         console.log(_this.username);
-      }); // Selectionne tous les utilisateurs
+      }); // Selectionne tous les utilisateurs(temporaire)
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users").then(function (response) {
         _this.lesUsers = response.data;
         console.log(_this.lesUsers);
-      }); // Selectionne les messages 
+      });
     },
     toggle: function toggle(convo) {
       this.isActive = false;
@@ -2120,6 +2120,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.listeMessages();
     },
+    // Selectionne les messages selon les id des utilisateurs dans la conversation
     listeMessages: function listeMessages() {
       var _this2 = this;
 
