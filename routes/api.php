@@ -62,6 +62,7 @@ Route::group(['prefix' => '/users', 'where' => ['user' => '[0-9]+']], function()
     Route::get('/', 'UserController@index'); 
     Route::get('/{user}', 'UserController@show'); 
 });
+/**
  * Plants
  */
 Route::get('/plants', 'PlantController@index');                         // Affichage de tous les plants
