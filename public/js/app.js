@@ -2050,6 +2050,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Messagerie',
@@ -2064,7 +2081,6 @@ __webpack_require__.r(__webpack_exports__);
       user: '',
       lesUsers: '',
       toUserName: '',
-      interlocuteurId: '',
       isActive: true
     };
   },
@@ -2115,8 +2131,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Transorme le format de l'heure d'envoi d'un message
     transformerDate: function transformerDate(temps) {
-      // temps.slice(11,11)
-      return temps.substring(0, 16);
+      return temps.substring(0, 10);
+    },
+    transformerHeure: function transformerHeure(temps) {
+      return temps.substring(11, 16);
     }
   }
 });
@@ -7281,7 +7299,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-top: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(216, 223, 206);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(158, 179, 134);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -39211,19 +39229,36 @@ var render = function() {
                       ? _c(
                           "div",
                           {
-                            staticClass: "col-16",
+                            staticClass: "col-md-auto",
                             attrs: { id: "un-message-from" }
                           },
                           [
-                            _c("h3", { staticClass: "nom-utilisateur" }, [
-                              _vm._v(" " + _vm._s(_vm.username))
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-2" }, [
+                                _c("p", { staticClass: "nom-utilisateur" }, [
+                                  _vm._v(_vm._s(_vm.username))
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-2" }, [
+                                _c("p", { staticClass: "date" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.transformerHeure(item.created_at)
+                                    )
+                                  )
+                                ])
+                              ])
                             ]),
                             _vm._v(" "),
-                            _c("p", { staticClass: "contenu" }, [
-                              _vm._v(_vm._s(item.contenu))
+                            _c("div", { staticClass: "col-md-auto" }, [
+                              _c("p", { staticClass: "contenu" }, [
+                                _vm._v(_vm._s(item.contenu))
+                              ]),
+                              _c("br")
                             ]),
                             _vm._v(" "),
-                            _c("p", { staticClass: "temps" }, [
+                            _c("p", { staticClass: "date" }, [
                               _vm._v(
                                 _vm._s(_vm.transformerDate(item.created_at))
                               )
@@ -39238,20 +39273,37 @@ var render = function() {
                       ? _c(
                           "div",
                           {
-                            staticClass: "col-16",
+                            staticClass: "col-4",
                             attrs: { id: "un-message-to" }
                           },
                           [
-                            _c("h3", { staticClass: "nom-utilisateur" }, [
-                              _vm._v(_vm._s(_vm.toUserName))
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-2" }, [
+                                _c("p", { staticClass: "nom-utilisateur" }, [
+                                  _vm._v(_vm._s(_vm.toUserName))
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-2" }, [
+                                _c("p", { staticClass: "date" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.transformerHeure(item.created_at)
+                                    )
+                                  )
+                                ])
+                              ])
                             ]),
                             _vm._v(" "),
                             _c("p", { staticClass: "contenu" }, [
                               _vm._v(_vm._s(item.contenu))
                             ]),
+                            _c("br"),
                             _vm._v(" "),
-                            _c("p", { staticClass: "temps" }, [
-                              _vm._v(_vm._s(item.created_at))
+                            _c("p", { staticClass: "date" }, [
+                              _vm._v(
+                                _vm._s(_vm.transformerDate(item.created_at))
+                              )
                             ])
                           ]
                         )
@@ -39830,8 +39882,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("messagerie"),
-      _vm._v(" "),
       _c("entete"),
       _vm._v(" "),
       _vm._m(0),
