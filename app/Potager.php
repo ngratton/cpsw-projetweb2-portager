@@ -20,7 +20,7 @@ class Potager extends Model
         'postal_code',
         'photos_path',
         'tags_potagers',
-        'fk_users_id',
+        'user_id',
         'est_actif',
         'visites_potagers',
     ];

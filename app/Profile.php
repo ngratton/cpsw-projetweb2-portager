@@ -12,11 +12,12 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'profil_photo_path',
+        'photo',
+        'photo_mini',
         'bio',
         'jardine_depuis',
         'tags_jardiniers',
-        'fk_users_id',
+        'user_id',
         'profile_visites',
     ];
 }

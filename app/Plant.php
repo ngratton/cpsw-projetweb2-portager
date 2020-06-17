@@ -12,13 +12,13 @@ class Plant extends Model
      * @var array
      */
     protected $fillable = [
-        'fk_types_id',
+        'type_id',
         'description',
         'photo_path',
         'est_partage',
         'est_actif',
         'plants_visits',
-        'fk_potagers_id',
-        'fk_users_id',
+        'potager_id',
+        'user_id',
     ];
 }

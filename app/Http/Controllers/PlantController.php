@@ -38,11 +38,11 @@ class PlantController extends Controller
     public function store(Request $request)
     {
         $plant = new Plant();
-        $plant->fk_types_id = $request->type;
+        $plant->type_id = $request->type;
         $plant->description = $request->desc;
         $plant->est_actif = $request->actif;
         $plant->est_partage = $request->partage;
-        $plant->fk_potagers_id = $request->potagerid;
+        $plant->potager_id = $request->potagerid;
 
         // Nom de la photo
         $imageData = $request->get('photo');
@@ -80,9 +80,9 @@ class PlantController extends Controller
      * @param  \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function show(Plant $plant)
+    public function show(Plant $plant, $plantId)
     {
-        //
+        return Plant::find($plantId);
     }
 
     /**
@@ -103,9 +103,43 @@ class PlantController extends Controller
      * @param  \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Plant $plant)
+    public function update(Request $request, Plant $plant, $plantId)
     {
-        //
+        $plant = new Plant();
+        $plant->type_id = $request->type;
+        $plant->description = $request->desc;
+        $plant->est_actif = $request->actif;
+        $plant->est_partage = $request->partage;
+        $plant->potager_id = $request->potagerid;
+
+        if($request->get('photo')) {
+            // Nom de la photo
+            $imageData = $request->get('photo');
+
+            /**
+             * Store l'image originale
+             */
+            $imageOriginale = Image::make($imageData);
+            // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
+            $fileNameOriginale = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+            $imageOriginale->save(public_path('storage/images/plants/').$fileNameOriginale);
+            // Ajout à la base de données
+            $plant->photo = './storage/images/plants/'.$fileNameOriginale;
+
+            /**
+             * Store une image miniature
+             */
+            // Obtienr l'image et la redimentionne l'image en 210 x 210 px (card)
+            $imageMiniature = Image::make($imageData)->fit(210, 210, null, 'center');
+            // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
+            $fileNameMiniature = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+            $imageMiniature->save(public_path('storage/images/plants/miniatures/').$fileNameMiniature);
+            // Ajout à la base de données
+            $plant->photo_mini = './storage/images/plants/miniatures/'.$fileNameMiniature;
+        }
+
+        // Sauvegarder la nouvelle plante
+        $plant->save();
     }
 
     /**

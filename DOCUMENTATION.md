@@ -43,14 +43,14 @@ Un profil utilisateur de base a été créé pour cet utilisateur. Voir section 
 URL : **/api/profile/{userId}**
 
 Méthodes HTTP disponibles :
-- **GET** -- obetnir un seul profil
-- **PUT** -- création d'un nouveau profil
-- **PATCH** -- modification d'un profil (mise à jour)
-- **DELETE** -- suppression d'un profil
+- **GET** : obetnir un seul profil
+- **PUT** : création d'un nouveau profil
+- **PATCH** : modification d'un profil (mise à jour)
+- **DELETE** : suppression d'un profil
 
 Ajout d'une visite au profil
 - URL : **/api/profile/{userId}/visit**
-- Méthode : **POST** -- aucune donnée à passer à la requête
+- Méthode : **POST** : aucune donnée à passer à la requête
 
 ### Exemple & données disponibles
 Taper ce URI dans votre navigateur : **/api/profile/2**
@@ -60,11 +60,21 @@ Taper ce URI dans votre navigateur : **/api/profile/2**
 URL : **/api/profile/{userId}**
 
 Méthodes HTTP disponibles :
-- **GET** -- obetnir un seul profil
-- **PUT** -- création d'un nouveau profil
-- **PATCH** -- modification d'un profil (mise à jour)
-- **DELETE** -- suppression d'un profil
+- **GET** : obtenir un seul profil
+- **PUT** : création d'un nouveau profil
+- **PATCH** : modification d'un profil (mise à jour)
+- **DELETE** : suppression d'un profil
 
 Ajout d'une visite au profil
 - URL : **/api/profile/{userId}/visit**
-- Méthode : **POST** -- aucune donnée à passer à la requête
+- Méthode : **POST** : aucune donnée à passer à la requête
+
+## PLANT
+
+URL : **/api/plant/
+
+Méthodes HTTP disponibles :
+- **GET** : 
+- **PUT** : 
+- **PATCH** : 
+- **DELETE** : 
