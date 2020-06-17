@@ -2,6 +2,7 @@
   
 
 <div>
+   
      <entete></entete>
     <div class="container-fluid" id="banner">
         <div class="container">
@@ -83,6 +84,7 @@
 </template>
 
 <script>
+    import Messagerie from '../components/Messagerie';
     import Entete from '../components/Entete';
     import Recherche from '../components/Recherche';
     import PiedPage from '../components/PiedPage';
@@ -101,6 +103,7 @@
 
         },
         components: {
+            Messagerie,
             Entete,
             Recherche,
             NouveauPlant,
