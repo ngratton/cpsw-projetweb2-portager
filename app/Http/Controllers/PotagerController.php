@@ -14,7 +14,18 @@ class PotagerController extends Controller
      */
     public function index()
     {
-        return Potager::all();
+        $potagers = Potager::all();
+
+        foreach($potagers as $potager) {
+            if($potager->tags_potagers) {
+                // Transforme les tags de String à Array
+                $tags = $potager->tags_potagers;
+                $tagsTmp = explode(',', $tags);
+                $potager->tags_potagers = $tagsTmp;
+            }
+        }
+
+        return $potagers;
     }
 
     /**
@@ -57,14 +68,18 @@ class PotagerController extends Controller
      */
     public function show($userId)
     {
-        $potager = Potager::where('user_id', $userId)->get();
+        $potagers = Potager::where('user_id', $userId)->get();
 
-        // Transforme les tags de String à Array
-        $tags = $potager->tags_potagers;
-        $tagsTmp = explode(',', $tags);
-        $potager->tags_potagers = $tagsTmp;
+        foreach($potagers as $potager) {
+            if($potager->tags_potagers) {
+                // Transforme les tags de String à Array
+                $tags = $potager->tags_potagers;
+                $tagsTmp = explode(',', $tags);
+                $potager->tags_potagers = $tagsTmp;
+            }
+        }
 
-        return $potager;
+        return $potagers;
     }
 
     /**
