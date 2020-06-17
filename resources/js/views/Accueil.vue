@@ -2,26 +2,8 @@
   
 
 <div>
-     <div class="container" id="colHeader">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="col">
-                <img src="/images/portager_noir.svg">
-            </div>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                <a class="nav-link" href="#">Plants</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Carte des potagers</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Boutique</a>
-                </li>
-            </ul>
-            </div>
-        </nav>
-    </div>
+   
+     <entete></entete>
     <div class="container-fluid" id="banner">
         <div class="container">
             <div class="row"> <!--banner-->
@@ -34,61 +16,17 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="container" id="search"> <!-- recherche -->
-            <div class="row align-items-center">
-                <div class="col">
-                    <div class="form-group form-check-inline">
-                        <input class="form-control form-control-lg" type="text" placeholder="Recherche...">
-                        <button type="button" class="btn btn-secondary">Chercher</button>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <p>Rechercher par            
-                                    <input class="form-check-input" type="radio" id="inlineCheckbox1" value="option1">
-                                    <label class="form-check-label" for="inlineCheckbox1">Plants</label>
-                                    <input class="form-check-input" type="radio" id="inlineCheckbox2" value="option2">
-                                    <label class="form-check-label" for="inlineCheckbox1">Villes</label>
-                                    <input class="form-check-input" type="radio" id="inlineCheckbox3" value="option3">
-                                    <label class="form-check-label" for="inlineCheckbox1">Étiquettes</label>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <p>Ou</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <div class="form-check form-check-inline">
-                                <p>Naviguez par <a href="#">Catégories</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <recherche></recherche>
     </div>
     <div class="container" id="content">
         <div class="row" id="nouveauxPlants"> <!-- Nouveaux plants -->
             <div class="col">
-                <h3>Nouveaux plans près de chez vous</h3>
+                <h3>Nouveaux plants près de chez vous</h3>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <img src="/images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nom du plant</h5>
-                        <p class="card-text">Ville</p>
-                        <p class="card-text">Jardinier Note Jardinier</p>
-                    </div>
-                </div>
+               <nouveau-plant></nouveau-plant>
             </div>
         </div>
         <div class="row">
@@ -96,21 +34,14 @@
                 <img class="pubAccueil" src="/images/ad_768-90.png">
             </div>
         </div>
-        <div class="row" id="cotePlants"> <!-- Plants les mieux côtés -->
+            <div class="row" id="cotePlants"> <!-- Plants les mieux côtés -->
             <div class="col">
                 <h3>Potagers les mieux côtés</h3>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <img src="/images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Jardinier</h5>
-                        <p class="card-text">Ville</p>
-                        <p class="card-text" style="text-align: right;">Note Jardinier</p>
-                    </div>
-                </div>
+                <plant-cote></plant-cote>
             </div>
         </div>
         <div class="row" id="merch"> <!-- Marchandise -->
@@ -137,14 +68,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <img src="/images/Plants_placeholders/green-bean.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Jardinier</h5>
-                        <p class="card-text">Ville</p>
-                        <p class="card-text" style="text-align: right;">Note Jardinier</p>
-                    </div>
-                </div>
+                <plant-populaire></plant-populaire>
             </div>
         </div>
         <div class="row" id="plus">
@@ -153,21 +77,20 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid" id="footer"> <!-- footer -->
-        <div class="container">
-            <div class="row">
-                <div class="col offset-9">
-                    <img src="/images/_LOGOS/portager_blanc.svg">
-                </div>
-            </div>
-        </div>
-    </div>
+    <pied-page></pied-page>
 </div>
 
 
 </template>
 
 <script>
+    import Messagerie from '../components/Messagerie';
+    import Entete from '../components/Entete';
+    import Recherche from '../components/Recherche';
+    import PiedPage from '../components/PiedPage';
+    import PlantCote from '../components/PlantCote';
+    import NouveauPlant from '../components/NouveauPlant';
+    import PlantPopulaire from '../components/PlantPopulaire';
     export default {
         name: 'Accueil', 
         data() {
@@ -180,7 +103,13 @@
 
         },
         components: {
-
+            Messagerie,
+            Entete,
+            Recherche,
+            NouveauPlant,
+            PlantCote,
+            PlantPopulaire,
+            PiedPage,
         },
         mounted() {
 
