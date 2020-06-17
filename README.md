@@ -8,8 +8,8 @@
 
 ### Setup de l'environnement de dev
 
-1. Créer un VirtualHost dans WAMP; le nommer `portager.loc` (!important) et le pointer sur le dossier `/public`
-2. Cloner le repo avec VS Code
+1. Cloner le repo de GitHub **ou** faire un `pull` du `master` dans VS Code.
+2. Créer un VirtualHost dans WAMP; le nommer `portager.loc` (!important) et le pointer sur le dossier `/public`
 3. Taper `composer install` dans le Terminal de VS Code
 4. Copier *`.env.exemple`* et renommer ***`.env`***
 5. Ajouter ou ajouter les lignes suivantes :
@@ -20,6 +20,8 @@
 7. Taper `npm install && npm run dev` dans le Terminal
 
 ### Créer une base de données
+
+> Si ce n'est pas déjà fait (première utilisation)
 
 1. Ouvrir phpMyAdmin
 2. Créer un table de données "projweb2_portager"
