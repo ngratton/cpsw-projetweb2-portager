@@ -20,15 +20,32 @@
               <div class="row justify-content-between">
               <div id="conversation">
                 <div class="message" v-for="item in message" :key="item.id">
-                  <div class="col-16" v-if="item.from_id == userId" id="un-message-from">
-                      <h3 class="nom-utilisateur"> {{ username }}</h3>
-                  <p class="contenu">{{ item.contenu }}</p>
-                  <p class="temps">{{ transformerDate(item.created_at) }}</p>
+                  <div class="col-md-auto" v-if="item.from_id == userId" id="un-message-from">
+                    <div class="row">
+                      <div class="col-2">
+                        <p class="nom-utilisateur">{{ username }}</p>
+                      </div>
+                      <div class="col-2">
+                        <p class="date">{{ transformerHeure(item.created_at) }}</p>
+                      </div>                    
+                    </div>  
+                    <div class="col-md-auto">
+                      <p class="contenu">{{ item.contenu }}</p><br>
+                    </div>                   
+                  
+                  <p class="date">{{ transformerDate(item.created_at) }}</p>
                   </div> <br>
-                  <div class="col-16" v-if="item.from_id != userId" id="un-message-to">
-                      <h3 class="nom-utilisateur">{{ toUserName }}</h3>
-                        <p class="contenu">{{ item.contenu }}</p>
-                        <p class="temps">{{ item.created_at }}</p>
+                  <div class="col-4" v-if="item.from_id != userId" id="un-message-to">
+                    <div class="row">
+                      <div class="col-2">
+                        <p class="nom-utilisateur">{{ toUserName }}</p>
+                      </div>
+                      <div class="col-2">
+                        <p class="date">{{ transformerHeure(item.created_at) }}</p>
+                      </div>                    
+                    </div>                     
+                  <p class="contenu">{{ item.contenu }}</p><br>
+                  <p class="date">{{ transformerDate(item.created_at) }}</p>
                   </div> <br>           
                 </div>
               </div>
@@ -60,7 +77,6 @@
                user: '',
                lesUsers: '',
                toUserName: '',
-               interlocuteurId: '',
                isActive: true,
                
             };
@@ -137,9 +153,12 @@
             },
               // Transorme le format de l'heure d'envoi d'un message
             transformerDate(temps) {
-              // temps.slice(11,11)
-              return temps.substring(0,16)
-            }
+              return temps.substring(0,10)
+            },
+
+             transformerHeure(temps) {
+              return temps.substring(11,16)
+            },
         },
     }
 </script>
@@ -156,11 +175,11 @@
 
 #conversations {
   width: 100%;
-  border-top: solid yellowgreen 0.5px;
+  border-bottom: solid yellowgreen 0.5px;
 }
 
 #liste-conversations{
-  background-color: rgb(216, 223, 206);
+  background-color: rgb(242, 245, 238);
   width: 100%;
 }
 
@@ -173,7 +192,7 @@
 }
 
 #liste-conversations :hover {
-  background-color: rgb(158, 179, 134);
+  background-color: rgb(227, 243, 208);
 }
 
 #text-container {
@@ -185,8 +204,8 @@
   color: rgb(10, 6, 6);
   border-radius: 10px;
   background-color: rgb(194, 235, 129);
-  padding: 10px;
-  margin: 5px;
+  padding: 4px;
+  margin-top: 5px;
 }
 
 #un-message-to {
