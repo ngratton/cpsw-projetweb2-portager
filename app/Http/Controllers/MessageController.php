@@ -17,6 +17,14 @@ class MessageController extends Controller
         return Message::all();
     }
 
+    public function test($userId)
+    {
+        return Message::where('from_id', '=', $userId)->get();
+              
+       
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

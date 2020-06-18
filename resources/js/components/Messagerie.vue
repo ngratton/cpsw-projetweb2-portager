@@ -39,6 +39,7 @@
                     <div class="row">
                       <div class="col-2">
                         <p class="nom-utilisateur">{{ toUserName }}</p>
+                        <p class="nom-utilisateur">{{ interlocuteurName }}</p>
                       </div>
                       <div class="col-2">
                         <p class="date">{{ transformerHeure(item.created_at) }}</p>
@@ -78,6 +79,9 @@
                lesUsers: '',
                toUserName: '',
                isActive: true,
+               interlocuteur: '',
+               interlocuteurId: '',
+               interlocuteurName: '',
                
             };
         
@@ -96,13 +100,17 @@
           getData() {
 
           // Selectionne un utilisateur selon son id
+             Axios.get("/api/users/" + this.interlocuteurId).then(response => {
+              this.interlocuteurName = response.data.name
+              console.log(this.username)
+            });
+
+            // Selectionne l'utilisateur connectee
              Axios.get("/api/users/" + this.userId).then(response => {
               this.user = response.data
               this.username = this.user.name
               console.log(this.username)
             });
-
-            
 
         
           // Selectionne tous les utilisateurs(temporaire)
@@ -111,7 +119,7 @@
              
               console.log(this.lesUsers)
             });          
-        
+        this.getInterlocuteurs()
           },
 
            toggle(convo) {
@@ -141,7 +149,6 @@
             listeMessages() {
                Axios.get("/api/messages/" + this.userId + "/" + this.toUserId).then(response => {              
                    this.message = response.data
-                   this.messageDate = response.data.created_at
                 console.log(this.message)              
                 
             });
@@ -153,6 +160,29 @@
 
              transformerHeure(temps) {
               return temps.substring(11,16)
+            },
+
+            // test pour get les users who has messages with connected user
+
+             getInterlocuteurs() {
+               Axios.get("/api/messages/" + this.userId).then(response => {              
+                   this.interlocuteur = response.data
+                   console.log(response.data)  
+                   for (let lol of this.interlocuteur) {
+                     this.lol = this.interlocuteur.to_id
+                      
+                   }
+                   this.interlocuteurId = response.data.to_id
+
+                    for (this.interlocuteur = response.data; this.interlocuteur < response.data; this.interlocuteur++) {
+                          // Ceci sera exécuté 5 fois
+                          // À chaque éxécution, la variable "pas" augmentera de 1
+                          // Lorsque'elle sera arrivée à 5, le boucle se terminera.
+                    console.log(this.interlocuteur)
+                    }
+                           
+                
+            });
             },
         },
     }

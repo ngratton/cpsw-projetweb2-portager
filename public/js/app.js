@@ -1920,7 +1920,6 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_Navigation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Navigation */ "./resources/js/views/components/Navigation.vue");
 //
 //
 //
@@ -2015,6 +2014,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
 //
 //
 //
@@ -2094,7 +2100,10 @@ __webpack_require__.r(__webpack_exports__);
       user: '',
       lesUsers: '',
       toUserName: '',
-      isActive: true
+      isActive: true,
+      interlocuteur: '',
+      interlocuteurId: '',
+      interlocuteurName: ''
     };
   },
   props: {},
@@ -2107,6 +2116,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       // Selectionne un utilisateur selon son id
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.interlocuteurId).then(function (response) {
+        _this.interlocuteurName = response.data.name;
+        console.log(_this.username);
+      }); // Selectionne l'utilisateur connectee
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.userId).then(function (response) {
         _this.user = response.data;
         _this.username = _this.user.name;
@@ -2117,6 +2131,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.lesUsers = response.data;
         console.log(_this.lesUsers);
       });
+      this.getInterlocuteurs();
     },
     toggle: function toggle(convo) {
       this.isActive = false;
@@ -2139,7 +2154,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId + "/" + this.toUserId).then(function (response) {
         _this2.message = response.data;
-        _this2.messageDate = response.data.created_at;
         console.log(_this2.message);
       });
     },
@@ -2149,6 +2163,38 @@ __webpack_require__.r(__webpack_exports__);
     },
     transformerHeure: function transformerHeure(temps) {
       return temps.substring(11, 16);
+    },
+    // test pour get les users who has messages with connected user
+    getInterlocuteurs: function getInterlocuteurs() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId).then(function (response) {
+        _this3.interlocuteur = response.data;
+        console.log(response.data);
+
+        var _iterator = _createForOfIteratorHelper(_this3.interlocuteur),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var lol = _step.value;
+            _this3.lol = _this3.interlocuteur.to_id;
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+
+        _this3.interlocuteurId = response.data.to_id;
+
+        for (_this3.interlocuteur = response.data; _this3.interlocuteur < response.data; _this3.interlocuteur++) {
+          // Ceci sera exécuté 5 fois
+          // À chaque éxécution, la variable "pas" augmentera de 1
+          // Lorsque'elle sera arrivée à 5, le boucle se terminera.
+          console.log(_this3.interlocuteur);
+        }
+      });
     }
   }
 });
@@ -2254,7 +2300,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
 //
 //
 //
@@ -2298,9 +2343,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-=======
-
->>>>>>> a3f605296875f9a5a533f0d25745eaffc27a30a2
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PlantPopulaire',
   data: function data() {
@@ -2309,7 +2351,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {},
-<<<<<<< HEAD
   components: {},
   mounted: function mounted() {},
   methods: {}
@@ -2577,110 +2618,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Potager.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Potager.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_Entete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Entete */ "./resources/js/components/Entete.vue");
-/* harmony import */ var _components_Recherche__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Recherche */ "./resources/js/components/Recherche.vue");
-/* harmony import */ var _components_UnPotager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/UnPotager */ "./resources/js/components/UnPotager.vue");
-/* harmony import */ var _components_CartePotager__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/CartePotager */ "./resources/js/components/CartePotager.vue");
-/* harmony import */ var _components_PiedPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PiedPage */ "./resources/js/components/PiedPage.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Potager',
-  data: function data() {
-    return {
-      data: 0
-    };
-  },
-  props: {},
-  components: {
-    Entete: _components_Entete__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Recherche: _components_Recherche__WEBPACK_IMPORTED_MODULE_1__["default"],
-    UnPotager: _components_UnPotager__WEBPACK_IMPORTED_MODULE_2__["default"],
-    CartePotager: _components_CartePotager__WEBPACK_IMPORTED_MODULE_3__["default"],
-    PiedPage: _components_PiedPage__WEBPACK_IMPORTED_MODULE_4__["default"]
-  },
-=======
-  components: {
-    Navigation: _components_Navigation__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
->>>>>>> a3f605296875f9a5a533f0d25745eaffc27a30a2
-  mounted: function mounted() {},
-  methods: {}
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Connexion.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Connexion.vue?vue&type=script&lang=js& ***!
@@ -2905,6 +2842,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Entete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Entete */ "./resources/js/components/Entete.vue");
+/* harmony import */ var _components_Recherche__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Recherche */ "./resources/js/components/Recherche.vue");
+/* harmony import */ var _components_UnPotager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/UnPotager */ "./resources/js/components/UnPotager.vue");
+/* harmony import */ var _components_CartePotager__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/CartePotager */ "./resources/js/components/CartePotager.vue");
+/* harmony import */ var _components_PiedPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PiedPage */ "./resources/js/components/PiedPage.vue");
 //
 //
 //
@@ -2964,62 +2906,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Potager',
   data: function data() {
@@ -3028,7 +2919,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {},
-  components: {},
+  components: {
+    Entete: _components_Entete__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Recherche: _components_Recherche__WEBPACK_IMPORTED_MODULE_1__["default"],
+    UnPotager: _components_UnPotager__WEBPACK_IMPORTED_MODULE_2__["default"],
+    CartePotager: _components_CartePotager__WEBPACK_IMPORTED_MODULE_3__["default"],
+    PiedPage: _components_PiedPage__WEBPACK_IMPORTED_MODULE_4__["default"]
+  },
   mounted: function mounted() {},
   methods: {}
 });
@@ -3231,71 +3128,6 @@ __webpack_require__.r(__webpack_exports__);
   components: {},
   mounted: function mounted() {},
   methods: {}
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Navigation.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/components/Navigation.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _api_User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/User */ "./resources/js/api/User.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Navigation',
-  data: function data() {
-    return {
-      is_connected: false
-    };
-  },
-  mounted: function mounted() {
-    if (localStorage.getItem('auth') == 'true') {
-      this.is_connected = true;
-    }
-  },
-  methods: {
-    deconnexion: function deconnexion() {
-      var _this = this;
-
-      _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].deconnexion().then(function () {
-        localStorage.removeItem('auth');
-
-        _this.$router.go();
-      });
-    }
-  }
 });
 
 /***/ }),
@@ -7730,17 +7562,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Messagerie.vue?vue&type=style&index=0&lang=css&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Messagerie.vue?vue&type=style&index=0&lang=css& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************/
-=======
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss& ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************************************/
->>>>>>> a3f605296875f9a5a533f0d25745eaffc27a30a2
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7749,9 +7574,6 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-<<<<<<< HEAD
-exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n\r\n", ""]);
-=======
 exports.push([module.i, "#imageGauche,\n#connexion {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n}\n.imgConnection {\n  width: 100%;\n}\n.grosseImageConnexion {\n  height: 100%;\n  width: 100%;\n  background-image: url(\"/images/hero/girl-tomatoes-shutterstock_440076301_0.jpg\");\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n#connexion .logoConnection {\n  text-align: center;\n}\n#connexion #logo {\n  max-height: 70px;\n  margin: 0 auto;\n  margin-bottom: 30px;\n}\n.formConnection {\n  max-width: 375px;\n  padding: 30px;\n  background-color: white;\n  box-shadow: 0px 5px 10px #00000029;\n  border-radius: 16px;\n}\n.formConnection .form-group {\n  width: 100%;\n}\n.formConnection .form-group input {\n  width: 100%;\n}\n.formConnection .form-group input:focus {\n  border: 1px solid #9FCC3B;\n  outline: none;\n  box-shadow: none;\n}\n.formConnection label {\n  font-size: 12px;\n  color: #717C89;\n}\n.formConnection button {\n  width: 100%;\n}\n.formConnection a {\n  text-align: center;\n  color: #717C89;\n  font-size: 0.7rem;\n}", ""]);
 
 // exports
@@ -7772,7 +7594,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, "#imageGauche,\n#inscription {\n  margin: 0;\n  padding: 0;\n  height: 100vh;\n}\n#inscription .logoConnection {\n  text-align: center;\n}\n#inscription #logo {\n  max-height: 70px;\n  margin: 0 auto;\n  margin-bottom: 30px;\n}\n.grosseImageInscription {\n  height: 100%;\n  width: 100%;\n  background-image: url(\"/images/hero/gardener.jpg\");\n  background-repeat: no-repeat;\n  background-position: 80%;\n  background-size: cover;\n}\n.formInscription {\n  width: 375px;\n  padding: 30px 20px;\n  background: white;\n  box-shadow: 0px 5px 10px #00000029;\n  border-radius: 16px;\n}\n.formInscription .form-group {\n  width: 100%;\n}\n.formInscription .form-group input {\n  width: 100%;\n}\n.formInscription .form-group input:focus {\n  border: 1px solid #9FCC3B;\n  outline: none;\n  box-shadow: none;\n}\n.formInscription label {\n  font-size: 12px;\n  color: #717C89;\n}\n.formInscription button {\n  width: 100%;\n  font-weight: bold;\n}", ""]);
->>>>>>> a3f605296875f9a5a533f0d25745eaffc27a30a2
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Messagerie.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Messagerie.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -39629,24 +39469,14 @@ try {
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Messagerie.vue?vue&type=style&index=0&lang=css&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Messagerie.vue?vue&type=style&index=0&lang=css& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************/
-=======
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss& ***!
   \******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
->>>>>>> a3f605296875f9a5a533f0d25745eaffc27a30a2
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-<<<<<<< HEAD
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Messagerie.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Messagerie.vue?vue&type=style&index=0&lang=css&");
-=======
 var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./Connexion.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
@@ -39678,7 +39508,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./Inscription.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Inscription.vue?vue&type=style&index=0&lang=scss&");
->>>>>>> a3f605296875f9a5a533f0d25745eaffc27a30a2
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Messagerie.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Messagerie.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Messagerie.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Messagerie.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -40364,188 +40223,49 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("Navigation"),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid", attrs: { id: "banner" } }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              { staticClass: "col" },
-              [
-                _vm._m(0),
-                _vm._v(" "),
-                _c("router-link", { attrs: { to: { name: "Inscription" } } }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("S'enregistrer")]
-                  ),
-                  _c("br")
-                ]),
-                _vm._v(" "),
-                _c("router-link", { attrs: { to: { name: "Connexion" } } }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Se connecter")]
-                  )
-                ])
-              ],
-              1
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3)
-    ],
-    1
-  )
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h1", [
-      _vm._v("Nam urna erat,"),
-      _c("br"),
-      _vm._v("tempor at auctor.")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "container", attrs: { id: "search" } }, [
-        _c("div", { staticClass: "row align-items-center" }, [
+    return _c("div", [
+      _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
+        _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
           _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "form-group form-check-inline" }, [
-              _c("input", {
-                staticClass: "form-control form-control-lg",
-                attrs: { type: "text", placeholder: "Recherche..." }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-                [_vm._v("Chercher")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _c("p", [
-                    _vm._v(
-                      "Rechercher par\n                                    "
-                    ),
-                    _c("input", {
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        id: "inlineCheckbox1",
-                        value: "option1"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: "inlineCheckbox1" }
-                      },
-                      [_vm._v("Plants")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        id: "inlineCheckbox2",
-                        value: "option2"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: "inlineCheckbox1" }
-                      },
-                      [_vm._v("Villes")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        id: "inlineCheckbox3",
-                        value: "option3"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: "inlineCheckbox1" }
-                      },
-                      [_vm._v("Étiquettes")]
-                    )
+            _c("img", { attrs: { src: "/images/portager_noir.svg" } })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "navbarSupportedContent" }
+            },
+            [
+              _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+                _c("li", { staticClass: "nav-item" }, [
+                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                    _vm._v("Plants")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                    _vm._v("Carte des potagers")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                    _vm._v("Boutique")
                   ])
                 ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _c("p", [_vm._v("Ou")])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _c("p", [
-                    _vm._v("Naviguez par "),
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
-                  ])
-                ])
-              ])
-            ])
-          ])
+            ]
+          )
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container", attrs: { id: "content" } }, [
-      _c("div", { staticClass: "row", attrs: { id: "nouveauxPlants" } }, [
-        _c("div", { staticClass: "col" }, [
-          _c("h3", [_vm._v("Nouveaux plans près de chez vous")])
-        ])
-<<<<<<< HEAD
       ])
     ])
   }
@@ -40674,6 +40394,10 @@ var render = function() {
                               _c("div", { staticClass: "col-2" }, [
                                 _c("p", { staticClass: "nom-utilisateur" }, [
                                   _vm._v(_vm._s(_vm.toUserName))
+                                ]),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "nom-utilisateur" }, [
+                                  _vm._v(_vm._s(_vm.interlocuteurName))
                                 ])
                               ]),
                               _vm._v(" "),
@@ -40852,176 +40576,12 @@ var render = function() {
   return _vm._m(0)
 }
 var staticRenderFns = [
-=======
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: {
-                src: "/images/Plants_placeholders/green-bean.jpg",
-                alt: "..."
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("Nom du plant")]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v("Jardinier Note Jardinier")
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col offset-2" }, [
-          _c("img", {
-            staticClass: "pubAccueil",
-            attrs: { src: "/images/ad_768-90.png" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row", attrs: { id: "cotePlants" } }, [
-        _c("div", { staticClass: "col" }, [
-          _c("h3", [_vm._v("Potagers les mieux côtés")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: {
-                src: "/images/Plants_placeholders/green-bean.jpg",
-                alt: "..."
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
-              _vm._v(" "),
-              _c(
-                "p",
-                {
-                  staticClass: "card-text",
-                  staticStyle: { "text-align": "right" }
-                },
-                [_vm._v("Note Jardinier")]
-              )
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row", attrs: { id: "merch" } }, [
-        _c("div", { staticClass: "col-lg" }, [
-          _c("h3", [_vm._v("Montrez fièrement votre sens du partage !")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: {
-                src: "/images/Plants_placeholders/green-bean.jpg",
-                alt: "..."
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("Nom produit")]),
-              _vm._v(" "),
-              _c(
-                "p",
-                {
-                  staticClass: "card-text",
-                  staticStyle: { "text-align": "right" }
-                },
-                [_vm._v("Prix")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-                [_vm._v("Acheter")]
-              )
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row", attrs: { id: "populaire" } }, [
-        _c("div", { staticClass: "col" }, [
-          _c("h3", [_vm._v("Plants les plus populaires")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: {
-                src: "/images/Plants_placeholders/green-bean.jpg",
-                alt: "..."
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
-              _vm._v(" "),
-              _c(
-                "p",
-                {
-                  staticClass: "card-text",
-                  staticStyle: { "text-align": "right" }
-                },
-                [_vm._v("Note Jardinier")]
-              )
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row", attrs: { id: "plus" } }, [
-        _c("div", { staticClass: "col offset-5" }, [
-          _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "button" } },
-            [_vm._v("En voir plus...")]
-          )
-        ])
-      ])
-    ])
-  },
->>>>>>> a3f605296875f9a5a533f0d25745eaffc27a30a2
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-<<<<<<< HEAD
     return _c("div", [
       _c("div", { staticClass: "container-fluid", attrs: { id: "footer" } }, [
-=======
-    return _c(
-      "div",
-      { staticClass: "container-fluid", attrs: { id: "footer" } },
-      [
->>>>>>> a3f605296875f9a5a533f0d25745eaffc27a30a2
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col offset-9" }, [
@@ -41029,8 +40589,607 @@ var staticRenderFns = [
             ])
           ])
         ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantCote.vue?vue&type=template&id=42a3c70d&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PlantCote.vue?vue&type=template&id=42a3c70d& ***!
+  \************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "card" }, [
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: {
+            src: "/images/Plants_placeholders/green-bean.jpg",
+            alt: "..."
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
+          _vm._v(" "),
+          _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass: "card-text",
+              staticStyle: { "text-align": "right" }
+            },
+            [_vm._v("Note Jardinier")]
+          )
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantPopulaire.vue?vue&type=template&id=b0c0cbfa&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PlantPopulaire.vue?vue&type=template&id=b0c0cbfa& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "card" }, [
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: {
+            src: "/images/Plants_placeholders/green-bean.jpg",
+            alt: "..."
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
+          _vm._v(" "),
+          _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass: "card-text",
+              staticStyle: { "text-align": "right" }
+            },
+            [_vm._v("Note Jardinier")]
+          )
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Recherche.vue?vue&type=template&id=2ceedaa0&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Recherche.vue?vue&type=template&id=2ceedaa0& ***!
+  \************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "container", attrs: { id: "search" } }, [
+        _c("div", { staticClass: "row align-items-center" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "form-group form-check-inline" }, [
+              _c("input", {
+                staticClass: "form-control form-control-lg",
+                attrs: { type: "text", placeholder: "Recherche..." }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-secondary", attrs: { type: "button" } },
+                [_vm._v("Chercher")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("p", [
+                    _vm._v(
+                      "Rechercher par            \n                                    "
+                    ),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        id: "inlineCheckbox1",
+                        value: "option1"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Plants")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        id: "inlineCheckbox2",
+                        value: "option2"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Villes")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        id: "inlineCheckbox3",
+                        value: "option3"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Étiquettes")]
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("p", [_vm._v("Ou")])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("p", [
+                    _vm._v("Naviguez par "),
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UnPotager.vue?vue&type=template&id=77ffacf4&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UnPotager.vue?vue&type=template&id=77ffacf4& ***!
+  \************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c(
+        "div",
+        { staticClass: "row align-items-center", attrs: { id: "potager" } },
+        [
+          _c("div", { staticClass: "col" }, [
+            _c("img", {
+              attrs: {
+                src:
+                  "/images/Potager_placeholders/689870-couple-drummondville.jpg",
+                alt: "..."
+              }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "thumbnail",
+              attrs: {
+                src:
+                  "/images/Potager_placeholders/689870-couple-drummondville.jpg",
+                alt: "..."
+              }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "thumbnail",
+              attrs: {
+                src:
+                  "/images/Potager_placeholders/2017-09-11-11.49.39-660x495.jpg",
+                alt: "..."
+              }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "thumbnail",
+              attrs: {
+                src: "/images/Potager_placeholders/potager 2.jpg",
+                alt: "..."
+              }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "thumbnail",
+              attrs: {
+                src: "/images/Potager_placeholders/unnamed.jpg",
+                alt: "..."
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-9", attrs: { id: "potagerDescription" } },
+            [
+              _c("div", { staticClass: "gauche" }, [
+                _c("h6", [_vm._v("Potager entretenu avec amour par")]),
+                _vm._v(" "),
+                _c("p", [_vm._v(" Utilisateur  note ")]),
+                _vm._v(" "),
+                _c("h6", [_vm._v("Description")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit officiis ratione expedita quam neque laborum suscipit, et fuga at ducimus, sunt, doloremque quis adipisci. Obcaecati exercitationem maxime corporis earum. Nihil."
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticStyle: { "font-weight": "bold" } }, [
+                  _vm._v(
+                    "Le potager contient  #  plants de légumes,  #  plants de fruits et  #  plants de fines herbes."
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "droite" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    staticStyle: {
+                      "background-color": "#FFDD00",
+                      color: "#332E0A"
+                    },
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("Contacter  jardinier ")]
+                ),
+                _vm._v(" "),
+                _c("h6", [_vm._v("Étiquettes")]),
+                _vm._v(" "),
+                _c("ul", [
+                  _c("li", [_vm._v("Biologique")]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v("Culture en serre")]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v("Biologique")]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v("Biologique")]),
+                  _vm._v(" "),
+                  _c("li", [_vm._v("Biologique")])
+                ])
+              ])
+            ]
+          )
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Accueil.vue?vue&type=template&id=66aca1e5&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Accueil.vue?vue&type=template&id=66aca1e5& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("messagerie"),
+      _vm._v(" "),
+      _c("entete"),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid" }, [_c("recherche")], 1),
+      _vm._v(" "),
+      _c("div", { staticClass: "container", attrs: { id: "content" } }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [_c("nouveau-plant")], 1),
+          _vm._v(" "),
+          _vm._m(2)
+        ]),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [_c("plant-cote")], 1),
+          _vm._v(" "),
+          _vm._m(4),
+          _vm._v(" "),
+          _vm._m(5),
+          _vm._v(" "),
+          _vm._m(6)
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [_c("plant-populaire")], 1),
+          _vm._v(" "),
+          _vm._m(7)
+        ])
+      ]),
+      _vm._v(" "),
+      _c("pied-page")
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "banner" } },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col" }, [
+              _c("h1", [
+                _vm._v("Nam urna erat,"),
+                _c("br"),
+                _vm._v("tempor at auctor.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  staticStyle: {
+                    "background-color": "#FFDD00",
+                    color: "#332E0A"
+                  },
+                  attrs: { type: "button" }
+                },
+                [_vm._v("S'enregistrer")]
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  staticStyle: { "background-color": "#717C89" },
+                  attrs: { type: "button" }
+                },
+                [_vm._v("Se connecter")]
+              )
+            ])
+          ])
+        ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "nouveauxPlants" } }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h3", [_vm._v("Nouveaux plants près de chez vous")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col offset-2" }, [
+        _c("img", {
+          staticClass: "pubAccueil",
+          attrs: { src: "/images/ad_768-90.png" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "cotePlants" } }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h3", [_vm._v("Potagers les mieux côtés")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "merch" } }, [
+      _c("div", { staticClass: "col-lg" }, [
+        _c("h3", [_vm._v("Montrez fièrement votre sens du partage !")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("img", {
+            staticClass: "card-img-top",
+            attrs: {
+              src: "/images/Plants_placeholders/green-bean.jpg",
+              alt: "..."
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [_vm._v("Nom produit")]),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                staticClass: "card-text",
+                staticStyle: { "text-align": "right" }
+              },
+              [_vm._v("Prix")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              { staticClass: "btn btn-secondary", attrs: { type: "button" } },
+              [_vm._v("Acheter")]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "populaire" } }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h3", [_vm._v("Plants les plus populaires")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "plus" } }, [
+      _c("div", { staticClass: "col offset-5" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "button" } },
+          [_vm._v("En voir plus...")]
+        )
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -41461,603 +41620,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "logoConnection" }, [
       _c("img", { attrs: { src: "/images/portager_noir.svg", id: "logo" } })
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantCote.vue?vue&type=template&id=42a3c70d&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PlantCote.vue?vue&type=template&id=42a3c70d& ***!
-  \************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "card" }, [
-        _c("img", {
-          staticClass: "card-img-top",
-          attrs: {
-            src: "/images/Plants_placeholders/green-bean.jpg",
-            alt: "..."
-          }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
-          _vm._v(" "),
-          _c(
-            "p",
-            {
-              staticClass: "card-text",
-              staticStyle: { "text-align": "right" }
-            },
-            [_vm._v("Note Jardinier")]
-          )
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlantPopulaire.vue?vue&type=template&id=b0c0cbfa&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PlantPopulaire.vue?vue&type=template&id=b0c0cbfa& ***!
-  \*****************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "card" }, [
-        _c("img", {
-          staticClass: "card-img-top",
-          attrs: {
-            src: "/images/Plants_placeholders/green-bean.jpg",
-            alt: "..."
-          }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("h5", { staticClass: "card-title" }, [_vm._v("Jardinier")]),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [_vm._v("Ville")]),
-          _vm._v(" "),
-          _c(
-            "p",
-            {
-              staticClass: "card-text",
-              staticStyle: { "text-align": "right" }
-            },
-            [_vm._v("Note Jardinier")]
-          )
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Recherche.vue?vue&type=template&id=2ceedaa0&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Recherche.vue?vue&type=template&id=2ceedaa0& ***!
-  \************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "container", attrs: { id: "search" } }, [
-        _c("div", { staticClass: "row align-items-center" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "form-group form-check-inline" }, [
-              _c("input", {
-                staticClass: "form-control form-control-lg",
-                attrs: { type: "text", placeholder: "Recherche..." }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-                [_vm._v("Chercher")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _c("p", [
-                    _vm._v(
-                      "Rechercher par            \n                                    "
-                    ),
-                    _c("input", {
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        id: "inlineCheckbox1",
-                        value: "option1"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: "inlineCheckbox1" }
-                      },
-                      [_vm._v("Plants")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        id: "inlineCheckbox2",
-                        value: "option2"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: "inlineCheckbox1" }
-                      },
-                      [_vm._v("Villes")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        id: "inlineCheckbox3",
-                        value: "option3"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: "inlineCheckbox1" }
-                      },
-                      [_vm._v("Étiquettes")]
-                    )
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _c("p", [_vm._v("Ou")])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _c("p", [
-                    _vm._v("Naviguez par "),
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/UnPotager.vue?vue&type=template&id=77ffacf4&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/UnPotager.vue?vue&type=template&id=77ffacf4& ***!
-  \************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "div",
-        { staticClass: "row align-items-center", attrs: { id: "potager" } },
-        [
-          _c("div", { staticClass: "col" }, [
-            _c("img", {
-              attrs: {
-                src:
-                  "/images/Potager_placeholders/689870-couple-drummondville.jpg",
-                alt: "..."
-              }
-            }),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "thumbnail",
-              attrs: {
-                src:
-                  "/images/Potager_placeholders/689870-couple-drummondville.jpg",
-                alt: "..."
-              }
-            }),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "thumbnail",
-              attrs: {
-                src:
-                  "/images/Potager_placeholders/2017-09-11-11.49.39-660x495.jpg",
-                alt: "..."
-              }
-            }),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "thumbnail",
-              attrs: {
-                src: "/images/Potager_placeholders/potager 2.jpg",
-                alt: "..."
-              }
-            }),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "thumbnail",
-              attrs: {
-                src: "/images/Potager_placeholders/unnamed.jpg",
-                alt: "..."
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-9", attrs: { id: "potagerDescription" } },
-            [
-              _c("div", { staticClass: "gauche" }, [
-                _c("h6", [_vm._v("Potager entretenu avec amour par")]),
-                _vm._v(" "),
-                _c("p", [_vm._v(" Utilisateur  note ")]),
-                _vm._v(" "),
-                _c("h6", [_vm._v("Description")]),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit officiis ratione expedita quam neque laborum suscipit, et fuga at ducimus, sunt, doloremque quis adipisci. Obcaecati exercitationem maxime corporis earum. Nihil."
-                  )
-                ]),
-                _vm._v(" "),
-                _c("p", { staticStyle: { "font-weight": "bold" } }, [
-                  _vm._v(
-                    "Le potager contient  #  plants de légumes,  #  plants de fruits et  #  plants de fines herbes."
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "droite" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    staticStyle: {
-                      "background-color": "#FFDD00",
-                      color: "#332E0A"
-                    },
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Contacter  jardinier ")]
-                ),
-                _vm._v(" "),
-                _c("h6", [_vm._v("Étiquettes")]),
-                _vm._v(" "),
-                _c("ul", [
-                  _c("li", [_vm._v("Biologique")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("Culture en serre")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("Biologique")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("Biologique")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("Biologique")])
-                ])
-              ])
-            ]
-          )
-        ]
-      )
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Accueil.vue?vue&type=template&id=66aca1e5&":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Accueil.vue?vue&type=template&id=66aca1e5& ***!
-  \*****************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("entete"),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [_c("recherche")], 1),
-      _vm._v(" "),
-      _c("div", { staticClass: "container", attrs: { id: "content" } }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [_c("nouveau-plant")], 1)
-        ]),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [_c("plant-cote")], 1)
-        ]),
-        _vm._v(" "),
-        _vm._m(4),
-        _vm._v(" "),
-        _vm._m(5),
-        _vm._v(" "),
-        _vm._m(6),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [_c("plant-populaire")], 1)
-        ]),
-        _vm._v(" "),
-        _vm._m(7)
-      ]),
-      _vm._v(" "),
-      _c("pied-page")
-    ],
-    1
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "container-fluid", attrs: { id: "banner" } },
-      [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col" }, [
-              _c("h1", [
-                _vm._v("Nam urna erat,"),
-                _c("br"),
-                _vm._v("tempor at auctor.")
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  staticStyle: {
-                    "background-color": "#FFDD00",
-                    color: "#332E0A"
-                  },
-                  attrs: { type: "button" }
-                },
-                [_vm._v("S'enregistrer")]
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-secondary",
-                  staticStyle: { "background-color": "#717C89" },
-                  attrs: { type: "button" }
-                },
-                [_vm._v("Se connecter")]
-              )
-            ])
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row", attrs: { id: "nouveauxPlants" } }, [
-      _c("div", { staticClass: "col" }, [
-        _c("h3", [_vm._v("Nouveaux plants près de chez vous")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col offset-2" }, [
-        _c("img", {
-          staticClass: "pubAccueil",
-          attrs: { src: "/images/ad_768-90.png" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row", attrs: { id: "cotePlants" } }, [
-      _c("div", { staticClass: "col" }, [
-        _c("h3", [_vm._v("Potagers les mieux côtés")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row", attrs: { id: "merch" } }, [
-      _c("div", { staticClass: "col-lg" }, [
-        _c("h3", [_vm._v("Montrez fièrement votre sens du partage !")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("img", {
-            staticClass: "card-img-top",
-            attrs: {
-              src: "/images/Plants_placeholders/green-bean.jpg",
-              alt: "..."
-            }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("h5", { staticClass: "card-title" }, [_vm._v("Nom produit")]),
-            _vm._v(" "),
-            _c(
-              "p",
-              {
-                staticClass: "card-text",
-                staticStyle: { "text-align": "right" }
-              },
-              [_vm._v("Prix")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-              [_vm._v("Acheter")]
-            )
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row", attrs: { id: "populaire" } }, [
-      _c("div", { staticClass: "col" }, [
-        _c("h3", [_vm._v("Plants les plus populaires")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row", attrs: { id: "plus" } }, [
-      _c("div", { staticClass: "col offset-5" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "button" } },
-          [_vm._v("En voir plus...")]
-        )
-      ])
     ])
   }
 ]
@@ -42578,93 +42140,6 @@ var staticRenderFns = [
         ])
       ])
     ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Navigation.vue?vue&type=template&id=4b3050de&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/components/Navigation.vue?vue&type=template&id=4b3050de& ***!
-  \*******************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
-    _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm.is_connected
-        ? _c(
-            "button",
-            {
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.deconnexion($event)
-                }
-              }
-            },
-            [_vm._v("Déconnexion")]
-          )
-        : _vm._e()
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col" }, [
-      _c("img", { attrs: { src: "/images/portager_noir.svg" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "collapse navbar-collapse",
-        attrs: { id: "navbarSupportedContent" }
-      },
-      [
-        _c("ul", { staticClass: "navbar-nav mr-auto" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-              _vm._v("Plants")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-              _vm._v("Carte des potagers")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-              _vm._v("Boutique")
-            ])
-          ])
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -59128,75 +58603,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/components/Navigation.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/views/components/Navigation.vue ***!
-  \******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Navigation_vue_vue_type_template_id_4b3050de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Navigation.vue?vue&type=template&id=4b3050de& */ "./resources/js/views/components/Navigation.vue?vue&type=template&id=4b3050de&");
-/* harmony import */ var _Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Navigation.vue?vue&type=script&lang=js& */ "./resources/js/views/components/Navigation.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Navigation_vue_vue_type_template_id_4b3050de___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Navigation_vue_vue_type_template_id_4b3050de___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/views/components/Navigation.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/components/Navigation.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/views/components/Navigation.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Navigation.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Navigation.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/views/components/Navigation.vue?vue&type=template&id=4b3050de&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/views/components/Navigation.vue?vue&type=template&id=4b3050de& ***!
-  \*************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_template_id_4b3050de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Navigation.vue?vue&type=template&id=4b3050de& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Navigation.vue?vue&type=template&id=4b3050de&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_template_id_4b3050de___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_template_id_4b3050de___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -59215,8 +58621,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\H20\582-N61-MA PROJET WEB 2\www\portager\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\H20\582-N61-MA PROJET WEB 2\www\portager\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\yohan\Desktop\portager\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\yohan\Desktop\portager\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
