@@ -204,19 +204,16 @@ nav {
     border-radius: 6px;
     opacity: 1;
     border: none;
-    margin-top: 25px;
 }
 
 #etiquettesPotager h6 {
     color: #32373D;
     font-weight: bold;
     font-size: 16px;
-    margin-left: 42px;
     text-align: left;
 }
 
 #etiquettesPotager p {
-    margin-left: 42px;
     font-size: 12px;
 }
 
@@ -226,10 +223,6 @@ nav {
 
 #pays input {
     width: 160px;
-}
-
-#profilPotagerImages {
-    margin-left: 50px;
 }
 
 #profilPotagerImages img {
@@ -248,5 +241,4 @@ nav {
     border-radius: 6px;
     opacity: 1;
     border: none;
-    margin-right: 20px;
 }
