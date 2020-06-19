@@ -2014,12 +2014,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
+//
+//
+//
+//
 //
 //
 //
@@ -2092,7 +2090,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   data: function data() {
     return {
       message: '',
-      userId: '1',
+      userId: '',
       //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
       username: '',
       contenu: '',
@@ -2103,7 +2101,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       isActive: true,
       interlocuteur: '',
       interlocuteurId: '',
-      interlocuteurName: ''
+      interlocuteurName: '',
+      test: '',
+      userMessage: ''
     };
   },
   props: {},
@@ -2116,22 +2116,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var _this = this;
 
       // Selectionne un utilisateur selon son id
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.interlocuteurId).then(function (response) {
-        _this.interlocuteurName = response.data.name;
-        console.log(_this.username);
-      }); // Selectionne l'utilisateur connectee
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.userId).then(function (response) {
+      //  Axios.get("/api/users/" + this.interlocuteurId).then(response => {
+      //   this.interlocuteurName = response.data.name
+      // });
+      // Selectionne l'utilisateur connectee
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users").then(function (response) {
         _this.user = response.data;
         _this.username = _this.user.name;
-        console.log(_this.username);
-      }); // Selectionne tous les utilisateurs(temporaire)
+        _this.userId = response.data.id;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users").then(function (response) {
-        _this.lesUsers = response.data;
-        console.log(_this.lesUsers);
+        _this.getLinkedUsers();
       });
-      this.getInterlocuteurs();
+      console.log("/api/users/messages_avec/" + this.userId); // Selectionne tous les utilisateurs(temporaire)
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/messages_avec/" + this.userId).then(function (response) {
+        console.log("prochain");
+        _this.lesUsers = response.data;
+        _this.test = _this.lesUsers.first_name + ' ' + _this.lesUsers.last_name;
+        console.log(response);
+      });
+      this.userMessages(); // this.getInterlocuteurs()
     },
     toggle: function toggle(convo) {
       this.isActive = false;
@@ -2157,6 +2161,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         console.log(_this2.message);
       });
     },
+    userMessages: function userMessages() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId).then(function (response) {
+        _this3.userMessage = response.data;
+        console.log(_this3.userMessage);
+      });
+    },
     // Transorme le format de l'heure d'envoi d'un message
     transformerDate: function transformerDate(temps) {
       return temps.substring(0, 10);
@@ -2164,38 +2176,33 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     transformerHeure: function transformerHeure(temps) {
       return temps.substring(11, 16);
     },
-    // test pour get les users who has messages with connected user
-    getInterlocuteurs: function getInterlocuteurs() {
-      var _this3 = this;
+    getLinkedUsers: function getLinkedUsers() {
+      var _this4 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId).then(function (response) {
-        _this3.interlocuteur = response.data;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/messages_avec/" + this.userId).then(function (response) {
+        console.log("prochain");
+        _this4.lesUsers = response.data;
+        _this4.test = _this4.lesUsers.first_name + ' ' + _this4.lesUsers.last_name;
         console.log(response.data);
-
-        var _iterator = _createForOfIteratorHelper(_this3.interlocuteur),
-            _step;
-
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var lol = _step.value;
-            _this3.lol = _this3.interlocuteur.to_id;
-          }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
-        }
-
-        _this3.interlocuteurId = response.data.to_id;
-
-        for (_this3.interlocuteur = response.data; _this3.interlocuteur < response.data; _this3.interlocuteur++) {
-          // Ceci sera exécuté 5 fois
-          // À chaque éxécution, la variable "pas" augmentera de 1
-          // Lorsque'elle sera arrivée à 5, le boucle se terminera.
-          console.log(_this3.interlocuteur);
-        }
       });
-    }
+    } // test pour get les users who has messages with connected user
+    //  getInterlocuteurs() {
+    //    Axios.get("/api/messages/" + this.userId).then(response => {              
+    //        this.interlocuteur = response.data
+    //        console.log(response.data)  
+    //        for (let lol of this.interlocuteur) {
+    //          this.lol = this.interlocuteur.to_id
+    //        }
+    //        this.interlocuteurId = response.data.to_id
+    //         for (this.interlocuteur = response.data; this.interlocuteur < response.data; this.interlocuteur++) {
+    //               // Ceci sera exécuté 5 fois
+    //               // À chaque éxécution, la variable "pas" augmentera de 1
+    //               // Lorsque'elle sera arrivée à 5, le boucle se terminera.
+    //         console.log(this.interlocuteur)
+    //         }
+    // });
+    // },
+
   }
 });
 
@@ -7612,7 +7619,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  margin-left: auto;\r\n  float: right;\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -40336,97 +40343,101 @@ var render = function() {
               _c(
                 "div",
                 { attrs: { id: "conversation" } },
-                _vm._l(_vm.message, function(item) {
+                _vm._l(_vm.userMessage, function(item) {
                   return _c("div", { key: item.id, staticClass: "message" }, [
-                    item.from_id == _vm.userId
-                      ? _c(
-                          "div",
-                          {
-                            staticClass: "col-md-auto",
-                            attrs: { id: "un-message-from" }
-                          },
-                          [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-2" }, [
-                                _c("p", { staticClass: "nom-utilisateur" }, [
-                                  _vm._v(_vm._s(_vm.username))
+                    _c("div", { staticClass: "col-12 overflow-auto" }, [
+                      item.from_id == _vm.userId
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "col-4",
+                              attrs: { id: "un-message-from" }
+                            },
+                            [
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-2" }, [
+                                  _c("p", { staticClass: "nom-utilisateur" }, [
+                                    _vm._v(_vm._s(_vm.username))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-2" }, [
+                                  _c("p", { staticClass: "date" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.transformerHeure(item.created_at)
+                                      )
+                                    )
+                                  ])
                                 ])
                               ]),
                               _vm._v(" "),
-                              _c("div", { staticClass: "col-2" }, [
-                                _c("p", { staticClass: "date" }, [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.transformerHeure(item.created_at)
-                                    )
-                                  )
-                                ])
+                              _c("div", { staticClass: "col-md-auto" }, [
+                                _c("p", { staticClass: "contenu" }, [
+                                  _vm._v(_vm._s(item.contenu))
+                                ]),
+                                _c("br")
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "date" }, [
+                                _vm._v(
+                                  _vm._s(_vm.transformerDate(item.created_at))
+                                )
                               ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-auto" }, [
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("br")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12 overflow-auto" }, [
+                      item.from_id != _vm.userId
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "col-4",
+                              attrs: { id: "un-message-to" }
+                            },
+                            [
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-2" }, [
+                                  _c("p", { staticClass: "nom-utilisateur" }, [
+                                    _vm._v(_vm._s(_vm.toUserName))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "nom-utilisateur" }, [
+                                    _vm._v(_vm._s(_vm.interlocuteurName))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-2" }, [
+                                  _c("p", { staticClass: "date" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.transformerHeure(item.created_at)
+                                      )
+                                    )
+                                  ])
+                                ])
+                              ]),
+                              _vm._v(" "),
                               _c("p", { staticClass: "contenu" }, [
                                 _vm._v(_vm._s(item.contenu))
                               ]),
-                              _c("br")
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "date" }, [
-                              _vm._v(
-                                _vm._s(_vm.transformerDate(item.created_at))
-                              )
-                            ])
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    item.from_id != _vm.userId
-                      ? _c(
-                          "div",
-                          {
-                            staticClass: "col-4",
-                            attrs: { id: "un-message-to" }
-                          },
-                          [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-2" }, [
-                                _c("p", { staticClass: "nom-utilisateur" }, [
-                                  _vm._v(_vm._s(_vm.toUserName))
-                                ]),
-                                _vm._v(" "),
-                                _c("p", { staticClass: "nom-utilisateur" }, [
-                                  _vm._v(_vm._s(_vm.interlocuteurName))
-                                ])
-                              ]),
+                              _c("br"),
                               _vm._v(" "),
-                              _c("div", { staticClass: "col-2" }, [
-                                _c("p", { staticClass: "date" }, [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.transformerHeure(item.created_at)
-                                    )
-                                  )
-                                ])
+                              _c("p", { staticClass: "date" }, [
+                                _vm._v(
+                                  _vm._s(_vm.transformerDate(item.created_at))
+                                )
                               ])
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "contenu" }, [
-                              _vm._v(_vm._s(item.contenu))
-                            ]),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "date" }, [
-                              _vm._v(
-                                _vm._s(_vm.transformerDate(item.created_at))
-                              )
-                            ])
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("br")
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("br")
+                    ])
                   ])
                 }),
                 0

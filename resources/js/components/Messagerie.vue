@@ -19,8 +19,9 @@
             <div class="col-9" id="conversation-active">
               <div class="row justify-content-between">
               <div id="conversation">
-                <div class="message" v-for="item in message" :key="item.id">
-                  <div class="col-md-auto" v-if="item.from_id == userId" id="un-message-from">
+                <div class="message" v-for="item in userMessage" :key="item.id">
+                  <div class="col-12 overflow-auto">
+                  <div class="col-4" v-if="item.from_id == userId" id="un-message-from">
                     <div class="row">
                       <div class="col-2">
                         <p class="nom-utilisateur">{{ username }}</p>
@@ -35,6 +36,8 @@
                   
                   <p class="date">{{ transformerDate(item.created_at) }}</p>
                   </div> <br>
+                  </div>
+                  <div class="col-12 overflow-auto">
                   <div class="col-4" v-if="item.from_id != userId" id="un-message-to">
                     <div class="row">
                       <div class="col-2">
@@ -47,7 +50,8 @@
                     </div>                     
                   <p class="contenu">{{ item.contenu }}</p><br>
                   <p class="date">{{ transformerDate(item.created_at) }}</p>
-                  </div> <br>           
+                  </div> <br>  
+                  </div>         
                 </div>
               </div>
             </div>
@@ -71,7 +75,7 @@
         data() {
             return {  
                message: '',
-               userId: '1',         //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
+               userId: '',         //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
                username: '',
                contenu: '',
                toUserId: '',
@@ -82,6 +86,8 @@
                interlocuteur: '',
                interlocuteurId: '',
                interlocuteurName: '',
+               test: '',
+               userMessage: '',
                
             };
         
@@ -94,32 +100,42 @@
         },
         mounted() {
           this.getData()
+          
         },
         methods: {
 
           getData() {
 
           // Selectionne un utilisateur selon son id
-             Axios.get("/api/users/" + this.interlocuteurId).then(response => {
-              this.interlocuteurName = response.data.name
-              console.log(this.username)
-            });
+            //  Axios.get("/api/users/" + this.interlocuteurId).then(response => {
+            //   this.interlocuteurName = response.data.name
+              
+            // });
 
             // Selectionne l'utilisateur connectee
-             Axios.get("/api/users/" + this.userId).then(response => {
+             Axios.get("/api/users").then(response => {
               this.user = response.data
               this.username = this.user.name
-              console.log(this.username)
+              this.userId = response.data.id
+
+              this.getLinkedUsers()
             });
 
-        
+
+          console.log("/api/users/messages_avec/" + this.userId)
           // Selectionne tous les utilisateurs(temporaire)
-            Axios.get("/api/users").then(response => {
+
+          
+            Axios.get("/api/users/messages_avec/" + this.userId).then(response => {
+              console.log("prochain")
               this.lesUsers = response.data
+              this.test = this.lesUsers.first_name + ' ' + this.lesUsers.last_name
+              console.log(response)
+              
              
-              console.log(this.lesUsers)
-            });          
-        this.getInterlocuteurs()
+            });     
+            this.userMessages()     
+        // this.getInterlocuteurs()
           },
 
            toggle(convo) {
@@ -153,6 +169,14 @@
                 
             });
             },
+
+           userMessages() {
+               Axios.get("/api/messages/" + this.userId).then(response => {              
+                   this.userMessage = response.data
+                console.log(this.userMessage)              
+                
+            });
+            },
               // Transorme le format de l'heure d'envoi d'un message
             transformerDate(temps) {
               return temps.substring(0,10)
@@ -162,28 +186,37 @@
               return temps.substring(11,16)
             },
 
+             getLinkedUsers() {
+             Axios.get("/api/users/messages_avec/" + this.userId).then(response => {
+              console.log("prochain")
+              this.lesUsers = response.data
+              this.test = this.lesUsers.first_name + ' ' + this.lesUsers.last_name
+              console.log(response.data)
+            });  
+           }
+
             // test pour get les users who has messages with connected user
 
-             getInterlocuteurs() {
-               Axios.get("/api/messages/" + this.userId).then(response => {              
-                   this.interlocuteur = response.data
-                   console.log(response.data)  
-                   for (let lol of this.interlocuteur) {
-                     this.lol = this.interlocuteur.to_id
+            //  getInterlocuteurs() {
+            //    Axios.get("/api/messages/" + this.userId).then(response => {              
+            //        this.interlocuteur = response.data
+            //        console.log(response.data)  
+            //        for (let lol of this.interlocuteur) {
+            //          this.lol = this.interlocuteur.to_id
                       
-                   }
-                   this.interlocuteurId = response.data.to_id
+            //        }
+            //        this.interlocuteurId = response.data.to_id
 
-                    for (this.interlocuteur = response.data; this.interlocuteur < response.data; this.interlocuteur++) {
-                          // Ceci sera exécuté 5 fois
-                          // À chaque éxécution, la variable "pas" augmentera de 1
-                          // Lorsque'elle sera arrivée à 5, le boucle se terminera.
-                    console.log(this.interlocuteur)
-                    }
+            //         for (this.interlocuteur = response.data; this.interlocuteur < response.data; this.interlocuteur++) {
+            //               // Ceci sera exécuté 5 fois
+            //               // À chaque éxécution, la variable "pas" augmentera de 1
+            //               // Lorsque'elle sera arrivée à 5, le boucle se terminera.
+            //         console.log(this.interlocuteur)
+            //         }
                            
                 
-            });
-            },
+            // });
+            // },
         },
     }
 </script>
@@ -226,6 +259,8 @@
 }
 
 #un-message-from{
+  margin-left: auto;
+  float: right;
   color: rgb(10, 6, 6);
   border-radius: 10px;
   background-color: rgb(194, 235, 129);

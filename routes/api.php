@@ -60,8 +60,10 @@ Route::post('/messages/store', 'MessageController@store');              // envoi
  * Users
  */
 Route::group(['prefix' => '/users', 'where' => ['user' => '[0-9]+']], function(){
-    Route::get('/', 'UserController@index'); 
-    Route::get('/{user}', 'UserController@show'); 
+    Route::get('/', 'UserController@show'); 
+    Route::get('/all', 'UserController@index'); 
+    Route::get('/messages_avec/{userId}', 'UserController@messages_avec'); 
+    Route::get('/{toUserId}', 'UserController@test'); 
 });
 /**
  * Plants
