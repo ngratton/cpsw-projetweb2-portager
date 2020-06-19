@@ -1,5 +1,5 @@
 <template>
-  
+
     <div>
         <div class="container" id="colHeader">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -15,7 +15,7 @@
                 <a class="nav-link" href="#">Carte des potagers</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Boutique</a>
+                <a class="nav-link" href="https://boutique.portager.app">Boutique</a>
                 </li>
             </ul>
             </div>
@@ -27,12 +27,12 @@
 
 <script>
     export default {
-        name: 'Entete', 
+        name: 'Entete',
         data() {
-            return {  
+            return {
                 data: 0,
             };
-        
+
         },
         props: {
 
