@@ -57,9 +57,9 @@
                                     name="password"
                                     id="password"
                                     v-model="form.password">
-                                    <span class="text-danger" v-if="errors.password">
-                                        {{ errors.password[0] }}
-                                    </span>
+                                <span class="text-danger" v-if="errors.password">
+                                    {{ errors.password[0] }}
+                                </span>
                             </div>
                             <button type="submit" class="btn btn-primary" @click.prevent="inscription">INSCRIPTION</button>
                         </form>
@@ -88,8 +88,7 @@ export default {
     }, // data
 
     mounted() {
-        // let titreOg = document.title
-        // document.title = 'Inscription | ' + titreOg
+        //
     }, // mounted
 
     methods: {

@@ -23,6 +23,7 @@ class CreatePlantsTable extends Migration
             $table->tinyInteger('est_actif')->default(1);
             $table->integer('plants_visits')->nullable()->default(0);
             $table->unsignedBigInteger('potager_id');
+            $table->float('note_moy')->nullable();
             $table->timestamps();
         });
 

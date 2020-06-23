@@ -41544,9 +41544,9 @@ var render = function() {
                     _vm.errors.password
                       ? _c("span", { staticClass: "text-danger" }, [
                           _vm._v(
-                            "\n                                    " +
+                            "\n                                " +
                               _vm._s(_vm.errors.password[0]) +
-                              "\n                                "
+                              "\n                            "
                           )
                         ])
                       : _vm._e()
