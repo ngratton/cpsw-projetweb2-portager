@@ -57,12 +57,19 @@ class MessageController extends Controller
      */
     public function show($userId, $toUserId)
     {
-        
+
         return Message::
-        where('from_id', '=', $userId)
-        ->where('to_id', '=', $toUserId)
-        ->orWhere('to_id', '=', $userId)
-        ->get();
+            where(function($query) use ($userId, $toUserId) {
+                $query->where('from_id', '=', $userId)
+                      ->where('to_id', '=', $toUserId); 
+            })
+            ->orWhere(function($query) use ($userId, $toUserId) {
+                $query->where('to_id', '=', $userId)
+                      ->where('from_id', '=', $toUserId);
+            })
+            
+            ->get();
+
     }
 
     /**

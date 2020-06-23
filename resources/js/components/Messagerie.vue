@@ -82,10 +82,7 @@
                lesUsers: '',
                toUserName: '',
                isActive: true,
-               test: '',
-               userMessage: '',
-               toUserFirstName: '',
-             
+               toUserFirstName: '',            
             };
         
         },
@@ -97,7 +94,6 @@
         },
         mounted() {
           this.getData()
-          this.scrollToEnd()
           
         },
         methods: {
@@ -117,7 +113,6 @@
               this.lesUsers = response.data
               this.test = this.lesUsers.first_name + ' ' + this.lesUsers.last_name       
             });     
-            this.userMessages()  
             
           },
 
@@ -130,7 +125,7 @@
               console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id)
 
               this.listeMessages()
-              this.scrollToEnd()
+              console.log(this.message)
             },
 
           // Lorsque l'utilisateur envoi un message
@@ -142,24 +137,19 @@
                 to_id: this.toUserId,
                
               }).then(response => {              
-                   this.listeMessages()  
-                    this.scrollToEnd()                                   
-            });                                       
+                  this.listeMessages()  
+            }); 
+             this.contenu = ""                                      
             },  
             
             // Selectionne les messages selon les id des utilisateurs dans la conversation
             listeMessages() {
                Axios.get("/api/messages/" + this.userId + "/" + this.toUserId).then(response => {              
-                   this.message = response.data   
-                                                
-            });          
-            },
-
-           userMessages() {
-               Axios.get("/api/messages/" + this.userId).then(response => {              
-                   this.userMessage = response.data            
-                
-            });
+                   this.message = response.data
+                   this.$nextTick(() => {
+                      this.scrollToEnd()
+                   })
+              });          
             },
 
             // Transorme le format de l'heure d'envoi d'un message
@@ -175,11 +165,10 @@
              getLinkedUsers() {
              Axios.get("/api/users/messages_avec/" + this.userId).then(response => {
               this.lesUsers = response.data
-              this.test = this.lesUsers.first_name + ' ' + this.lesUsers.last_name
             });  
            },
 
-          // Permet d'afficher les conversation a partir du bas (messages plus recents)
+          // Permet d'afficher les conversations a partir du bas (messages plus recents)
             scrollToEnd() {
             let content = this.$refs.messagesContainer
             content.scrollTop = content.scrollHeight
@@ -216,6 +205,7 @@
 }
 
 #conversation {
+  width: 100%;
   background-color: rgb(250, 250, 250);
 }
 
@@ -253,8 +243,6 @@
 .active {
   display: none;
 }
-
-
 
 
 </style>

@@ -2097,8 +2097,6 @@ __webpack_require__.r(__webpack_exports__);
       lesUsers: '',
       toUserName: '',
       isActive: true,
-      test: '',
-      userMessage: '',
       toUserFirstName: ''
     };
   },
@@ -2106,7 +2104,6 @@ __webpack_require__.r(__webpack_exports__);
   components: {},
   mounted: function mounted() {
     this.getData();
-    this.scrollToEnd();
   },
   methods: {
     getData: function getData() {
@@ -2125,7 +2122,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.lesUsers = response.data;
         _this.test = _this.lesUsers.first_name + ' ' + _this.lesUsers.last_name;
       });
-      this.userMessages();
     },
     // Lorsque l'utilisateur selectionne une conversation
     toggle: function toggle(convo) {
@@ -2135,7 +2131,7 @@ __webpack_require__.r(__webpack_exports__);
       this.toUserId = convo.id;
       console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id);
       this.listeMessages();
-      this.scrollToEnd();
+      console.log(this.message);
     },
     // Lorsque l'utilisateur envoi un message
     envoiMessage: function envoiMessage() {
@@ -2147,9 +2143,8 @@ __webpack_require__.r(__webpack_exports__);
         to_id: this.toUserId
       }).then(function (response) {
         _this2.listeMessages();
-
-        _this2.scrollToEnd();
       });
+      this.contenu = "";
     },
     // Selectionne les messages selon les id des utilisateurs dans la conversation
     listeMessages: function listeMessages() {
@@ -2157,13 +2152,10 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId + "/" + this.toUserId).then(function (response) {
         _this3.message = response.data;
-      });
-    },
-    userMessages: function userMessages() {
-      var _this4 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId).then(function (response) {
-        _this4.userMessage = response.data;
+        _this3.$nextTick(function () {
+          _this3.scrollToEnd();
+        });
       });
     },
     // Transorme le format de l'heure d'envoi d'un message
@@ -2175,14 +2167,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Selectionne les utilisateurs avec qui l'utilisateur connecte a des messages
     getLinkedUsers: function getLinkedUsers() {
-      var _this5 = this;
+      var _this4 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/messages_avec/" + this.userId).then(function (response) {
-        _this5.lesUsers = response.data;
-        _this5.test = _this5.lesUsers.first_name + ' ' + _this5.lesUsers.last_name;
+        _this4.lesUsers = response.data;
       });
     },
-    // Permet d'afficher les conversation a partir du bas (messages plus recents)
+    // Permet d'afficher les conversations a partir du bas (messages plus recents)
     scrollToEnd: function scrollToEnd() {
       var content = this.$refs.messagesContainer;
       content.scrollTop = content.scrollHeight;
@@ -7603,7 +7594,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#messagerie {\r\n  overflow: hidden;\r\n  border: solid yellowgreen 2px;\r\n  max-height: 100000px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\r\n  max-height: 600px;\r\n  overflow-y: scroll;\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  margin-left: auto;\r\n  float: right;\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n#messagerie {\r\n  overflow: hidden;\r\n  border: solid yellowgreen 2px;\r\n  max-height: 100000px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\r\n  max-height: 600px;\r\n  overflow-y: scroll;\n}\n#conversation {\r\n  width: 100%;\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  margin-left: auto;\r\n  float: right;\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
