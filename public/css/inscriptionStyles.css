@@ -252,8 +252,21 @@ nav {
         width: 150%;
     }
 
+    #formulairePotager {
+        max-width: 100%;
+    }
+
     form {
         width: 100%;
+    }
+
+    #profilPotagerImages {
+        max-width: 100%;
+        margin-top: 20%;
+    }
+
+    #etiquettesPotager {
+        max-width: 100%;
     }
 
     #etiquettesPotager h6 {
