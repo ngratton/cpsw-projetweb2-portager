@@ -12,20 +12,10 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($userId)
-    {           
-        return Message::
-        where('to_id', '=', $userId)
-        ->get();    
-    }
-
-    public function test($userId)
+    public function index()
     {
-        return Message::where('from_id', '=', $userId)->get();
-              
-       
+        return Message::all();
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -57,18 +47,11 @@ class MessageController extends Controller
      */
     public function show($userId, $toUserId)
     {
-
+        
         return Message::
-            where(function($query) use ($userId, $toUserId) {
-                $query->where('from_id', '=', $userId)
-                      ->where('to_id', '=', $toUserId); 
-            })
-            ->orWhere(function($query) use ($userId, $toUserId) {
-                $query->where('to_id', '=', $userId)
-                      ->where('from_id', '=', $toUserId);
-            })
-            
-            ->get();
+        where('from_id', '=', $userId)
+        ->where('to_id', '=', $toUserId)
+        ->get();
     }
 
     /**
