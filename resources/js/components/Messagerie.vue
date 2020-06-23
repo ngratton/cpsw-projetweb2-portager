@@ -125,7 +125,7 @@
               console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id)
 
               this.listeMessages()
-              console.log(this.message)
+
             },
 
           // Lorsque l'utilisateur envoi un message

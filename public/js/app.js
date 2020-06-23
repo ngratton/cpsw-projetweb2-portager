@@ -2131,7 +2131,6 @@ __webpack_require__.r(__webpack_exports__);
       this.toUserId = convo.id;
       console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id);
       this.listeMessages();
-      console.log(this.message);
     },
     // Lorsque l'utilisateur envoi un message
     envoiMessage: function envoiMessage() {

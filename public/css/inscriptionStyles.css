@@ -225,6 +225,10 @@ nav {
     width: 160px;
 }
 
+#profilPotagerImages {
+    width: 100%;
+}
+
 #profilPotagerImages img {
     margin-right: 15px;
     margin-bottom: 20px;
@@ -241,4 +245,35 @@ nav {
     border-radius: 6px;
     opacity: 1;
     border: none;
+}
+
+@media only screen and (max-width: 600px) {
+    #creationPotager {
+        width: 150%;
+    }
+
+    #formulairePotager {
+        max-width: 100%;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    #profilPotagerImages {
+        max-width: 100%;
+        margin-top: 20%;
+    }
+
+    #etiquettesPotager {
+        max-width: 100%;
+    }
+
+    #etiquettesPotager h6 {
+        width: 130%;
+    }
+    
+    #etiquettesPotager p {
+        width: 130%;
+    }
 }
