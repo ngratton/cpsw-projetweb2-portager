@@ -1,16 +1,24 @@
 <template>
-  
+
 
 <div>
-   
+
      <entete></entete>
     <div class="container-fluid" id="banner">
         <div class="container">
             <div class="row"> <!--banner-->
                 <div class="col">
                     <h1>Nam urna erat,<br>tempor at auctor.</h1>
-                    <button type="button" class="btn btn-primary" style="background-color: #FFDD00; color: #332E0A;">S'enregistrer</button><br>
-                    <button type="button" class="btn btn-secondary" style="background-color: #717C89;">Se connecter</button>
+                    <router-link :to="{ name: 'Inscription' }">
+                        <button type="button" class="btn btn-primary">
+                            S'enregistrer
+                        </button>
+                    </router-link><br />
+                    <router-link :to="{ name: 'Connexion' }">
+                        <button type="button" class="btn btn-tertiary">
+                            Se connecter
+                        </button>
+                    </router-link>
                 </div>
             </div>
         </div>
