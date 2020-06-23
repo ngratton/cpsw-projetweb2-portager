@@ -13,20 +13,20 @@
         <div class="row">
           <div class="col-3" id="liste-conversations">           
             <div v-on:click="toggle(convo)" class="container" id="conversations" v-for="convo in lesUsers" :key="convo.id">
-              <h4>{{ convo.first_name }}</h4> <br>
+              <h4>{{ convo.first_name }} {{ convo.last_name }}</h4> <br>
             </div>
             </div>
-            <div class="col-9" id="conversation-active">
+            <div class="col-9" id="conversation-active" ref="messagesContainer">
               <div class="row justify-content-between">
               <div id="conversation">
-                <div class="message" v-for="item in userMessage" :key="item.id">
+                <div class="message" v-for="item in message" :key="item.id">
                   <div class="col-12 overflow-auto">
                   <div class="col-4" v-if="item.from_id == userId" id="un-message-from">
-                    <div class="row">
-                      <div class="col-2">
+                    <div class="row justify-content-between">
+                      <div class="col-6">
                         <p class="nom-utilisateur">{{ username }}</p>
                       </div>
-                      <div class="col-2">
+                      <div class="col-6">
                         <p class="date">{{ transformerHeure(item.created_at) }}</p>
                       </div>                    
                     </div>  
@@ -39,12 +39,11 @@
                   </div>
                   <div class="col-12 overflow-auto">
                   <div class="col-4" v-if="item.from_id != userId" id="un-message-to">
-                    <div class="row">
-                      <div class="col-2">
-                        <p class="nom-utilisateur">{{ toUserName }}</p>
-                        <p class="nom-utilisateur">{{ interlocuteurName }}</p>
+                    <div class="row justify-content-between">
+                      <div class="col-6">
+                        <p class="nom-utilisateur">{{ toUserFirstName }}</p>
                       </div>
-                      <div class="col-2">
+                      <div class="col-6">
                         <p class="date">{{ transformerHeure(item.created_at) }}</p>
                       </div>                    
                     </div>                     
@@ -75,7 +74,7 @@
         data() {
             return {  
                message: '',
-               userId: '',         //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
+               userId: '',         
                username: '',
                contenu: '',
                toUserId: '',
@@ -83,12 +82,10 @@
                lesUsers: '',
                toUserName: '',
                isActive: true,
-               interlocuteur: '',
-               interlocuteurId: '',
-               interlocuteurName: '',
                test: '',
                userMessage: '',
-               
+               toUserFirstName: '',
+             
             };
         
         },
@@ -100,56 +97,43 @@
         },
         mounted() {
           this.getData()
+          this.scrollToEnd()
           
         },
         methods: {
 
           getData() {
 
-          // Selectionne un utilisateur selon son id
-            //  Axios.get("/api/users/" + this.interlocuteurId).then(response => {
-            //   this.interlocuteurName = response.data.name
-              
-            // });
-
-            // Selectionne l'utilisateur connectee
+            // Selectionne l'utilisateur connecte
              Axios.get("/api/users").then(response => {
               this.user = response.data
-              this.username = this.user.name
+              this.username = this.user.first_name
               this.userId = response.data.id
-
               this.getLinkedUsers()
             });
-
-
-          console.log("/api/users/messages_avec/" + this.userId)
-          // Selectionne tous les utilisateurs(temporaire)
-
-          
+        
+          // Selectionne les utilisateurs ayant des messages avec l'utilisateur connecte
             Axios.get("/api/users/messages_avec/" + this.userId).then(response => {
-              console.log("prochain")
               this.lesUsers = response.data
-              this.test = this.lesUsers.first_name + ' ' + this.lesUsers.last_name
-              console.log(response)
-              
-             
+              this.test = this.lesUsers.first_name + ' ' + this.lesUsers.last_name       
             });     
-            this.userMessages()     
-        // this.getInterlocuteurs()
+            this.userMessages()  
+            
           },
 
+          // Lorsque l'utilisateur selectionne une conversation
            toggle(convo) {
              this.isActive = false
               this.toUserName = convo.first_name + ' ' + convo.last_name
+              this.toUserFirstName = convo.first_name
               this.toUserId = convo.id
               console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id)
 
-
               this.listeMessages()
-
-              
+              this.scrollToEnd()
             },
 
+          // Lorsque l'utilisateur envoi un message
            envoiMessage() {
 
              Axios.post("/api/messages/store", {
@@ -157,27 +141,28 @@
                 from_id: this.userId,
                 to_id: this.toUserId,
                
-              })
-              this.listeMessages()
+              }).then(response => {              
+                   this.listeMessages()  
+                    this.scrollToEnd()                                   
+            });                                       
             },  
             
             // Selectionne les messages selon les id des utilisateurs dans la conversation
             listeMessages() {
                Axios.get("/api/messages/" + this.userId + "/" + this.toUserId).then(response => {              
-                   this.message = response.data
-                console.log(this.message)              
-                
-            });
+                   this.message = response.data   
+                                                
+            });          
             },
 
            userMessages() {
                Axios.get("/api/messages/" + this.userId).then(response => {              
-                   this.userMessage = response.data
-                console.log(this.userMessage)              
+                   this.userMessage = response.data            
                 
             });
             },
-              // Transorme le format de l'heure d'envoi d'un message
+
+            // Transorme le format de l'heure d'envoi d'un message
             transformerDate(temps) {
               return temps.substring(0,10)
             },
@@ -186,45 +171,28 @@
               return temps.substring(11,16)
             },
 
+            // Selectionne les utilisateurs avec qui l'utilisateur connecte a des messages
              getLinkedUsers() {
              Axios.get("/api/users/messages_avec/" + this.userId).then(response => {
-              console.log("prochain")
               this.lesUsers = response.data
               this.test = this.lesUsers.first_name + ' ' + this.lesUsers.last_name
-              console.log(response.data)
             });  
-           }
+           },
 
-            // test pour get les users who has messages with connected user
-
-            //  getInterlocuteurs() {
-            //    Axios.get("/api/messages/" + this.userId).then(response => {              
-            //        this.interlocuteur = response.data
-            //        console.log(response.data)  
-            //        for (let lol of this.interlocuteur) {
-            //          this.lol = this.interlocuteur.to_id
-                      
-            //        }
-            //        this.interlocuteurId = response.data.to_id
-
-            //         for (this.interlocuteur = response.data; this.interlocuteur < response.data; this.interlocuteur++) {
-            //               // Ceci sera exécuté 5 fois
-            //               // À chaque éxécution, la variable "pas" augmentera de 1
-            //               // Lorsque'elle sera arrivée à 5, le boucle se terminera.
-            //         console.log(this.interlocuteur)
-            //         }
-                           
-                
-            // });
-            // },
+          // Permet d'afficher les conversation a partir du bas (messages plus recents)
+            scrollToEnd() {
+            let content = this.$refs.messagesContainer
+            content.scrollTop = content.scrollHeight
+          },
         },
     }
 </script>
 
 <style lang="css">
 #messagerie {
-  
+  overflow: hidden;
   border: solid yellowgreen 2px;
+  max-height: 100000px;
 }
 
 #haut-messagerie {
@@ -243,6 +211,8 @@
 
 #conversation-active{
   background-color: rgb(255, 255, 255);
+  max-height: 600px;
+  overflow-y: scroll;
 }
 
 #conversation {
@@ -283,6 +253,7 @@
 .active {
   display: none;
 }
+
 
 
 

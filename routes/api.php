@@ -51,7 +51,7 @@ Route::post('/potager/{userId}/visit', 'PotagerController@addvisit');   // Ping 
 /**
  * Messages
  */
-Route::get('/messages', 'MessageController@index');                     // Ensemble des messages des conversations de l'usager
+Route::get('/messages/to/{userId}', 'MessageController@index');                     // Ensemble des messages des conversations de l'usager
 Route::get('/messages/{userId}/{toUserId}', 'MessageController@show');  // Ensemble des messages des conversations de l'usager avec un interlocuteur
 Route::get('/messages/{userId}', 'MessageController@test');
 Route::post('/messages/store', 'MessageController@store');              // envoi de messages

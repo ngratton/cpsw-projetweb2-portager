@@ -12,9 +12,11 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return Message::all();
+    public function index($userId)
+    {           
+        return Message::
+        where('to_id', '=', $userId)
+        ->get();    
     }
 
     public function test($userId)
@@ -59,6 +61,7 @@ class MessageController extends Controller
         return Message::
         where('from_id', '=', $userId)
         ->where('to_id', '=', $toUserId)
+        ->orWhere('to_id', '=', $userId)
         ->get();
     }
 
