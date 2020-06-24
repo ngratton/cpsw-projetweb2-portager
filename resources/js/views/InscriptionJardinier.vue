@@ -326,6 +326,12 @@ nav {
     width: auto;
     position: absolute;
     margin-top: 28px;
+    color: white;
+    background: #9FCC3B 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 10px #00000029;
+    border-radius: 6px;
+    opacity: 1;
+    border: none;
 }
 
 .btn-file {
