@@ -2653,11 +2653,7 @@ __webpack_require__.r(__webpack_exports__);
       _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].connexion(this.form).then(function (response) {
         var user = axios.get('api/user').then(function (user) {
           _this.user = user.data;
-        });
-
-        _this.$router.push({
-          name: 'Accueil'
-        });
+        }); // this.$router.push({name: 'Accueil'})
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors;
@@ -2773,20 +2769,27 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   // data
-  mounted: function mounted() {// let titreOg = document.title
-    // document.title = 'Inscription | ' + titreOg
+  mounted: function mounted() {//
   },
   // mounted
   methods: {
     inscription: function inscription() {
       var _this = this;
 
-      _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].inscription(this.form).then(function () {
-        // Redirige à l'écran de Connexion
-        _this.$router.push({
-          name: 'Connexion'
+      _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].inscription(this.form) // Envoi du formulaire d'inscription au backend
+      .then(function () {
+        _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].connexion({
+          // Connexion automatique s'il n'y a pas d'erreur
+          email: _this.email,
+          password: _this.password
+        }).then(function () {
+          _this.$router.push({
+            name: 'Accueil'
+          }); // Redirection temp. Sera dirigé vers "Création du Profil"
+
         });
       })["catch"](function (error) {
+        // Affiche les erreurs dans le formulaire
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors;
         }
@@ -2856,21 +2859,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2880,7 +2868,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Potager',
   data: function data() {
     return {
-      data: 0
+      plants: []
     };
   },
   props: {},
@@ -2891,8 +2879,18 @@ __webpack_require__.r(__webpack_exports__);
     CartePotager: _components_CartePotager__WEBPACK_IMPORTED_MODULE_3__["default"],
     PiedPage: _components_PiedPage__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  mounted: function mounted() {},
-  methods: {}
+  mounted: function mounted() {
+    this.fetchPlants();
+  },
+  methods: {
+    fetchPlants: function fetchPlants() {
+      var _this = this;
+
+      axios.get('/api/mes-plants').then(function (data) {
+        _this.plants = data.data;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -41633,31 +41631,31 @@ var render = function() {
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
-          _c("div", { staticClass: "row contentPotager" }, [
-            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-            _vm._v(" "),
-            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-            _vm._v(" "),
-            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _c("div", { staticClass: "w-100" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row contentPotager" }, [
-            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-            _vm._v(" "),
-            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-            _vm._v(" "),
-            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-            _vm._v(" "),
-            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-            _vm._v(" "),
-            _c("div", { staticClass: "col" }, [_c("carte-potager")], 1),
-            _vm._v(" "),
-            _c("div", { staticClass: "w-100" })
-          ])
+          _c(
+            "div",
+            { staticClass: "row contentPotager" },
+            _vm._l(_vm.plants, function(plant) {
+              return _c(
+                "div",
+                { staticClass: "col", staticStyle: { "min-width": "210px" } },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "card", attrs: { id: "cardPotager" } },
+                    [
+                      _c("img", {
+                        staticClass: "card-img-top",
+                        attrs: { src: plant.photo_mini, alt: "..." }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(2, true)
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          )
         ],
         1
       ),
@@ -41696,11 +41694,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6", attrs: { id: "carte" } }, [
-      _c("img", {
-        staticClass: "img-responsive img-center",
-        attrs: { src: "/images/carte.png" }
-      })
+    return _c("div", { staticClass: "card-body" }, [
+      _c("h5", { staticClass: "card-title" }, [_vm._v("Nom du plant")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-secondary", attrs: { type: "button" } },
+        [
+          _vm._v(
+            "\n                        Voir le plant\n                        "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Offrir un échange")]
+      )
     ])
   }
 ]

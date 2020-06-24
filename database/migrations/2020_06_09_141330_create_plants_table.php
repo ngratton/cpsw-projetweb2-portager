@@ -23,6 +23,7 @@ class CreatePlantsTable extends Migration
             $table->tinyInteger('est_actif')->default(1);
             $table->integer('plants_visits')->nullable()->default(0);
             $table->unsignedBigInteger('potager_id');
+            $table->unsignedBigInteger('user_id');
             $table->float('note_moy')->nullable();
             $table->timestamps();
         });
@@ -30,6 +31,7 @@ class CreatePlantsTable extends Migration
         Schema::table('plants', function (Blueprint $table) {
             $table->foreign('type_id')->references('id')->on('types');
             $table->foreign('potager_id')->references('id')->on('potagers');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

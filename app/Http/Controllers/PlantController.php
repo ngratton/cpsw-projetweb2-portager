@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Image;
 use App\Plant;
+use App\Potager;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PlantController extends Controller
 {
@@ -34,6 +36,7 @@ class PlantController extends Controller
         $plant->est_actif = $request->actif;
         $plant->est_partage = $request->partage;
         $plant->potager_id = $request->potagerid;
+        $plant->user_id = Auth::user();
 
         // Nom de la photo
         $imageData = $request->get('photo');
@@ -74,6 +77,25 @@ class PlantController extends Controller
     public function show(Plant $plant, $plantId)
     {
         return Plant::find($plantId);
+    }
+
+    /**
+     * Affichage des plants de l'utilisateur connecté
+     *
+     * @param \App\Plant  $plant
+     * @return \Illuminate\Http\Response
+     */
+    public function mesPlants(Plant $plant) {
+        // return Auth::user();
+        $monPotager = Potager::where('user_id', 2)->first();
+
+        $mesPlants = Plant::
+                where('potager_id', $monPotager->id)
+                ->where('est_actif', 1)
+                ->where('est_partage', 1)
+                ->get();
+
+        return $mesPlants;
     }
 
     /**

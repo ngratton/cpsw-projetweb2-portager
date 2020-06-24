@@ -68,6 +68,8 @@ Route::group(['prefix' => '/users', 'where' => ['user' => '[0-9]+']], function()
  */
 Route::get('/plants', 'PlantController@index');                         // Affichage de tous les plants
 
+Route::middleware('auth:sanctum')->get('/mes-plants', 'PlantController@mesPlants');   // Afficher les plants de l'utilisateur connecté
+
 Route::put('/plant/new', 'PlantController@store');                      // Création d'un plant
 
 Route::get('/plant/{plantId}', 'PlantController@show');                 // Obtenir un plant

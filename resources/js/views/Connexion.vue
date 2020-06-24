@@ -64,7 +64,7 @@
                         let user = axios.get('api/user').then(user => {
                             this.user = user.data
                         })
-                        this.$router.push({name: 'Accueil'})
+                        // this.$router.push({name: 'Accueil'})
                     })
                     .catch(error => {
                         if(error.response.status === 422) {
