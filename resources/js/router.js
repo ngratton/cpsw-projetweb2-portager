@@ -6,6 +6,7 @@ import ProfilUtilisateur from './views/ProfilUtilisateur';
 import Inscription from './views/Inscription'
 import Connexion from './views/Connexion'
 import InscriptionJardinier from './views/InscriptionJardinier'
+import InscriptionPotager from './views/InscriptionPotager'
 
 Vue.use(VueRouter);
 
@@ -62,6 +63,15 @@ export default new VueRouter({
             path: '/inscriptionjardinier',
             name: 'InscriptionJardinier',
             component: InscriptionJardinier,
+            meta: {
+                title: 'Profil | Portager | Cultivez votre sens du partage',
+            },
+        },
+
+        {
+            path: '/inscriptionpotager',
+            name: 'InscriptionPotager',
+            component: InscriptionPotager,
             meta: {
                 title: 'Profil | Portager | Cultivez votre sens du partage',
             },

@@ -6,59 +6,96 @@
                 <img id="logo" src="/images/portager_noir.svg">
             </div>
             <div class="col-6 offset-3">
-                <img id="barreProgression" src="/images/BarreProfil.PNG">
+                <img id="barreProgression" src="/images/BarreProfilPotager.PNG">
             </div>
     </div>
-    <div class="container-fluid" id="profil">
+    <div class="container-fluid" id="profilPotager">
         <div class="container-fluid" id="profilTitre">
-            <div class="row align-items-center" id="profilJardinierTitre">
-                <div class="col-5" id="completer">
-                    <h3>Complétez votre profil de jardinier, {{ prenom }}</h3>
+            <div class="row align-items-center" id="profilPotagerTitre">
+                <div class="col-3">
+                    <h3>Créer votre potager</h3>
                 </div>
-                <div class="col-2 offset-1" id="plusTard">
+                <div class="col-2 offset-3" id="plusTard">
                     <a href="#"><p>Compléter plus tard</p></a>
                 </div>
-                <div class="col-2 offset-1" id="suivant">
+                <div class="col-2 offset-1">
                     <button type="button" class="btn btn-primary">Passez à l'étape suivante</button><br>
                 </div>
             </div>
         </div>
-        <div class="row" id="creationProfil">
+        <div class="row" id="creationPotager">
             <div class="col-4">
                 <form>
-                    <div class="form-group">
-                        <h4>Ajoutez une photo de profil</h4><br>
-                        <img src="/images/profil_pardefault_100px.png">
-                        <span class="btn btn-primary btn-file mt-4">
-                            Téléverser une photo<input type="file">
-                         </span>
+                    <div class="form-row">
+                        <div class="col">
+                            <h6>Indiquez-nous où se trouve votre potager</h6><br>
+                            <label for="adresse">Adresse</label>
+                            <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp"><br>
+                            <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <h4>Depuis quelle année jardinez-vous?</h4>
-                        <input type="text" class="form-control" id="annee" aria-describedby="emailHelp">
+                    <div class="form-row">
+                        <div class="col mt-4">
+                            <label for="ville">Ville</label>
+                            <input type="text" class="form-control" id="ville" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="form-row" id="pays">
+                        <div class="col-md-5 mt-4">
+                            <label for="province">Province</label>
+                            <input type="text" class="form-control" id="province" aria-describedby="emailHelp">
+                        </div>
+                        <div class="col-md-5 mt-4">
+                            <label for="pays">Pays</label>
+                            <input type="text" class="form-control" id="pays" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="form-row" id="trouver">
+                        <div class="col-md-5 mt-4">
+                            <label for="codePostal">Code postal</label>
+                            <input type="text" class="form-control" id="codePostal" aria-describedby="emailHelp" style="width: 160px;">
+                        </div>
+                        <div class="col-md-5 mt-4">
+                            <span class="btn btn-primary btn-file mt-4">
+                                Trouver<input type="file">
+                            </span>
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="col-3">
-                <h4>Parlez-nous de vous (cette description s'affichera sur votre profil public)</h4>
-                <textarea class="form-control" id="texteProfil" rows="5" cols="50"></textarea>
+            <div class="col-3 ml-5" id="profilPotagerImages">
+                <h6>Ajouter des photos de votre potager</h6>
+                <p style="font-size:12px;">Téléverser jusqu'à {{ X }} photos; au moins une est requise.</p>
+                <img src="/images/potager_pardefault_100px.png">
+                <img src="/images/potager_pardefault_100px.png">
+                <img src="/images/potager_pardefault_100px.png">
+                <img src="/images/potager_pardefault_100px.png">
+                <img src="/images/potager_pardefault_100px.png">
+                <img src="/images/potager_pardefault_100px.png">
+                <span class="btn btn-primary btn-file mr-4 mt-3">
+                    Téléverser une photo<input type="file">
+                </span>
             </div>
-            <div class="col-3 offset-1" id="etiquetteJardin">
-                <h4>Quel type de jardinier êtes-vous ?</h4>
-                <p style="font-size:12px;">Cochez tous ceux qui s'appliquent.</p>
+            <div class="col-3 offset-1" id="etiquettesPotager">
+                <h6 class="ml-5">Quel type de potager est-ce ?</h6>
+                <p class="ml-5">Cochez tous ceux qui s'appliquent.</p>
                 <table width="100%" id="etiquetteProfilJardinier">
                     <tr>
                     <td>
                     <ul>
-                        <li>Amateur</li>
                         <li>Biologique</li>
-                        <li>Conventionnel</li>
+                        <li>Intérieur</li>
+                        <li>En pot</li>
+                        <li>Communautaire</li>
+                        <li>En terre</li>
                     </ul>
                     </td>
                         <td><ul>
-                        <li>Autosuffisant</li>
-                        <li>Communautaire</li>
-                        <li>Écologique</li>
+                        <li>Conventionel</li>
+                        <li>En serre</li>
+                        <li>En bacs</li>
+                        <li>Urbain</li>
+                        <li>Monoculture</li>
                     </ul>
                     </td>
                     </tr>
@@ -72,6 +109,7 @@
 
 
 <style lang="scss">
+
 body {
     background-color: #F7FDFF !important;
     margin: 0;
@@ -322,9 +360,21 @@ nav {
     border: none;
 }
 
-.form-group span {
-    width: auto;
+#trouver span {
+    width: 80%;
     position: absolute;
+    margin-top: 28px;
+    color: white;
+    background: #9FCC3B 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 10px #00000029;
+    border-radius: 6px;
+    opacity: 1;
+    border: none;
+}
+
+#profilPotagerImages span {
+    float: right;
+    width: auto;
     color: white;
     background: #9FCC3B 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 10px #00000029;
