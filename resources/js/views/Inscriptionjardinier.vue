@@ -1,6 +1,6 @@
 <template>
 
-
+<div>
     <div class="container-fluid" id="colHeaderProfil">
             <div class="col-2">
                 <img id="logo" src="../images/portager_noir.svg">
@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <h4>Ajoutez une photo de profil</h4><br>
                         <img src="../images/profil_pardefault_100px.png">
-                        <button type="button" input type="file" id="photo" class="btn btn-primary">Téléverser une photo</button>
+                        <button type="button" input="file" id="photo" class="btn btn-primary">Téléverser une photo</button>
                     </div>
                     <div class="form-group">
                         <h4>Depuis quelle année jardinez-vous?</h4>
@@ -64,7 +64,7 @@
             </div>
          </div>
     </div>
-
+</div>
 
 
 
