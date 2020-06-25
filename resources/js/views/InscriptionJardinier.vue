@@ -70,34 +70,6 @@
 
 </template>
 
-<script>
-
-    export default {
-        name: 'InscriptionJardinier',
-        data() {
-            return {
-                data: 0,
-            };
-
-        },
-        props: {
-
-        },
-        components: {
-            InscriptionJardinier
-        },
-        mounted() {
-
-        },
-        methods: {
-
-        },
-    }
-
-
-</script>
-
-
 <style lang="scss">
 body {
     background-color: #F7FDFF !important;
