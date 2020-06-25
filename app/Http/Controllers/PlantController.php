@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Plant;
-use Illuminate\Http\Request;
 use Image;
+use App\Plant;
+use App\Potager;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PlantController extends Controller
 {
@@ -17,16 +20,6 @@ class PlantController extends Controller
     public function index()
     {
         return Plant::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -43,6 +36,7 @@ class PlantController extends Controller
         $plant->est_actif = $request->actif;
         $plant->est_partage = $request->partage;
         $plant->potager_id = $request->potagerid;
+        $plant->user_id = Auth::user();
 
         // Nom de la photo
         $imageData = $request->get('photo');
@@ -86,14 +80,25 @@ class PlantController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affichage des plants de l'utilisateur connecté
      *
-     * @param  \App\Plant  $plant
+     * @param \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function edit(Plant $plant)
-    {
-        //
+    public function plantsUser(Plant $plant, $userId) {
+        // return Auth::user();
+        $monPotager = Potager::where('user_id', $userId)->first();
+
+        $mesPlants = Plant::
+                where('potager_id', $monPotager->id)
+                ->where('est_actif', 1)
+                ->where('est_partage', 1)
+                ->select('plants.*', 'types.nom')
+                ->join('types', 'types.id', '=', 'plants.type_id')
+                ->orderBy('nom')
+                ->get();
+
+        return $mesPlants;
     }
 
     /**
@@ -148,8 +153,61 @@ class PlantController extends Controller
      * @param  \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Plant $plant)
+    public function destroy(Plant $plant, $plantId)
     {
-        //
+        Plant::find($plantId)->destoy();
+        return 'Supprimé';
+    }
+
+    /**
+     * Désactiver un plan
+     *
+     * @param  \App\Plant  $plant
+     * @return \Illuminate\Http\Response
+     */
+    public function toggleActif(Plant $plant, $plantId)
+    {
+        $plant = Plant::find($plantId)->first();
+        if($plant->est_actif === 0) {
+            $plant->est_actif = 1;
+        } else {
+            $plant->est_actif = 0;
+        }
+    }
+
+    /**
+     * Active ou désactive le partage un plan
+     *
+     * @param  \App\Plant  $plant
+     * @return \Illuminate\Http\Response
+     */
+    public function togglePartage(Plant $plant, $plantId)
+    {
+        $plant = Plant::find($plantId)->first();
+        if($plant->est_partage === 0) {
+            $plant->est_partage = 1;
+        } else {
+            $plant->est_partage = 0;
+        }
+    }
+
+
+    /**
+     *
+     */
+    public function mieuxCotesTous(Plant $plant) {
+        $plants = Plant::all()->paginate(20);
+        return $plants;
+    }
+
+    /**
+     *
+     */
+    public function mieuxCotesAccueil(Plant $plant) {
+        $plants = DB::table('plants')
+                    ->join('rating_plants', 'plants.id', '=', 'rating_plants.plant_id')
+                    ->limit(4);
+        // $plants = Plant::all();
+        return $plants;
     }
 }

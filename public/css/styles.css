@@ -17,24 +17,28 @@ h3 {
 }
 
 h4,
-h5 {
+h5,
+h6 {
     font-family: 'Inter', Arial, Helvetica, sans-serif;
     font-feature-settings: 'salt';
+}
+
+h6 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #717C89;
 }
 
 #app {
     position: relative;
 }
 
-nav {
-    width: 80%;
+.container {
+    max-width: 1280px;
 }
 
-#colHeader {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100px;
+nav {
+    width: 80%;
 }
 
 #colHeaderProfil {
@@ -43,17 +47,6 @@ nav {
     flex-direction: row;
     width: 100%;
     height: 100px;
-}
-
-#colHeader img {
-    width: 248.27px;
-    height: 89.99px;
-}
-
-#logo {
-    width: 248.27px;
-    height: 89.99px;
-    margin-left: 90px;
 }
 
 #barreProgression {
@@ -77,7 +70,7 @@ nav {
     font-style: italic;
     z-index: -5;
     width: 100%;
-    height: 300px;
+    height: 260px;
     background-image: url("../images/hero/iStock_000040952852Small.jpg");
     background-position: 0% 50%;
     background-size: cover;
@@ -88,7 +81,7 @@ nav {
     font-style: italic;
     z-index: -5;
     width: 100%;
-    height: 300px;
+    height: 260px;
     background-image: url("../images/hero/make-vegetable-garden.jpg");
     background-position: 0% 50%;
     background-size: cover;
@@ -107,17 +100,36 @@ nav {
 
 .btn {
     padding: 10px 30px;
-    transition: all .2s ease;
+    transition: box-shadow .2s ease;
     font-weight: bold;
 }
 
 .btn:hover {
-    transform: translateY(-2px);
     box-shadow: 0 2px 5px rgba(0,0,0,0.4);
 }
 
 .btn-primary {
     background-color: #FFDD00;
+    color:#332E0A;
+    border: 1px solid #FFDD00;
+}
+
+.btn-primary:focus {
+    background-color: #FFDD00;
+    color:#332E0A;
+    border: 1px solid #FFDD00;
+    outline: #FFDD0080 3px;
+}
+
+.btn-primary:active {
+    background-color: #FFDD00;
+    color:white;
+    border: 1px solid #FFDD00;
+    outline: #FFDD0080 solid 3px;
+}
+
+.btn-primary:disabled {
+    background-color: #FFDD0080;
     color:#332E0A;
     border: 1px solid #FFDD00;
 }
@@ -130,6 +142,12 @@ nav {
 
 .btn-secondary {
     background-color: #9FCC3B;
+    color: white;
+    border: 1px solid #9FCC3B;
+}
+
+.btn-secondary:disabled {
+    background-color: #9FCC3B80;
     color: white;
     border: 1px solid #9FCC3B;
 }
@@ -212,15 +230,14 @@ nav {
 .card {
     font-size: 14px;
     width: 210px;
-    height: 350px;
-    border-radius: 50px;
+    border-radius: 16px;
     margin-bottom: 50px;
     box-shadow: 0px 5px 10px #00000029;
+    border: 0;
 }
 
 .card button {
     width: 100%;
-    background: #717C89 0% 0% no-repeat padding-box;
     border-radius: 6px;
     opacity: 1;
 }
@@ -228,6 +245,7 @@ nav {
 .card img {
     width: 210px;
     height: 210px;
+    border-radius: 16px 16px 0 0;
 }
 
 #cardUser {

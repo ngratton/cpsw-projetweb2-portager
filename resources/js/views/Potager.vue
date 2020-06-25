@@ -20,37 +20,22 @@
             </div>
         </div>
         <div class="row contentPotager">
-            <div class="col">
-                <carte-potager></carte-potager>
+            <div
+                class="col"
+                style="min-width: 210px;"
+                v-for="plant in plants"
+            >
+                <div id="cardPotager" class="card">
+                    <img :src="plant.photo_mini" alt="..." class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Nom du plant</h5>
+                        <button type="button" class="btn btn-secondary">
+                            Voir le plant
+                            </button>
+                        <button type="button" class="btn btn-primary">Offrir un échange</button>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <carte-potager></carte-potager>
-            </div>
-            <div class="col">
-                <carte-potager></carte-potager>
-            </div>
-            <div class="col-6" id="carte">
-                <img class="img-responsive img-center" src="/images/carte.png">
-            </div>
-            <div class="w-100"></div>
-        </div>
-        <div class="row contentPotager">
-            <div class="col">
-               <carte-potager></carte-potager>
-            </div>
-            <div class="col">
-               <carte-potager></carte-potager>
-            </div>
-            <div class="col">
-                <carte-potager></carte-potager>
-            </div>
-            <div class="col">
-                <carte-potager></carte-potager>
-            </div>
-            <div class="col">
-               <carte-potager></carte-potager>
-            </div>
-            <div class="w-100"></div>
         </div>
     </div>
     <pied-page></pied-page>
@@ -64,12 +49,12 @@
     import CartePotager from '../components/CartePotager';
     import PiedPage from '../components/PiedPage';
     export default {
-        name: 'Potager', 
+        name: 'Potager',
         data() {
-            return {  
-                data: 0,
+            return {
+                plants: [],
             };
-        
+
         },
         props: {
 
@@ -82,10 +67,14 @@
             PiedPage,
         },
         mounted() {
-
+            this.fetchPlants()
         },
         methods: {
-
+            fetchPlants() {
+                axios.get('/api/mes-plants').then(data => {
+                    this.plants = data.data
+                })
+            }
         },
     }
 </script>

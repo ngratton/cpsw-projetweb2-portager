@@ -23,5 +23,6 @@ class Potager extends Model
         'user_id',
         'est_actif',
         'visites_potagers',
+        'note_moy',
     ];
 }

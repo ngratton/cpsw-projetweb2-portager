@@ -8,7 +8,7 @@
 
                 <div>
                     <div class="logoConnection">
-                        <img  src="/images/portager_noir.svg" id="logo">
+                        <img src="/images/portager_noir.svg" alt="Portager" id="logo">
                     </div>
                     <div class="formConnection">
                         <form>
@@ -62,7 +62,7 @@
                 User.connexion(this.form)
                     .then(response => {
                         let user = axios.get('api/user').then(user => {
-                            this.user = user.data
+                            this.$store.commit('logsIn', user.data)
                         })
                         this.$router.push({name: 'Accueil'})
                     })

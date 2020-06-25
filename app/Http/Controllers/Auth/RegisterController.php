@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
     }
 
@@ -66,12 +66,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::forceCreate([
+        $user = User::forceCreate([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'api_token' => Str::random(80),
         ]);
+
+        return Auth::login($user);
     }
 }

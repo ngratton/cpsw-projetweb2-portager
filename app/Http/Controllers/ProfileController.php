@@ -29,7 +29,7 @@ class ProfileController extends Controller
         $profile->bio = $request->bio;
         $profile->jardine_depuis = $request->jardine_depuis;
         $profile->tags_jardiniers = $request->tags_jardiniers;
-        $profile->user_id = $userId;
+        $profile->user_id = Auth::id();
         $profile->est_actif = 1;
 
         // Nom de la photo
