@@ -9,16 +9,18 @@
             <div class="row"> <!--banner-->
                 <div class="col">
                     <h1>Nam urna erat,<br>tempor at auctor.</h1>
-                    <router-link :to="{ name: 'Inscription' }">
-                        <button type="button" class="btn btn-primary">
-                            S'enregistrer
-                        </button>
-                    </router-link><br />
-                    <router-link :to="{ name: 'Connexion' }">
-                        <button type="button" class="btn btn-tertiary">
-                            Se connecter
-                        </button>
-                    </router-link>
+                    <div v-if="isLogged">
+                        <router-link :to="{ name: 'Inscription' }">
+                            <button type="button" class="btn btn-primary">
+                                S'enregistrer
+                            </button>
+                        </router-link><br />
+                        <router-link :to="{ name: 'Connexion' }">
+                            <button type="button" class="btn btn-tertiary">
+                                Se connecter
+                            </button>
+                        </router-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,7 +105,7 @@
         name: 'Accueil',
         data() {
             return {
-                data: 0,
+                isLogged: false,
             };
 
         },
@@ -123,7 +125,9 @@
 
         },
         methods: {
-
+            isLogged() {
+                this.isLogged = this.$store.state.logged_in
+            }
         },
     }
 </script>
