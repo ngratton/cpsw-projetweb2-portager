@@ -23,52 +23,35 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="creationProfil">
-            <div class="col-4">
-                <form>
-                    <div class="form-group">
-                        <h4>Ajoutez une photo de profil</h4><br>
-                        <img src="/images/profil_pardefault_100px.png">
-                        <span class="btn btn-primary btn-file mt-4">
-                            Téléverser une photo<input type="file">
-                         </span>
-                    </div>
-                    <div class="form-group">
-                        <h4>Depuis quelle année jardinez-vous?</h4>
-                        <input type="text" class="form-control" id="annee" aria-describedby="emailHelp">
-                    </div>
-                </form>
-            </div>
-            <div class="col-3">
-                <h4>Parlez-nous de vous (cette description s'affichera sur votre profil public)</h4>
-                <textarea class="form-control" id="texteProfil" rows="5" cols="50"></textarea>
-            </div>
-            <div class="col-3 offset-1" id="etiquetteJardin">
-                <h4>Quel type de jardinier êtes-vous ?</h4>
-                <p style="font-size:12px;">Cochez tous ceux qui s'appliquent.</p>
-                <table width="100%" id="etiquetteProfilJardinier">
-                    <tr>
-                    <td>
-                    <ul>
-                        <li>Amateur</li>
-                        <li>Biologique</li>
-                        <li>Conventionnel</li>
-                    </ul>
-                    </td>
-                        <td><ul>
-                        <li>Autosuffisant</li>
-                        <li>Communautaire</li>
-                        <li>Écologique</li>
-                    </ul>
-                    </td>
-                    </tr>
-                </table>
-            </div>
-         </div>
+        <FormulaireJardinier></FormulaireJardinier>
     </div>
 </div>
 
 </template>
+
+<script>
+    import FormulaireJardinier from '../components/FormulaireJardinier';
+    export default {
+        name: 'InscriptionJardinier', 
+        data() {
+            return {  
+                data: 0,
+            };
+        },
+        props: {
+
+        },
+        components: {
+            FormulaireJardinier
+        },
+        mounted() {
+
+        },
+        methods: {
+
+        },
+    }
+</script>
 
 <style lang="scss">
 body {
