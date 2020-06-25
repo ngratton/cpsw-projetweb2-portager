@@ -85,14 +85,17 @@ class PlantController extends Controller
      * @param \App\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    public function mesPlants(Plant $plant) {
+    public function plantsUser(Plant $plant, $userId) {
         // return Auth::user();
-        $monPotager = Potager::where('user_id', 2)->first();
+        $monPotager = Potager::where('user_id', $userId)->first();
 
         $mesPlants = Plant::
                 where('potager_id', $monPotager->id)
                 ->where('est_actif', 1)
                 ->where('est_partage', 1)
+                ->select('plants.*', 'types.nom')
+                ->join('types', 'types.id', '=', 'plants.type_id')
+                ->orderBy('nom')
                 ->get();
 
         return $mesPlants;
