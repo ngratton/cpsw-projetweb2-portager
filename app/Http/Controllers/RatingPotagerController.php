@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Potager;
 use App\RatingPotager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RatingPotagerController extends Controller
 {
@@ -23,15 +25,36 @@ class RatingPotagerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $userId, $potagerId)
+    public function store(Request $request, $potagerId)
     {
+        // Enregistrement d'une nouvelle note et/ou nouveau commentaire
         $rating = new RatingPotager();
-        // $rating->user_id = Auth::user()->id();
-        $rating->user_id = $userId;
+        $rating->user_id = $request->user_id; // Pour Postman
+        // $rating->user_id = Auth::id();
         $rating->rating = $request->rating;
         $rating->comment = $request->comment;
         $rating->potager_id = $potagerId;
         $rating->save();
+
+
+        // Une fois la nouvelle note ajoutée, calcule de la note moyenne
+        $evaluations = RatingPotager::where('potager_id', $potagerId)->get();
+
+        $total = 0;
+        $count = 0;
+
+        foreach($evaluations as $note) {
+            $total += $note->rating;
+            $count++;
+        }
+
+        $avg = round(($total / $count), 1);
+
+        // Enregister la moyenne dans
+        $potager = Potager::find($potagerId);
+        $potager->note_moy = $avg;
+        $potager->save();
+
     }
 
     /**

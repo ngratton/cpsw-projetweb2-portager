@@ -23,6 +23,7 @@ class CreateProfilesTable extends Migration
             $table->unsignedBigInteger('user_id')->unique();
             $table->tinyInteger('est_actif')->default(1);
             $table->integer('profile_visits')->nullable()->default(0);
+            $table->float('note_moy')->nullable();
             $table->timestamps();
         });
 

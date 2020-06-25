@@ -22,7 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /**
  * Profil utilisateurs
  */
-// Route::middleware('auth:api')->get('/profile/{userId}', 'ProfileController@show');   // Accès à la route d'API avec un api_token -- à voir si on utilise
 Route::get('/profile/{userId}', 'ProfileController@show');              // Profile unique selon {{id}} de l'utilisateur
 Route::put('/profile/new', 'ProfileController@store');             // Création d'un profile
 Route::patch('/profile/{userId}', 'ProfileController@update');          // Modification d'un profile
@@ -40,7 +39,7 @@ Route::get('/type-plants/all', 'TypeController@index');                 // Obten
  */
 Route::get('/potagers', 'PotagerController@index');                     // Ensemble des potagers
 
-Route::put('/potager/new', 'PotagerController@store');             // Création d'un potager
+Route::put('/potager/new', 'PotagerController@store');                  // Création d'un potager
 
 Route::get('/potager/{userId}', 'PotagerController@show');              // Potager unique lié à un utilisateur
 Route::patch('/potager/{userId}', 'PotagerController@update');          // Modification d'un potager
@@ -60,23 +59,33 @@ Route::post('/messages/store', 'MessageController@store');              // envoi
  * Users
  */
 Route::group(['prefix' => '/users', 'where' => ['user' => '[0-9]+']], function(){
-    Route::get('/', 'UserController@show'); 
-    Route::get('/all', 'UserController@index'); 
-    Route::get('/messages_avec/{userId}', 'UserController@messages_avec'); 
-    Route::get('/{toUserId}', 'UserController@test'); 
+    Route::get('/', 'UserController@show');
+    Route::get('/all', 'UserController@index');
+    Route::get('/messages_avec/{userId}', 'UserController@messages_avec');
+    Route::get('/{toUserId}', 'UserController@test');
+    Route::get('/{user}', 'UserController@show');
 });
+
 /**
  * Plants
  */
 Route::get('/plants', 'PlantController@index');                         // Affichage de tous les plants
 
+Route::middleware('auth:sanctum')->get('/plants-utilisateur/{userId}', 'PlantController@plantsUser');   // Afficher les plants d'un utilisateur
+
 Route::put('/plant/new', 'PlantController@store');                      // Création d'un plant
 
-Route::get('/plant/{plantId}', 'PlantController@show');                 // Création d'un plant
-Route::patch('/plant/{plantId}', 'PlantController@update');             // Création d'un plant
-Route::delete('/plant/{plantId}', 'PlantController@destroy');           // Création d'un plant
+Route::get('/plant/{plantId}', 'PlantController@show');                 // Obtenir un plant
+Route::patch('/plant/{plantId}', 'PlantController@update');             // Modifier un plant
+Route::delete('/plant/{plantId}', 'PlantController@destroy');           // Supprimer un plant
 
-Route::post('/plant/{plantId}/visit', 'PlantController@addvisit');      // Création d'un plant
+Route::post('/plant/{plantId}/visit', 'PlantController@addvisit');      // Ajouter une visite à un plant
+
+Route::patch('plants/{plantId}/toggle-actif', 'PlantController@toggleActif');       // Activer ou désactiver un plant (affichage public)
+Route::patch('plants/{plantId}/toggle-partage', 'PlantController@togglePartage');   // Activer ou désactiver le partage (affichage public)
+
+Route::get('plants/mieux-cotes/tous', 'PlantController@mieuxCotesTous');
+Route::get('plants/mieux-cotes/accueil', 'PlantController@mieuxCotesAccueil');
 
 
 /**
