@@ -16,3 +16,26 @@
 
 </template>
 
+<script>
+    export default {
+        name: 'InscriptionJardinier', 
+        data() {
+            return {  
+                data: 0,
+            };
+        
+        },
+        props: {
+
+        },
+        components: {
+
+        },
+        mounted() {
+
+        },
+        methods: {
+
+        },
+    }
+</script>
