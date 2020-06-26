@@ -2059,8 +2059,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       photo: [],
-      jardine_depuis: "",
-      bio: "",
+      jardine_depuis: '',
+      bio: '',
       etiquettes1: ["Amateur", "Biologique", "Conventionnel"],
       etiquettes2: ["Autosuffisant", "Communautaire", "Écologique"]
     };
@@ -40499,7 +40499,8 @@ var render = function() {
             staticClass: "form-control",
             attrs: {
               type: "text",
-              id: "annee",
+              id: "jardine_depuise",
+              name: "jardine_depuis",
               "aria-describedby": "emailHelp"
             }
           }),
@@ -40519,9 +40520,9 @@ var render = function() {
         "textarea",
         {
           staticClass: "form-control",
-          attrs: { id: "texteProfil", rows: "5", cols: "50" }
+          attrs: { id: "texteProfil", rows: "5", cols: "50", name: "bio" }
         },
-        [_vm._v(" " + _vm._s(_vm.bio))]
+        [_vm._v(_vm._s(_vm.bio))]
       )
     ]),
     _vm._v(" "),
@@ -40575,7 +40576,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("span", { staticClass: "btn btn-primary btn-file mt-4" }, [
         _vm._v("\r\n                    Téléverser une photo"),
-        _c("input", { attrs: { type: "file" } })
+        _c("input", { attrs: { type: "file", name: "photo" } })
       ])
     ])
   }
@@ -59289,15 +59290,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/views/InscriptionJardinier.vue ***!
   \*****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InscriptionJardinier_vue_vue_type_template_id_bca157a2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InscriptionJardinier.vue?vue&type=template&id=bca157a2& */ "./resources/js/views/InscriptionJardinier.vue?vue&type=template&id=bca157a2&");
 /* harmony import */ var _InscriptionJardinier_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InscriptionJardinier.vue?vue&type=script&lang=js& */ "./resources/js/views/InscriptionJardinier.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _InscriptionJardinier_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _InscriptionJardinier_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _InscriptionJardinier_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InscriptionJardinier.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/views/InscriptionJardinier.vue?vue&type=style&index=0&lang=scss&");
+/* empty/unused harmony star reexport *//* harmony import */ var _InscriptionJardinier_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InscriptionJardinier.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/views/InscriptionJardinier.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -59329,7 +59329,7 @@ component.options.__file = "resources/js/views/InscriptionJardinier.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/views/InscriptionJardinier.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -6,18 +6,18 @@
                 <h4>Ajoutez une photo de profil</h4><br>
                 <img src="/images/profil_pardefault_100px.png">
                 <span class="btn btn-primary btn-file mt-4">
-                    Téléverser une photo<input type="file">
+                    Téléverser une photo<input type="file" name="photo">
                 </span>
             </div>
             <div class="form-group">
                 <h4>Depuis quelle année jardinez-vous?</h4>
-                <input type="text" class="form-control" id="annee" aria-describedby="emailHelp"> {{ jardine_depuis }} </input>
+                <input type="text" class="form-control" id="jardine_depuise" name="jardine_depuis" aria-describedby="emailHelp"> {{ jardine_depuis }} </input>
             </div>
         </form>
     </div>
     <div class="col-3">
         <h4>Parlez-nous de vous (cette description s'affichera sur votre profil public)</h4>
-        <textarea class="form-control" id="texteProfil" rows="5" cols="50"> {{ bio }}</textarea>
+        <textarea class="form-control" id="texteProfil" rows="5" cols="50" name="bio">{{ bio }}</textarea>
     </div>
     <div class="col-3 offset-1" id="etiquetteJardin">
         <h4>Quel type de jardinier êtes-vous ?</h4>
@@ -46,8 +46,8 @@
         data() {
             return {  
                 photo: [],
-                jardine_depuis: "",
-                bio: "",
+                jardine_depuis: '',
+                bio: '',
                 etiquettes1:["Amateur","Biologique","Conventionnel"],
                 etiquettes2:["Autosuffisant","Communautaire","Écologique"],
             };
