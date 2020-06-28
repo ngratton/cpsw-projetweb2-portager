@@ -3318,14 +3318,16 @@ __webpack_require__.r(__webpack_exports__);
     return {
       data: 0,
       user: '',
-      userId: 3,
+      userId: 2,
       // temporairement, changer le id ici pour changer de profile de jardinier
+      profileId: 3,
       profile: '',
       username: '',
       jardineDepuis: '',
       bio: '',
       tags: '',
-      miniImg: ''
+      miniImg: '',
+      ratings: ''
     };
   },
   props: {},
@@ -3338,7 +3340,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       // Get les informations sur le profil du jardinier selon le id
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/profile/" + this.userId).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/profile/" + this.profileId).then(function (response) {
         _this.profile = response.data;
         _this.jardineDepuis = _this.profile.jardine_depuis;
         _this.bio = _this.profile.bio;
@@ -3352,6 +3354,12 @@ __webpack_require__.r(__webpack_exports__);
         _this.user = response.data[0];
         _this.username = _this.user.first_name + ' ' + _this.user.last_name;
         console.log(_this.user);
+      }); // Get les ratings du profile selon le id
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/evaluation/profile" + this.userId).then(function (response) {
+        _this.ratings = response.data; // this.username = this.user.first_name + ' ' + this.user.last_name
+
+        console.log(_this.ratings);
       });
     }
   }

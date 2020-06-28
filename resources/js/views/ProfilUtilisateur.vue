@@ -178,13 +178,15 @@
             return {  
                 data: 0,
                 user: '',
-                userId: 3, // temporairement, changer le id ici pour changer de profile de jardinier
+                userId: 2, // temporairement, changer le id ici pour changer de profile de jardinier
+                profileId: 3,
                 profile: '',
                 username: '',
                 jardineDepuis: '',
                 bio: '',
                 tags: '',
                 miniImg: '',
+                ratings: '',
             };
         
         },
@@ -202,7 +204,7 @@
 
                 // Get les informations sur le profil du jardinier selon le id
 
-                Axios.get("/api/profile/" + this.userId).then(response => {
+                Axios.get("/api/profile/" + this.profileId).then(response => {
                     this.profile = response.data
                     this.jardineDepuis = this.profile.jardine_depuis
                     this.bio = this.profile.bio
@@ -219,9 +221,16 @@
                     
                     console.log(this.user)
                 });
-            },
 
-            
+                // Get les ratings du profile selon le id
+
+                Axios.get("api/evaluation/profile" + this.userId).then(response => {
+                    this.ratings = response.data
+                    // this.username = this.user.first_name + ' ' + this.user.last_name
+                    
+                    console.log(this.ratings)
+                });
+            },           
         },
     }
 </script>
