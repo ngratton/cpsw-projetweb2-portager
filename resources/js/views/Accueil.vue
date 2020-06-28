@@ -2,7 +2,6 @@
 
 
 <div>
-
      <entete></entete>
     <div class="container-fluid" id="banner">
         <div class="container">

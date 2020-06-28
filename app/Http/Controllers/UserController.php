@@ -19,6 +19,47 @@ class UserController extends Controller
        return $users;
     }
 
+    public function showOne($userId)
+    {
+        return User::where('id', '=', $userId)->get();              
+    }
+
+    public function test($toUserId)
+    {
+        return User::where('id', '=', $toUserId)->get();              
+    }
+
+    public function messages_avec($userId) {
+
+        /**
+         * Ce qu'on a
+         *  - Utilisateur connecté ($userId)
+         * 
+         * Ce qu'on veut
+         *  - envoyé par user connecté ($userId) : from_id
+         *  - qui ont été envoyé à $userId : to_id
+         * 
+         * Return
+         *  - Liste de Users? ou bien liste de ids (chiffres) 
+         */
+
+        $liste_de_messages_par_user = Message::where('from_id', '=', $userId)->orWhere('to_id', '=', $userId)->get(); // to_id
+
+        $liste_du_users = [];
+
+        foreach ($liste_de_messages_par_user as $message) {
+            if ($message->from_id == $userId) {
+                $liste_du_users[] = User::where('id', '=', $message->to_id)->first();
+            } else if ($message->to_id == $userId) {
+                $liste_du_users[] = User::where('id', '=', $message->from_id)->first();
+            }
+        }
+
+        $liste_du_users = array_unique($liste_du_users);
+
+        return $liste_du_users;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
