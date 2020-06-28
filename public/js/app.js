@@ -41989,21 +41989,20 @@ var render = function() {
                   "div",
                   { staticClass: "col-2 offset-1", attrs: { id: "suivant" } },
                   [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit" },
-                        on: {
-                          click: function($event) {
-                            _vm.ajoutPhoto(),
-                              _vm.ajoutAnneeJardinage(),
-                              _vm.ajoutBio()
-                          }
-                        }
+                    _c("input", {
+                      staticClass: "btn btn-primary",
+                      attrs: {
+                        type: "submit",
+                        value: "Passez à l'étape suivante"
                       },
-                      [_vm._v("Passez à l'étape suivante")]
-                    ),
+                      on: {
+                        click: function($event) {
+                          _vm.ajoutPhoto(),
+                            _vm.ajoutAnneeJardinage(),
+                            _vm.ajoutBio()
+                        }
+                      }
+                    }),
                     _c("br")
                   ]
                 )

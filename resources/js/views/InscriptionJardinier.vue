@@ -19,7 +19,7 @@
                     <a href="#"><p>Compléter plus tard</p></a>
                 </div>
                 <div class="col-2 offset-1" id="suivant">
-                    <button type="submit" class="btn btn-primary" @click="ajoutPhoto(), ajoutAnneeJardinage(), ajoutBio()">Passez à l'étape suivante</button><br>
+                    <input type="submit" value="Passez à l'étape suivante" class="btn btn-primary" @click="ajoutPhoto(), ajoutAnneeJardinage(), ajoutBio()"></input><br>
                 </div>
             </div>
         </div>
