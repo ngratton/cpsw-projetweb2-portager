@@ -70,12 +70,12 @@
     <div class="container">
         <div class="row align-items-center" id="jardinier">
             <div class="col-2">
-                <img src="/images/hero/home-vegetable-garden-ideas-1068x713.jpg" alt="...">
+               <img :src="miniImg" alt="...">
             </div>
             <div class="col-10" id="jardinierDescription">
                 <div>
-                    <h2> Jardinier </h2>
-                    <p>Jardine depuis  année </p>
+                    <h2> {{ username }} </h2>
+                    <p>Jardine depuis  {{ jardineDepuis }} </p>
                 </div>
                 <div class="etoile">
                     <p>Étoile vote</p>
@@ -89,16 +89,12 @@
         <div class="row">
             <div class="col-9" id="jardinierBio">
                 <h3>Biographie</h3>
-                <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?"</p>
+                <p>{{ bio }}</p>
             </div>
             <div class="col-2 offset-1" id="etiquettes">
                 <h3>Étiquettes</h3>
-                <ul>
-                    <li>Biologique</li>
-                    <li>Culture en serre</li>
-                    <li>Biologique</li>
-                    <li>Biologique</li>
-                    <li>Biologique</li>
+                <ul v-for="item in tags" :key="item.id">
+                    <li>{{ item }}</li>                 
                 </ul>
             </div>
         </div>
@@ -175,11 +171,20 @@
 </template>
 
 <script>
+    import Axios from "axios";
     export default {
         name: 'ProfilUtilisateur', 
         data() {
             return {  
                 data: 0,
+                user: '',
+                userId: 3, // temporairement, changer le id ici pour changer de profile de jardinier
+                profile: '',
+                username: '',
+                jardineDepuis: '',
+                bio: '',
+                tags: '',
+                miniImg: '',
             };
         
         },
@@ -190,10 +195,33 @@
 
         },
         mounted() {
-
+            this.getData()
         },
         methods: {
+            getData() {
 
+                // Get les informations sur le profil du jardinier selon le id
+
+                Axios.get("/api/profile/" + this.userId).then(response => {
+                    this.profile = response.data
+                    this.jardineDepuis = this.profile.jardine_depuis
+                    this.bio = this.profile.bio
+                    this.tags = this.profile.tags_jardiniers
+                    this.miniImg = './' + this.profile.photo_mini  // A revoir
+                    console.log(this.profile)
+                });
+
+                // Get les informations sur le user lié jardinier selon le id
+
+                 Axios.get("/api/users/" + this.userId).then(response => {
+                    this.user = response.data[0]
+                    this.username = this.user.first_name + ' ' + this.user.last_name
+                    
+                    console.log(this.user)
+                });
+            },
+
+            
         },
     }
 </script>

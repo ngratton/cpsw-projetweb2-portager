@@ -21,6 +21,11 @@ class UserController extends Controller
        return $users;
     }
 
+    public function showOne($userId)
+    {
+        return User::where('id', '=', $userId)->get();              
+    }
+
     public function test($toUserId)
     {
         return User::where('id', '=', $toUserId)->get();              
