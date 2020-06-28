@@ -2012,6 +2012,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2054,6 +2056,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'FormulaireJardinier',
   data: function data() {
@@ -2070,17 +2073,17 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {},
   methods: {
     ajoutPhoto: function ajoutPhoto() {
-      Axios.put("/api/profiles", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/profiles", {
         photo: this.photo
       });
     },
     ajoutAnneeJardinage: function ajoutAnneeJardinage() {
-      Axios.put("/api/profiles", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/profiles", {
         jardine_depuis: this.jardine_depuis
       });
     },
     ajoutBio: function ajoutBio() {
-      Axios.put("/api/profiles", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/profiles", {
         bio: this.bio
       });
     }
@@ -41982,7 +41985,28 @@ var render = function() {
                 _vm._v(" "),
                 _vm._m(1),
                 _vm._v(" "),
-                _vm._m(2)
+                _c(
+                  "div",
+                  { staticClass: "col-2 offset-1", attrs: { id: "suivant" } },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" },
+                        on: {
+                          click: function($event) {
+                            _vm.ajoutPhoto(),
+                              _vm.ajoutAnneeJardinage(),
+                              _vm.ajoutBio()
+                          }
+                        }
+                      },
+                      [_vm._v("Passez à l'étape suivante")]
+                    ),
+                    _c("br")
+                  ]
+                )
               ]
             )
           ]
@@ -42026,23 +42050,6 @@ var staticRenderFns = [
         _c("a", { attrs: { href: "#" } }, [
           _c("p", [_vm._v("Compléter plus tard")])
         ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-2 offset-1", attrs: { id: "suivant" } },
-      [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "button" } },
-          [_vm._v("Passez à l'étape suivante")]
-        ),
-        _c("br")
       ]
     )
   }
