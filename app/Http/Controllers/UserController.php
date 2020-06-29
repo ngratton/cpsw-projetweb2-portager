@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\RatingProfile;
+use App\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -41,7 +43,7 @@ class UserController extends Controller
 
     public function messages_avec($userId) {
 
-        $liste_de_messages_par_user = Message::where('from_id', '=', $userId)->orWhere('to_id', '=', $userId)->get(); 
+        $liste_de_messages_par_user = Message::where('from_id', '=', $userId)->orWhere('to_id', '=', $userId)->get(); // to_id
 
         $liste_du_users = [];
 
@@ -85,9 +87,9 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show()
     {
-        $user = Auth::id();
+        $user = Auth::user();
         return $user;
     }
 
