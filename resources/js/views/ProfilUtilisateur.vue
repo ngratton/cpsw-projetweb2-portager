@@ -76,10 +76,14 @@
                 <div>
                     <h2> {{ username }} </h2>
                     <p>Jardine depuis  {{ jardineDepuis }} </p>
+                </div>                
+                 <div class="etoiles" @mouseover="mouseOver">
+                    <img id="etoile" src="/images/star.png"  v-for="item in etoiles" :key="item.id">
+                    <div id="activeCote" v-bind:class="{ active: isActive }">
+                  <p>  {{ cote }} sur 5. </p>
                 </div>
-                <div class="etoile">
-                    <p>Étoile vote</p>
                 </div>
+                
                 <div class="btn-group-vertical">
                     <button type="button" class="btn btn-primary" style="background-color: #9BC53D; color: white; margin-bottom: 20px; border: none;">Évaluer ce jardinier</button>
                     <button type="button" class="btn btn-secondary" style="background-color: #FFDD00; color: #332E0A; border: none;">Contacter  jardinier </button>
@@ -171,9 +175,9 @@
                 miniImg: '',
                 ratings: '',
                 profileId: '',
-                commentUser: '',
-                commentUsername: '',
-                test1: '',
+                cote: 3.6,
+                etoiles: '',
+                isActive: true,
             };
         
         },
@@ -198,7 +202,24 @@
                     this.tags = this.profile.tags_jardiniers
                     this.miniImg = './' + this.profile.photo_mini  // A revoir
                     this.profileId = this.profile.id
-                    //  console.log(this.profileId)
+                    // this.cote = this.profile.note_moy  
+                    
+                    if (this.cote != null) {
+
+                        if (this.cote <= 1) {
+                            this.etoiles = 1
+                        } else if (this.cote > 2 && this.cote < 3) {
+                            this.etoiles = 2
+                        } else if (this.cote > 3 && this.cote < 4) {
+                            this.etoiles = 3
+                        } else if (this.cote > 4 && this.cote < 5) {
+                            this.etoiles = 4
+                        } else if (this.cote = 5) {
+                            this.etoiles = 5
+                        }
+
+                    }
+
                      this.getComments()
                 });
 
@@ -207,8 +228,6 @@
                  Axios.get("/api/users/" + this.userId).then(response => {
                     this.user = response.data[0]
                     this.username = this.user.first_name + ' ' + this.user.last_name
-                    
-                    // console.log(this.user)
                 });             
             },     
             
@@ -216,21 +235,43 @@
 
             getComments() {
                 Axios.get("/api/evaluation/profile/" + this.profileId).then(response => {
-                    this.ratings = response.data   
-                    this.commentUserId = this.ratings.user_id 
-                    // this.test1 = this.ratings.user.first_name           
-                    console.log(this.ratings)
-                    
-
-                    Axios.get("/api/users/test/" + this.profileId).then(response => {
-                        this.commentUser = response.data
-                        this.commentUsername = this.commentUser.first_name + ' ' + this.commentUser.last_name
-                        
-                        console.log(this.commentUsername)
-                    });    
-
+                    this.ratings = response.data                      
                 });
             },  
+         
+        //  Lorsque le curseur passe sur les etoiles
+        
+            mouseOver() {
+               
+                 this.isActive = false
+
+                setTimeout(this.reverse, 3000) 
+            },
+
+            reverse() {
+                this.isActive = true                
+            },
         },
     }
 </script>
+
+<style lang="css">
+
+.etoiles {
+    margin-left: 5%;
+    display:flex;
+    flex-direction: row;
+    width: 200px;
+    height: 50px;
+}
+
+#etoile {
+    height: 20px;
+    width: 20px;
+}
+
+.active {
+  display: none;
+}
+
+</style>
