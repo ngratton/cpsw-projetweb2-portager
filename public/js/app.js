@@ -2650,6 +2650,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3539,6 +3542,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -3711,21 +3716,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ProfilUtilisateur',
   data: function data() {
     return {
-      data: 0
+      data: 0,
+      user: '',
+      userId: 3,
+      // temporairement, changer le id ici pour changer de profile de jardinier
+      profile: '',
+      username: '',
+      jardineDepuis: '',
+      bio: '',
+      tags: '',
+      miniImg: ''
     };
   },
   props: {},
   components: {},
-  mounted: function mounted() {},
-  methods: {}
+  mounted: function mounted() {
+    this.getData();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+
+      // Get les informations sur le profil du jardinier selon le id
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/profile/" + this.userId).then(function (response) {
+        _this.profile = response.data;
+        _this.jardineDepuis = _this.profile.jardine_depuis;
+        _this.bio = _this.profile.bio;
+        _this.tags = _this.profile.tags_jardiniers;
+        _this.miniImg = './' + _this.profile.photo_mini; // A revoir
+
+        console.log(_this.profile);
+      }); // Get les informations sur le user lié jardinier selon le id
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.userId).then(function (response) {
+        _this.user = response.data[0];
+        _this.username = _this.user.first_name + ' ' + _this.user.last_name;
+        console.log(_this.user);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -42089,6 +42123,7 @@ var render = function() {
   return _c(
     "div",
     [
+      _vm._v("\r\n<<<<<<< HEAD\r\n\r\n=======\r\n>>>>>>> Temporaire\r\n     "),
       _c("entete"),
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid", attrs: { id: "banner" } }, [
@@ -42113,7 +42148,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                S'enregistrer\n                            "
+                                "\r\n                                S'enregistrer\r\n                            "
                               )
                             ]
                           )
@@ -42133,7 +42168,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                Se connecter\n                            "
+                                "\r\n                                Se connecter\r\n                            "
                               )
                             ]
                           )
@@ -43854,384 +43889,439 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _c(
+        "div",
+        { staticClass: "row align-items-center", attrs: { id: "jardinier" } },
+        [
+          _c("div", { staticClass: "col-2" }, [
+            _c("img", { attrs: { src: _vm.miniImg, alt: "..." } })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-10", attrs: { id: "jardinierDescription" } },
+            [
+              _c("div", [
+                _c("h2", [_vm._v(" " + _vm._s(_vm.username) + " ")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("Jardine depuis  " + _vm._s(_vm.jardineDepuis) + " ")
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _vm._m(4)
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-9", attrs: { id: "jardinierBio" } }, [
+          _c("h3", [_vm._v("Biographie")]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.bio))])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-2 offset-1", attrs: { id: "etiquettes" } },
+          [
+            _c("h3", [_vm._v("Étiquettes")]),
+            _vm._v(" "),
+            _vm._l(_vm.tags, function(item) {
+              return _c("ul", { key: item.id }, [
+                _c("li", [_vm._v(_vm._s(item))])
+              ])
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _vm._m(5),
+      _vm._v(" "),
+      _vm._m(6),
+      _vm._v(" "),
+      _vm._m(7),
+      _vm._v(" "),
+      _vm._m(8),
+      _vm._v(" "),
+      _vm._m(9),
+      _vm._v(" "),
+      _vm._m(10),
+      _vm._v(" "),
+      _vm._m(11)
+    ]),
+    _vm._v(" "),
+    _vm._m(12)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
-        _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("img", { attrs: { src: "/images/portager_noir.svg" } })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "collapse navbar-collapse",
-              attrs: { id: "navbarSupportedContent" }
-            },
-            [
-              _c("ul", { staticClass: "navbar-nav mr-auto" }, [
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Plants")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Carte des potagers")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Boutique")
-                  ])
-                ])
-              ])
-            ]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "container-fluid", attrs: { id: "bannerUser" } },
-        [
-          _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "row" })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "container", attrs: { id: "search" } }, [
-          _c("div", { staticClass: "row align-items-center" }, [
-            _c("div", { staticClass: "col" }, [
-              _c("div", { staticClass: "form-group form-check-inline" }, [
-                _c("input", {
-                  staticClass: "form-control form-control-lg",
-                  attrs: { type: "text", placeholder: "Recherche..." }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Chercher")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("div", { staticClass: "form-check form-check-inline" }, [
-                    _c("p", [
-                      _vm._v(
-                        "Rechercher par            \n                                "
-                      ),
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "inlineCheckbox1",
-                          value: "option1"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineCheckbox1" }
-                        },
-                        [_vm._v("Plants")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "inlineCheckbox2",
-                          value: "option2"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineCheckbox1" }
-                        },
-                        [_vm._v("Villes")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "inlineCheckbox3",
-                          value: "option3"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineCheckbox1" }
-                        },
-                        [_vm._v("Étiquettes")]
-                      )
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("div", { staticClass: "form-check form-check-inline" }, [
-                    _c("p", [_vm._v("Ou")])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("div", { staticClass: "form-check form-check-inline" }, [
-                    _c("p", [
-                      _vm._v("Naviguez par "),
-                      _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
+    return _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
+      _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("img", { attrs: { src: "/images/portager_noir.svg" } })
+        ]),
+        _vm._v(" "),
         _c(
           "div",
-          { staticClass: "row align-items-center", attrs: { id: "jardinier" } },
+          {
+            staticClass: "collapse navbar-collapse",
+            attrs: { id: "navbarSupportedContent" }
+          },
           [
-            _c("div", { staticClass: "col-2" }, [
-              _c("img", {
-                attrs: {
-                  src: "/images/hero/home-vegetable-garden-ideas-1068x713.jpg",
-                  alt: "..."
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-10", attrs: { id: "jardinierDescription" } },
-              [
-                _c("div", [
-                  _c("h2", [_vm._v(" Jardinier ")]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("Jardine depuis  année ")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "etoile" }, [
-                  _c("p", [_vm._v("Étoile vote")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "btn-group-vertical" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      staticStyle: {
-                        "background-color": "#9BC53D",
-                        color: "white",
-                        "margin-bottom": "20px",
-                        border: "none"
-                      },
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Évaluer ce jardinier")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      staticStyle: {
-                        "background-color": "#FFDD00",
-                        color: "#332E0A",
-                        border: "none"
-                      },
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Contacter  jardinier ")]
-                  )
+            _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+              _c("li", { staticClass: "nav-item" }, [
+                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                  _vm._v("Plants")
                 ])
-              ]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-9", attrs: { id: "jardinierBio" } }, [
-            _c("h3", [_vm._v("Biographie")]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                '"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?"'
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-2 offset-1", attrs: { id: "etiquettes" } },
-            [
-              _c("h3", [_vm._v("Étiquettes")]),
+              ]),
               _vm._v(" "),
-              _c("ul", [
-                _c("li", [_vm._v("Biologique")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Culture en serre")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Biologique")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Biologique")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Biologique")])
+              _c("li", { staticClass: "nav-item" }, [
+                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                  _vm._v("Carte des potagers")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                  _vm._v("Boutique")
+                ])
               ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col", attrs: { id: "adminTitre" } }, [
-            _c("h3", [_vm._v("Potager administré")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col", attrs: { id: "potagerAdministre" } },
-            [
-              _c("p", [_vm._v(" #  plants de légumes")]),
-              _vm._v(" "),
-              _c("p", [_vm._v(" #  plants de fruits")]),
-              _vm._v(" "),
-              _c("p", [_vm._v(" #  plants de fines herbes")]),
+            ])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "bannerUser" } },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "container", attrs: { id: "search" } }, [
+        _c("div", { staticClass: "row align-items-center" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "form-group form-check-inline" }, [
+              _c("input", {
+                staticClass: "form-control form-control-lg",
+                attrs: { type: "text", placeholder: "Recherche..." }
+              }),
               _vm._v(" "),
               _c(
                 "button",
-                { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                [_vm._v("Voir le potager de  utilisateur ")]
+                { staticClass: "btn btn-secondary", attrs: { type: "button" } },
+                [_vm._v("Chercher")]
               )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("h3", [_vm._v("Plants le plus populaires")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "card", attrs: { id: "cardUser" } }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: {
-                src: "/images/Plants_placeholders/green-bean.jpg",
-                alt: "..."
-              }
-            }),
+            ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [
-                _vm._v(" Nom du plant ")
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("p", [
+                    _vm._v(
+                      "Rechercher par            \n                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        id: "inlineCheckbox1",
+                        value: "option1"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Plants")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        id: "inlineCheckbox2",
+                        value: "option2"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Villes")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        id: "inlineCheckbox3",
+                        value: "option3"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Étiquettes")]
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("p", [_vm._v("Ou")])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("p", [
+                    _vm._v("Naviguez par "),
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
+                  ])
+                ])
               ])
             ])
           ])
-        ]),
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "etoile" }, [
+      _c("p", [_vm._v("Étoile vote")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-group-vertical" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          staticStyle: {
+            "background-color": "#9BC53D",
+            color: "white",
+            "margin-bottom": "20px",
+            border: "none"
+          },
+          attrs: { type: "button" }
+        },
+        [_vm._v("Évaluer ce jardinier")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          staticStyle: {
+            "background-color": "#FFDD00",
+            color: "#332E0A",
+            border: "none"
+          },
+          attrs: { type: "button" }
+        },
+        [_vm._v("Contacter  jardinier ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col", attrs: { id: "adminTitre" } }, [
+        _c("h3", [_vm._v("Potager administré")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col", attrs: { id: "potagerAdministre" } }, [
+        _c("p", [_vm._v(" #  plants de légumes")]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col", attrs: { id: "evaluationTitre" } }, [
-            _c("h3", [_vm._v("Évaluation")])
-          ])
-        ]),
+        _c("p", [_vm._v(" #  plants de fruits")]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-            _c("p", [_vm._v(" Autre jardinier ")]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium,soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-            _c("p", [_vm._v(" Autre jardinier ")]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-100" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-            _c("p", [_vm._v(" Autre jardinier ")]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-            _c("p", [_vm._v(" Autre jardinier ")]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit."
-              )
-            ])
-          ])
-        ]),
+        _c("p", [_vm._v(" #  plants de fines herbes")]),
         _vm._v(" "),
-        _c("div", { staticClass: "row", attrs: { id: "plus" } }, [
-          _c("div", { staticClass: "col offset-5" }, [
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "button" } },
-              [_vm._v("Lire plus d'évaluations")]
-            )
-          ])
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "button" } },
+          [_vm._v("Voir le potager de  utilisateur ")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h3", [_vm._v("Plants le plus populaires")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "card", attrs: { id: "cardUser" } }, [
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: {
+            src: "/images/Plants_placeholders/green-bean.jpg",
+            alt: "..."
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("h5", { staticClass: "card-title" }, [_vm._v(" Nom du plant ")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col", attrs: { id: "evaluationTitre" } }, [
+        _c("h3", [_vm._v("Évaluation")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
+        _c("p", [_vm._v(" Autre jardinier ")]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium,soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
+          )
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "container-fluid", attrs: { id: "footer" } }, [
+      _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
+        _c("p", [_vm._v(" Autre jardinier ")]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-100" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
+        _c("p", [_vm._v(" Autre jardinier ")]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
+        _c("p", [_vm._v(" Autre jardinier ")]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit."
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "plus" } }, [
+      _c("div", { staticClass: "col offset-5" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "button" } },
+          [_vm._v("Lire plus d'évaluations")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "footer" } },
+      [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col offset-9" }, [
@@ -44239,8 +44329,8 @@ var staticRenderFns = [
             ])
           ])
         ])
-      ])
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -62474,8 +62564,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\H20\582-N61-MA PROJET WEB 2\www\portager\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\H20\582-N61-MA PROJET WEB 2\www\portager\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\yohan\Desktop\portager\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\yohan\Desktop\portager\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
