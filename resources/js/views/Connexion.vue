@@ -8,7 +8,7 @@
 
                 <div>
                     <div class="logoConnection">
-                        <img  src="/images/portager_noir.svg" id="logo">
+                        <img src="/images/portager_noir.svg" alt="Portager" id="logo">
                     </div>
                     <div class="formConnection">
                         <form>
@@ -62,8 +62,9 @@
                 User.connexion(this.form)
                     .then(response => {
                         let user = axios.get('api/user').then(user => {
-                            this.user = user.data
+                            this.$store.dispatch('logsIn', user.data)
                         })
+                        this.$router.push({name: 'Accueil'})
                     })
                     .catch(error => {
                         if(error.response.status === 422) {
@@ -74,9 +75,10 @@
             deconnexion() {
                 User.deconnexion()
                     .then(() => {
+                        this.$store.dispatch('logsOut')
                         this.$router.go()
                     })
-            }
+            },
         }, // methods
     }
 </script>

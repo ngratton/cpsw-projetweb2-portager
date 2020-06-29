@@ -1,6 +1,59 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
-@import url('https://rsms.me/inter/inter.css');
+<template>
 
+<div>
+    <div class="container-fluid" id="colHeaderProfil">
+            <div class="col-2">
+                <img id="logo" src="/images/portager_noir.svg">
+            </div>
+            <div class="col-6 offset-3">
+                <img id="barreProgression" src="/images/BarreProfil.PNG">
+            </div>
+    </div>
+    <div class="container-fluid" id="profil">
+        <div class="container-fluid" id="profilTitre">
+            <div class="row align-items-center" id="profilJardinierTitre">
+                <div class="col-5" id="completer">
+                    <h3>Complétez votre profil de jardinier, {{ prenom }}</h3>
+                </div>
+                <div class="col-2 offset-1" id="plusTard">
+                    <a href="#"><p>Compléter plus tard</p></a>
+                </div>
+                <div class="col-2 offset-1" id="suivant">
+                    <input type="submit" value="Passez à l'étape suivante" class="btn btn-primary" @click="ajoutPhoto(), ajoutAnneeJardinage(), ajoutBio()"></input><br>
+                </div>
+            </div>
+        </div>
+        <FormulaireJardinier></FormulaireJardinier>
+    </div>
+</div>
+
+</template>
+
+<script>
+    import FormulaireJardinier from '../components/FormulaireJardinier';
+    export default {
+        name: 'InscriptionJardinier', 
+        data() {
+            return {  
+                data: 0,
+            };
+        },
+        props: {
+
+        },
+        components: {
+            FormulaireJardinier
+        },
+        mounted() {
+
+        },
+        methods: {
+
+        },
+    }
+</script>
+
+<style lang="scss">
 body {
     background-color: #F7FDFF !important;
     margin: 0;
@@ -71,9 +124,17 @@ nav {
     margin-left: 5%;
 }
 
+#completer {
+    left: -3%;
+}
+
+#suivant {
+    left: -1%;
+}
+
 #plusTard {
     display: flex;
-    left: 22%;
+    left: 19%;
 }
 
 #plusTard a {
@@ -225,10 +286,6 @@ nav {
     width: 160px;
 }
 
-#profilPotagerImages {
-    width: 100%;
-}
-
 #profilPotagerImages img {
     margin-right: 15px;
     margin-bottom: 20px;
@@ -247,33 +304,35 @@ nav {
     border: none;
 }
 
-@media only screen and (max-width: 600px) {
-    #creationPotager {
-        width: 150%;
-    }
-
-    #formulairePotager {
-        max-width: 100%;
-    }
-
-    form {
-        width: 100%;
-    }
-
-    #profilPotagerImages {
-        max-width: 100%;
-        margin-top: 20%;
-    }
-
-    #etiquettesPotager {
-        max-width: 100%;
-    }
-
-    #etiquettesPotager h6 {
-        width: 130%;
-    }
-    
-    #etiquettesPotager p {
-        width: 130%;
-    }
+.form-group span {
+    width: auto;
+    position: absolute;
+    color: white;
+    background: #9FCC3B 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 10px #00000029;
+    border-radius: 6px;
+    opacity: 1;
+    border: none;
 }
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    width: 200px;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;   
+    cursor: inherit;
+    display: block;
+}
+
+</style>

@@ -20,7 +20,6 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'api_token',
         'user_role',
     ];
 
@@ -41,4 +40,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function ratingProfiles() {
+        return $this->hasMany('App\RatingProfile');
+    }
 }

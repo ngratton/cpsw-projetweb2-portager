@@ -19,5 +19,6 @@ class Profile extends Model
         'tags_jardiniers',
         'user_id',
         'profile_visits',
+        'note_moy',
     ];
 }

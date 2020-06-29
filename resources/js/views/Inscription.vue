@@ -57,9 +57,9 @@
                                     name="password"
                                     id="password"
                                     v-model="form.password">
-                                    <span class="text-danger" v-if="errors.password">
-                                        {{ errors.password[0] }}
-                                    </span>
+                                <span class="text-danger" v-if="errors.password">
+                                    {{ errors.password[0] }}
+                                </span>
                             </div>
                             <button type="submit" class="btn btn-primary" @click.prevent="inscription">INSCRIPTION</button>
                         </form>
@@ -88,18 +88,21 @@ export default {
     }, // data
 
     mounted() {
-        // let titreOg = document.title
-        // document.title = 'Inscription | ' + titreOg
+        //
     }, // mounted
 
     methods: {
         inscription() {
-            User.inscription(this.form)
+            User.inscription(this.form) // Envoi du formulaire d'inscription au backend
                 .then(()  => {
-                    // Redirige à l'écran de Connexion
-                    this.$router.push({ name: 'Connexion' })
+                    User.connexion({    // Connexion automatique s'il n'y a pas d'erreur
+                        email: this.email,
+                        password: this.password,
+                    }).then(() => {
+                        this.$router.push({name: 'Accueil'}) // Redirection temp. Sera dirigé vers "Création du Profil"
+                    })
                 })
-                .catch(error => {
+                .catch(error => { // Affiche les erreurs dans le formulaire
                     if(error.response.status === 422) {
                         this.errors = error.response.data.errors
                     }

@@ -5,6 +5,8 @@ import Potager from './views/Potager';
 import ProfilUtilisateur from './views/ProfilUtilisateur';
 import Inscription from './views/Inscription'
 import Connexion from './views/Connexion'
+import Echange from './views/Echange'
+import EchangeRevue from './views/EchangeRevue'
 import InscriptionJardinier from './views/InscriptionJardinier'
 import InscriptionPotager from './views/InscriptionPotager'
 
@@ -74,6 +76,24 @@ export default new VueRouter({
             component: InscriptionPotager,
             meta: {
                 title: 'Profil | Portager | Cultivez votre sens du partage',
+            },
+        },
+
+        {
+            path: '/echange',
+            name: 'Echange',
+            component: Echange,
+            meta: {
+                title: 'Proposer un échange | Portager | Cultivez votre sens du partage',
+            },
+        },
+
+        {
+            path: '/echange/:echange_id',
+            name: 'EchangeRevue',
+            component: EchangeRevue,
+            meta: {
+                title: "Résume de l'échange | Portager | Cultivez votre sens du partage",
             },
         },
 
