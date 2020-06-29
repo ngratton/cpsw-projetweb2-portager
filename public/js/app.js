@@ -2081,36 +2081,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'FormulaireJardinier',
   data: function data() {
     return {
-      photo: [],
+      file: '',
+      photo: '',
+      photo_mini: "/images/profil_pardefault_100px.png",
       jardine_depuis: '',
       bio: '',
       etiquettes1: ["Amateur", "Biologique", "Conventionnel"],
-      etiquettes2: ["Autosuffisant", "Communautaire", "Écologique"]
+      etiquettes2: ["Autosuffisant", "Communautaire", "Écologique"],
+      selected: false,
+      tags_jardinier: []
     };
   },
+  //end data
   props: {},
   components: {},
   mounted: function mounted() {},
   methods: {
-    ajoutPhoto: function ajoutPhoto() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/profiles", {
-        photo: this.photo
+    envoiJardinier: function envoiJardinier() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/profile/new/1', {
+        photo: this.photo,
+        photo_mini: this.photo,
+        jardine_depuis: this.jardine_depuis,
+        bio: this.bio,
+        tags_jardinier: this.tags_jardinier
+      }).then(function (response) {
+        console.log("success");
       });
     },
-    ajoutAnneeJardinage: function ajoutAnneeJardinage() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/profiles", {
-        jardine_depuis: this.jardine_depuis
-      });
-    },
-    ajoutBio: function ajoutBio() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/profiles", {
-        bio: this.bio
-      });
+    toggleClass: function toggleClass(e) {
+      e.target.classList.toggle("selected");
+      this.tags_jardinier.push(e.target.innerHTML);
+      console.log(this.tags_jardinier);
     }
   }
 });
@@ -2827,29 +2856,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Recherche__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Recherche */ "./resources/js/components/Recherche.vue");
 /* harmony import */ var _components_PiedPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/PiedPage */ "./resources/js/components/PiedPage.vue");
 /* harmony import */ var _components_Echange_PlantListe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Echange/PlantListe */ "./resources/js/views/components/Echange/PlantListe.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -8396,7 +8402,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body {\n  background-color: #F7FDFF !important;\n  margin: 0;\n  padding: 0;\n}\nnav {\n  width: 80%;\n}\n#colHeader {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n.form-group {\n  margin-top: 10px;\n  margin-left: 20px;\n  text-align: left;\n}\n#colHeaderProfil {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n#colHeader img {\n  width: 248.27px;\n  height: 89.99px;\n}\n#logo {\n  width: 248.27px;\n  height: 89.99px;\n  margin-left: 90px;\n}\n#barreProgression {\n  float: right;\n  width: 60%;\n}\n#profil {\n  margin-top: 100px;\n  text-align: center;\n}\n#profil h4 {\n  font-family: Roboto Slab;\n  color: #717C89;\n  font-weight: bold;\n}\n#profil a {\n  font-size: 10px;\n  color: #717C89;\n}\n#profilTitre button {\n  font-weight: bold;\n  background-color: #FFDD00;\n  color: #332E0A;\n  border: none;\n  margin-left: 5%;\n}\n#completer {\n  left: -3%;\n}\n#suivant {\n  left: -1%;\n}\n#plusTard {\n  display: flex;\n  left: 19%;\n}\n#plusTard a {\n  padding-top: 5%;\n}\n#creationProfil {\n  background-color: #FFFFFF;\n  width: 85%;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  margin-left: 100px;\n  border-radius: 16px;\n  opacity: 1;\n  margin-top: 2%;\n  padding: 20px 10px 100px 20px;\n  text-align: left;\n}\n#creationProfil button {\n  position: absolute;\n  width: 200px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n  margin-top: 25px;\n}\n#creationProfil img {\n  margin-right: 20px;\n  margin-bottom: 40px;\n}\n#creationProfil input {\n  width: 300px;\n}\n#creationProfil h4 {\n  color: #32373D;\n  font-size: 16px;\n  text-align: left;\n  font: Regular 16px/23px Inter;\n  letter-spacing: 0px;\n  color: #32373D;\n  opacity: 1;\n}\n#etiquetteJardin h4 {\n  color: #32373D;\n  font-weight: bold;\n  font-size: 16px;\n  margin-left: 42px;\n  text-align: left;\n}\n#etiquetteJardin p {\n  margin-left: 42px;\n  font-size: 12px;\n}\n#etiquetteProfilJardinier ul {\n  list-style-type: none;\n}\n#etiquetteProfilJardinier li {\n  width: 100%;\n  background-color: #CFFFB3;\n  border-radius: 50px;\n  text-align: center;\n  margin-top: 10px;\n  margin-bottom: 20px;\n  padding-right: 30px;\n  padding-left: 30px;\n}\n#etiquetteProfilJardinier li:hover {\n  background-color: #9FCC3B;\n}\n#profilPotager {\n  margin-top: 100px;\n  text-align: center;\n}\n#profilPotager h4 {\n  font-family: Roboto Slab;\n  color: #717C89;\n}\n#profilPotager a {\n  font-size: 10px;\n  color: #717C89;\n}\n#creationPotager {\n  background-color: #FFFFFF;\n  width: 85%;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  margin-left: 100px;\n  border-radius: 16px;\n  opacity: 1;\n  margin-top: 2%;\n  padding: 20px 10px 100px 20px;\n  text-align: left;\n}\n#creationPotager h6 {\n  font-weight: bold;\n  font-size: 16px;\n}\n#trouver input {\n  width: 100px;\n}\n#trouver button {\n  position: absolute;\n  width: 160px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n#etiquettesPotager h6 {\n  color: #32373D;\n  font-weight: bold;\n  font-size: 16px;\n  text-align: left;\n}\n#etiquettesPotager p {\n  font-size: 12px;\n}\n#creationPotager input {\n  width: 370px;\n}\n#pays input {\n  width: 160px;\n}\n#profilPotagerImages img {\n  margin-right: 15px;\n  margin-bottom: 20px;\n  margin-top: 10px;\n}\n#profilPotagerImages button {\n  float: right;\n  width: 200px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n.form-group span {\n  width: auto;\n  position: absolute;\n  color: white;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n.btn-file {\n  position: relative;\n  overflow: hidden;\n  width: 200px;\n}\n.btn-file input[type=file] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  min-width: 100%;\n  min-height: 100%;\n  font-size: 100px;\n  text-align: right;\n  filter: alpha(opacity=0);\n  opacity: 0;\n  outline: none;\n  cursor: inherit;\n  display: block;\n}", ""]);
+exports.push([module.i, "body {\n  background-color: #F7FDFF !important;\n  margin: 0;\n  padding: 0;\n}\nnav {\n  width: 80%;\n}\n#colHeader {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n.form-group {\n  margin-top: 10px;\n  margin-left: 20px;\n  text-align: left;\n}\n#colHeaderProfil {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n#colHeader img {\n  width: 248.27px;\n  height: 89.99px;\n}\n#logo {\n  width: 248.27px;\n  height: 89.99px;\n  margin-left: 90px;\n}\n#barreProgression {\n  float: right;\n  width: 60%;\n}\n#profil {\n  margin-top: 100px;\n  text-align: center;\n}\n#profil h4 {\n  font-family: Roboto Slab;\n  color: #717C89;\n  font-weight: bold;\n}\n#profil a {\n  font-size: 10px;\n  color: #717C89;\n}\n#profilTitre button {\n  font-weight: bold;\n  background-color: #FFDD00;\n  color: #332E0A;\n  border: none;\n  margin-left: 5%;\n}\n#completer {\n  left: -3%;\n}\n#suivant {\n  left: -1%;\n}\n#plusTard {\n  display: flex;\n  left: 19%;\n}\n#plusTard a {\n  padding-top: 5%;\n}\n#creationProfil {\n  background-color: #FFFFFF;\n  width: 85%;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  margin-left: 100px;\n  border-radius: 16px;\n  opacity: 1;\n  margin-top: 2%;\n  padding: 20px 10px 100px 20px;\n  text-align: left;\n}\n#creationProfil button {\n  position: absolute;\n  width: 200px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n  margin-top: 25px;\n}\n#creationProfil img {\n  margin-right: 20px;\n  margin-bottom: 40px;\n}\n#creationProfil input {\n  width: 300px;\n}\n#creationProfil h4 {\n  color: #32373D;\n  font-size: 16px;\n  text-align: left;\n  font: Regular 16px/23px Inter;\n  letter-spacing: 0px;\n  color: #32373D;\n  opacity: 1;\n}\n#etiquetteJardin h4 {\n  color: #32373D;\n  font-weight: bold;\n  font-size: 16px;\n  margin-left: 42px;\n  text-align: left;\n}\n#etiquetteJardin p {\n  margin-left: 42px;\n  font-size: 12px;\n}\n#etiquetteProfilJardinier ul {\n  list-style-type: none;\n}\n#etiquetteProfilJardinier li {\n  width: 100%;\n  background-color: #CFFFB3;\n  border-radius: 50px;\n  text-align: center;\n  margin-top: 10px;\n  margin-bottom: 20px;\n  padding-right: 30px;\n  padding-left: 30px;\n}\n#etiquetteProfilJardinier li:hover {\n  background-color: #9FCC3B;\n}\n#etiquetteProfilJardinier li.selected {\n  background-color: #9FCC3B;\n}\n#profilPotager {\n  margin-top: 100px;\n  text-align: center;\n}\n#profilPotager h4 {\n  font-family: Roboto Slab;\n  color: #717C89;\n}\n#profilPotager a {\n  font-size: 10px;\n  color: #717C89;\n}\n#creationPotager {\n  background-color: #FFFFFF;\n  width: 85%;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  margin-left: 100px;\n  border-radius: 16px;\n  opacity: 1;\n  margin-top: 2%;\n  padding: 20px 10px 100px 20px;\n  text-align: left;\n}\n#creationPotager h6 {\n  font-weight: bold;\n  font-size: 16px;\n}\n#trouver input {\n  width: 100px;\n}\n#trouver button {\n  position: absolute;\n  width: 160px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n#etiquettesPotager h6 {\n  color: #32373D;\n  font-weight: bold;\n  font-size: 16px;\n  text-align: left;\n}\n#etiquettesPotager p {\n  font-size: 12px;\n}\n#creationPotager input {\n  width: 370px;\n}\n#pays input {\n  width: 160px;\n}\n#profilPotagerImages img {\n  margin-right: 15px;\n  margin-bottom: 20px;\n  margin-top: 10px;\n}\n#profilPotagerImages button {\n  float: right;\n  width: 200px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n.form-group span {\n  width: auto;\n  position: absolute;\n  color: white;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n.btn-file {\n  position: relative;\n  overflow: hidden;\n  width: 200px;\n}\n.btn-file input[type=file] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  min-width: 100%;\n  min-height: 100%;\n  font-size: 100px;\n  text-align: right;\n  filter: alpha(opacity=0);\n  opacity: 0;\n  outline: none;\n  cursor: inherit;\n  display: block;\n}", ""]);
 
 // exports
 
@@ -41419,98 +41425,249 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row", attrs: { id: "creationProfil" } }, [
-    _c("div", { staticClass: "col-4" }, [
-      _c("form", [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("h4", [_vm._v("Depuis quelle année jardinez-vous?")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "jardine_depuise",
-              name: "jardine_depuis",
-              "aria-describedby": "emailHelp"
-            }
-          }),
-          _vm._v(" " + _vm._s(_vm.jardine_depuis) + " ")
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-3" }, [
-      _c("h4", [
-        _vm._v(
-          "Parlez-nous de vous (cette description s'affichera sur votre profil public)"
-        )
-      ]),
+  return _c(
+    "form",
+    {
+      attrs: {
+        action: "/api/profile/new/{userID}",
+        enctype: "multipart/form-data"
+      },
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.envoiJardinier($event)
+        }
+      }
+    },
+    [
+      _vm._m(0),
       _vm._v(" "),
-      _c(
-        "textarea",
-        {
-          staticClass: "form-control",
-          attrs: { id: "texteProfil", rows: "5", cols: "50", name: "bio" }
-        },
-        [_vm._v(_vm._s(_vm.bio))]
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-3 offset-1", attrs: { id: "etiquetteJardin" } },
-      [
-        _c("h4", [_vm._v("Quel type de jardinier êtes-vous ?")]),
+      _c("div", { staticClass: "container-fluid", attrs: { id: "profil" } }, [
+        _vm._m(1),
         _vm._v(" "),
-        _c("p", { staticStyle: { "font-size": "12px" } }, [
-          _vm._v("Cochez tous ceux qui s'appliquent.")
-        ]),
-        _vm._v(" "),
-        _c(
-          "table",
-          { attrs: { width: "100%", id: "etiquetteProfilJardinier" } },
-          [
-            _c("tr", [
-              _c(
-                "td",
-                _vm._l(_vm.etiquettes1, function(etiquette1) {
-                  return _c("ul", [_c("li", [_vm._v(_vm._s(etiquette1))])])
-                }),
-                0
-              ),
+        _c("div", { staticClass: "row", attrs: { id: "creationProfil" } }, [
+          _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("h4", [_vm._v("Ajoutez une photo de profil")]),
+              _c("br"),
+              _vm._v(" "),
+              _c("img", { attrs: { src: _vm.photo_mini } }),
               _vm._v(" "),
               _c(
-                "td",
-                _vm._l(_vm.etiquettes2, function(etiquette2) {
-                  return _c("ul", [_c("li", [_vm._v(_vm._s(etiquette2))])])
-                }),
-                0
+                "span",
+                {
+                  staticClass: "btn btn-primary btn-file mt-4",
+                  model: {
+                    value: _vm.photo,
+                    callback: function($$v) {
+                      _vm.photo = $$v
+                    },
+                    expression: "photo"
+                  }
+                },
+                [
+                  _vm._v("\r\n                        Téléverser une photo"),
+                  _c("input", {
+                    ref: "photo",
+                    attrs: { type: "file", id: "photo", name: "photo" },
+                    on: {
+                      change: function($event) {
+                        return _vm.handleFileUpload()
+                      }
+                    }
+                  })
+                ]
               )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("h4", [_vm._v("Depuis quelle année jardinez-vous?")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.jardine_depuis,
+                    expression: "jardine_depuis"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "jardine_depuis",
+                  name: "jardine_depuis",
+                  "aria-describedby": "emailHelp"
+                },
+                domProps: { value: _vm.jardine_depuis },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.jardine_depuis = $event.target.value
+                  }
+                }
+              })
             ])
-          ]
-        )
-      ]
-    )
-  ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-3" }, [
+            _c("h4", [
+              _vm._v(
+                "Parlez-nous de vous (cette description s'affichera sur votre profil public)"
+              )
+            ]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.bio,
+                  expression: "bio"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "bio", name: "bio", rows: "5", cols: "50" },
+              domProps: { value: _vm.bio },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.bio = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-3 offset-1", attrs: { id: "etiquetteJardin" } },
+            [
+              _c("h4", [_vm._v("Quel type de jardinier êtes-vous ?")]),
+              _vm._v(" "),
+              _c("p", { staticStyle: { "font-size": "12px" } }, [
+                _vm._v("Cochez tous ceux qui s'appliquent.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "table",
+                { attrs: { width: "100%", id: "etiquetteProfilJardinier" } },
+                [
+                  _c("tr", [
+                    _c("td", [
+                      _c(
+                        "ul",
+                        _vm._l(_vm.etiquettes1, function(etiquette1, index) {
+                          return _c(
+                            "li",
+                            {
+                              key: index,
+                              class: { selected: _vm.selected },
+                              on: { click: _vm.toggleClass }
+                            },
+                            [_vm._v(_vm._s(etiquette1))]
+                          )
+                        }),
+                        0
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "ul",
+                        _vm._l(_vm.etiquettes2, function(etiquette2, index) {
+                          return _c(
+                            "li",
+                            {
+                              key: index,
+                              class: { selected: _vm.selected },
+                              on: { click: _vm.toggleClass }
+                            },
+                            [_vm._v(_vm._s(etiquette2))]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ]
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("h4", [_vm._v("Ajoutez une photo de profil")]),
-      _c("br"),
-      _vm._v(" "),
-      _c("img", { attrs: { src: "/images/profil_pardefault_100px.png" } }),
-      _vm._v(" "),
-      _c("span", { staticClass: "btn btn-primary btn-file mt-4" }, [
-        _vm._v("\r\n                    Téléverser une photo"),
-        _c("input", { attrs: { type: "file", name: "photo" } })
-      ])
-    ])
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "colHeaderProfil" } },
+      [
+        _c("div", { staticClass: "col-2" }, [
+          _c("img", { attrs: { id: "logo", src: "/images/portager_noir.svg" } })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-6 offset-3" }, [
+          _c("img", {
+            attrs: { id: "barreProgression", src: "/images/BarreProfil.PNG" }
+          })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "profilTitre" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "row align-items-center",
+            attrs: { id: "profilJardinierTitre" }
+          },
+          [
+            _c("div", { staticClass: "col-5", attrs: { id: "completer" } }, [
+              _c("h3", [_vm._v("Complétez votre profil de jardinier")])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-2 offset-1", attrs: { id: "plusTard" } },
+              [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("p", [_vm._v("Compléter plus tard")])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-2 offset-1", attrs: { id: "suivant" } },
+              [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                  [_vm._v("Passez à l'étape suivante")]
+                ),
+                _c("br")
+              ]
+            )
+          ]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -43450,107 +43607,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "container-fluid", attrs: { id: "profil" } },
-      [
-        _c(
-          "div",
-          { staticClass: "container-fluid", attrs: { id: "profilTitre" } },
-          [
-            _c(
-              "div",
-              {
-                staticClass: "row align-items-center",
-                attrs: { id: "profilJardinierTitre" }
-              },
-              [
-                _c(
-                  "div",
-                  { staticClass: "col-5", attrs: { id: "completer" } },
-                  [
-                    _c("h3", [
-                      _vm._v(
-                        "Complétez votre profil de jardinier, " +
-                          _vm._s(_vm.prenom)
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-2 offset-1", attrs: { id: "suivant" } },
-                  [
-                    _c("input", {
-                      staticClass: "btn btn-primary",
-                      attrs: {
-                        type: "submit",
-                        value: "Passez à l'étape suivante"
-                      },
-                      on: {
-                        click: function($event) {
-                          _vm.ajoutPhoto(),
-                            _vm.ajoutAnneeJardinage(),
-                            _vm.ajoutBio()
-                        }
-                      }
-                    }),
-                    _c("br")
-                  ]
-                )
-              ]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("FormulaireJardinier")
-      ],
-      1
-    )
-  ])
+  return _c("div", [_c("FormulaireJardinier")], 1)
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "container-fluid", attrs: { id: "colHeaderProfil" } },
-      [
-        _c("div", { staticClass: "col-2" }, [
-          _c("img", { attrs: { id: "logo", src: "/images/portager_noir.svg" } })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-6 offset-3" }, [
-          _c("img", {
-            attrs: { id: "barreProgression", src: "/images/BarreProfil.PNG" }
-          })
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-2 offset-1", attrs: { id: "plusTard" } },
-      [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("p", [_vm._v("Compléter plus tard")])
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
