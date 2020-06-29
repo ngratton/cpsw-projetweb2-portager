@@ -6,7 +6,7 @@
                 <span class="plant-nom">{{ plant.nom }}</span>
             </div>
             <div class="col-2 d-flex justify-content-end align-items-center">
-                <img src="/images/add-solid.svg" class="echange-plus" @click="ajoutPlantEchange">
+                <img :src="srcIcon" class="echange-plus" @click="ajoutPlantEchange">
             </div>
         </div>
     </transition>
@@ -19,8 +19,17 @@ export default {
         'plant',
         'index',
     ],
+    data() {
+        return {
+            srcIcon: 'images/add-solid.svg'
+        }
+    },
     mounted() {
-        //
+        if(this.plant.opt == 'minus') {
+            this.srcIcon = 'images/minus-solid.svg'
+        } else {
+            this.srcIcon = 'images/add-solid.svg'
+        }
     },
     methods: {
         ajoutPlantEchange() {

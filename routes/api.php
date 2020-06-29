@@ -118,3 +118,12 @@ Route::get('/evaluation/plant/{plantId}', 'RatingPlantController@show');
 Route::put('/evaluation/plant/{plantId}', 'RatingPlantController@store');
 
 Route::delete('/evaluation/plant/{commentId}', 'RatingPlantController@destroy');
+
+
+/**
+ * Echange && Echange Items
+ */
+Route::put('/echange/new', 'EchangeController@store');
+Route::put('/echange/items/new', 'EchangeItemsController@store');
+
+Route::get('/echange/{echangeId}', 'EchangeController@show');
