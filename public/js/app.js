@@ -2641,7 +2641,7 @@ __webpack_require__.r(__webpack_exports__);
 
       _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].connexion(this.form).then(function (response) {
         var user = axios.get('api/user').then(function (user) {
-          _this.$store.commit('logsIn', user.data);
+          _this.$store.dispatch('logsIn', user.data);
         });
 
         _this.$router.push({
@@ -2657,6 +2657,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].deconnexion().then(function () {
+        _this2.$store.dispatch('logsOut');
+
         _this2.$router.go();
       });
     }
@@ -2801,6 +2803,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['plant_source'],
   data: function data() {
     return {
       mesPlants: [],
@@ -2820,6 +2823,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   // components
   mounted: function mounted() {
+    // console.log(this.plant_source);
     this.fetchMesPlants();
     this.fetchUtilisateurPlants(); // this.fetchDataUtilisateur() // À fixer
   },
@@ -2839,7 +2843,8 @@ __webpack_require__.r(__webpack_exports__);
         _this2.userPlants = data.data;
       });
     },
-    fetchDataUtilisateur: function fetchDataUtilisateur() {// axios.get(`/api/user/${this.jardinier_id}`).then(data => { // URL non définie
+    fetchDataUtilisateur: function fetchDataUtilisateur() {// Obtenir user_id depuis plant_so
+      // axios.get(`/api/user/${this.jardinier_id}`).then(data => { // URL non définie
       //     console.log(data)
       // })
     },
@@ -3017,6 +3022,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3050,7 +3078,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/echange/".concat(this.echange_id)).then(function (data) {
         _this.echange = data.data;
-        console.log(data.data.items);
         var items = data.data.items;
         items.forEach(function (item) {
           if (item.user_id == _this.$store.state.user.id) {
@@ -3061,16 +3088,43 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    fetchUtilisateurPlants: function fetchUtilisateurPlants() {
+    accepterEchange: function accepterEchange() {
       var _this2 = this;
 
-      axios.get("/api/plants-utilisateur/".concat(this.jardinier_id)).then(function (data) {
-        _this2.userPlants = data.data;
+      axios.post("/api/echange/complete/".concat(this.echange_id)).then(function (resp) {
+        _this2.$router.go();
       });
+    },
+    annulerEchange: function annulerEchange() {
+      var _this3 = this;
+
+      axios.post("/api/echange/cancel/".concat(this.echange_id)).then(function (resp) {
+        _this3.$router.go();
+      });
+    },
+    formatDate: function formatDate(dateToFormat) {
+      var date = new Date(dateToFormat);
+      var jour = date.getDate();
+      var mois = date.getMonth() + 1;
+      var annee = date.getFullYear();
+      var heure = date.getHours();
+      var min = date.getMinutes();
+
+      if (min < 10) {
+        min = "0".concat(min);
+      }
+
+      return "".concat(jour, "/").concat(mois, "/").concat(annee, " \xE0 ").concat(heure, "h").concat(min);
     }
   },
   // methods
-  computed: {//
+  computed: {
+    date_creation: function date_creation() {
+      return this.formatDate(this.echange.created_at);
+    },
+    data_modification: function data_modification() {
+      return this.formatDate(this.echange.updated_at);
+    }
   }
 });
 
@@ -8044,7 +8098,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#conteneur-echange {\n  margin: 50px auto;\n}\n.conteneur-contenu {\n  background: white;\n  padding: 20px;\n  border-radius: 16px;\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);\n  margin: 30px 0;\n  position: relative;\n}\n.echange-minus {\n  height: 25px;\n  width: auto;\n  color: #717C89;\n}\n.echange-fleches {\n  height: 20px;\n  width: auto;\n}\n.echange-bloc-vide {\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n}\n@media screen and (max-width: 468px) {\n.conteneur-contenu {\n    padding: 10px;\n}\n}", ""]);
+exports.push([module.i, "#conteneur-echange {\n  margin: 50px auto;\n}\n.conteneur-contenu {\n  background: white;\n  padding: 20px;\n  border-radius: 16px;\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);\n  margin: 30px 0;\n  position: relative;\n}\n.echange-fleches {\n  height: 20px;\n  width: auto;\n}\n.echange-bloc-vide {\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n}\n@media screen and (max-width: 468px) {\n.conteneur-contenu {\n    padding: 10px;\n}\n}", ""]);
 
 // exports
 
@@ -42341,13 +42395,36 @@ var render = function() {
         "div",
         { staticClass: "container", attrs: { id: "conteneur-echange" } },
         [
-          _c("h2", [_vm._v("Resumé de l'échange avec #user")]),
+          _c("h2", [_vm._v("Resumé de l'échange")]),
           _vm._v(" "),
-          _c("p", [
-            _vm._v("Status : "),
-            _c("strong", [_vm._v(_vm._s(_vm.echange.status))])
-          ]),
-          _vm._v(" "),
+          _vm.echange.from_id == _vm.moi
+            ? _c(
+                "p",
+                [
+                  _vm._v("Proposition envoyée à : "),
+                  _c(
+                    "router-link",
+                    { attrs: { to: "/profile/" + _vm.echange.to_id } },
+                    [_vm._v("#user")]
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm.echange.to_id == _vm.moi
+            ? _c(
+                "p",
+                [
+                  _vm._v("Proposition envoyée par : "),
+                  _c(
+                    "router-link",
+                    { attrs: { to: "/profile/" + _vm.echange.from_id } },
+                    [_vm._v("#user")]
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col" }, [
               _c(
@@ -42425,41 +42502,78 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-lg-4" }, [
               _c("div", { staticClass: "conteneur-contenu" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-block btn-primary mt-2",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.envoyerEchange($event)
-                      }
-                    }
-                  },
-                  [_vm._v("Accepter l'échange")]
-                ),
+                _c("p", [
+                  _vm._v("Status : "),
+                  _c("strong", [_vm._v(_vm._s(_vm.echange.status))])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn btn-block btn-secondary mt-2" },
-                  [_vm._v("Faire une contre-offre")]
-                ),
+                _c("p", [
+                  _vm._v("Date de l'offre : "),
+                  _c("strong", [_vm._v(_vm._s(_vm.date_creation))])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-block btn-tertiary mt-2",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.annulerEchange($event)
-                      }
-                    }
-                  },
-                  [_vm._v("Annuler l'échange")]
-                ),
+                _vm.echange.status != "Offre initiale"
+                  ? _c("p", [
+                      _vm._v(
+                        "Offre acceptée : " + _vm._s(_vm.data_modification)
+                      )
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm.echange.status != "Confirmée" &&
+                _vm.echange.status != "Terminée"
+                  ? _c("div", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-block btn-primary mt-2",
+                          attrs: { disabled: _vm.echange.from_id == _vm.moi },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.accepterEchange($event)
+                            }
+                          }
+                        },
+                        [_vm._v("Accepter")]
+                      ),
+                      _vm._v(" "),
+                      _vm.echange.from_id == _vm.moi
+                        ? _c(
+                            "button",
+                            { staticClass: "btn btn-block btn-secondary mt-2" },
+                            [_vm._v("Modifier")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.echange.to_id == _vm.moi
+                        ? _c(
+                            "button",
+                            { staticClass: "btn btn-block btn-secondary mt-2" },
+                            [_vm._v("Faire une contre-offre")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-block btn-tertiary mt-2",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.annulerEchange($event)
+                            }
+                          }
+                        },
+                        [_vm._v("Annuler")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("p", { staticClass: "mt-3 text-muted" }, [
+                  _vm._v("Code unique : "),
+                  _c("strong", [_vm._v(_vm._s(_vm.echange.id))])
+                ])
               ])
             ])
           ])
@@ -42485,14 +42599,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "text-muted mt-4" }, [
-      _c("small", [_vm._v("Tralala")])
-    ])
   }
 ]
 render._withStripped = true
@@ -59776,6 +59882,20 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     logsIn: function logsIn(state, user) {
       state.logged_in = true;
       state.user = user;
+    },
+    logsOut: function logsOut(state) {
+      state.logged_in = false;
+      state.user = null;
+    }
+  },
+  actions: {
+    logsIn: function logsIn(_ref, user) {
+      var commit = _ref.commit;
+      commit('logsIn', user);
+    },
+    logOut: function logOut(_ref2) {
+      var commit = _ref2.commit;
+      commit('logsOut');
     }
   },
   plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_3__["default"])({

@@ -122,6 +122,9 @@ import piedPage from '../components/PiedPage'
 import plantListe from './components/Echange/PlantListe'
 
 export default {
+    props: [
+        'plant_source'
+    ],
     data() {
         return {
             mesPlants: [],
@@ -138,6 +141,7 @@ export default {
         plantListe,
     },  // components
     mounted() {
+        // console.log(this.plant_source);
         this.fetchMesPlants()
         this.fetchUtilisateurPlants()
         // this.fetchDataUtilisateur() // À fixer
@@ -153,7 +157,7 @@ export default {
                 this.userPlants = data.data
             })
         },
-        fetchDataUtilisateur() {
+        fetchDataUtilisateur() { // Obtenir user_id depuis plant_so
             // axios.get(`/api/user/${this.jardinier_id}`).then(data => { // URL non définie
             //     console.log(data)
             // })

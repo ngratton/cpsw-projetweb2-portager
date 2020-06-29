@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Plant;
 use App\Echange;
 use App\EchangeItems;
 use Illuminate\Support\Str;
@@ -18,17 +19,7 @@ class EchangeController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Echange::all()->paginate(25);
     }
 
     /**
@@ -58,42 +49,55 @@ class EchangeController extends Controller
     public function show(Echange $echange, $echangeId)
     {
         $echange = Echange::find($echangeId);
-        $echange->items = EchangeItems::where('echange_id', $echangeId)->get();
+        $echange->items = EchangeItems::where('echange_id', $echangeId)
+                    ->select('echange_items.*', 'plants.*', 'types.nom')
+                    ->join('plants', 'echange_items.plant_id', '=', 'plants.id')
+                    ->join('types', 'plants.type_id', '=', 'types.id')
+                    ->get();
 
         return $echange;
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for closing the specified resource.
      *
      * @param  \App\Echange  $echange
      * @return \Illuminate\Http\Response
      */
-    public function edit(Echange $echange)
+    public function complete(Echange $echange, $echangeId)
     {
-        //
+        $echange = Echange::find($echangeId);
+        $echange->status = 'Confirmée';
+        $echange->est_actif = 0;
+
+        $items = EchangeItems::where('echange_id', $echangeId)->get();
+        foreach($items as $item) {
+            $plant = Plant::where('id', $item->plant_id)->first();
+            $plant->est_partage = 0;
+            $plant->est_actif = 0;
+            $plant->save();
+
+            $item->est_actif = 0;
+            $item->save();
+        }
+
+        $echange->save();
+
+        return 'Succès !';
     }
 
     /**
-     * Update the specified resource in storage.
+     * Cancel the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Echange  $echange
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Echange $echange)
+    public function cancel(Echange $echange, $echangeId)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Echange  $echange
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Echange $echange)
-    {
-        //
+        $echange = Echange::find($echangeId);
+        $echange->status = 'Annulée';
+        $echange->est_actif = 0;
+        $echange->save();
     }
 }

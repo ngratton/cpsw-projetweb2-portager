@@ -18,6 +18,7 @@ class CreateEchangesTable extends Migration
             $table->unsignedBigInteger('from_id');
             $table->unsignedBigInteger('to_id');
             $table->enum('status', ['Offre initiale', 'Contre-offre', 'Confirmée', 'Annulée', 'Terminée']);
+            $table->tinyInteger('est_actif')->default(1);
             $table->timestamps();
 
             $table->primary('id');

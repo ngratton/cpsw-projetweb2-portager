@@ -62,7 +62,7 @@
                 User.connexion(this.form)
                     .then(response => {
                         let user = axios.get('api/user').then(user => {
-                            this.$store.commit('logsIn', user.data)
+                            this.$store.dispatch('logsIn', user.data)
                         })
                         this.$router.push({name: 'Accueil'})
                     })
@@ -75,9 +75,10 @@
             deconnexion() {
                 User.deconnexion()
                     .then(() => {
+                        this.$store.dispatch('logsOut')
                         this.$router.go()
                     })
-            }
+            },
         }, // methods
     }
 </script>
