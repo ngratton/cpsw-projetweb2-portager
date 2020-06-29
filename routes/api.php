@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  * Profil utilisateurs
  */
 Route::get('/profile/{userId}', 'ProfileController@show');              // Profile unique selon {{id}} de l'utilisateur
-Route::put('/profile/new', 'ProfileController@store');             // Création d'un profile
+Route::put('/profile/new/{userId}', 'ProfileController@store');             // Création d'un profile
 Route::patch('/profile/{userId}', 'ProfileController@update');          // Modification d'un profile
 Route::delete('/profile/{userId}', 'ProfileController@destroy');        // Suppression d'un profil
 Route::post('/profile/{userId}/visit', 'ProfileController@addvisit');   // Ping de visite; lorsque la méthode est appelé, ajoute incrémente automatiquement de 1
@@ -120,3 +120,15 @@ Route::get('/evaluation/plant/{plantId}', 'RatingPlantController@show');
 Route::put('/evaluation/plant/{plantId}', 'RatingPlantController@store');
 
 Route::delete('/evaluation/plant/{commentId}', 'RatingPlantController@destroy');
+
+
+/**
+ * Echange && Echange Items
+ */
+Route::put('/echange/new', 'EchangeController@store');
+Route::put('/echange/items/new', 'EchangeItemsController@store');
+
+Route::get('/echange/{echangeId}', 'EchangeController@show');
+
+Route::post('/echange/complete/{echangeId}', 'EchangeController@complete');
+Route::post('/echange/cancel/{echangeId}', 'EchangeController@cancel');

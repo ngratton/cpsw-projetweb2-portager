@@ -25,7 +25,7 @@ class RatingPlantController extends Controller
      */
     public function show(RatingPlant $ratingPlant, $plantId)
     {
-        $rating = RatingPlant::where('plant_id', $plantId)-get();
+        $rating = RatingPlant::where('plant_id', $plantId)->get();
         return $rating;
     }
 

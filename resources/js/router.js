@@ -6,6 +6,7 @@ import ProfilUtilisateur from './views/ProfilUtilisateur';
 import Inscription from './views/Inscription'
 import Connexion from './views/Connexion'
 import Echange from './views/Echange'
+import EchangeRevue from './views/EchangeRevue'
 
 Vue.use(VueRouter);
 
@@ -64,6 +65,15 @@ export default new VueRouter({
             component: Echange,
             meta: {
                 title: 'Proposer un échange | Portager | Cultivez votre sens du partage',
+            },
+        },
+
+        {
+            path: '/echange/:echange_id',
+            name: 'EchangeRevue',
+            component: EchangeRevue,
+            meta: {
+                title: "Résume de l'échange | Portager | Cultivez votre sens du partage",
             },
         },
 

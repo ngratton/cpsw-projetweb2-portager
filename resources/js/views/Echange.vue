@@ -18,8 +18,12 @@
                 <div class="col">
                     <div class="conteneur-contenu" style="min-height: 220px;">
                         <div class="d-flex">
-                            <img src="/images/arrow-thick-right.svg" class="echange-fleches mr-2">
+                            <img src="/images/arrow-thick-right.svg" alt="J'offre" class="echange-fleches mr-2">
                             <h6>J'offre</h6>
+                        </div>
+
+                        <div v-if="offre.length == 0" class="d-flex align-items-center justify-content-center position-absolute echange-bloc-vide">
+                            <span class="text-muted"><small>Ajoutez des plants votre offre.</small></span>
                         </div>
 
                         <plant-liste
@@ -31,7 +35,7 @@
                     </div>
 
                     <h3>Mon potager</h3>
-                    <div class="conteneur-contenu">
+                    <div class="conteneur-contenu" style="min-height: 220px;">
                         <!-- <div class="row type-plants-sepatateur ml-0 mr-0 mb-2 mt-2">
                             <div class="col-10 pl-0 type-nom">
                                 <span>Tomates</span>
@@ -40,6 +44,10 @@
                                 <span>#</span>
                             </div>
                         </div> -->
+
+                        <div v-if="mesPlants.length == 0" class="d-flex align-items-center justify-content-center position-absolute echange-bloc-vide">
+                            <span class="text-muted"><small>Wo wo Max !</small></span>
+                        </div>
 
                         <plant-liste
                             v-for="(plant, index) in mesPlants"
@@ -53,7 +61,11 @@
                     <div class="conteneur-contenu" style="min-height: 220px;">
                         <div class="d-flex justify-content-end">
                             <h6>Je demande</h6>
-                            <img src="/images/arrow-thick-left.svg" class="echange-fleches ml-2">
+                            <img src="/images/arrow-thick-left.svg" alt="Je demande" class="echange-fleches ml-2">
+                        </div>
+
+                        <div v-if="demande.length == 0" class="d-flex align-items-center justify-content-center position-absolute echange-bloc-vide">
+                            <span class="text-muted"><small>Ajoutez des plants à la demande.</small></span>
                         </div>
 
                         <plant-liste
@@ -65,7 +77,7 @@
                     </div>
 
                     <h3>Potager de #user</h3>
-                    <div class="conteneur-contenu">
+                    <div class="conteneur-contenu" style="min-height: 220px;">
                         <!-- <div class="row type-plants-sepatateur ml-0 mr-0 mb-2 mt-2">
                             <div class="col-10 pl-0 type-nom">
                                 <span>Tomates</span>
@@ -74,6 +86,10 @@
                                 <span>#</span>
                             </div>
                         </div> -->
+
+                        <div v-if="userPlants.length == 0" class="d-flex align-items-center justify-content-center position-absolute echange-bloc-vide">
+                            <span class="text-muted"><small>Wo wo Max !</small></span>
+                        </div>
 
                         <plant-liste
                             v-for="(plant, index) in userPlants"
@@ -106,6 +122,9 @@ import piedPage from '../components/PiedPage'
 import plantListe from './components/Echange/PlantListe'
 
 export default {
+    props: [
+        'plant_source'
+    ],
     data() {
         return {
             mesPlants: [],
@@ -122,6 +141,7 @@ export default {
         plantListe,
     },  // components
     mounted() {
+        // console.log(this.plant_source);
         this.fetchMesPlants()
         this.fetchUtilisateurPlants()
         // this.fetchDataUtilisateur() // À fixer
@@ -137,13 +157,14 @@ export default {
                 this.userPlants = data.data
             })
         },
-        fetchDataUtilisateur() {
-            axios.get(`/api/user/${7}`).then(data => { // URL non définie
-                console.log(data)
-            })
+        fetchDataUtilisateur() { // Obtenir user_id depuis plant_so
+            // axios.get(`/api/user/${this.jardinier_id}`).then(data => { // URL non définie
+            //     console.log(data)
+            // })
         },
         ajoutMesOffres(id) {
             let plant = this.mesPlants.find(x => x.id === id)
+            plant.opt = 'minus'
             this.offre.push(plant)
             let index = this.mesPlants.indexOf(plant);
             if (index !== -1) this.mesPlants.splice(index, 1);
@@ -152,6 +173,7 @@ export default {
         retirerMesOffres(id) {
             let plant = this.offre.find(x => x.id === id)
             this.mesPlants.push(plant)
+            plant.opt = 'add'
             let index = this.offre.indexOf(plant)
             if (index !== -1) this.offre.splice(index, 1)
             this.mesPlants.sort((a, b) => (a.nom > b.nom) ? 1 : -1)
@@ -159,6 +181,7 @@ export default {
         ajoutMesDemandes(id) {
             let plant = this.userPlants.find(x => x.id === id)
             this.demande.push(plant)
+            plant.opt = 'minus'
             let index = this.userPlants.indexOf(plant)
             if (index !== -1) this.userPlants.splice(index, 1)
             this.demande.sort((a, b) => (a.nom > b.nom) ? 1 : -1)
@@ -166,22 +189,36 @@ export default {
         retirerMesDemandes(id) {
             let plant = this.demande.find(x => x.id === id)
             this.userPlants.push(plant)
+            plant.opt = 'add'
             let index = this.demande.indexOf(plant)
             if (index !== -1) this.demande.splice(index, 1)
             this.userPlants.sort((a, b) => (a.nom > b.nom) ? 1 : -1)
 
         },
         envoyerEchange() { // Éléments exactes à définir selon Backend
-            console.log("Troquons, l'Ami !")
-            // axios.post('/api/echange/new', {
+            axios.put('/api/echange/new', {
+                from_id: this.$store.state.user.id,
+                to_id: this.jardinier_id
+            })
+                .then(data => {
+                    let echange_id = data.data
+                    let liste_items = this.offre.concat(this.demande)
+                    liste_items.forEach(ligne => {
+                        ligne.plant_id = ligne.id
+                    })
 
-            // })
-            //     .then(data => {
-
-            //     })
-            //     .catch(error => {
-            //         console.log(error)
-            //     })
+                    axios.put('/api/echange/items/new', {
+                        echange_id: echange_id,
+                        items: liste_items,
+                    }).then(resp => {
+                        this.$router.push(`echange/${resp.data}`)
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         },
         annulerEchange() {
             console.log("Abord, abord !!")
@@ -210,6 +247,7 @@ export default {
         border-radius: 16px;
         box-shadow: 0 5px 10px rgba(0,0,0,0.3);
         margin: 30px 0;
+        position: relative;
     }
 
     .echange-minus {
@@ -221,6 +259,13 @@ export default {
     .echange-fleches {
         height: 20px;
         width: auto;
+    }
+
+    .echange-bloc-vide {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
     }
 
     @media screen and (max-width: 468px) {

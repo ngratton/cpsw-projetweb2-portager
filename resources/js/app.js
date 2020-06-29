@@ -17,6 +17,18 @@ const store = new Vuex.Store({
             state.logged_in = true
             state.user = user
         },
+        logsOut(state) {
+            state.logged_in = false
+            state.user = null
+        }
+    },
+    actions: {
+        logsIn({ commit }, user) {
+            commit('logsIn', user)
+        },
+        logOut({ commit }) {
+            commit('logsOut')
+        }
     },
     plugins: [
         createPersistedState({

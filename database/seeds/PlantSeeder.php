@@ -19,6 +19,7 @@ class PlantSeeder extends Seeder
             $plant->type_id = rand($min = 1, $max = 25);
             $plant->description = $faker->paragraph($nbSentences = 2, $variableNbSentences = true);
             $plant->potager_id = rand($min = 1, $max = 9);
+            $plant->user_id = $plant->potager_id + 1;
             $plant->save();
         }
     }
