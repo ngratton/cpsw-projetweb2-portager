@@ -3295,22 +3295,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ProfilUtilisateur',
@@ -3318,16 +3302,19 @@ __webpack_require__.r(__webpack_exports__);
     return {
       data: 0,
       user: '',
-      userId: 2,
+      userId: 3,
       // temporairement, changer le id ici pour changer de profile de jardinier
-      profileId: 3,
       profile: '',
       username: '',
       jardineDepuis: '',
       bio: '',
       tags: '',
       miniImg: '',
-      ratings: ''
+      ratings: '',
+      profileId: '',
+      commentUser: '',
+      commentUsername: '',
+      test1: ''
     };
   },
   props: {},
@@ -3340,26 +3327,37 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       // Get les informations sur le profil du jardinier selon le id
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/profile/" + this.profileId).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/profile/" + this.userId).then(function (response) {
         _this.profile = response.data;
         _this.jardineDepuis = _this.profile.jardine_depuis;
         _this.bio = _this.profile.bio;
         _this.tags = _this.profile.tags_jardiniers;
         _this.miniImg = './' + _this.profile.photo_mini; // A revoir
 
-        console.log(_this.profile);
+        _this.profileId = _this.profile.id; //  console.log(this.profileId)
+
+        _this.getComments();
       }); // Get les informations sur le user lié jardinier selon le id
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.userId).then(function (response) {
         _this.user = response.data[0];
-        _this.username = _this.user.first_name + ' ' + _this.user.last_name;
-        console.log(_this.user);
-      }); // Get les ratings du profile selon le id
+        _this.username = _this.user.first_name + ' ' + _this.user.last_name; // console.log(this.user)
+      });
+    },
+    // Get les ratings du profile selon le id
+    getComments: function getComments() {
+      var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/evaluation/profile" + this.userId).then(function (response) {
-        _this.ratings = response.data; // this.username = this.user.first_name + ' ' + this.user.last_name
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/evaluation/profile/" + this.profileId).then(function (response) {
+        _this2.ratings = response.data;
+        _this2.commentUserId = _this2.ratings.user_id; // this.test1 = this.ratings.user.first_name           
 
-        console.log(_this.ratings);
+        console.log(_this2.ratings);
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/test/" + _this2.profileId).then(function (response) {
+          _this2.commentUser = response.data;
+          _this2.commentUsername = _this2.commentUser.first_name + ' ' + _this2.commentUser.last_name;
+          console.log(_this2.commentUsername);
+        });
       });
     }
   }
@@ -42507,12 +42505,36 @@ var render = function() {
       _vm._v(" "),
       _vm._m(9),
       _vm._v(" "),
-      _vm._m(10),
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.ratings, function(item) {
+          return _c(
+            "div",
+            { key: item.id, staticClass: "col", attrs: { id: "evaluations" } },
+            [
+              _c("p", [
+                _vm._v(
+                  " " +
+                    _vm._s(item.user.first_name) +
+                    " " +
+                    _vm._s(item.user.last_name)
+                )
+              ]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(item.comment))])
+            ]
+          )
+        }),
+        0
+      ),
       _vm._v(" "),
-      _vm._m(11)
+      _vm._m(10)
     ]),
     _vm._v(" "),
-    _vm._m(12)
+    _vm._m(11)
   ])
 }
 var staticRenderFns = [
@@ -42790,62 +42812,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col", attrs: { id: "evaluationTitre" } }, [
         _c("h3", [_vm._v("Évaluation")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-        _c("p", [_vm._v(" Autre jardinier ")]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium,soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-        _c("p", [_vm._v(" Autre jardinier ")]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-100" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-        _c("p", [_vm._v(" Autre jardinier ")]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-        _c("p", [_vm._v(" Autre jardinier ")]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit."
-          )
-        ])
       ])
     ])
   },

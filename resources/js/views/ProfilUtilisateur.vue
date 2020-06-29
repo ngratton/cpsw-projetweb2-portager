@@ -130,26 +130,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
+             <div class="col" id="evaluations" v-for="item in ratings" :key="item.id"> 
+                <p> {{ item.user.first_name  }} {{ item.user.last_name }}</p>
                 <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium,soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium.</p>
-            </div>
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium.</p>
-            </div>
-            <div class="w-100"></div>
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium.</p>
-            </div>
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit.</p>
+                <p>{{ item.comment }}</p>
             </div>
         </div>
         <div class="row" id="plus">
@@ -178,8 +162,7 @@
             return {  
                 data: 0,
                 user: '',
-                userId: 2, // temporairement, changer le id ici pour changer de profile de jardinier
-                profileId: 3,
+                userId: 3, // temporairement, changer le id ici pour changer de profile de jardinier
                 profile: '',
                 username: '',
                 jardineDepuis: '',
@@ -187,6 +170,10 @@
                 tags: '',
                 miniImg: '',
                 ratings: '',
+                profileId: '',
+                commentUser: '',
+                commentUsername: '',
+                test1: '',
             };
         
         },
@@ -204,13 +191,15 @@
 
                 // Get les informations sur le profil du jardinier selon le id
 
-                Axios.get("/api/profile/" + this.profileId).then(response => {
+                Axios.get("/api/profile/" + this.userId).then(response => {
                     this.profile = response.data
                     this.jardineDepuis = this.profile.jardine_depuis
                     this.bio = this.profile.bio
                     this.tags = this.profile.tags_jardiniers
                     this.miniImg = './' + this.profile.photo_mini  // A revoir
-                    console.log(this.profile)
+                    this.profileId = this.profile.id
+                    //  console.log(this.profileId)
+                     this.getComments()
                 });
 
                 // Get les informations sur le user lié jardinier selon le id
@@ -219,18 +208,29 @@
                     this.user = response.data[0]
                     this.username = this.user.first_name + ' ' + this.user.last_name
                     
-                    console.log(this.user)
-                });
+                    // console.log(this.user)
+                });             
+            },     
+            
+             // Get les ratings du profile selon le id
 
-                // Get les ratings du profile selon le id
-
-                Axios.get("api/evaluation/profile" + this.userId).then(response => {
-                    this.ratings = response.data
-                    // this.username = this.user.first_name + ' ' + this.user.last_name
-                    
+            getComments() {
+                Axios.get("/api/evaluation/profile/" + this.profileId).then(response => {
+                    this.ratings = response.data   
+                    this.commentUserId = this.ratings.user_id 
+                    // this.test1 = this.ratings.user.first_name           
                     console.log(this.ratings)
+                    
+
+                    Axios.get("/api/users/test/" + this.profileId).then(response => {
+                        this.commentUser = response.data
+                        this.commentUsername = this.commentUser.first_name + ' ' + this.commentUser.last_name
+                        
+                        console.log(this.commentUsername)
+                    });    
+
                 });
-            },           
+            },  
         },
     }
 </script>

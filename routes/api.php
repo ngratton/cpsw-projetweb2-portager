@@ -63,6 +63,7 @@ Route::group(['prefix' => '/users', 'where' => ['user' => '[0-9]+']], function()
     Route::get('/messages_avec/{userId}', 'UserController@messages_avec'); 
     Route::get('/{toUserId}', 'UserController@test'); 
     Route::get('/{userId}', 'UserController@showOne'); 
+    Route::get('/test/{profileId}', 'UserController@showMany'); 
 });
 
 /**
