@@ -21,6 +21,9 @@
                         <li class="nav-item">
                             <router-link class="nav-link" :to="{name: 'Echange'}">Échange</router-link>
                         </li>
+                        <li class="text-danger nav-item">
+                            <a v-if="isLogged" class="nav-link" @click.prevent="deconnexion">Déconnexion</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -30,26 +33,39 @@
 </template>
 
 <script>
+    import User from '../api/User'
+
     export default {
         name: 'Entete',
         data() {
             return {
-                data: 0,
+                //
             };
 
         },
         props: {
-
+            //
         },
         components: {
-
+            //
         },
         mounted() {
-
+            //
         },
         methods: {
-
+            deconnexion() {
+                User.deconnexion()
+                    .then(() => {
+                        this.$store.dispatch('logout')
+                        // this.$router.go()
+                    })
+            },
         },
+        computed: {
+            isLogged() {
+                return this.$store.state.logged_in
+            }
+        }
     }
 </script>
 

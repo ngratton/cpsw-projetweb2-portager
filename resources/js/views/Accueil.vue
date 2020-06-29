@@ -9,7 +9,7 @@
             <div class="row"> <!--banner-->
                 <div class="col">
                     <h1>Nam urna erat,<br>tempor at auctor.</h1>
-                    <div v-if="isLogged">
+                    <div v-if="!isLogged">
                         <router-link :to="{ name: 'Inscription' }">
                             <button type="button" class="btn btn-primary">
                                 S'enregistrer
@@ -105,12 +105,11 @@
         name: 'Accueil',
         data() {
             return {
-                isLogged: false,
+                //
             };
-
         },
         props: {
-
+            //
         },
         components: {
             Messagerie,
@@ -122,12 +121,15 @@
             PiedPage,
         },
         mounted() {
-
+            //
         },
         methods: {
-            isLogged() {
-                this.isLogged = this.$store.state.logged_in
-            }
+            //
         },
+        computed: {
+            isLogged() {
+                return this.$store.state.logged_in
+            },
+        }
     }
 </script>

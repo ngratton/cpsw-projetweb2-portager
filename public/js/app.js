@@ -1961,6 +1961,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _api_User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../api/User */ "./resources/js/api/User.js");
 //
 //
 //
@@ -1992,17 +1993,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Entete',
   data: function data() {
-    return {
-      data: 0
+    return {//
     };
   },
-  props: {},
-  components: {},
-  mounted: function mounted() {},
-  methods: {}
+  props: {//
+  },
+  components: {//
+  },
+  mounted: function mounted() {//
+  },
+  methods: {
+    deconnexion: function deconnexion() {
+      var _this = this;
+
+      _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].deconnexion().then(function () {
+        _this.$store.dispatch('logout'); // this.$router.go()
+
+      });
+    }
+  },
+  computed: {
+    isLogged: function isLogged() {
+      return this.$store.state.logged_in;
+    }
+  }
 });
 
 /***/ }),
@@ -2172,25 +2193,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Messagerie',
   data: function data() {
     return {
       message: '',
-      userId: '',
+      userId: '1',
+      //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
       username: '',
       contenu: '',
       toUserId: '',
       user: '',
       lesUsers: '',
       toUserName: '',
-      isActive: true,
-      toUserFirstName: ''
+      isActive: true
     };
   },
   props: {},
@@ -2202,53 +2219,41 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      // Selectionne l'utilisateur connecte
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users").then(function (response) {
+      // Selectionne un utilisateur selon son id
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.userId).then(function (response) {
         _this.user = response.data;
-        _this.username = _this.user.first_name;
-        _this.userId = response.data.id;
+        _this.username = _this.user.name;
+        console.log(_this.username);
+      }); // Selectionne tous les utilisateurs(temporaire)
 
-        _this.getLinkedUsers();
-      }); // Selectionne les utilisateurs ayant des messages avec l'utilisateur connecte
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/messages_avec/" + this.userId).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users").then(function (response) {
         _this.lesUsers = response.data;
-        _this.test = _this.lesUsers.first_name + ' ' + _this.lesUsers.last_name;
+        console.log(_this.lesUsers);
       });
     },
-    // Lorsque l'utilisateur selectionne une conversation
     toggle: function toggle(convo) {
       this.isActive = false;
       this.toUserName = convo.first_name + ' ' + convo.last_name;
-      this.toUserFirstName = convo.first_name;
       this.toUserId = convo.id;
       console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id);
       this.listeMessages();
-      console.log(this.message);
     },
-    // Lorsque l'utilisateur envoi un message
     envoiMessage: function envoiMessage() {
-      var _this2 = this;
-
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/messages/store", {
         contenu: this.contenu,
         from_id: this.userId,
         to_id: this.toUserId
-      }).then(function (response) {
-        _this2.listeMessages();
       });
-      this.contenu = "";
+      this.listeMessages();
     },
     // Selectionne les messages selon les id des utilisateurs dans la conversation
     listeMessages: function listeMessages() {
-      var _this3 = this;
+      var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId + "/" + this.toUserId).then(function (response) {
-        _this3.message = response.data;
-
-        _this3.$nextTick(function () {
-          _this3.scrollToEnd();
-        });
+        _this2.message = response.data;
+        _this2.messageDate = response.data.created_at;
+        console.log(_this2.message);
       });
     },
     // Transorme le format de l'heure d'envoi d'un message
@@ -2257,19 +2262,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     transformerHeure: function transformerHeure(temps) {
       return temps.substring(11, 16);
-    },
-    // Selectionne les utilisateurs avec qui l'utilisateur connecte a des messages
-    getLinkedUsers: function getLinkedUsers() {
-      var _this4 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/messages_avec/" + this.userId).then(function (response) {
-        _this4.lesUsers = response.data;
-      });
-    },
-    // Permet d'afficher les conversations a partir du bas (messages plus recents)
-    scrollToEnd: function scrollToEnd() {
-      var content = this.$refs.messagesContainer;
-      content.scrollTop = content.scrollHeight;
     }
   }
 });
@@ -2656,6 +2648,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2666,11 +2660,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Accueil',
   data: function data() {
-    return {
-      data: 0
+    return {//
     };
   },
-  props: {},
+  props: {//
+  },
   components: {
     Messagerie: _components_Messagerie__WEBPACK_IMPORTED_MODULE_0__["default"],
     Entete: _components_Entete__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2680,8 +2674,15 @@ __webpack_require__.r(__webpack_exports__);
     PlantPopulaire: _components_PlantPopulaire__WEBPACK_IMPORTED_MODULE_6__["default"],
     PiedPage: _components_PiedPage__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  mounted: function mounted() {},
-  methods: {}
+  mounted: function mounted() {//
+  },
+  methods: {//
+  },
+  computed: {
+    isLogged: function isLogged() {
+      return this.$store.state.logged_in;
+    }
+  }
 });
 
 /***/ }),
@@ -2690,7 +2691,6 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Connexion.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************************************************/
-<<<<<<< HEAD
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2791,8 +2791,6 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Echange.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************************************************************************************/
-=======
->>>>>>> maquettesHTML
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3062,29 +3060,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/EchangeRevue.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/EchangeRevue.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************/
-=======
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/InscriptionJardinier.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/InscriptionJardinier.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************/
->>>>>>> maquettesHTML
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-<<<<<<< HEAD
 /* harmony import */ var _components_Entete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Entete */ "./resources/js/components/Entete.vue");
 /* harmony import */ var _components_Recherche__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Recherche */ "./resources/js/components/Recherche.vue");
 /* harmony import */ var _components_PiedPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/PiedPage */ "./resources/js/components/PiedPage.vue");
 /* harmony import */ var _components_Echange_PlantListe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Echange/PlantListe */ "./resources/js/views/components/Echange/PlantListe.vue");
-=======
-/* harmony import */ var _components_FormulaireJardinier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/FormulaireJardinier */ "./resources/js/components/FormulaireJardinier.vue");
 //
 //
 //
@@ -3107,7 +3095,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
->>>>>>> maquettesHTML
 //
 //
 //
@@ -3117,38 +3104,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'InscriptionJardinier',
-  data: function data() {
-    return {
-      data: 0
-    };
-  },
-  props: {},
-  components: {
-    FormulaireJardinier: _components_FormulaireJardinier__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  mounted: function mounted() {},
-  methods: {}
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Potager.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Potager.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_Entete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Entete */ "./resources/js/components/Entete.vue");
-/* harmony import */ var _components_Recherche__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Recherche */ "./resources/js/components/Recherche.vue");
-/* harmony import */ var _components_UnPotager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/UnPotager */ "./resources/js/components/UnPotager.vue");
-/* harmony import */ var _components_CartePotager__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/CartePotager */ "./resources/js/components/CartePotager.vue");
-/* harmony import */ var _components_PiedPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PiedPage */ "./resources/js/components/PiedPage.vue");
 //
 //
 //
@@ -3185,30 +3140,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-<<<<<<< HEAD
 //
 //
 //
@@ -3446,6 +3377,65 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/InscriptionJardinier.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/InscriptionJardinier.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_FormulaireJardinier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/FormulaireJardinier */ "./resources/js/components/FormulaireJardinier.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'InscriptionJardinier',
+  data: function data() {
+    return {
+      data: 0
+    };
+  },
+  props: {},
+  components: {
+    FormulaireJardinier: _components_FormulaireJardinier__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {},
+  methods: {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Potager.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Potager.vue?vue&type=script&lang=js& ***!
@@ -3504,8 +3494,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-=======
->>>>>>> maquettesHTML
 
 
 
@@ -3515,11 +3503,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Potager',
   data: function data() {
     return {
-<<<<<<< HEAD
       plants: []
-=======
-      data: 0
->>>>>>> maquettesHTML
     };
   },
   props: {},
@@ -3530,7 +3514,6 @@ __webpack_require__.r(__webpack_exports__);
     CartePotager: _components_CartePotager__WEBPACK_IMPORTED_MODULE_3__["default"],
     PiedPage: _components_PiedPage__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-<<<<<<< HEAD
   mounted: function mounted() {
     this.fetchPlants();
   },
@@ -3543,10 +3526,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   }
-=======
-  mounted: function mounted() {},
-  methods: {}
->>>>>>> maquettesHTML
 });
 
 /***/ }),
@@ -3751,7 +3730,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Echange/PlantListe.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/components/Echange/PlantListe.vue?vue&type=script&lang=js& ***!
@@ -3799,8 +3777,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-=======
->>>>>>> maquettesHTML
 /***/ "./node_modules/bootstrap/dist/js/bootstrap.js":
 /*!*****************************************************!*\
   !*** ./node_modules/bootstrap/dist/js/bootstrap.js ***!
@@ -8231,7 +8207,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Entete.vue?vue&type=style&index=0&lang=scss&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Entete.vue?vue&type=style&index=0&lang=scss& ***!
@@ -8251,8 +8226,6 @@ exports.push([module.i, "#colHeader {\n  display: flex;\n  flex-direction: row;\
 
 /***/ }),
 
-=======
->>>>>>> maquettesHTML
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss& ***!
@@ -8329,16 +8302,6 @@ exports.push([module.i, "#imageGauche,\n#inscription {\n  margin: 0;\n  padding:
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-=======
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/InscriptionJardinier.vue?vue&type=style&index=0&lang=scss&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/InscriptionJardinier.vue?vue&type=style&index=0&lang=scss& ***!
@@ -8366,16 +8329,30 @@ exports.push([module.i, "body {\n  background-color: #F7FDFF !important;\n  marg
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
->>>>>>> maquettesHTML
 // imports
 
 
 // module
-<<<<<<< HEAD
-exports.push([module.i, ".type-plants-sepatateur {\n  border-bottom: 2px solid #9FCC3B;\n}\n.type-plants-sepatateur .type-nom {\n  font-weight: bold;\n  color: #717C89;\n}\n.plant-img-thumb {\n  height: 60px;\n  width: 60px;\n  border-radius: 50%;\n}\n.plant-nom {\n  margin-left: 10px;\n}\n.echange-plus {\n  height: 25px;\n  width: auto;\n  color: #717C89;\n  cursor: pointer;\n}\n@media screen and (max-width: 992px) {\n.plant-nom {\n    font-size: 12px;\n}\n.plant-img-thumb {\n    height: 40px;\n    width: 40px;\n    border-radius: 50%;\n}\n}\n.fade-enter-active, .fade-leave-active {\n  transition: opacity 0.2s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}", ""]);
-=======
 exports.push([module.i, "body {\n  background-color: #F7FDFF !important;\n  margin: 0;\n  padding: 0;\n}\nnav {\n  width: 80%;\n}\n#colHeader {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n.form-group {\n  margin-top: 10px;\n  margin-left: 20px;\n  text-align: left;\n}\n#colHeaderProfil {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n#colHeader img {\n  width: 248.27px;\n  height: 89.99px;\n}\n#logo {\n  width: 248.27px;\n  height: 89.99px;\n  margin-left: 90px;\n}\n#barreProgression {\n  float: right;\n  width: 60%;\n}\n#profil {\n  margin-top: 100px;\n  text-align: center;\n}\n#profil h4 {\n  font-family: Roboto Slab;\n  color: #717C89;\n  font-weight: bold;\n}\n#profil a {\n  font-size: 10px;\n  color: #717C89;\n}\n#profilTitre button {\n  font-weight: bold;\n  background-color: #FFDD00;\n  color: #332E0A;\n  border: none;\n  margin-left: 5%;\n}\n#completer {\n  left: -3%;\n}\n#suivant {\n  left: -1%;\n}\n#plusTard {\n  display: flex;\n  left: 19%;\n}\n#plusTard a {\n  padding-top: 5%;\n}\n#creationProfil {\n  background-color: #FFFFFF;\n  width: 85%;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  margin-left: 100px;\n  border-radius: 16px;\n  opacity: 1;\n  margin-top: 2%;\n  padding: 20px 10px 100px 20px;\n  text-align: left;\n}\n#creationProfil button {\n  position: absolute;\n  width: 200px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n  margin-top: 25px;\n}\n#creationProfil img {\n  margin-right: 20px;\n  margin-bottom: 40px;\n}\n#creationProfil input {\n  width: 300px;\n}\n#creationProfil h4 {\n  color: #32373D;\n  font-size: 16px;\n  text-align: left;\n  font: Regular 16px/23px Inter;\n  letter-spacing: 0px;\n  color: #32373D;\n  opacity: 1;\n}\n#etiquetteJardin h4 {\n  color: #32373D;\n  font-weight: bold;\n  font-size: 16px;\n  margin-left: 42px;\n  text-align: left;\n}\n#etiquetteJardin p {\n  margin-left: 42px;\n  font-size: 12px;\n}\n#etiquetteProfilJardinier ul {\n  list-style-type: none;\n}\n#etiquetteProfilJardinier li {\n  width: 100%;\n  background-color: #CFFFB3;\n  border-radius: 50px;\n  text-align: center;\n  margin-top: 10px;\n  margin-bottom: 20px;\n  padding-right: 30px;\n  padding-left: 30px;\n}\n#etiquetteProfilJardinier li:hover {\n  background-color: #9FCC3B;\n}\n#profilPotager {\n  margin-top: 100px;\n  text-align: center;\n}\n#profilPotager h4 {\n  font-family: Roboto Slab;\n  color: #717C89;\n}\n#profilPotager a {\n  font-size: 10px;\n  color: #717C89;\n}\n#creationPotager {\n  background-color: #FFFFFF;\n  width: 85%;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  margin-left: 100px;\n  border-radius: 16px;\n  opacity: 1;\n  margin-top: 2%;\n  padding: 20px 10px 100px 20px;\n  text-align: left;\n}\n#creationPotager h6 {\n  font-weight: bold;\n  font-size: 16px;\n}\n#trouver input {\n  width: 100px;\n}\n#trouver button {\n  position: absolute;\n  width: 160px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n#etiquettesPotager h6 {\n  color: #32373D;\n  font-weight: bold;\n  font-size: 16px;\n  text-align: left;\n}\n#etiquettesPotager p {\n  font-size: 12px;\n}\n#creationPotager input {\n  width: 370px;\n}\n#pays input {\n  width: 160px;\n}\n#profilPotagerImages img {\n  margin-right: 15px;\n  margin-bottom: 20px;\n  margin-top: 10px;\n}\n#profilPotagerImages button {\n  float: right;\n  width: 200px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n#trouver span {\n  width: 80%;\n  position: absolute;\n  margin-top: 28px;\n  color: white;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n#profilPotagerImages span {\n  float: right;\n  width: auto;\n  color: white;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n.btn-file {\n  position: relative;\n  overflow: hidden;\n  width: 200px;\n}\n.btn-file input[type=file] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  min-width: 100%;\n  min-height: 100%;\n  font-size: 100px;\n  text-align: right;\n  filter: alpha(opacity=0);\n  opacity: 0;\n  outline: none;\n  cursor: inherit;\n  display: block;\n}", ""]);
->>>>>>> maquettesHTML
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".type-plants-sepatateur {\n  border-bottom: 2px solid #9FCC3B;\n}\n.type-plants-sepatateur .type-nom {\n  font-weight: bold;\n  color: #717C89;\n}\n.plant-img-thumb {\n  height: 60px;\n  width: 60px;\n  border-radius: 50%;\n}\n.plant-nom {\n  margin-left: 10px;\n}\n.echange-plus {\n  height: 25px;\n  width: auto;\n  color: #717C89;\n  cursor: pointer;\n}\n@media screen and (max-width: 992px) {\n.plant-nom {\n    font-size: 12px;\n}\n.plant-img-thumb {\n    height: 40px;\n    width: 40px;\n    border-radius: 50%;\n}\n}\n.fade-enter-active, .fade-leave-active {\n  transition: opacity 0.2s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}", ""]);
 
 // exports
 
@@ -8394,11 +8371,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-<<<<<<< HEAD
-exports.push([module.i, "\n#messagerie {\r\n  overflow: hidden;\r\n  border: solid yellowgreen 2px;\r\n  max-height: 100000px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\r\n  max-height: 600px;\r\n  overflow-y: scroll;\n}\n#conversation {\r\n  width: 100%;\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  margin-left: auto;\r\n  float: right;\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n", ""]);
-=======
 exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n\r\n", ""]);
->>>>>>> maquettesHTML
 
 // exports
 
@@ -40255,7 +40228,6 @@ try {
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Entete.vue?vue&type=style&index=0&lang=scss&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Entete.vue?vue&type=style&index=0&lang=scss& ***!
@@ -40286,8 +40258,6 @@ if(false) {}
 
 /***/ }),
 
-=======
->>>>>>> maquettesHTML
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss& ***!
@@ -40408,26 +40378,15 @@ if(false) {}
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-=======
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/InscriptionJardinier.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/InscriptionJardinier.vue?vue&type=style&index=0&lang=scss& ***!
   \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
->>>>>>> maquettesHTML
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-<<<<<<< HEAD
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PlantListe.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss&");
-=======
 var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./InscriptionJardinier.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/InscriptionJardinier.vue?vue&type=style&index=0&lang=scss&");
->>>>>>> maquettesHTML
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -40441,9 +40400,6 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-<<<<<<< HEAD
-var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-=======
 var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
@@ -40475,7 +40431,36 @@ options.transform = transform
 options.insertInto = undefined;
 
 var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
->>>>>>> maquettesHTML
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PlantListe.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -41177,7 +41162,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-<<<<<<< HEAD
   return _c("div", [
     _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
       _c(
@@ -41218,7 +41202,25 @@ var render = function() {
                     )
                   ],
                   1
-                )
+                ),
+                _vm._v(" "),
+                _c("li", { staticClass: "text-danger nav-item" }, [
+                  _vm.isLogged
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "nav-link",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.deconnexion($event)
+                            }
+                          }
+                        },
+                        [_vm._v("Déconnexion")]
+                      )
+                    : _vm._e()
+                ])
               ])
             ]
           )
@@ -41227,16 +41229,12 @@ var render = function() {
       )
     ])
   ])
-=======
-  return _vm._m(0)
->>>>>>> maquettesHTML
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-<<<<<<< HEAD
     return _c("li", { staticClass: "nav-item" }, [
       _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
         _vm._v("Plants")
@@ -41250,45 +41248,22 @@ var staticRenderFns = [
     return _c("li", { staticClass: "nav-item" }, [
       _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
         _vm._v("Carte des potagers")
-=======
-    return _c("div", [
-      _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
-        _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("img", { attrs: { src: "/images/portager_noir.svg" } })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "collapse navbar-collapse",
-              attrs: { id: "navbarSupportedContent" }
-            },
-            [
-              _c("ul", { staticClass: "navbar-nav mr-auto" }, [
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Plants")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Carte des potagers")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Boutique")
-                  ])
-                ])
-              ])
-            ]
-          )
-        ])
->>>>>>> maquettesHTML
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          attrs: { href: "https://boutique.portager.app" }
+        },
+        [_vm._v("Boutique")]
+      )
     ])
   }
 ]
@@ -41394,17 +41369,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-<<<<<<< HEAD
-    return _c("li", { staticClass: "nav-item" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          attrs: { href: "https://boutique.portager.app" }
-        },
-        [_vm._v("Boutique")]
-      )
-=======
     return _c("div", { staticClass: "form-group" }, [
       _c("h4", [_vm._v("Ajoutez une photo de profil")]),
       _c("br"),
@@ -41415,7 +41379,6 @@ var staticRenderFns = [
         _vm._v("\r\n                    Téléverser une photo"),
         _c("input", { attrs: { type: "file", name: "photo" } })
       ])
->>>>>>> maquettesHTML
     ])
   }
 ]
@@ -41468,11 +41431,7 @@ var render = function() {
                 }
               },
               [
-                _c("h4", [
-                  _vm._v(
-                    _vm._s(convo.first_name) + " " + _vm._s(convo.last_name)
-                  )
-                ]),
+                _c("h4", [_vm._v(_vm._s(convo.first_name))]),
                 _vm._v(" "),
                 _c("br")
               ]
@@ -41483,11 +41442,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          {
-            ref: "messagesContainer",
-            staticClass: "col-9",
-            attrs: { id: "conversation-active" }
-          },
+          { staticClass: "col-9", attrs: { id: "conversation-active" } },
           [
             _c("div", { staticClass: "row justify-content-between" }, [
               _c(
@@ -41495,107 +41450,91 @@ var render = function() {
                 { attrs: { id: "conversation" } },
                 _vm._l(_vm.message, function(item) {
                   return _c("div", { key: item.id, staticClass: "message" }, [
-                    _c("div", { staticClass: "col-12 overflow-auto" }, [
-                      item.from_id == _vm.userId
-                        ? _c(
-                            "div",
-                            {
-                              staticClass: "col-4",
-                              attrs: { id: "un-message-from" }
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "row justify-content-between" },
-                                [
-                                  _c("div", { staticClass: "col-6" }, [
-                                    _c(
-                                      "p",
-                                      { staticClass: "nom-utilisateur" },
-                                      [_vm._v(_vm._s(_vm.username))]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-6" }, [
-                                    _c("p", { staticClass: "date" }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.transformerHeure(item.created_at)
-                                        )
-                                      )
-                                    ])
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-auto" }, [
-                                _c("p", { staticClass: "contenu" }, [
-                                  _vm._v(_vm._s(item.contenu))
-                                ]),
-                                _c("br")
+                    item.from_id == _vm.userId
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "col-md-auto",
+                            attrs: { id: "un-message-from" }
+                          },
+                          [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-2" }, [
+                                _c("p", { staticClass: "nom-utilisateur" }, [
+                                  _vm._v(_vm._s(_vm.username))
+                                ])
                               ]),
                               _vm._v(" "),
-                              _c("p", { staticClass: "date" }, [
-                                _vm._v(
-                                  _vm._s(_vm.transformerDate(item.created_at))
-                                )
-                              ])
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("br")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12 overflow-auto" }, [
-                      item.from_id != _vm.userId
-                        ? _c(
-                            "div",
-                            {
-                              staticClass: "col-4",
-                              attrs: { id: "un-message-to" }
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "row justify-content-between" },
-                                [
-                                  _c("div", { staticClass: "col-6" }, [
-                                    _c(
-                                      "p",
-                                      { staticClass: "nom-utilisateur" },
-                                      [_vm._v(_vm._s(_vm.toUserFirstName))]
+                              _c("div", { staticClass: "col-2" }, [
+                                _c("p", { staticClass: "date" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.transformerHeure(item.created_at)
                                     )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-6" }, [
-                                    _c("p", { staticClass: "date" }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.transformerHeure(item.created_at)
-                                        )
-                                      )
-                                    ])
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
+                                  )
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-auto" }, [
                               _c("p", { staticClass: "contenu" }, [
                                 _vm._v(_vm._s(item.contenu))
                               ]),
-                              _c("br"),
+                              _c("br")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "date" }, [
+                              _vm._v(
+                                _vm._s(_vm.transformerDate(item.created_at))
+                              )
+                            ])
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    item.from_id != _vm.userId
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "col-4",
+                            attrs: { id: "un-message-to" }
+                          },
+                          [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-2" }, [
+                                _c("p", { staticClass: "nom-utilisateur" }, [
+                                  _vm._v(_vm._s(_vm.toUserName))
+                                ])
+                              ]),
                               _vm._v(" "),
-                              _c("p", { staticClass: "date" }, [
-                                _vm._v(
-                                  _vm._s(_vm.transformerDate(item.created_at))
-                                )
+                              _c("div", { staticClass: "col-2" }, [
+                                _c("p", { staticClass: "date" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.transformerHeure(item.created_at)
+                                    )
+                                  )
+                                ])
                               ])
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("br")
-                    ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "contenu" }, [
+                              _vm._v(_vm._s(item.contenu))
+                            ]),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "date" }, [
+                              _vm._v(
+                                _vm._s(_vm.transformerDate(item.created_at))
+                              )
+                            ])
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("br")
                   ])
                 }),
                 0
@@ -41905,11 +41844,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("div", { staticClass: "container", attrs: { id: "search" } }, [
         _c("div", { staticClass: "row align-items-center" }, [
-<<<<<<< HEAD
           _c("form", { staticClass: "col", attrs: { method: "post" } }, [
-=======
-          _c("div", { staticClass: "col" }, [
->>>>>>> maquettesHTML
             _c("div", { staticClass: "form-group form-check-inline" }, [
               _c("input", {
                 staticClass: "form-control form-control-lg",
@@ -41926,7 +41861,6 @@ var staticRenderFns = [
             _c("div", { staticClass: "row align-items-center" }, [
               _c("div", { staticClass: "col" }, [
                 _c("div", { staticClass: "form-check form-check-inline" }, [
-<<<<<<< HEAD
                   _vm._v(
                     "\n                                Rechercher par\n                                    "
                   ),
@@ -41986,85 +41920,6 @@ var staticRenderFns = [
                     },
                     [_vm._v("Étiquettes")]
                   )
-=======
-                  _c("p", [
-                    _vm._v(
-                      "Rechercher par            \n                                    "
-                    ),
-                    _c("input", {
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        id: "inlineCheckbox1",
-                        value: "option1"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: "inlineCheckbox1" }
-                      },
-                      [_vm._v("Plants")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        id: "inlineCheckbox2",
-                        value: "option2"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: "inlineCheckbox1" }
-                      },
-                      [_vm._v("Villes")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-check-input",
-                      attrs: {
-                        type: "radio",
-                        id: "inlineCheckbox3",
-                        value: "option3"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-check-label",
-                        attrs: { for: "inlineCheckbox1" }
-                      },
-                      [_vm._v("Étiquettes")]
-                    )
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _c("p", [_vm._v("Ou")])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _c("p", [
-                    _vm._v("Naviguez par "),
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
-                  ])
->>>>>>> maquettesHTML
                 ])
               ])
             ])
@@ -42234,52 +42089,61 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("messagerie"),
-      _vm._v(" "),
       _c("entete"),
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid", attrs: { id: "banner" } }, [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              { staticClass: "col" },
-              [
-                _vm._m(0),
-                _vm._v(" "),
-                _c("router-link", { attrs: { to: { name: "Inscription" } } }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "button" }
-                    },
+            _c("div", { staticClass: "col" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              !_vm.isLogged
+                ? _c(
+                    "div",
                     [
-                      _vm._v(
-                        "\r\n                            S'enregistrer\r\n                        "
+                      _c(
+                        "router-link",
+                        { attrs: { to: { name: "Inscription" } } },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              attrs: { type: "button" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                S'enregistrer\n                            "
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c(
+                        "router-link",
+                        { attrs: { to: { name: "Connexion" } } },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-tertiary",
+                              attrs: { type: "button" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Se connecter\n                            "
+                              )
+                            ]
+                          )
+                        ]
                       )
-                    ]
+                    ],
+                    1
                   )
-                ]),
-                _c("br"),
-                _vm._v(" "),
-                _c("router-link", { attrs: { to: { name: "Connexion" } } }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-tertiary",
-                      attrs: { type: "button" }
-                    },
-                    [
-                      _vm._v(
-                        "\r\n                            Se connecter\r\n                        "
-                      )
-                    ]
-                  )
-                ])
-              ],
-              1
-            )
+                : _vm._e()
+            ])
           ])
         ])
       ]),
@@ -43416,437 +43280,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Connexion.vue?vue&type=template&id=45105c3a&":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Connexion.vue?vue&type=template&id=45105c3a& ***!
-  \*******************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container-fluid", staticStyle: { height: "100vh" } },
-    [
-      _c("div", { staticClass: "row" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "col-md d-flex justify-content-center align-items-center",
-            attrs: { id: "connexion" }
-          },
-          [
-            _c("div", [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "formConnection" }, [
-                _c("form", [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "label",
-                      { attrs: { for: "exampleFormControlInput1" } },
-                      [_vm._v("Courriel")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.email,
-                          expression: "form.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "email",
-                        id: "exampleInputEmail1",
-                        "aria-describedby": "emailHelp"
-                      },
-                      domProps: { value: _vm.form.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "email", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.email
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.errors.email[0]) +
-                              "\n                            "
-                          )
-                        ])
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "label",
-                      { attrs: { for: "exampleFormControlInput1" } },
-                      [_vm._v("Mot de passe")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.password,
-                          expression: "form.password"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "password", id: "exampleInputPassword1" },
-                      domProps: { value: _vm.form.password },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "password", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.password
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.errors.password[0]) +
-                              "\n                            "
-                          )
-                        ])
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "submit" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.connexion($event)
-                        }
-                      }
-                    },
-                    [_vm._v("CONNEXION")]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(2)
-                ])
-              ])
-            ])
-          ]
-        )
-      ])
-    ]
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-md d-none d-md-flex", attrs: { id: "imageGauche" } },
-      [_c("div", { staticClass: "grosseImageConnexion" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "logoConnection" }, [
-      _c("img", { attrs: { src: "/images/portager_noir.svg", id: "logo" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("p", { staticClass: "mt-3" }, [_vm._v("J'ai oublié mon mot de passe")])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Inscription.vue?vue&type=template&id=ebe520ee&":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Inscription.vue?vue&type=template&id=ebe520ee& ***!
-  \*********************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container-fluid", staticStyle: { height: "100vh" } },
-    [
-      _c("div", { staticClass: "row" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "col-md d-flex justify-content-center align-items-center",
-            attrs: { id: "inscription" }
-          },
-          [
-            _c("div", [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "formInscription" }, [
-                _c("form", [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "first_name" } }, [
-                      _vm._v("Prénom")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.first_name,
-                          expression: "form.first_name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "first_name",
-                        id: "first_name"
-                      },
-                      domProps: { value: _vm.form.first_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "first_name", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.first_name
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.errors.first_name[0]) +
-                              "\n                                "
-                          )
-                        ])
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "last_name" } }, [
-                      _vm._v("Nom de famille")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.last_name,
-                          expression: "form.last_name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "last_name",
-                        id: "last_name"
-                      },
-                      domProps: { value: _vm.form.last_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "last_name", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.last_name
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.errors.last_name[0]) +
-                              "\n                                "
-                          )
-                        ])
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "email" } }, [
-                      _vm._v("Courriel")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.email,
-                          expression: "form.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "email",
-                        name: "email",
-                        id: "email",
-                        "aria-describedby": "emailHelp"
-                      },
-                      domProps: { value: _vm.form.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "email", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.email
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.errors.email[0]) +
-                              "\n                                "
-                          )
-                        ])
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "password" } }, [
-                      _vm._v("Mot de passe")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.password,
-                          expression: "form.password"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "password",
-                        name: "password",
-                        id: "password"
-                      },
-                      domProps: { value: _vm.form.password },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "password", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.password
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.errors.password[0]) +
-                              "\n                                "
-                          )
-                        ])
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "submit" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.inscription($event)
-                        }
-                      }
-                    },
-                    [_vm._v("INSCRIPTION")]
-                  )
-                ])
-              ])
-            ])
-          ]
-        )
-      ])
-    ]
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-md d-none d-md-flex", attrs: { id: "imageGauche" } },
-      [_c("div", { staticClass: "grosseImageInscription" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "logoConnection" }, [
-      _c("img", { attrs: { src: "/images/portager_noir.svg", id: "logo" } })
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/InscriptionJardinier.vue?vue&type=template&id=bca157a2&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/InscriptionJardinier.vue?vue&type=template&id=bca157a2& ***!
@@ -44816,7 +44249,6 @@ render._withStripped = true
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Echange/PlantListe.vue?vue&type=template&id=6e0539c0&lang=fr&":
 /*!***********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/components/Echange/PlantListe.vue?vue&type=template&id=6e0539c0&lang=fr& ***!
@@ -44866,8 +44298,6 @@ render._withStripped = true
 
 /***/ }),
 
-=======
->>>>>>> maquettesHTML
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -61320,7 +60750,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       var commit = _ref.commit;
       commit('logsIn', user);
     },
-    logOut: function logOut(_ref2) {
+    logout: function logout(_ref2) {
       var commit = _ref2.commit;
       commit('logsOut');
     }
@@ -61332,12 +60762,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-<<<<<<< HEAD
   router: _router_js__WEBPACK_IMPORTED_MODULE_2__["default"],
   store: store,
-=======
-  router: _router_js__WEBPACK_IMPORTED_MODULE_1__["default"],
->>>>>>> maquettesHTML
   data: {//
   },
   methods: {//
@@ -62144,13 +61570,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_ProfilUtilisateur__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/ProfilUtilisateur */ "./resources/js/views/ProfilUtilisateur.vue");
 /* harmony import */ var _views_Inscription__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/Inscription */ "./resources/js/views/Inscription.vue");
 /* harmony import */ var _views_Connexion__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/Connexion */ "./resources/js/views/Connexion.vue");
-<<<<<<< HEAD
 /* harmony import */ var _views_Echange__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/Echange */ "./resources/js/views/Echange.vue");
 /* harmony import */ var _views_EchangeRevue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/EchangeRevue */ "./resources/js/views/EchangeRevue.vue");
-=======
-/* harmony import */ var _views_InscriptionJardinier__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/InscriptionJardinier */ "./resources/js/views/InscriptionJardinier.vue");
-/* harmony import */ var _views_InscriptionPotager__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/InscriptionPotager */ "./resources/js/views/InscriptionPotager.vue");
->>>>>>> maquettesHTML
+/* harmony import */ var _views_InscriptionJardinier__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/InscriptionJardinier */ "./resources/js/views/InscriptionJardinier.vue");
+/* harmony import */ var _views_InscriptionPotager__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./views/InscriptionPotager */ "./resources/js/views/InscriptionPotager.vue");
+
+
 
 
 
@@ -62198,7 +61623,20 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       title: 'Profil | Portager | Cultivez votre sens du partage'
     }
   }, {
-<<<<<<< HEAD
+    path: '/inscriptionjardinier',
+    name: 'InscriptionJardinier',
+    component: _views_InscriptionJardinier__WEBPACK_IMPORTED_MODULE_9__["default"],
+    meta: {
+      title: 'Profil | Portager | Cultivez votre sens du partage'
+    }
+  }, {
+    path: '/inscriptionpotager',
+    name: 'InscriptionPotager',
+    component: _views_InscriptionPotager__WEBPACK_IMPORTED_MODULE_10__["default"],
+    meta: {
+      title: 'Profil | Portager | Cultivez votre sens du partage'
+    }
+  }, {
     path: '/echange',
     name: 'Echange',
     component: _views_Echange__WEBPACK_IMPORTED_MODULE_7__["default"],
@@ -62211,20 +61649,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     component: _views_EchangeRevue__WEBPACK_IMPORTED_MODULE_8__["default"],
     meta: {
       title: "Résume de l'échange | Portager | Cultivez votre sens du partage"
-=======
-    path: '/inscriptionjardinier',
-    name: 'InscriptionJardinier',
-    component: _views_InscriptionJardinier__WEBPACK_IMPORTED_MODULE_7__["default"],
-    meta: {
-      title: 'Profil | Portager | Cultivez votre sens du partage'
-    }
-  }, {
-    path: '/inscriptionpotager',
-    name: 'InscriptionPotager',
-    component: _views_InscriptionPotager__WEBPACK_IMPORTED_MODULE_8__["default"],
-    meta: {
-      title: 'Profil | Portager | Cultivez votre sens du partage'
->>>>>>> maquettesHTML
     }
   }],
   mode: 'history'
@@ -62945,7 +62369,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ "./resources/js/views/components/Echange/PlantListe.vue":
 /*!**************************************************************!*\
   !*** ./resources/js/views/components/Echange/PlantListe.vue ***!
@@ -63033,8 +62456,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-=======
->>>>>>> maquettesHTML
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -63053,8 +62474,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\portager\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\portager\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\H20\582-N61-MA PROJET WEB 2\www\portager\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\H20\582-N61-MA PROJET WEB 2\www\portager\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
