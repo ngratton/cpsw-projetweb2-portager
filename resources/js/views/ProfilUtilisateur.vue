@@ -76,10 +76,14 @@
                 <div>
                     <h2> {{ username }} </h2>
                     <p>Jardine depuis  {{ jardineDepuis }} </p>
+                </div>                
+                 <div class="etoiles" @mouseover="mouseOver">
+                    <img id="etoile" src="/images/star.png"  v-for="item in etoiles" :key="item.id">
+                    <div id="activeCote" v-bind:class="{ active: isActive }">
+                  <p>  {{ cote }} sur 5. </p>
                 </div>
-                <div class="etoile">
-                    <p>Étoile vote</p>
                 </div>
+                
                 <div class="btn-group-vertical">
                     <button type="button" class="btn btn-primary" style="background-color: #9BC53D; color: white; margin-bottom: 20px; border: none;">Évaluer ce jardinier</button>
                     <button type="button" class="btn btn-secondary" style="background-color: #FFDD00; color: #332E0A; border: none;">Contacter  jardinier </button>
@@ -130,26 +134,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
+             <div class="col" id="evaluations" v-for="item in ratings" :key="item.id"> 
+                <p> {{ item.user.first_name  }} {{ item.user.last_name }}</p>
                 <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium,soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium.</p>
-            </div>
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium.</p>
-            </div>
-            <div class="w-100"></div>
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium.</p>
-            </div>
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit.</p>
+                <p>{{ item.comment }}</p>
             </div>
         </div>
         <div class="row" id="plus">
@@ -185,6 +173,11 @@
                 bio: '',
                 tags: '',
                 miniImg: '',
+                ratings: '',
+                profileId: '',
+                cote: 3.6,
+                etoiles: '',
+                isActive: true,
             };
         
         },
@@ -208,7 +201,26 @@
                     this.bio = this.profile.bio
                     this.tags = this.profile.tags_jardiniers
                     this.miniImg = './' + this.profile.photo_mini  // A revoir
-                    console.log(this.profile)
+                    this.profileId = this.profile.id
+                    // this.cote = this.profile.note_moy  
+                    
+                    if (this.cote != null) {
+
+                        if (this.cote <= 1) {
+                            this.etoiles = 1
+                        } else if (this.cote > 2 && this.cote < 3) {
+                            this.etoiles = 2
+                        } else if (this.cote > 3 && this.cote < 4) {
+                            this.etoiles = 3
+                        } else if (this.cote > 4 && this.cote < 5) {
+                            this.etoiles = 4
+                        } else if (this.cote = 5) {
+                            this.etoiles = 5
+                        }
+
+                    }
+
+                     this.getComments()
                 });
 
                 // Get les informations sur le user lié jardinier selon le id
@@ -216,12 +228,50 @@
                  Axios.get("/api/users/" + this.userId).then(response => {
                     this.user = response.data[0]
                     this.username = this.user.first_name + ' ' + this.user.last_name
-                    
-                    console.log(this.user)
+                });             
+            },     
+            
+             // Get les ratings du profile selon le id
+
+            getComments() {
+                Axios.get("/api/evaluation/profile/" + this.profileId).then(response => {
+                    this.ratings = response.data                      
                 });
+            },  
+         
+        //  Lorsque le curseur passe sur les etoiles
+        
+            mouseOver() {
+               
+                 this.isActive = false
+
+                setTimeout(this.reverse, 3000) 
             },
 
-            
+            reverse() {
+                this.isActive = true                
+            },
         },
     }
 </script>
+
+<style lang="css">
+
+.etoiles {
+    margin-left: 5%;
+    display:flex;
+    flex-direction: row;
+    width: 200px;
+    height: 50px;
+}
+
+#etoile {
+    height: 20px;
+    width: 20px;
+}
+
+.active {
+  display: none;
+}
+
+</style>

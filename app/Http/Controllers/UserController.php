@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\RatingProfile;
 use Illuminate\Http\Request;
+
 
 class UserController extends Controller
 {
@@ -29,21 +31,17 @@ class UserController extends Controller
         return User::where('id', '=', $toUserId)->get();              
     }
 
+    public function showMany($profileId)
+    {
+        
+        $ratingProfile = RatingProfile::where('profile_id', '=', $profileId)->get();
+
+        return $ratingProfile;          
+    }
+
     public function messages_avec($userId) {
 
-        /**
-         * Ce qu'on a
-         *  - Utilisateur connecté ($userId)
-         * 
-         * Ce qu'on veut
-         *  - envoyé par user connecté ($userId) : from_id
-         *  - qui ont été envoyé à $userId : to_id
-         * 
-         * Return
-         *  - Liste de Users? ou bien liste de ids (chiffres) 
-         */
-
-        $liste_de_messages_par_user = Message::where('from_id', '=', $userId)->orWhere('to_id', '=', $userId)->get(); // to_id
+        $liste_de_messages_par_user = Message::where('from_id', '=', $userId)->orWhere('to_id', '=', $userId)->get(); 
 
         $liste_du_users = [];
 
