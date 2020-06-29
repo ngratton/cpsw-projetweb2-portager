@@ -3739,6 +3739,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Entete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Entete */ "./resources/js/components/Entete.vue");
 //
 //
 //
@@ -3833,6 +3834,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Recherche',
   data: function data() {
@@ -3841,7 +3845,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {//
   },
-  components: {//
+  components: {
+    Entete: _components_Entete__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mounted: function mounted() {//
   },
@@ -44447,37 +44452,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("div", { staticClass: "row header" }, [
-        _c("div", { staticClass: "col-4" }, [
-          _c("img", {
-            staticClass: "logo",
-            attrs: { src: "/images/logo.svg", alt: "" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-3 menuPrincipal" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Plants")]),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Carte potagers")]),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Boutique")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-5 userConnecter" }, [
-          _c("p", [_vm._v("Bonjour Utilisateurs !")]),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "notifs",
-            attrs: { src: "/images/notifs.svg", alt: "" }
-          }),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "user",
-            attrs: { src: "/images/user.svg", alt: "" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
       _c("div", { staticClass: "row imgHeader" }, [
         _c("div", { staticClass: "col" }, [
           _c("img", {
@@ -44530,8 +44504,6 @@ var staticRenderFns = [
               _c("a", { staticClass: "voirPlant", attrs: { href: "#" } }, [
                 _vm._v("Voir le plant")
               ]),
-              _vm._v(" "),
-              _c("br"),
               _vm._v(" "),
               _c("a", { staticClass: "offreEchange", attrs: { href: "#" } }, [
                 _vm._v("Offrir un échange")

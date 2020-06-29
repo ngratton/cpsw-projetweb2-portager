@@ -1,7 +1,9 @@
 <template>
     <div>
+
+        <!-- <entete></entete> -->
     
-     <div class="row header">
+     <!-- <div class="row header">
             <div class="col-4">
                 <img class="logo" src="/images/logo.svg" alt="">
             </div>
@@ -15,7 +17,7 @@
                 <img class="notifs" src="/images/notifs.svg" alt="">
                 <img class="user" src="/images/user.svg" alt=""> 
             </div>
-       </div>
+       </div> -->
 
        <!-- Image Entête -->
 
@@ -64,7 +66,7 @@
                         <p>Note</p>
                     </div>
                     <div class="liens">
-                        <a class="voirPlant" href="#">Voir le plant</a> </br>
+                        <a class="voirPlant" href="#">Voir le plant</a>
                         <a class="offreEchange" href="#">Offrir un échange</a>
                     </div>
                 </div>
@@ -93,6 +95,7 @@
 </template>
 
 <script>
+    import Entete from '../components/Entete';
     
     export default {
         name: 'Recherche',
@@ -105,7 +108,7 @@
             //
         },
         components: {
-           //
+             Entete,
         },
         mounted() {
             //
