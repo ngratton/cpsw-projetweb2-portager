@@ -3740,6 +3740,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Entete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Entete */ "./resources/js/components/Entete.vue");
+/* harmony import */ var _components_Recherche__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Recherche */ "./resources/js/components/Recherche.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -3837,16 +3842,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Recherche',
   data: function data() {
-    return {//
+    return {
+      nbResultats: '0',
+      termeRecherche: 'Terme',
+      nomPlant: 'Nom du plant',
+      ville: 'ville',
+      nomJardinier: 'Nom jardinier',
+      note: 'Note'
     };
   },
   props: {//
   },
   components: {
-    Entete: _components_Entete__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Entete: _components_Entete__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Recherche: _components_Recherche__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {//
   },
@@ -8483,7 +8496,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body {\n  background: #F7FDFF 0% 0% no-repeat padding-box;\n  font-family: \"Inter\", sans-serif;\n  color: #707070;\n}\n.logo {\n  position: relative;\n  top: 52px;\n  left: 300px;\n}\n.menuPrincipal {\n  margin-top: 75px;\n  display: flex;\n}\n.menuPrincipal > a {\n  padding-right: 24px;\n}\n.menuPrincipal > a:nth-child(1) {\n  padding-left: 50px;\n}\n.userConnecter {\n  position: relative;\n  top: 80px;\n  display: flex;\n  justify-content: center;\n}\n.userConnecter > img {\n  margin-left: 10px;\n  width: 30px;\n  height: 30px;\n}\n.imgEntete {\n  margin-top: 60px;\n  width: 100%;\n  height: 315px;\n}\n.recherche {\n  position: relative;\n  top: -80px;\n  left: 250px;\n  width: 1000px;\n  height: 134px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  border-radius: 16px;\n}\n.resultatRecherche {\n  position: relative;\n  left: 295px;\n}\n.resultatsParPage {\n  display: flex;\n  justify-content: center;\n  align-content: center;\n}\n#resultatsPage {\n  margin-left: 5px;\n  height: 25px;\n}\n.lesRecherches {\n  margin-left: 250px;\n}\n.plantRechercher {\n  width: 210px;\n  height: 412px;\n  background-color: #FFFFFF;\n  box-shadow: 0px 10px 15px #00000029;\n  border-radius: 16px;\n}\n.plantRechercher img {\n  width: 210px;\n  height: 210px;\n  border-radius: 15px 15px 0px 0px;\n}\n.nomPlant {\n  margin-top: 10px;\n  margin-left: 20px;\n}\n.ville {\n  margin-left: 20px;\n}\n.jardinier {\n  display: flex;\n  justify-content: space-around;\n}\n.liens {\n  text-align: center;\n}\n.voirPlant {\n  color: white;\n  font: Regular 12px/15px Inter;\n  padding-top: 3px;\n  padding-bottom: 3px;\n  padding-left: 50px;\n  padding-right: 50px;\n  border-radius: 6px;\n  background-color: #9FCC3B;\n}\n.offreEchange {\n  color: #332E0A;\n  font: Bold 12px/15px Inter;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  padding-left: 45px;\n  padding-right: 45px;\n  border-radius: 6px;\n  background-color: #FFDD00;\n}", ""]);
+exports.push([module.i, "body {\n  background: #F7FDFF 0% 0% no-repeat padding-box;\n  font-family: \"Inter\", sans-serif;\n  color: #707070;\n}\n.logo {\n  position: relative;\n  top: 52px;\n  left: 300px;\n}\n.imgEntete {\n  width: 100%;\n  height: 315px;\n}\n.recherche {\n  margin-bottom: 50px;\n}\n.resultatRecherche {\n  position: relative;\n  left: 295px;\n}\n.resultatsParPage {\n  display: flex;\n  justify-content: center;\n  align-content: center;\n}\n#resultatsPage {\n  margin-left: 5px;\n  height: 25px;\n}\n.lesRecherches {\n  margin-left: 250px;\n}\n.plantRechercher {\n  width: 210px;\n  height: 412px;\n  background-color: #FFFFFF;\n  box-shadow: 0px 10px 15px #00000029;\n  border-radius: 16px;\n}\n.plantRechercher img {\n  width: 210px;\n  height: 210px;\n  border-radius: 15px 15px 0px 0px;\n}\n.nomPlant {\n  margin-top: 10px;\n  margin-left: 20px;\n}\n.ville {\n  margin-left: 20px;\n}\n.jardinier {\n  display: flex;\n  justify-content: space-around;\n}\n.liens {\n  text-align: center;\n}\n.voirPlant {\n  color: white;\n  font: Regular 12px/15px Inter;\n  padding-top: 3px;\n  padding-bottom: 3px;\n  padding-left: 50px;\n  padding-right: 50px;\n  border-radius: 6px;\n  background-color: #9FCC3B;\n}\n.offreEchange {\n  color: #332E0A;\n  font: Bold 12px/15px Inter;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  padding-left: 45px;\n  padding-right: 45px;\n  border-radius: 6px;\n  background-color: #FFDD00;\n}", ""]);
 
 // exports
 
@@ -44444,45 +44457,27 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "row imgHeader" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("img", {
-            staticClass: "imgEntete",
-            attrs: { src: "/images/imgEntete.png", alt: "" }
-          })
-        ])
-      ]),
+  return _c(
+    "div",
+    [
+      _c("entete"),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "recherche" })
-        ])
-      ]),
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-4 resultatRecherche" }, [
-          _c("p", [_vm._v("''#'' Résultats de recherche pour ''Terme''")])
+          _c("p", [
+            _vm._v(
+              _vm._s(_vm.nbResultats) +
+                " Résultats de recherche pour " +
+                _vm._s(_vm.termeRecherche)
+            )
+          ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-8 resultatsParPage" }, [
-          _c("p", [_vm._v("Résultats par page")]),
-          _vm._v(" "),
-          _c("select", { attrs: { id: "resultatsPage" } }, [
-            _c("option", { attrs: { selected: "selected" } }, [_vm._v("20")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("40")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("60")])
-          ])
-        ])
+        _vm._m(2)
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
@@ -44490,40 +44485,194 @@ var staticRenderFns = [
           _c("div", { staticClass: "plantRechercher" }, [
             _c("img", { attrs: { src: "/images/imgEntete.png", alt: "" } }),
             _vm._v(" "),
-            _c("p", { staticClass: "nomPlant" }, [_vm._v("Nom du plant")]),
-            _vm._v(" "),
-            _c("p", { staticClass: "ville" }, [_vm._v("Ville")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "jardinier" }, [
-              _c("p", [_vm._v("Nom jardinier")]),
-              _vm._v(" "),
-              _c("p", [_vm._v("Note")])
+            _c("p", { staticClass: "nomPlant" }, [
+              _vm._v(_vm._s(_vm.nomPlant))
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "liens" }, [
-              _c("a", { staticClass: "voirPlant", attrs: { href: "#" } }, [
-                _vm._v("Voir le plant")
-              ]),
+            _c("p", { staticClass: "ville" }, [_vm._v(_vm._s(_vm.ville))]),
+            _vm._v(" "),
+            _c("div", { staticClass: "jardinier" }, [
+              _c("p", [_vm._v(" " + _vm._s(_vm.nomJardinier) + " ")]),
               _vm._v(" "),
-              _c("a", { staticClass: "offreEchange", attrs: { href: "#" } }, [
-                _vm._v("Offrir un échange")
-              ])
-            ])
+              _c("p", [_vm._v(_vm._s(_vm.note))])
+            ]),
+            _vm._v(" "),
+            _vm._m(3)
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-2" }, [
-          _c("div", { staticClass: "plantRechercher" })
-        ]),
+        _vm._m(4),
         _vm._v(" "),
-        _c("div", { staticClass: "col-2" }, [
-          _c("div", { staticClass: "plantRechercher" })
-        ]),
+        _vm._m(5),
         _vm._v(" "),
-        _c("div", { staticClass: "col-2" }, [
-          _c("div", { staticClass: "plantRechercher" })
+        _vm._m(6)
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row imgHeader" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("img", {
+          staticClass: "imgEntete",
+          attrs: { src: "/images/imgEntete.png", alt: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col recherche" }, [
+        _c("div", { staticClass: "container", attrs: { id: "search" } }, [
+          _c("div", { staticClass: "row align-items-center" }, [
+            _c("form", { staticClass: "col", attrs: { method: "post" } }, [
+              _c("div", { staticClass: "form-group form-check-inline" }, [
+                _c("input", {
+                  staticClass: "form-control form-control-lg",
+                  attrs: { type: "text", placeholder: "Recherche..." }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" }
+                  },
+                  [_vm._v("Chercher")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row align-items-center" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _vm._v(
+                      "\n                                Rechercher par\n                                    "
+                    ),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        name: "type",
+                        type: "radio",
+                        id: "inlineCheckbox1",
+                        value: "option1"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Plants")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        name: "type",
+                        type: "radio",
+                        id: "inlineCheckbox2",
+                        value: "option2"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Villes")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        name: "type",
+                        type: "radio",
+                        id: "inlineCheckbox3",
+                        value: "option3"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Étiquettes")]
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-8 resultatsParPage" }, [
+      _c("p", [_vm._v("Résultats par page")]),
+      _vm._v(" "),
+      _c("select", { attrs: { id: "resultatsPage" } }, [
+        _c("option", { attrs: { selected: "selected" } }, [_vm._v("20")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("40")]),
+        _vm._v(" "),
+        _c("option", [_vm._v("60")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "liens" }, [
+      _c("a", { staticClass: "voirPlant", attrs: { href: "#" } }, [
+        _vm._v("Voir le plant")
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "offreEchange", attrs: { href: "#" } }, [
+        _vm._v("Offrir un échange")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-2" }, [
+      _c("div", { staticClass: "plantRechercher" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-2" }, [
+      _c("div", { staticClass: "plantRechercher" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-2" }, [
+      _c("div", { staticClass: "plantRechercher" })
     ])
   }
 ]

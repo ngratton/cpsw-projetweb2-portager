@@ -1,23 +1,7 @@
 <template>
     <div>
 
-        <!-- <entete></entete> -->
-    
-     <!-- <div class="row header">
-            <div class="col-4">
-                <img class="logo" src="/images/logo.svg" alt="">
-            </div>
-            <div class="col-3 menuPrincipal">   
-                    <a href="#">Plants</a>
-                    <a href="#">Carte potagers</a>
-                    <a href="#">Boutique</a> 
-            </div>
-            <div class="col-5 userConnecter">
-                <p>Bonjour Utilisateurs !</p>
-                <img class="notifs" src="/images/notifs.svg" alt="">
-                <img class="user" src="/images/user.svg" alt=""> 
-            </div>
-       </div> -->
+        <entete></entete>
 
        <!-- Image Entête -->
 
@@ -30,10 +14,30 @@
        <!-- Recherche -->
 
        <div class="row">
-           <div class="col">
-                <div class="recherche">
-
+           <div class="col recherche">
+                <div class="container" id="search"> <!-- recherche -->
+                <div class="row align-items-center">
+                    <form class="col" method="post">
+                        <div class="form-group form-check-inline">
+                            <input class="form-control form-control-lg" type="text" placeholder="Recherche...">
+                            <button type="button" class="btn btn-secondary">Chercher</button>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="form-check form-check-inline">
+                                    Rechercher par
+                                        <input class="form-check-input" name="type" type="radio" id="inlineCheckbox1" value="option1">
+                                        <label class="form-check-label" for="inlineCheckbox1">Plants</label>
+                                        <input class="form-check-input" name="type" type="radio" id="inlineCheckbox2" value="option2">
+                                        <label class="form-check-label" for="inlineCheckbox1">Villes</label>
+                                        <input class="form-check-input" name="type" type="radio" id="inlineCheckbox3" value="option3">
+                                        <label class="form-check-label" for="inlineCheckbox1">Étiquettes</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+            </div>
            </div>
        </div>
 
@@ -41,7 +45,7 @@
 
        <div class="row">
            <div class="col-4 resultatRecherche">
-               <p>''#'' Résultats de recherche pour ''Terme''</p>
+               <p>{{ nbResultats }} Résultats de recherche pour {{ termeRecherche }}</p>
            </div>
            <div class="col-8 resultatsParPage">
                 <p>Résultats par page</p>
@@ -59,11 +63,11 @@
            <div class="col-2 lesRecherches">
                 <div class="plantRechercher">
                     <img src="/images/imgEntete.png" alt="">
-                    <p class="nomPlant">Nom du plant</p>
-                    <p class="ville">Ville</p>
+                    <p class="nomPlant">{{ nomPlant }}</p>
+                    <p class="ville">{{ ville }}</p>
                     <div class="jardinier">
-                        <p>Nom jardinier</p>
-                        <p>Note</p>
+                        <p> {{ nomJardinier }} </p>
+                        <p>{{ note }}</p>
                     </div>
                     <div class="liens">
                         <a class="voirPlant" href="#">Voir le plant</a>
@@ -74,7 +78,7 @@
 
            <div class="col-2">
                <div class="plantRechercher">
-
+                   
                </div>
            </div>
 
@@ -96,12 +100,18 @@
 
 <script>
     import Entete from '../components/Entete';
+    import Recherche from '../components/Recherche';
     
     export default {
         name: 'Recherche',
         data() {
             return {
-                //
+                nbResultats: '0',
+                termeRecherche: 'Terme',
+                nomPlant: 'Nom du plant',
+                ville: 'ville',
+                nomJardinier: 'Nom jardinier',
+                note: 'Note',
             };
         },
         props: {
@@ -109,6 +119,7 @@
         },
         components: {
              Entete,
+             Recherche,
         },
         mounted() {
             //
@@ -138,47 +149,13 @@ body {
     left: 300px;
 }
 
-.menuPrincipal{
-    margin-top: 75px;
-    display: flex;
-}
-
-.menuPrincipal > a {
-    padding-right: 24px;
-}
-
-.menuPrincipal > a:nth-child(1) {
-    padding-left: 50px;
-}
-
-.userConnecter {
-    position: relative;
-    top: 80px;
-    display: flex;
-    justify-content: center;
-}
-
-.userConnecter > img {
-    margin-left: 10px;
-    width: 30px;
-    height: 30px;
-}
-
 .imgEntete {
-    margin-top: 60px;
     width: 100%;
     height: 315px;
 }
 
 .recherche {
-    position: relative;
-    top: -80px;
-    left: 250px;
-    width: 1000px;
-    height: 134px;
-    background: #9FCC3B 0% 0% no-repeat padding-box;
-    box-shadow: 0px 5px 10px #00000029;
-    border-radius: 16px;
+   margin-bottom: 50px;
 }
 
 .resultatRecherche {
