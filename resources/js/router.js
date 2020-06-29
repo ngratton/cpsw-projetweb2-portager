@@ -9,6 +9,7 @@ import Echange from './views/Echange'
 import EchangeRevue from './views/EchangeRevue'
 import InscriptionJardinier from './views/InscriptionJardinier'
 import InscriptionPotager from './views/InscriptionPotager'
+import Recherche from './views/Recherche'
 
 Vue.use(VueRouter);
 
@@ -94,6 +95,15 @@ export default new VueRouter({
             component: EchangeRevue,
             meta: {
                 title: "Résume de l'échange | Portager | Cultivez votre sens du partage",
+            },
+        },
+
+        {
+            path: '/recherche',
+            name: 'Recherche',
+            component: Recherche,
+            meta: {
+                title: "Résultats de recherche | Portager | Cultivez votre sens du partage",
             },
         },
 
