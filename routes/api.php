@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  */
 // Route::middleware('auth:api')->get('/profile/{userId}', 'ProfileController@show');   // Accès à la route d'API avec un api_token -- à voir si on utilise
 Route::get('/profile/{userId}', 'ProfileController@show');              // Profile unique selon {{id}} de l'utilisateur
-Route::put('/profile/new', 'ProfileController@store');             // Création d'un profile
+Route::put('/profile/new/{userId}', 'ProfileController@store');             // Création d'un profile
 Route::patch('/profile/{userId}', 'ProfileController@update');          // Modification d'un profile
 Route::delete('/profile/{userId}', 'ProfileController@destroy');        // Suppression d'un profil
 Route::post('/profile/{userId}/visit', 'ProfileController@addvisit');   // Ping de visite; lorsque la méthode est appelé, ajoute incrémente automatiquement de 1
