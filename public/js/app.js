@@ -1996,11 +1996,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Entete',
   data: function data() {
-    return {//
+    return {
+      utilisateur: 'Utilisateur'
     };
   },
   props: {//
@@ -3850,7 +3856,7 @@ __webpack_require__.r(__webpack_exports__);
       nbResultats: '0',
       termeRecherche: 'Terme',
       nomPlant: 'Nom du plant',
-      ville: 'ville',
+      ville: 'Villes',
       nomJardinier: 'Nom jardinier',
       note: 'Note'
     };
@@ -8363,7 +8369,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#colHeader {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n#logo-principal {\n  height: 60px;\n  max-height: 60px;\n  margin-right: 50px;\n  width: auto;\n}\n.nav-item {\n  margin-right: 15px;\n}", ""]);
+exports.push([module.i, ".bonjour {\n  display: flex;\n  position: relative;\n  top: 10px;\n  right: -250px;\n}\n.bonjour > p {\n  margin-right: 30px;\n}\n#colHeader > nav > div.col-2.bonjour > img:nth-child(2), #colHeader > nav > div.col-2.bonjour > img:nth-child(3) {\n  padding-right: 10px;\n  width: 40px;\n  height: 40px;\n}\n#colHeader {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n#logo-principal {\n  height: 60px;\n  max-height: 60px;\n  margin-right: 50px;\n  width: auto;\n}\n.nav-item {\n  margin-right: 15px;\n}", ""]);
 
 // exports
 
@@ -41416,7 +41422,15 @@ var render = function() {
                 ])
               ])
             ]
-          )
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-2 bonjour" }, [
+            _c("p", [_vm._v("Bonjour " + _vm._s(_vm.utilisateur) + " ")]),
+            _vm._v(" "),
+            _c("img", { attrs: { src: "/images/notifs.svg", alt: "notifs" } }),
+            _vm._v(" "),
+            _c("img", { attrs: { src: "/images/user.svg", alt: "user" } })
+          ])
         ],
         1
       )

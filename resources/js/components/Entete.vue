@@ -26,6 +26,11 @@
                         </li>
                     </ul>
                 </div>
+                   <div class="col-2 bonjour">
+                       <p>Bonjour {{ utilisateur }} </p>
+                       <img src="/images/notifs.svg" alt="notifs">
+                       <img src="/images/user.svg" alt="user">
+                   </div>
             </nav>
         </div>
     </div>
@@ -39,7 +44,7 @@
         name: 'Entete',
         data() {
             return {
-                //
+                utilisateur: 'Utilisateur',
             };
 
         },
@@ -70,6 +75,23 @@
 </script>
 
 <style lang="scss">
+
+    .bonjour {
+        display: flex;
+        position: relative;
+        top: 10px;
+        right: -250px;
+    }
+
+    .bonjour > p {
+        margin-right: 30px;
+    }
+
+    #colHeader > nav > div.col-2.bonjour > img:nth-child(2),#colHeader > nav > div.col-2.bonjour > img:nth-child(3) {
+        padding-right: 10px;
+        width: 40px;
+        height: 40px;
+    }
 
     #colHeader {
         display: flex;

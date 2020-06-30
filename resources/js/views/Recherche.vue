@@ -109,7 +109,7 @@
                 nbResultats: '0',
                 termeRecherche: 'Terme',
                 nomPlant: 'Nom du plant',
-                ville: 'ville',
+                ville: 'Villes',
                 nomJardinier: 'Nom jardinier',
                 note: 'Note',
             };
