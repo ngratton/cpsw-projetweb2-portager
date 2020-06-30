@@ -2214,7 +2214,9 @@ __webpack_require__.r(__webpack_exports__);
       toUserFirstName: ''
     };
   },
-  props: {},
+  props: {
+    props: ['jardinier']
+  },
   components: {},
   mounted: function mounted() {
     this.getData();
@@ -2223,7 +2225,8 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      // Selectionne l'utilisateur connecte
+      console.log(this.jardinier); // Selectionne l'utilisateur connecte
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users").then(function (response) {
         _this.user = response.data;
         _this.username = _this.user.first_name;
@@ -3568,6 +3571,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Messagerie__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Messagerie */ "./resources/js/components/Messagerie.vue");
+//
 //
 //
 //
@@ -3729,12 +3734,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ProfilUtilisateur',
   data: function data() {
     return {
       data: 0,
-      user: '',
+      user: {},
       userId: 3,
       // temporairement, changer le id ici pour changer de profile de jardinier
       profile: '',
@@ -3751,7 +3757,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {},
-  components: {},
+  components: {
+    Messagerie: _components_Messagerie__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   mounted: function mounted() {
     this.getData();
   },
@@ -44009,127 +44017,171 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
-    _vm._m(2),
-    _vm._v(" "),
-    _c("div", { staticClass: "container" }, [
-      _c(
-        "div",
-        { staticClass: "row align-items-center", attrs: { id: "jardinier" } },
-        [
-          _c("div", { staticClass: "col-2" }, [
-            _c("img", { attrs: { src: _vm.miniImg, alt: "..." } })
+  return _c(
+    "div",
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c(
+          "div",
+          { staticClass: "row align-items-center", attrs: { id: "jardinier" } },
+          [
+            _c("div", { staticClass: "col-2" }, [
+              _c("img", { attrs: { src: _vm.miniImg, alt: "..." } })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-10", attrs: { id: "jardinierDescription" } },
+              [
+                _c("div", [
+                  _c("h2", [_vm._v(" " + _vm._s(_vm.username) + " ")]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Jardine depuis  " + _vm._s(_vm.jardineDepuis) + " ")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "etoiles", on: { mouseover: _vm.mouseOver } },
+                  [
+                    _vm._l(_vm.etoiles, function(item) {
+                      return _c("img", {
+                        key: item.id,
+                        attrs: { id: "etoile", src: "/images/star.png" }
+                      })
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        class: { active: _vm.isActive },
+                        attrs: { id: "activeCote" }
+                      },
+                      [_c("p", [_vm._v("  " + _vm._s(_vm.cote) + " sur 5. ")])]
+                    )
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "btn-group-vertical" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      staticStyle: {
+                        "background-color": "#9BC53D",
+                        color: "white",
+                        "margin-bottom": "20px",
+                        border: "none"
+                      },
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Évaluer ce jardinier")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      staticStyle: {
+                        "background-color": "#FFDD00",
+                        color: "#332E0A",
+                        border: "none"
+                      },
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.toggle(_vm.convo)
+                        }
+                      }
+                    },
+                    [_vm._v("Contacter  jardinier ")]
+                  )
+                ])
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-9", attrs: { id: "jardinierBio" } }, [
+            _c("h3", [_vm._v("Biographie")]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(_vm.bio))])
           ]),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-10", attrs: { id: "jardinierDescription" } },
+            { staticClass: "col-2 offset-1", attrs: { id: "etiquettes" } },
             [
-              _c("div", [
-                _c("h2", [_vm._v(" " + _vm._s(_vm.username) + " ")]),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v("Jardine depuis  " + _vm._s(_vm.jardineDepuis) + " ")
+              _c("h3", [_vm._v("Étiquettes")]),
+              _vm._v(" "),
+              _vm._l(_vm.tags, function(item) {
+                return _c("ul", { key: item.id }, [
+                  _c("li", [_vm._v(_vm._s(item))])
                 ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "etoiles", on: { mouseover: _vm.mouseOver } },
-                [
-                  _vm._l(_vm.etoiles, function(item) {
-                    return _c("img", {
-                      key: item.id,
-                      attrs: { id: "etoile", src: "/images/star.png" }
-                    })
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      class: { active: _vm.isActive },
-                      attrs: { id: "activeCote" }
-                    },
-                    [_c("p", [_vm._v("  " + _vm._s(_vm.cote) + " sur 5. ")])]
-                  )
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _vm._m(3)
-            ]
+              })
+            ],
+            2
           )
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-9", attrs: { id: "jardinierBio" } }, [
-          _c("h3", [_vm._v("Biographie")]),
-          _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(_vm.bio))])
         ]),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _vm._m(4),
+        _vm._v(" "),
+        _vm._m(5),
+        _vm._v(" "),
+        _vm._m(6),
+        _vm._v(" "),
+        _vm._m(7),
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "col-2 offset-1", attrs: { id: "etiquettes" } },
-          [
-            _c("h3", [_vm._v("Étiquettes")]),
-            _vm._v(" "),
-            _vm._l(_vm.tags, function(item) {
-              return _c("ul", { key: item.id }, [
-                _c("li", [_vm._v(_vm._s(item))])
-              ])
-            })
-          ],
-          2
-        )
+          { staticClass: "row" },
+          _vm._l(_vm.ratings, function(item) {
+            return _c(
+              "div",
+              {
+                key: item.id,
+                staticClass: "col",
+                attrs: { id: "evaluations" }
+              },
+              [
+                _c("p", [
+                  _vm._v(
+                    " " +
+                      _vm._s(item.user.first_name) +
+                      " " +
+                      _vm._s(item.user.last_name)
+                  )
+                ]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(item.comment))])
+              ]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _vm._m(8)
       ]),
       _vm._v(" "),
-      _vm._m(4),
+      _vm._m(9),
       _vm._v(" "),
-      _vm._m(5),
-      _vm._v(" "),
-      _vm._m(6),
-      _vm._v(" "),
-      _vm._m(7),
-      _vm._v(" "),
-      _vm._m(8),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "row" },
-        _vm._l(_vm.ratings, function(item) {
-          return _c(
-            "div",
-            { key: item.id, staticClass: "col", attrs: { id: "evaluations" } },
-            [
-              _c("p", [
-                _vm._v(
-                  " " +
-                    _vm._s(item.user.first_name) +
-                    " " +
-                    _vm._s(item.user.last_name)
-                )
-              ]),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(item.comment))])
-            ]
-          )
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _vm._m(9)
-    ]),
-    _vm._v(" "),
-    _vm._m(10)
-  ])
+      _c("messagerie", { attrs: { jardinier: _vm.user } })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -44294,41 +44346,6 @@ var staticRenderFns = [
           ])
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-group-vertical" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          staticStyle: {
-            "background-color": "#9BC53D",
-            color: "white",
-            "margin-bottom": "20px",
-            border: "none"
-          },
-          attrs: { type: "button" }
-        },
-        [_vm._v("Évaluer ce jardinier")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          staticStyle: {
-            "background-color": "#FFDD00",
-            color: "#332E0A",
-            border: "none"
-          },
-          attrs: { type: "button" }
-        },
-        [_vm._v("Contacter  jardinier ")]
-      )
     ])
   },
   function() {

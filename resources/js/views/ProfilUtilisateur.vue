@@ -86,7 +86,7 @@
                 
                 <div class="btn-group-vertical">
                     <button type="button" class="btn btn-primary" style="background-color: #9BC53D; color: white; margin-bottom: 20px; border: none;">Évaluer ce jardinier</button>
-                    <button type="button" class="btn btn-secondary" style="background-color: #FFDD00; color: #332E0A; border: none;">Contacter  jardinier </button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #FFDD00; color: #332E0A; border: none;" v-on:click="toggle(convo)">Contacter  jardinier </button>
                 </div>
             </div>
         </div>
@@ -155,17 +155,19 @@
             </div>
         </div>
     </div>
+    <messagerie :jardinier="user"></messagerie>
     </div>
 </template>
 
 <script>
     import Axios from "axios";
+    import Messagerie from '../components/Messagerie';
     export default {
         name: 'ProfilUtilisateur', 
         data() {
             return {  
                 data: 0,
-                user: '',
+                user: {},
                 userId: 3, // temporairement, changer le id ici pour changer de profile de jardinier
                 profile: '',
                 username: '',
@@ -185,7 +187,7 @@
 
         },
         components: {
-
+            Messagerie,
         },
         mounted() {
             this.getData()

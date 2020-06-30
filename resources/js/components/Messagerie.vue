@@ -87,7 +87,10 @@
         
         },
         props: {
-
+          props: [
+             'jardinier',
+          ],
+          
         },
         components: {
 
@@ -99,7 +102,7 @@
         methods: {
 
           getData() {
-
+            console.log(this.jardinier)
             // Selectionne l'utilisateur connecte
              Axios.get("/api/users").then(response => {
               this.user = response.data
