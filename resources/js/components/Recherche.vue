@@ -3,10 +3,10 @@
     <div>
             <div class="container" id="search"> <!-- recherche -->
                 <div class="row align-items-center">
-                    <form class="col" method="post">
+                    <form action="/recherche" class="col" method="get">
                         <div class="form-group form-check-inline">
-                            <input class="form-control form-control-lg" type="text" placeholder="Recherche...">
-                            <button type="button" class="btn btn-secondary">Chercher</button>
+                            <input class="form-control form-control-lg" type="text" placeholder="Recherche...1">
+                            <button type="submit" class="btn btn-secondary">Chercher</button>
                         </div>
                         <div class="row align-items-center">
                             <div class="col">

@@ -4,10 +4,12 @@
             <div class="container" id="search"> <!-- recherche -->
                 <div class="row align-items-center">
                     <div class="col">
-                        <div class="form-group form-check-inline">
-                            <input class="form-control form-control-lg" type="text" placeholder="Recherche...">
-                            <button type="button" class="btn btn-secondary">Chercher</button>
-                        </div>
+                        <form action="/recherche">
+                            <div class="form-group form-check-inline">
+                                <input class="form-control form-control-lg" type="text" placeholder="Recherche...">
+                                <button class="btn btn-secondary">Chercher</button>
+                            </div>
+                        </form>
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="form-check form-check-inline">
@@ -49,6 +51,7 @@
         data() {
             return {  
                 data: 0,
+                q: '',
             };
         
         },
@@ -62,7 +65,9 @@
 
         },
         methods: {
-
+            maRecherche() {
+                console.log("ok")
+            }
         },
     }
 </script>

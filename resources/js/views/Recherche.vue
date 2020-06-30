@@ -106,6 +106,7 @@
         name: 'Recherche',
         data() {
             return {
+                plants: [],
                 nbResultats: '0',
                 termeRecherche: 'Terme',
                 nomPlant: 'Nom du plant',
@@ -122,11 +123,19 @@
              Recherche,
         },
         mounted() {
-            //
+            console.log(this.$route.query.q)
+            this.apiPlants()
         },
+
         methods: {
-            //
+            apiPlants() {
+                axios.get(`/api/plants/`).then(data => {
+                    this.plants = data.data
+                    console.log(data.data)
+                })
+            }
         },
+        
         computed: {
             isLogged() {
                 return this.$store.state.logged_in

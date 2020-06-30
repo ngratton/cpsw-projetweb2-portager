@@ -3853,6 +3853,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Recherche',
   data: function data() {
     return {
+      plants: [],
       nbResultats: '0',
       termeRecherche: 'Terme',
       nomPlant: 'Nom du plant',
@@ -3867,9 +3868,19 @@ __webpack_require__.r(__webpack_exports__);
     Entete: _components_Entete__WEBPACK_IMPORTED_MODULE_0__["default"],
     Recherche: _components_Recherche__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  mounted: function mounted() {//
+  mounted: function mounted() {
+    console.log(this.$route.query.q);
+    this.apiPlants();
   },
-  methods: {//
+  methods: {
+    apiPlants: function apiPlants() {
+      var _this = this;
+
+      axios.get("/api/plants/").then(function (data) {
+        _this.plants = data.data;
+        console.log(data.data);
+      });
+    }
   },
   computed: {
     isLogged: function isLogged() {
@@ -42051,86 +42062,96 @@ var staticRenderFns = [
     return _c("div", [
       _c("div", { staticClass: "container", attrs: { id: "search" } }, [
         _c("div", { staticClass: "row align-items-center" }, [
-          _c("form", { staticClass: "col", attrs: { method: "post" } }, [
-            _c("div", { staticClass: "form-group form-check-inline" }, [
-              _c("input", {
-                staticClass: "form-control form-control-lg",
-                attrs: { type: "text", placeholder: "Recherche..." }
-              }),
+          _c(
+            "form",
+            {
+              staticClass: "col",
+              attrs: { action: "/recherche", method: "get" }
+            },
+            [
+              _c("div", { staticClass: "form-group form-check-inline" }, [
+                _c("input", {
+                  staticClass: "form-control form-control-lg",
+                  attrs: { type: "text", placeholder: "Recherche...1" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Chercher")]
+                )
+              ]),
               _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-                [_vm._v("Chercher")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "form-check form-check-inline" }, [
-                  _vm._v(
-                    "\n                                Rechercher par\n                                    "
-                  ),
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: {
-                      name: "type",
-                      type: "radio",
-                      id: "inlineCheckbox1",
-                      value: "option1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-check-label",
-                      attrs: { for: "inlineCheckbox1" }
-                    },
-                    [_vm._v("Plants")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: {
-                      name: "type",
-                      type: "radio",
-                      id: "inlineCheckbox2",
-                      value: "option2"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-check-label",
-                      attrs: { for: "inlineCheckbox1" }
-                    },
-                    [_vm._v("Villes")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: {
-                      name: "type",
-                      type: "radio",
-                      id: "inlineCheckbox3",
-                      value: "option3"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-check-label",
-                      attrs: { for: "inlineCheckbox1" }
-                    },
-                    [_vm._v("Étiquettes")]
-                  )
+              _c("div", { staticClass: "row align-items-center" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _vm._v(
+                      "\n                                Rechercher par\n                                    "
+                    ),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        name: "type",
+                        type: "radio",
+                        id: "inlineCheckbox1",
+                        value: "option1"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Plants")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        name: "type",
+                        type: "radio",
+                        id: "inlineCheckbox2",
+                        value: "option2"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Villes")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        name: "type",
+                        type: "radio",
+                        id: "inlineCheckbox3",
+                        value: "option3"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Étiquettes")]
+                    )
+                  ])
                 ])
               ])
-            ])
-          ])
+            ]
+          )
         ])
       ])
     ])
