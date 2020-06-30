@@ -47,6 +47,9 @@ Route::delete('/potager/{userId}', 'PotagerController@destroy');        // Suppr
 
 Route::post('/potager/{userId}/visit', 'PotagerController@addvisit');   // Ping de visite; lorsque la méthode est appelé, ajoute incrémente automatiquement de 1
 
+Route::get('/potagers/mieux-cotes/tous', 'PotagerController@mieuxCotesTous');
+Route::get('/potagers/mieux-cotes/accueil', 'PotagerController@mieuxCotesAccueil');
+
 /**
  * Messages
  */
@@ -59,12 +62,12 @@ Route::post('/messages/store', 'MessageController@store');              // envoi
  * Users
  */
 Route::group(['prefix' => '/users', 'where' => ['user' => '[0-9]+']], function(){
-    Route::get('/', 'UserController@show'); 
-    Route::get('/all', 'UserController@index'); 
-    Route::get('/messages_avec/{userId}', 'UserController@messages_avec'); 
-    Route::get('/{toUserId}', 'UserController@test'); 
-    Route::get('/{userId}', 'UserController@showOne'); 
-    Route::get('/test/{profileId}', 'UserController@showMany'); 
+    Route::get('/', 'UserController@show');
+    Route::get('/all', 'UserController@index');
+    Route::get('/messages_avec/{userId}', 'UserController@messages_avec');
+    Route::get('/{toUserId}', 'UserController@test');
+    Route::get('/{userId}', 'UserController@showOne');
+    Route::get('/test/{profileId}', 'UserController@showMany');
 });
 
 /**
@@ -72,7 +75,8 @@ Route::group(['prefix' => '/users', 'where' => ['user' => '[0-9]+']], function()
  */
 Route::get('/plants', 'PlantController@index');                         // Affichage de tous les plants
 
-Route::middleware('auth:sanctum')->get('/plants-utilisateur/{userId}', 'PlantController@plantsUser');   // Afficher les plants d'un utilisateur
+// Route::middleware('auth:sanctum')->get('/plants-utilisateur/{userId}', 'PlantController@plantsUser');   // Afficher les plants d'un utilisateur
+Route::get('/plants-utilisateur/{userId}', 'PlantController@plantsUser');   // Afficher les plants d'un utilisateur
 
 Route::put('/plant/new', 'PlantController@store');                      // Création d'un plant
 
@@ -82,11 +86,12 @@ Route::delete('/plant/{plantId}', 'PlantController@destroy');           // Suppr
 
 Route::post('/plant/{plantId}/visit', 'PlantController@addvisit');      // Ajouter une visite à un plant
 
-Route::patch('plants/{plantId}/toggle-actif', 'PlantController@toggleActif');       // Activer ou désactiver un plant (affichage public)
-Route::patch('plants/{plantId}/toggle-partage', 'PlantController@togglePartage');   // Activer ou désactiver le partage (affichage public)
+Route::patch('plant/{plantId}/toggle-actif', 'PlantController@toggleActif');       // Activer ou désactiver un plant (affichage public)
+Route::patch('plant/{plantId}/toggle-partage', 'PlantController@togglePartage');   // Activer ou désactiver le partage (affichage public)
 
-Route::get('plants/mieux-cotes/tous', 'PlantController@mieuxCotesTous');
-Route::get('plants/mieux-cotes/accueil', 'PlantController@mieuxCotesAccueil');
+Route::get('/plants/populaires/tous', 'PlantController@populaireTous');
+Route::get('/plants/populaires/accueil', 'PlantController@populaireAccueil');
+Route::get('/plants/nouveaux/accueil', 'PlantController@nouveauxPlantsAccueil');
 
 
 /**

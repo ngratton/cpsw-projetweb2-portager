@@ -129,7 +129,7 @@ class PlantController extends Controller
             $fileNameOriginale = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
             $imageOriginale->save(public_path('storage/images/plants/').$fileNameOriginale);
             // Ajout à la base de données
-            $plant->photo = './storage/images/plants/'.$fileNameOriginale;
+            $plant->photo = 'storage/images/plants/'.$fileNameOriginale;
 
             /**
              * Store une image miniature
@@ -140,7 +140,7 @@ class PlantController extends Controller
             $fileNameMiniature = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
             $imageMiniature->save(public_path('storage/images/plants/miniatures/').$fileNameMiniature);
             // Ajout à la base de données
-            $plant->photo_mini = './storage/images/plants/miniatures/'.$fileNameMiniature;
+            $plant->photo_mini = 'storage/images/plants/miniatures/'.$fileNameMiniature;
         }
 
         // Sauvegarder la nouvelle plante
@@ -191,23 +191,33 @@ class PlantController extends Controller
         }
     }
 
+    public function populaireTous(Plant $plant) {
+        return Plant::all()
+            ->sortBy('plants_visits')
+            ->paginate(20);
 
-    /**
-     *
-     */
-    public function mieuxCotesTous(Plant $plant) {
-        $plants = Plant::all()->paginate(20);
-        return $plants;
     }
 
-    /**
-     *
-     */
-    public function mieuxCotesAccueil(Plant $plant) {
-        $plants = DB::table('plants')
-                    ->join('rating_plants', 'plants.id', '=', 'rating_plants.plant_id')
-                    ->limit(4);
-        // $plants = Plant::all();
-        return $plants;
+    public function populaireAccueil(Plant $plant) {
+        return Plant::select('plants.*', 'types.nom', 'users.first_name', 'users.last_name', 'profiles.note_moy AS note_jard')
+        ->join('types', 'plants.type_id', '=', 'types.id')
+        ->join('users', 'plants.user_id', '=', 'users.id')
+        ->join('profiles', 'plants.user_id', '=', 'profiles.user_id')
+        ->orderBy('plants_visits')
+        ->limit(4)
+        ->get();
     }
+
+
+    public function nouveauxPlantsAccueil(Plant $plant) {
+        return Plant::select('plants.*', 'types.nom', 'users.first_name', 'users.last_name', 'profiles.note_moy AS note_jard')
+        ->join('types', 'plants.type_id', '=', 'types.id')
+        ->join('users', 'plants.user_id', '=', 'users.id')
+        ->join('profiles', 'plants.user_id', '=', 'profiles.user_id')
+        ->orderBy('created_at')
+        ->limit(4)
+        ->get();
+    }
+
+
 }
