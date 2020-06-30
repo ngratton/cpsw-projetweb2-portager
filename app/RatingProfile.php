@@ -12,4 +12,17 @@ class RatingProfile extends Model
         'comment',
         'profile_id',
     ];
+
+    protected $appends = [
+        'user2',
+    ];
+
+    public function user() {
+        return $this->belongsTo('App\User');
+    } 
+
+    public function getUser2Attribute() {
+        return $this->user->first_name;
+    }
 }
+

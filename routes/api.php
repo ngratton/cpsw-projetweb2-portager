@@ -50,19 +50,21 @@ Route::post('/potager/{userId}/visit', 'PotagerController@addvisit');   // Ping 
 /**
  * Messages
  */
-Route::get('/messages', 'MessageController@index');                     // Ensemble des messages des conversations de l'usager
+Route::get('/messages/to/{userId}', 'MessageController@index');         // Ensemble des messages des conversations de l'usager
 Route::get('/messages/{userId}/{toUserId}', 'MessageController@show');  // Ensemble des messages des conversations de l'usager avec un interlocuteur
+Route::get('/messages/{userId}', 'MessageController@test');
 Route::post('/messages/store', 'MessageController@store');              // envoi de messages
 
 /**
  * Users
  */
 Route::group(['prefix' => '/users', 'where' => ['user' => '[0-9]+']], function(){
-    Route::get('/', 'UserController@show');
-    Route::get('/all', 'UserController@index');
-    Route::get('/messages_avec/{userId}', 'UserController@messages_avec');
-    Route::get('/{toUserId}', 'UserController@test');
-    Route::get('/{user}', 'UserController@show');
+    Route::get('/', 'UserController@show'); 
+    Route::get('/all', 'UserController@index'); 
+    Route::get('/messages_avec/{userId}', 'UserController@messages_avec'); 
+    Route::get('/{toUserId}', 'UserController@test'); 
+    Route::get('/{userId}', 'UserController@showOne'); 
+    Route::get('/test/{profileId}', 'UserController@showMany'); 
 });
 
 /**

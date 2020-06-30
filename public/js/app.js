@@ -2081,36 +2081,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'FormulaireJardinier',
   data: function data() {
     return {
-      photo: [],
+      file: '',
+      photo: '',
+      photo_mini: "/images/profil_pardefault_100px.png",
       jardine_depuis: '',
       bio: '',
       etiquettes1: ["Amateur", "Biologique", "Conventionnel"],
-      etiquettes2: ["Autosuffisant", "Communautaire", "Écologique"]
+      etiquettes2: ["Autosuffisant", "Communautaire", "Écologique"],
+      selected: false,
+      tags_jardinier: []
     };
   },
+  //end data
   props: {},
   components: {},
   mounted: function mounted() {},
   methods: {
-    ajoutPhoto: function ajoutPhoto() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/profiles", {
-        photo: this.photo
+    envoiJardinier: function envoiJardinier() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/profile/new/1', {
+        photo: this.photo,
+        photo_mini: this.photo,
+        jardine_depuis: this.jardine_depuis,
+        bio: this.bio,
+        tags_jardinier: this.tags_jardinier
+      }).then(function (response) {
+        console.log("success");
       });
     },
-    ajoutAnneeJardinage: function ajoutAnneeJardinage() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/profiles", {
-        jardine_depuis: this.jardine_depuis
-      });
-    },
-    ajoutBio: function ajoutBio() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/profiles", {
-        bio: this.bio
-      });
+    toggleClass: function toggleClass(e) {
+      e.target.classList.toggle("selected");
+      this.tags_jardinier.push(e.target.innerHTML);
+      console.log(this.tags_jardinier);
     }
   }
 });
@@ -2193,21 +2222,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Messagerie',
   data: function data() {
     return {
       message: '',
-      userId: '1',
-      //Temporaire, cette variable contiendra eventuellement le id de la personne connectée
+      userId: '',
       username: '',
       contenu: '',
       toUserId: '',
       user: '',
       lesUsers: '',
       toUserName: '',
-      isActive: true
+      isActive: true,
+      toUserFirstName: ''
     };
   },
   props: {},
@@ -2219,41 +2252,52 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      // Selectionne un utilisateur selon son id
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.userId).then(function (response) {
-        _this.user = response.data;
-        _this.username = _this.user.name;
-        console.log(_this.username);
-      }); // Selectionne tous les utilisateurs(temporaire)
-
+      // Selectionne l'utilisateur connecte
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users").then(function (response) {
+        _this.user = response.data;
+        _this.username = _this.user.first_name;
+        _this.userId = response.data.id;
+
+        _this.getLinkedUsers();
+      }); // Selectionne les utilisateurs ayant des messages avec l'utilisateur connecte
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/messages_avec/" + this.userId).then(function (response) {
         _this.lesUsers = response.data;
-        console.log(_this.lesUsers);
+        _this.test = _this.lesUsers.first_name + ' ' + _this.lesUsers.last_name;
       });
     },
+    // Lorsque l'utilisateur selectionne une conversation
     toggle: function toggle(convo) {
       this.isActive = false;
       this.toUserName = convo.first_name + ' ' + convo.last_name;
+      this.toUserFirstName = convo.first_name;
       this.toUserId = convo.id;
       console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id);
       this.listeMessages();
     },
+    // Lorsque l'utilisateur envoi un message
     envoiMessage: function envoiMessage() {
+      var _this2 = this;
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/messages/store", {
         contenu: this.contenu,
         from_id: this.userId,
         to_id: this.toUserId
+      }).then(function (response) {
+        _this2.listeMessages();
       });
-      this.listeMessages();
+      this.contenu = "";
     },
     // Selectionne les messages selon les id des utilisateurs dans la conversation
     listeMessages: function listeMessages() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId + "/" + this.toUserId).then(function (response) {
-        _this2.message = response.data;
-        _this2.messageDate = response.data.created_at;
-        console.log(_this2.message);
+        _this3.message = response.data;
+
+        _this3.$nextTick(function () {
+          _this3.scrollToEnd();
+        });
       });
     },
     // Transorme le format de l'heure d'envoi d'un message
@@ -2262,6 +2306,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     transformerHeure: function transformerHeure(temps) {
       return temps.substring(11, 16);
+    },
+    // Selectionne les utilisateurs avec qui l'utilisateur connecte a des messages
+    getLinkedUsers: function getLinkedUsers() {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/messages_avec/" + this.userId).then(function (response) {
+        _this4.lesUsers = response.data;
+      });
+    },
+    // Permet d'afficher les conversations a partir du bas (messages plus recents)
+    scrollToEnd: function scrollToEnd() {
+      var content = this.$refs.messagesContainer;
+      content.scrollTop = content.scrollHeight;
     }
   }
 });
@@ -2555,7 +2612,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_PlantCote__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PlantCote */ "./resources/js/components/PlantCote.vue");
 /* harmony import */ var _components_NouveauPlant__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/NouveauPlant */ "./resources/js/components/NouveauPlant.vue");
 /* harmony import */ var _components_PlantPopulaire__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/PlantPopulaire */ "./resources/js/components/PlantPopulaire.vue");
-//
 //
 //
 //
@@ -3404,29 +3460,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'InscriptionJardinier',
@@ -3548,6 +3581,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -3708,33 +3743,86 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ProfilUtilisateur',
   data: function data() {
     return {
-      data: 0
+      data: 0,
+      user: '',
+      userId: 3,
+      // temporairement, changer le id ici pour changer de profile de jardinier
+      profile: '',
+      username: '',
+      jardineDepuis: '',
+      bio: '',
+      tags: '',
+      miniImg: '',
+      ratings: '',
+      profileId: '',
+      cote: 3.6,
+      etoiles: '',
+      isActive: true
     };
   },
   props: {},
   components: {},
-  mounted: function mounted() {},
-  methods: {}
+  mounted: function mounted() {
+    this.getData();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+
+      // Get les informations sur le profil du jardinier selon le id
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/profile/" + this.userId).then(function (response) {
+        _this.profile = response.data;
+        _this.jardineDepuis = _this.profile.jardine_depuis;
+        _this.bio = _this.profile.bio;
+        _this.tags = _this.profile.tags_jardiniers;
+        _this.miniImg = './' + _this.profile.photo_mini; // A revoir
+
+        _this.profileId = _this.profile.id; // this.cote = this.profile.note_moy  
+
+        if (_this.cote != null) {
+          if (_this.cote <= 1) {
+            _this.etoiles = 1;
+          } else if (_this.cote > 2 && _this.cote < 3) {
+            _this.etoiles = 2;
+          } else if (_this.cote > 3 && _this.cote < 4) {
+            _this.etoiles = 3;
+          } else if (_this.cote > 4 && _this.cote < 5) {
+            _this.etoiles = 4;
+          } else if (_this.cote = 5) {
+            _this.etoiles = 5;
+          }
+        }
+
+        _this.getComments();
+      }); // Get les informations sur le user lié jardinier selon le id
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/" + this.userId).then(function (response) {
+        _this.user = response.data[0];
+        _this.username = _this.user.first_name + ' ' + _this.user.last_name;
+      });
+    },
+    // Get les ratings du profile selon le id
+    getComments: function getComments() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/evaluation/profile/" + this.profileId).then(function (response) {
+        _this2.ratings = response.data;
+      });
+    },
+    //  Lorsque le curseur passe sur les etoiles
+    mouseOver: function mouseOver() {
+      this.isActive = false;
+      setTimeout(this.reverse, 3000);
+    },
+    reverse: function reverse() {
+      this.isActive = true;
+    }
+  }
 });
 
 /***/ }),
@@ -8323,7 +8411,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body {\n  background-color: #F7FDFF !important;\n  margin: 0;\n  padding: 0;\n}\nnav {\n  width: 80%;\n}\n#colHeader {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n.form-group {\n  margin-top: 10px;\n  margin-left: 20px;\n  text-align: left;\n}\n#colHeaderProfil {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n#colHeader img {\n  width: 248.27px;\n  height: 89.99px;\n}\n#logo {\n  width: 248.27px;\n  height: 89.99px;\n  margin-left: 90px;\n}\n#barreProgression {\n  float: right;\n  width: 60%;\n}\n#profil {\n  margin-top: 100px;\n  text-align: center;\n}\n#profil h4 {\n  font-family: Roboto Slab;\n  color: #717C89;\n  font-weight: bold;\n}\n#profil a {\n  font-size: 10px;\n  color: #717C89;\n}\n#profilTitre button {\n  font-weight: bold;\n  background-color: #FFDD00;\n  color: #332E0A;\n  border: none;\n  margin-left: 5%;\n}\n#completer {\n  left: -3%;\n}\n#suivant {\n  left: -1%;\n}\n#plusTard {\n  display: flex;\n  left: 19%;\n}\n#plusTard a {\n  padding-top: 5%;\n}\n#creationProfil {\n  background-color: #FFFFFF;\n  width: 85%;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  margin-left: 100px;\n  border-radius: 16px;\n  opacity: 1;\n  margin-top: 2%;\n  padding: 20px 10px 100px 20px;\n  text-align: left;\n}\n#creationProfil button {\n  position: absolute;\n  width: 200px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n  margin-top: 25px;\n}\n#creationProfil img {\n  margin-right: 20px;\n  margin-bottom: 40px;\n}\n#creationProfil input {\n  width: 300px;\n}\n#creationProfil h4 {\n  color: #32373D;\n  font-size: 16px;\n  text-align: left;\n  font: Regular 16px/23px Inter;\n  letter-spacing: 0px;\n  color: #32373D;\n  opacity: 1;\n}\n#etiquetteJardin h4 {\n  color: #32373D;\n  font-weight: bold;\n  font-size: 16px;\n  margin-left: 42px;\n  text-align: left;\n}\n#etiquetteJardin p {\n  margin-left: 42px;\n  font-size: 12px;\n}\n#etiquetteProfilJardinier ul {\n  list-style-type: none;\n}\n#etiquetteProfilJardinier li {\n  width: 100%;\n  background-color: #CFFFB3;\n  border-radius: 50px;\n  text-align: center;\n  margin-top: 10px;\n  margin-bottom: 20px;\n  padding-right: 30px;\n  padding-left: 30px;\n}\n#etiquetteProfilJardinier li:hover {\n  background-color: #9FCC3B;\n}\n#profilPotager {\n  margin-top: 100px;\n  text-align: center;\n}\n#profilPotager h4 {\n  font-family: Roboto Slab;\n  color: #717C89;\n}\n#profilPotager a {\n  font-size: 10px;\n  color: #717C89;\n}\n#creationPotager {\n  background-color: #FFFFFF;\n  width: 85%;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  margin-left: 100px;\n  border-radius: 16px;\n  opacity: 1;\n  margin-top: 2%;\n  padding: 20px 10px 100px 20px;\n  text-align: left;\n}\n#creationPotager h6 {\n  font-weight: bold;\n  font-size: 16px;\n}\n#trouver input {\n  width: 100px;\n}\n#trouver button {\n  position: absolute;\n  width: 160px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n#etiquettesPotager h6 {\n  color: #32373D;\n  font-weight: bold;\n  font-size: 16px;\n  text-align: left;\n}\n#etiquettesPotager p {\n  font-size: 12px;\n}\n#creationPotager input {\n  width: 370px;\n}\n#pays input {\n  width: 160px;\n}\n#profilPotagerImages img {\n  margin-right: 15px;\n  margin-bottom: 20px;\n  margin-top: 10px;\n}\n#profilPotagerImages button {\n  float: right;\n  width: 200px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n.form-group span {\n  width: auto;\n  position: absolute;\n  color: white;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n.btn-file {\n  position: relative;\n  overflow: hidden;\n  width: 200px;\n}\n.btn-file input[type=file] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  min-width: 100%;\n  min-height: 100%;\n  font-size: 100px;\n  text-align: right;\n  filter: alpha(opacity=0);\n  opacity: 0;\n  outline: none;\n  cursor: inherit;\n  display: block;\n}", ""]);
+exports.push([module.i, "body {\n  background-color: #F7FDFF !important;\n  margin: 0;\n  padding: 0;\n}\nnav {\n  width: 80%;\n}\n#colHeader {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n.form-group {\n  margin-top: 10px;\n  margin-left: 20px;\n  text-align: left;\n}\n#colHeaderProfil {\n  display: flex;\n  flex-direction: row;\n  width: 100%;\n  height: 100px;\n}\n#colHeader img {\n  width: 248.27px;\n  height: 89.99px;\n}\n#logo {\n  width: 248.27px;\n  height: 89.99px;\n  margin-left: 90px;\n}\n#barreProgression {\n  float: right;\n  width: 60%;\n}\n#profil {\n  margin-top: 100px;\n  text-align: center;\n}\n#profil h4 {\n  font-family: Roboto Slab;\n  color: #717C89;\n  font-weight: bold;\n}\n#profil a {\n  font-size: 10px;\n  color: #717C89;\n}\n#profilTitre button {\n  font-weight: bold;\n  background-color: #FFDD00;\n  color: #332E0A;\n  border: none;\n  margin-left: 5%;\n}\n#completer {\n  left: -3%;\n}\n#suivant {\n  left: -1%;\n}\n#plusTard {\n  display: flex;\n  left: 19%;\n}\n#plusTard a {\n  padding-top: 5%;\n}\n#creationProfil {\n  background-color: #FFFFFF;\n  width: 85%;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  margin-left: 100px;\n  border-radius: 16px;\n  opacity: 1;\n  margin-top: 2%;\n  padding: 20px 10px 100px 20px;\n  text-align: left;\n}\n#creationProfil button {\n  position: absolute;\n  width: 200px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n  margin-top: 25px;\n}\n#creationProfil img {\n  margin-right: 20px;\n  margin-bottom: 40px;\n}\n#creationProfil input {\n  width: 300px;\n}\n#creationProfil h4 {\n  color: #32373D;\n  font-size: 16px;\n  text-align: left;\n  font: Regular 16px/23px Inter;\n  letter-spacing: 0px;\n  color: #32373D;\n  opacity: 1;\n}\n#etiquetteJardin h4 {\n  color: #32373D;\n  font-weight: bold;\n  font-size: 16px;\n  margin-left: 42px;\n  text-align: left;\n}\n#etiquetteJardin p {\n  margin-left: 42px;\n  font-size: 12px;\n}\n#etiquetteProfilJardinier ul {\n  list-style-type: none;\n}\n#etiquetteProfilJardinier li {\n  width: 100%;\n  background-color: #CFFFB3;\n  border-radius: 50px;\n  text-align: center;\n  margin-top: 10px;\n  margin-bottom: 20px;\n  padding-right: 30px;\n  padding-left: 30px;\n}\n#etiquetteProfilJardinier li:hover {\n  background-color: #9FCC3B;\n}\n#etiquetteProfilJardinier li.selected {\n  background-color: #9FCC3B;\n}\n#profilPotager {\n  margin-top: 100px;\n  text-align: center;\n}\n#profilPotager h4 {\n  font-family: Roboto Slab;\n  color: #717C89;\n}\n#profilPotager a {\n  font-size: 10px;\n  color: #717C89;\n}\n#creationPotager {\n  background-color: #FFFFFF;\n  width: 85%;\n  background: #FFFFFF 0% 0% no-repeat padding-box;\n  box-shadow: 0px 5px 10px #00000029;\n  margin-left: 100px;\n  border-radius: 16px;\n  opacity: 1;\n  margin-top: 2%;\n  padding: 20px 10px 100px 20px;\n  text-align: left;\n}\n#creationPotager h6 {\n  font-weight: bold;\n  font-size: 16px;\n}\n#trouver input {\n  width: 100px;\n}\n#trouver button {\n  position: absolute;\n  width: 160px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n#etiquettesPotager h6 {\n  color: #32373D;\n  font-weight: bold;\n  font-size: 16px;\n  text-align: left;\n}\n#etiquettesPotager p {\n  font-size: 12px;\n}\n#creationPotager input {\n  width: 370px;\n}\n#pays input {\n  width: 160px;\n}\n#profilPotagerImages img {\n  margin-right: 15px;\n  margin-bottom: 20px;\n  margin-top: 10px;\n}\n#profilPotagerImages button {\n  float: right;\n  width: 200px;\n  height: 50px;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  color: #FFFFFF;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n.form-group span {\n  width: auto;\n  position: absolute;\n  color: white;\n  background: #9FCC3B 0% 0% no-repeat padding-box;\n  box-shadow: 0px 3px 10px #00000029;\n  border-radius: 6px;\n  opacity: 1;\n  border: none;\n}\n.btn-file {\n  position: relative;\n  overflow: hidden;\n  width: 200px;\n}\n.btn-file input[type=file] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  min-width: 100%;\n  min-height: 100%;\n  font-size: 100px;\n  text-align: right;\n  filter: alpha(opacity=0);\n  opacity: 0;\n  outline: none;\n  cursor: inherit;\n  display: block;\n}", ""]);
 
 // exports
 
@@ -8380,7 +8468,26 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#messagerie {\r\n  \r\n  border: solid yellowgreen 2px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\n}\n#conversation {\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n#messagerie {\r\n  overflow: hidden;\r\n  border: solid yellowgreen 2px;\r\n  max-height: 100000px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\r\n  max-height: 600px;\r\n  overflow-y: scroll;\n}\n#conversation {\r\n  width: 100%;\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  margin-left: auto;\r\n  float: right;\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ProfilUtilisateur.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ProfilUtilisateur.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.etoiles {\r\n    margin-left: 5%;\r\n    display:flex;\r\n    flex-direction: row;\r\n    width: 200px;\r\n    height: 50px;\n}\n#etoile {\r\n    height: 20px;\r\n    width: 20px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -40507,6 +40614,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ProfilUtilisateur.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ProfilUtilisateur.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfilUtilisateur.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ProfilUtilisateur.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -41297,98 +41434,249 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row", attrs: { id: "creationProfil" } }, [
-    _c("div", { staticClass: "col-4" }, [
-      _c("form", [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("h4", [_vm._v("Depuis quelle année jardinez-vous?")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              id: "jardine_depuise",
-              name: "jardine_depuis",
-              "aria-describedby": "emailHelp"
-            }
-          }),
-          _vm._v(" " + _vm._s(_vm.jardine_depuis) + " ")
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-3" }, [
-      _c("h4", [
-        _vm._v(
-          "Parlez-nous de vous (cette description s'affichera sur votre profil public)"
-        )
-      ]),
+  return _c(
+    "form",
+    {
+      attrs: {
+        action: "/api/profile/new/{userID}",
+        enctype: "multipart/form-data"
+      },
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.envoiJardinier($event)
+        }
+      }
+    },
+    [
+      _vm._m(0),
       _vm._v(" "),
-      _c(
-        "textarea",
-        {
-          staticClass: "form-control",
-          attrs: { id: "texteProfil", rows: "5", cols: "50", name: "bio" }
-        },
-        [_vm._v(_vm._s(_vm.bio))]
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-3 offset-1", attrs: { id: "etiquetteJardin" } },
-      [
-        _c("h4", [_vm._v("Quel type de jardinier êtes-vous ?")]),
+      _c("div", { staticClass: "container-fluid", attrs: { id: "profil" } }, [
+        _vm._m(1),
         _vm._v(" "),
-        _c("p", { staticStyle: { "font-size": "12px" } }, [
-          _vm._v("Cochez tous ceux qui s'appliquent.")
-        ]),
-        _vm._v(" "),
-        _c(
-          "table",
-          { attrs: { width: "100%", id: "etiquetteProfilJardinier" } },
-          [
-            _c("tr", [
-              _c(
-                "td",
-                _vm._l(_vm.etiquettes1, function(etiquette1) {
-                  return _c("ul", [_c("li", [_vm._v(_vm._s(etiquette1))])])
-                }),
-                0
-              ),
+        _c("div", { staticClass: "row", attrs: { id: "creationProfil" } }, [
+          _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("h4", [_vm._v("Ajoutez une photo de profil")]),
+              _c("br"),
+              _vm._v(" "),
+              _c("img", { attrs: { src: _vm.photo_mini } }),
               _vm._v(" "),
               _c(
-                "td",
-                _vm._l(_vm.etiquettes2, function(etiquette2) {
-                  return _c("ul", [_c("li", [_vm._v(_vm._s(etiquette2))])])
-                }),
-                0
+                "span",
+                {
+                  staticClass: "btn btn-primary btn-file mt-4",
+                  model: {
+                    value: _vm.photo,
+                    callback: function($$v) {
+                      _vm.photo = $$v
+                    },
+                    expression: "photo"
+                  }
+                },
+                [
+                  _vm._v("\r\n                        Téléverser une photo"),
+                  _c("input", {
+                    ref: "photo",
+                    attrs: { type: "file", id: "photo", name: "photo" },
+                    on: {
+                      change: function($event) {
+                        return _vm.handleFileUpload()
+                      }
+                    }
+                  })
+                ]
               )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("h4", [_vm._v("Depuis quelle année jardinez-vous?")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.jardine_depuis,
+                    expression: "jardine_depuis"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "jardine_depuis",
+                  name: "jardine_depuis",
+                  "aria-describedby": "emailHelp"
+                },
+                domProps: { value: _vm.jardine_depuis },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.jardine_depuis = $event.target.value
+                  }
+                }
+              })
             ])
-          ]
-        )
-      ]
-    )
-  ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-3" }, [
+            _c("h4", [
+              _vm._v(
+                "Parlez-nous de vous (cette description s'affichera sur votre profil public)"
+              )
+            ]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.bio,
+                  expression: "bio"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "bio", name: "bio", rows: "5", cols: "50" },
+              domProps: { value: _vm.bio },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.bio = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-3 offset-1", attrs: { id: "etiquetteJardin" } },
+            [
+              _c("h4", [_vm._v("Quel type de jardinier êtes-vous ?")]),
+              _vm._v(" "),
+              _c("p", { staticStyle: { "font-size": "12px" } }, [
+                _vm._v("Cochez tous ceux qui s'appliquent.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "table",
+                { attrs: { width: "100%", id: "etiquetteProfilJardinier" } },
+                [
+                  _c("tr", [
+                    _c("td", [
+                      _c(
+                        "ul",
+                        _vm._l(_vm.etiquettes1, function(etiquette1, index) {
+                          return _c(
+                            "li",
+                            {
+                              key: index,
+                              class: { selected: _vm.selected },
+                              on: { click: _vm.toggleClass }
+                            },
+                            [_vm._v(_vm._s(etiquette1))]
+                          )
+                        }),
+                        0
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "ul",
+                        _vm._l(_vm.etiquettes2, function(etiquette2, index) {
+                          return _c(
+                            "li",
+                            {
+                              key: index,
+                              class: { selected: _vm.selected },
+                              on: { click: _vm.toggleClass }
+                            },
+                            [_vm._v(_vm._s(etiquette2))]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ]
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("h4", [_vm._v("Ajoutez une photo de profil")]),
-      _c("br"),
-      _vm._v(" "),
-      _c("img", { attrs: { src: "/images/profil_pardefault_100px.png" } }),
-      _vm._v(" "),
-      _c("span", { staticClass: "btn btn-primary btn-file mt-4" }, [
-        _vm._v("\r\n                    Téléverser une photo"),
-        _c("input", { attrs: { type: "file", name: "photo" } })
-      ])
-    ])
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "colHeaderProfil" } },
+      [
+        _c("div", { staticClass: "col-2" }, [
+          _c("img", { attrs: { id: "logo", src: "/images/portager_noir.svg" } })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-6 offset-3" }, [
+          _c("img", {
+            attrs: { id: "barreProgression", src: "/images/BarreProfil.PNG" }
+          })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "profilTitre" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "row align-items-center",
+            attrs: { id: "profilJardinierTitre" }
+          },
+          [
+            _c("div", { staticClass: "col-5", attrs: { id: "completer" } }, [
+              _c("h3", [_vm._v("Complétez votre profil de jardinier")])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-2 offset-1", attrs: { id: "plusTard" } },
+              [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("p", [_vm._v("Compléter plus tard")])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-2 offset-1", attrs: { id: "suivant" } },
+              [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                  [_vm._v("Passez à l'étape suivante")]
+                ),
+                _c("br")
+              ]
+            )
+          ]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -41440,7 +41728,11 @@ var render = function() {
                 }
               },
               [
-                _c("h4", [_vm._v(_vm._s(convo.first_name))]),
+                _c("h4", [
+                  _vm._v(
+                    _vm._s(convo.first_name) + " " + _vm._s(convo.last_name)
+                  )
+                ]),
                 _vm._v(" "),
                 _c("br")
               ]
@@ -41451,7 +41743,11 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "col-9", attrs: { id: "conversation-active" } },
+          {
+            ref: "messagesContainer",
+            staticClass: "col-9",
+            attrs: { id: "conversation-active" }
+          },
           [
             _c("div", { staticClass: "row justify-content-between" }, [
               _c(
@@ -41459,91 +41755,107 @@ var render = function() {
                 { attrs: { id: "conversation" } },
                 _vm._l(_vm.message, function(item) {
                   return _c("div", { key: item.id, staticClass: "message" }, [
-                    item.from_id == _vm.userId
-                      ? _c(
-                          "div",
-                          {
-                            staticClass: "col-md-auto",
-                            attrs: { id: "un-message-from" }
-                          },
-                          [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-2" }, [
-                                _c("p", { staticClass: "nom-utilisateur" }, [
-                                  _vm._v(_vm._s(_vm.username))
-                                ])
+                    _c("div", { staticClass: "col-12 overflow-auto" }, [
+                      item.from_id == _vm.userId
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "col-4",
+                              attrs: { id: "un-message-from" }
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "row justify-content-between" },
+                                [
+                                  _c("div", { staticClass: "col-6" }, [
+                                    _c(
+                                      "p",
+                                      { staticClass: "nom-utilisateur" },
+                                      [_vm._v(_vm._s(_vm.username))]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-6" }, [
+                                    _c("p", { staticClass: "date" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.transformerHeure(item.created_at)
+                                        )
+                                      )
+                                    ])
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-auto" }, [
+                                _c("p", { staticClass: "contenu" }, [
+                                  _vm._v(_vm._s(item.contenu))
+                                ]),
+                                _c("br")
                               ]),
                               _vm._v(" "),
-                              _c("div", { staticClass: "col-2" }, [
-                                _c("p", { staticClass: "date" }, [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.transformerHeure(item.created_at)
-                                    )
-                                  )
-                                ])
+                              _c("p", { staticClass: "date" }, [
+                                _vm._v(
+                                  _vm._s(_vm.transformerDate(item.created_at))
+                                )
                               ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-auto" }, [
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("br")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12 overflow-auto" }, [
+                      item.from_id != _vm.userId
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "col-4",
+                              attrs: { id: "un-message-to" }
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "row justify-content-between" },
+                                [
+                                  _c("div", { staticClass: "col-6" }, [
+                                    _c(
+                                      "p",
+                                      { staticClass: "nom-utilisateur" },
+                                      [_vm._v(_vm._s(_vm.toUserFirstName))]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-6" }, [
+                                    _c("p", { staticClass: "date" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.transformerHeure(item.created_at)
+                                        )
+                                      )
+                                    ])
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
                               _c("p", { staticClass: "contenu" }, [
                                 _vm._v(_vm._s(item.contenu))
                               ]),
-                              _c("br")
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "date" }, [
-                              _vm._v(
-                                _vm._s(_vm.transformerDate(item.created_at))
-                              )
-                            ])
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    item.from_id != _vm.userId
-                      ? _c(
-                          "div",
-                          {
-                            staticClass: "col-4",
-                            attrs: { id: "un-message-to" }
-                          },
-                          [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-2" }, [
-                                _c("p", { staticClass: "nom-utilisateur" }, [
-                                  _vm._v(_vm._s(_vm.toUserName))
-                                ])
-                              ]),
+                              _c("br"),
                               _vm._v(" "),
-                              _c("div", { staticClass: "col-2" }, [
-                                _c("p", { staticClass: "date" }, [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.transformerHeure(item.created_at)
-                                    )
-                                  )
-                                ])
+                              _c("p", { staticClass: "date" }, [
+                                _vm._v(
+                                  _vm._s(_vm.transformerDate(item.created_at))
+                                )
                               ])
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "contenu" }, [
-                              _vm._v(_vm._s(item.contenu))
-                            ]),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "date" }, [
-                              _vm._v(
-                                _vm._s(_vm.transformerDate(item.created_at))
-                              )
-                            ])
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("br")
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("br")
+                    ])
                   ])
                 }),
                 0
@@ -42122,7 +42434,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                S'enregistrer\n                            "
+                                "\r\n                                S'enregistrer\r\n                            "
                               )
                             ]
                           )
@@ -42142,7 +42454,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                Se connecter\n                            "
+                                "\r\n                                Se connecter\r\n                            "
                               )
                             ]
                           )
@@ -43320,107 +43632,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "container-fluid", attrs: { id: "profil" } },
-      [
-        _c(
-          "div",
-          { staticClass: "container-fluid", attrs: { id: "profilTitre" } },
-          [
-            _c(
-              "div",
-              {
-                staticClass: "row align-items-center",
-                attrs: { id: "profilJardinierTitre" }
-              },
-              [
-                _c(
-                  "div",
-                  { staticClass: "col-5", attrs: { id: "completer" } },
-                  [
-                    _c("h3", [
-                      _vm._v(
-                        "Complétez votre profil de jardinier, " +
-                          _vm._s(_vm.prenom)
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-2 offset-1", attrs: { id: "suivant" } },
-                  [
-                    _c("input", {
-                      staticClass: "btn btn-primary",
-                      attrs: {
-                        type: "submit",
-                        value: "Passez à l'étape suivante"
-                      },
-                      on: {
-                        click: function($event) {
-                          _vm.ajoutPhoto(),
-                            _vm.ajoutAnneeJardinage(),
-                            _vm.ajoutBio()
-                        }
-                      }
-                    }),
-                    _c("br")
-                  ]
-                )
-              ]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("FormulaireJardinier")
-      ],
-      1
-    )
-  ])
+  return _c("div", [_c("FormulaireJardinier")], 1)
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "container-fluid", attrs: { id: "colHeaderProfil" } },
-      [
-        _c("div", { staticClass: "col-2" }, [
-          _c("img", { attrs: { id: "logo", src: "/images/portager_noir.svg" } })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-6 offset-3" }, [
-          _c("img", {
-            attrs: { id: "barreProgression", src: "/images/BarreProfil.PNG" }
-          })
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-2 offset-1", attrs: { id: "plusTard" } },
-      [
-        _c("a", { attrs: { href: "#" } }, [
-          _c("p", [_vm._v("Compléter plus tard")])
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -43879,384 +44093,420 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _c(
+        "div",
+        { staticClass: "row align-items-center", attrs: { id: "jardinier" } },
+        [
+          _c("div", { staticClass: "col-2" }, [
+            _c("img", { attrs: { src: _vm.miniImg, alt: "..." } })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-10", attrs: { id: "jardinierDescription" } },
+            [
+              _c("div", [
+                _c("h2", [_vm._v(" " + _vm._s(_vm.username) + " ")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("Jardine depuis  " + _vm._s(_vm.jardineDepuis) + " ")
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "etoiles", on: { mouseover: _vm.mouseOver } },
+                [
+                  _vm._l(_vm.etoiles, function(item) {
+                    return _c("img", {
+                      key: item.id,
+                      attrs: { id: "etoile", src: "/images/star.png" }
+                    })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      class: { active: _vm.isActive },
+                      attrs: { id: "activeCote" }
+                    },
+                    [_c("p", [_vm._v("  " + _vm._s(_vm.cote) + " sur 5. ")])]
+                  )
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _vm._m(3)
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-9", attrs: { id: "jardinierBio" } }, [
+          _c("h3", [_vm._v("Biographie")]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.bio))])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-2 offset-1", attrs: { id: "etiquettes" } },
+          [
+            _c("h3", [_vm._v("Étiquettes")]),
+            _vm._v(" "),
+            _vm._l(_vm.tags, function(item) {
+              return _c("ul", { key: item.id }, [
+                _c("li", [_vm._v(_vm._s(item))])
+              ])
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _vm._m(4),
+      _vm._v(" "),
+      _vm._m(5),
+      _vm._v(" "),
+      _vm._m(6),
+      _vm._v(" "),
+      _vm._m(7),
+      _vm._v(" "),
+      _vm._m(8),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.ratings, function(item) {
+          return _c(
+            "div",
+            { key: item.id, staticClass: "col", attrs: { id: "evaluations" } },
+            [
+              _c("p", [
+                _vm._v(
+                  " " +
+                    _vm._s(item.user.first_name) +
+                    " " +
+                    _vm._s(item.user.last_name)
+                )
+              ]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(item.comment))])
+            ]
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _vm._m(9)
+    ]),
+    _vm._v(" "),
+    _vm._m(10)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
-        _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("img", { attrs: { src: "/images/portager_noir.svg" } })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "collapse navbar-collapse",
-              attrs: { id: "navbarSupportedContent" }
-            },
-            [
-              _c("ul", { staticClass: "navbar-nav mr-auto" }, [
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Plants")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Carte des potagers")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Boutique")
-                  ])
-                ])
-              ])
-            ]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "container-fluid", attrs: { id: "bannerUser" } },
-        [
-          _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "row" })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "container", attrs: { id: "search" } }, [
-          _c("div", { staticClass: "row align-items-center" }, [
-            _c("div", { staticClass: "col" }, [
-              _c("div", { staticClass: "form-group form-check-inline" }, [
-                _c("input", {
-                  staticClass: "form-control form-control-lg",
-                  attrs: { type: "text", placeholder: "Recherche..." }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Chercher")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("div", { staticClass: "form-check form-check-inline" }, [
-                    _c("p", [
-                      _vm._v(
-                        "Rechercher par            \n                                "
-                      ),
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "inlineCheckbox1",
-                          value: "option1"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineCheckbox1" }
-                        },
-                        [_vm._v("Plants")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "inlineCheckbox2",
-                          value: "option2"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineCheckbox1" }
-                        },
-                        [_vm._v("Villes")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          id: "inlineCheckbox3",
-                          value: "option3"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineCheckbox1" }
-                        },
-                        [_vm._v("Étiquettes")]
-                      )
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("div", { staticClass: "form-check form-check-inline" }, [
-                    _c("p", [_vm._v("Ou")])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row align-items-center" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("div", { staticClass: "form-check form-check-inline" }, [
-                    _c("p", [
-                      _vm._v("Naviguez par "),
-                      _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container" }, [
+    return _c("div", { staticClass: "container", attrs: { id: "colHeader" } }, [
+      _c("nav", { staticClass: "navbar navbar-expand-lg navbar-light" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("img", { attrs: { src: "/images/portager_noir.svg" } })
+        ]),
+        _vm._v(" "),
         _c(
           "div",
-          { staticClass: "row align-items-center", attrs: { id: "jardinier" } },
+          {
+            staticClass: "collapse navbar-collapse",
+            attrs: { id: "navbarSupportedContent" }
+          },
           [
-            _c("div", { staticClass: "col-2" }, [
-              _c("img", {
-                attrs: {
-                  src: "/images/hero/home-vegetable-garden-ideas-1068x713.jpg",
-                  alt: "..."
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-10", attrs: { id: "jardinierDescription" } },
-              [
-                _c("div", [
-                  _c("h2", [_vm._v(" Jardinier ")]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("Jardine depuis  année ")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "etoile" }, [
-                  _c("p", [_vm._v("Étoile vote")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "btn-group-vertical" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      staticStyle: {
-                        "background-color": "#9BC53D",
-                        color: "white",
-                        "margin-bottom": "20px",
-                        border: "none"
-                      },
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Évaluer ce jardinier")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      staticStyle: {
-                        "background-color": "#FFDD00",
-                        color: "#332E0A",
-                        border: "none"
-                      },
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Contacter  jardinier ")]
-                  )
+            _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+              _c("li", { staticClass: "nav-item" }, [
+                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                  _vm._v("Plants")
                 ])
-              ]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-9", attrs: { id: "jardinierBio" } }, [
-            _c("h3", [_vm._v("Biographie")]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                '"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?"'
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-2 offset-1", attrs: { id: "etiquettes" } },
-            [
-              _c("h3", [_vm._v("Étiquettes")]),
+              ]),
               _vm._v(" "),
-              _c("ul", [
-                _c("li", [_vm._v("Biologique")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Culture en serre")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Biologique")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Biologique")]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Biologique")])
+              _c("li", { staticClass: "nav-item" }, [
+                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                  _vm._v("Carte des potagers")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                  _vm._v("Boutique")
+                ])
               ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col", attrs: { id: "adminTitre" } }, [
-            _c("h3", [_vm._v("Potager administré")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col", attrs: { id: "potagerAdministre" } },
-            [
-              _c("p", [_vm._v(" #  plants de légumes")]),
-              _vm._v(" "),
-              _c("p", [_vm._v(" #  plants de fruits")]),
-              _vm._v(" "),
-              _c("p", [_vm._v(" #  plants de fines herbes")]),
+            ])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "bannerUser" } },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "container", attrs: { id: "search" } }, [
+        _c("div", { staticClass: "row align-items-center" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "form-group form-check-inline" }, [
+              _c("input", {
+                staticClass: "form-control form-control-lg",
+                attrs: { type: "text", placeholder: "Recherche..." }
+              }),
               _vm._v(" "),
               _c(
                 "button",
-                { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                [_vm._v("Voir le potager de  utilisateur ")]
+                { staticClass: "btn btn-secondary", attrs: { type: "button" } },
+                [_vm._v("Chercher")]
               )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("h3", [_vm._v("Plants le plus populaires")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "card", attrs: { id: "cardUser" } }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: {
-                src: "/images/Plants_placeholders/green-bean.jpg",
-                alt: "..."
-              }
-            }),
+            ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [
-                _vm._v(" Nom du plant ")
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("p", [
+                    _vm._v(
+                      "Rechercher par            \n                                "
+                    ),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        id: "inlineCheckbox1",
+                        value: "option1"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Plants")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        id: "inlineCheckbox2",
+                        value: "option2"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Villes")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        id: "inlineCheckbox3",
+                        value: "option3"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "inlineCheckbox1" }
+                      },
+                      [_vm._v("Étiquettes")]
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("p", [_vm._v("Ou")])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", { staticClass: "col" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("p", [
+                    _vm._v("Naviguez par "),
+                    _c("a", { attrs: { href: "#" } }, [_vm._v("Catégories")])
+                  ])
+                ])
               ])
             ])
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col", attrs: { id: "evaluationTitre" } }, [
-            _c("h3", [_vm._v("Évaluation")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-            _c("p", [_vm._v(" Autre jardinier ")]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium,soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-            _c("p", [_vm._v(" Autre jardinier ")]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-100" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-            _c("p", [_vm._v(" Autre jardinier ")]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium."
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col", attrs: { id: "evaluations" } }, [
-            _c("p", [_vm._v(" Autre jardinier ")]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit."
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row", attrs: { id: "plus" } }, [
-          _c("div", { staticClass: "col offset-5" }, [
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "button" } },
-              [_vm._v("Lire plus d'évaluations")]
-            )
-          ])
         ])
-      ]),
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-group-vertical" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          staticStyle: {
+            "background-color": "#9BC53D",
+            color: "white",
+            "margin-bottom": "20px",
+            border: "none"
+          },
+          attrs: { type: "button" }
+        },
+        [_vm._v("Évaluer ce jardinier")]
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "container-fluid", attrs: { id: "footer" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          staticStyle: {
+            "background-color": "#FFDD00",
+            color: "#332E0A",
+            border: "none"
+          },
+          attrs: { type: "button" }
+        },
+        [_vm._v("Contacter  jardinier ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col", attrs: { id: "adminTitre" } }, [
+        _c("h3", [_vm._v("Potager administré")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col", attrs: { id: "potagerAdministre" } }, [
+        _c("p", [_vm._v(" #  plants de légumes")]),
+        _vm._v(" "),
+        _c("p", [_vm._v(" #  plants de fruits")]),
+        _vm._v(" "),
+        _c("p", [_vm._v(" #  plants de fines herbes")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "button" } },
+          [_vm._v("Voir le potager de  utilisateur ")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h3", [_vm._v("Plants le plus populaires")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "card", attrs: { id: "cardUser" } }, [
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: {
+            src: "/images/Plants_placeholders/green-bean.jpg",
+            alt: "..."
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("h5", { staticClass: "card-title" }, [_vm._v(" Nom du plant ")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col", attrs: { id: "evaluationTitre" } }, [
+        _c("h3", [_vm._v("Évaluation")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row", attrs: { id: "plus" } }, [
+      _c("div", { staticClass: "col offset-5" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "button" } },
+          [_vm._v("Lire plus d'évaluations")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "footer" } },
+      [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col offset-9" }, [
@@ -44264,8 +44514,8 @@ var staticRenderFns = [
             ])
           ])
         ])
-      ])
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -62336,7 +62586,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProfilUtilisateur_vue_vue_type_template_id_b358c5d0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfilUtilisateur.vue?vue&type=template&id=b358c5d0& */ "./resources/js/views/ProfilUtilisateur.vue?vue&type=template&id=b358c5d0&");
 /* harmony import */ var _ProfilUtilisateur_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfilUtilisateur.vue?vue&type=script&lang=js& */ "./resources/js/views/ProfilUtilisateur.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _ProfilUtilisateur_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProfilUtilisateur.vue?vue&type=style&index=0&lang=css& */ "./resources/js/views/ProfilUtilisateur.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -62344,7 +62596,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _ProfilUtilisateur_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _ProfilUtilisateur_vue_vue_type_template_id_b358c5d0___WEBPACK_IMPORTED_MODULE_0__["render"],
   _ProfilUtilisateur_vue_vue_type_template_id_b358c5d0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -62373,6 +62625,22 @@ component.options.__file = "resources/js/views/ProfilUtilisateur.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfilUtilisateur_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfilUtilisateur.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ProfilUtilisateur.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfilUtilisateur_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/ProfilUtilisateur.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/views/ProfilUtilisateur.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfilUtilisateur_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfilUtilisateur.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ProfilUtilisateur.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfilUtilisateur_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfilUtilisateur_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfilUtilisateur_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfilUtilisateur_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfilUtilisateur_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

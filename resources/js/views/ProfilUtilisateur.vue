@@ -70,16 +70,20 @@
     <div class="container">
         <div class="row align-items-center" id="jardinier">
             <div class="col-2">
-                <img src="/images/hero/home-vegetable-garden-ideas-1068x713.jpg" alt="...">
+               <img :src="miniImg" alt="...">
             </div>
             <div class="col-10" id="jardinierDescription">
                 <div>
-                    <h2> Jardinier </h2>
-                    <p>Jardine depuis  année </p>
+                    <h2> {{ username }} </h2>
+                    <p>Jardine depuis  {{ jardineDepuis }} </p>
+                </div>                
+                 <div class="etoiles" @mouseover="mouseOver">
+                    <img id="etoile" src="/images/star.png"  v-for="item in etoiles" :key="item.id">
+                    <div id="activeCote" v-bind:class="{ active: isActive }">
+                  <p>  {{ cote }} sur 5. </p>
                 </div>
-                <div class="etoile">
-                    <p>Étoile vote</p>
                 </div>
+                
                 <div class="btn-group-vertical">
                     <button type="button" class="btn btn-primary" style="background-color: #9BC53D; color: white; margin-bottom: 20px; border: none;">Évaluer ce jardinier</button>
                     <button type="button" class="btn btn-secondary" style="background-color: #FFDD00; color: #332E0A; border: none;">Contacter  jardinier </button>
@@ -89,16 +93,12 @@
         <div class="row">
             <div class="col-9" id="jardinierBio">
                 <h3>Biographie</h3>
-                <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?"</p>
+                <p>{{ bio }}</p>
             </div>
             <div class="col-2 offset-1" id="etiquettes">
                 <h3>Étiquettes</h3>
-                <ul>
-                    <li>Biologique</li>
-                    <li>Culture en serre</li>
-                    <li>Biologique</li>
-                    <li>Biologique</li>
-                    <li>Biologique</li>
+                <ul v-for="item in tags" :key="item.id">
+                    <li>{{ item }}</li>                 
                 </ul>
             </div>
         </div>
@@ -134,26 +134,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
+             <div class="col" id="evaluations" v-for="item in ratings" :key="item.id"> 
+                <p> {{ item.user.first_name  }} {{ item.user.last_name }}</p>
                 <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium,soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium.</p>
-            </div>
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium.</p>
-            </div>
-            <div class="w-100"></div>
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit, soluta architecto ullam dolores eum recusandae sit reiciendis totam eligendi laborum nemo repudiandae vel, ducimus doloremque laudantium.</p>
-            </div>
-            <div class="col" id="evaluations">
-                <p> Autre jardinier </p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis libero nihil nisi suscipit.</p>
+                <p>{{ item.comment }}</p>
             </div>
         </div>
         <div class="row" id="plus">
@@ -175,11 +159,25 @@
 </template>
 
 <script>
+    import Axios from "axios";
     export default {
         name: 'ProfilUtilisateur', 
         data() {
             return {  
                 data: 0,
+                user: '',
+                userId: 3, // temporairement, changer le id ici pour changer de profile de jardinier
+                profile: '',
+                username: '',
+                jardineDepuis: '',
+                bio: '',
+                tags: '',
+                miniImg: '',
+                ratings: '',
+                profileId: '',
+                cote: 3.6,
+                etoiles: '',
+                isActive: true,
             };
         
         },
@@ -190,10 +188,90 @@
 
         },
         mounted() {
-
+            this.getData()
         },
         methods: {
+            getData() {
 
+                // Get les informations sur le profil du jardinier selon le id
+
+                Axios.get("/api/profile/" + this.userId).then(response => {
+                    this.profile = response.data
+                    this.jardineDepuis = this.profile.jardine_depuis
+                    this.bio = this.profile.bio
+                    this.tags = this.profile.tags_jardiniers
+                    this.miniImg = './' + this.profile.photo_mini  // A revoir
+                    this.profileId = this.profile.id
+                    // this.cote = this.profile.note_moy  
+                    
+                    if (this.cote != null) {
+
+                        if (this.cote <= 1) {
+                            this.etoiles = 1
+                        } else if (this.cote > 2 && this.cote < 3) {
+                            this.etoiles = 2
+                        } else if (this.cote > 3 && this.cote < 4) {
+                            this.etoiles = 3
+                        } else if (this.cote > 4 && this.cote < 5) {
+                            this.etoiles = 4
+                        } else if (this.cote = 5) {
+                            this.etoiles = 5
+                        }
+
+                    }
+
+                     this.getComments()
+                });
+
+                // Get les informations sur le user lié jardinier selon le id
+
+                 Axios.get("/api/users/" + this.userId).then(response => {
+                    this.user = response.data[0]
+                    this.username = this.user.first_name + ' ' + this.user.last_name
+                });             
+            },     
+            
+             // Get les ratings du profile selon le id
+
+            getComments() {
+                Axios.get("/api/evaluation/profile/" + this.profileId).then(response => {
+                    this.ratings = response.data                      
+                });
+            },  
+         
+        //  Lorsque le curseur passe sur les etoiles
+        
+            mouseOver() {
+               
+                 this.isActive = false
+
+                setTimeout(this.reverse, 3000) 
+            },
+
+            reverse() {
+                this.isActive = true                
+            },
         },
     }
 </script>
+
+<style lang="css">
+
+.etoiles {
+    margin-left: 5%;
+    display:flex;
+    flex-direction: row;
+    width: 200px;
+    height: 50px;
+}
+
+#etoile {
+    height: 20px;
+    width: 20px;
+}
+
+.active {
+  display: none;
+}
+
+</style>
