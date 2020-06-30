@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Potager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PotagerController extends Controller
 {
@@ -139,5 +140,26 @@ class PotagerController extends Controller
         $potager = Potager::where('user_id', $userId)->first();
         $potager->potager_visits++;
         $potager->save();
+    }
+
+    /**
+     *
+     */
+    public function mieuxCotesTous(Potager $potager) {
+        return Potager::select('potagers.*', 'users.first_name', 'users.last_name')
+            ->join('users', 'potagers.user_id', '=', 'users.id')
+            ->orderBy('note_moy')
+            ->paginate(20);
+    }
+
+    /**
+     *
+     */
+    public function mieuxCotesAccueil(Potager $potager) {
+        return Potager::select('potagers.*', 'users.first_name', 'users.last_name')
+            ->join('users', 'potagers.user_id', '=', 'users.id')
+            ->orderBy('note_moy')
+            ->limit(4)
+            ->get();
     }
 }

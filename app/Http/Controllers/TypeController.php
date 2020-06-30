@@ -15,6 +15,6 @@ class TypeController extends Controller
 
     public function show($plantId)
     {
-        return Type::where('fk_plants_id', $plantId)->get();
+        return Type::where('plant_id', $plantId)->get();
     }
 }

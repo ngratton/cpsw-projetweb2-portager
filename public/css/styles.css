@@ -54,20 +54,8 @@ nav {
     width: 60%;
 }
 
-#banner {
-    color: white;
-    font-style: italic;
-    z-index: -5;
-    width: 100%;
-    height: 500px;
-    background-image: linear-gradient(to right, rgba(0,0,0, 0.8), rgba(255,255,255, 0)), url("../images/hero/gardener.jpg");
-    background-position: 0% 18%;
-    background-size: cover;
-}
-
 #bannerUser {
     color: white;
-    font-style: italic;
     z-index: -5;
     width: 100%;
     height: 260px;
@@ -78,7 +66,6 @@ nav {
 
 #bannerPotager {
     color: white;
-    font-style: italic;
     z-index: -5;
     width: 100%;
     height: 260px;
@@ -87,19 +74,8 @@ nav {
     background-size: cover;
 }
 
-#banner h1 {
-    margin-top: 110px;
-    margin-bottom: 20px;
-}
-
-#banner button {
-    border: none;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
 .btn {
-    padding: 10px 30px;
+    padding: 10px 20px;
     transition: box-shadow .2s ease;
     font-weight: bold;
 }
@@ -222,24 +198,13 @@ nav {
     margin-right: 10px;
 }
 
-#nouveauxPlants {
-    margin-top: 80px;
-    margin-bottom: 30px;
-}
-
 .card {
     font-size: 14px;
     width: 210px;
     border-radius: 16px;
     margin-bottom: 50px;
     box-shadow: 0px 5px 10px #00000029;
-    border: 0;
-}
-
-.card button {
-    width: 100%;
-    border-radius: 6px;
-    opacity: 1;
+    border: none;
 }
 
 .card img {
@@ -256,28 +221,6 @@ nav {
     margin-top: 50px;
     margin-bottom: 50px;
     box-shadow: 0px 5px 10px #00000029;
-}
-
-.pubAccueil {
-    top: 1392px;
-    left: 586px;
-    width: 78%;
-    height: 100%;
-}
-
-#cotePlants {
-    margin-top: 80px;
-    margin-bottom: 30px;
-}
-
-#merch {
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-#populaire {
-    margin-top: 30px;
-    margin-bottom: 30px;
 }
 
 #plus button {
@@ -455,9 +398,9 @@ nav {
 }
 
 .card button {
-    border: none;
     font-weight: bold;
     margin-bottom: 5%;
+    border-radius: 6px;
 }
 
 .card .card-body {

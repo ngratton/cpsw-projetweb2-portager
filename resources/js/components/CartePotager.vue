@@ -1,40 +1,47 @@
-<template>
-  
-    <div>
-       
-                <div class="card" id="cardPotager">
-                    <img src="/images/Plants_placeholders/GRAFTED-VEG.jpg" class="card-img-top" alt="...">
+<template lang="fr">
+    <div class="col" style="min-width: 210px;">
+            <div class="card h-100">
+                <router-link tag="div" :to="`/potager/${potager.user_id}`">
+                    <img :src="potager.photos_path" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Nom du plant</h5>
-                        <button type="button" class="btn btn-primary" style="background-color: #9FCC3B;">Voir le plant</button>
-                        <button type="button" class="btn btn-secondary" style="background-color: #FFDD00; color: #332E0A;">Offrir un échange</button>
+                        <h5 class="card-title">{{ full_name }}</h5>
+                        <p class="card-text">{{ potager.city }}</p>
+                        <p class="card-text" style="text-align: right;">{{ potager.note_moy }}</p>
+                        <p v-if="!potager.not_moy" class="card-text" style="text-align: right;">
+                            <img src="images/star.png" class="rating-stars" />
+                            <img src="images/star.png" class="rating-stars" />
+                            <img src="images/star.png" class="rating-stars" />
+                            <img src="images/star.png" class="rating-stars" />
+                        </p>
                     </div>
-                </div>
-           
+                </router-link>
+            </div>
     </div>
-
 </template>
 
 <script>
     export default {
-        name: 'CartePotager', 
+        name: 'CartePotager',
         data() {
-            return {  
+            return {
                 data: 0,
             };
-        
-        },
-        props: {
 
         },
-        components: {
-
-        },
-        mounted() {
-
-        },
-        methods: {
-
-        },
+        props: [
+            'potager',
+        ],
+        computed: {
+            full_name() {
+                return `${this.potager.first_name} ${this.potager.last_name}`
+            }
+        }
     }
 </script>
+
+<style lang="scss" scoped>
+    .rating-stars {
+        height: 15px;
+        width: auto;
+    }
+</style>
