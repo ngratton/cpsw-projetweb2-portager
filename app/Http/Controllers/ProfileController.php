@@ -72,7 +72,10 @@ class ProfileController extends Controller
      */
     public function show($userId)
     {
-        $profile = Profile::where('user_id', $userId)->first();
+        $profile = Profile::where('user_id', $userId)
+                    ->select('profiles.*', 'users.first_name', 'users.last_name')
+                    ->join('users', 'profiles.user_id', '=', 'users.id')
+                    ->first();
 
         // Transforme les tags de String à Array
         $tags = $profile->tags_jardiniers;

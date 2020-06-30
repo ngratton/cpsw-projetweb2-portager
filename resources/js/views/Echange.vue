@@ -34,20 +34,33 @@
                         ></plant-liste>
                     </div>
 
-                    <h3>Mon potager</h3>
+                    <div class="d-flex align-items-center">
+                        <img :src="profile.photo_mini" class="thumb-profil" />
+                        <h3 class="mb-0">Mon potager</h3>
+                    </div>
                     <div class="conteneur-contenu" style="min-height: 220px;">
-                        <!-- <div class="row type-plants-sepatateur ml-0 mr-0 mb-2 mt-2">
-                            <div class="col-10 pl-0 type-nom">
-                                <span>Tomates</span>
-                            </div>
-                            <div class="col-2 d-flex justify-content-end align-items-center">
-                                <span>#</span>
-                            </div>
-                        </div> -->
-
                         <div v-if="mesPlants.length == 0" class="d-flex align-items-center justify-content-center position-absolute echange-bloc-vide">
                             <span class="text-muted"><small>Wo wo Max !</small></span>
                         </div>
+
+                        <!-- <details v-for="(plants, index) in mesPlants" open>
+                            <summary class=" type-plants-sepatateur ml-0 mr-0 mb-2 mt-3">
+                                <div class="row m-0">
+                                    <div class="col-10 pl-0 type-nom">
+                                        <span>{{ index }}</span>
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-end align-items-center">
+                                        <span>{{ plants.length }}</span>
+                                    </div>
+                                </div>
+                            </summary>
+                            <plant-liste
+                                v-for="(plant, index) in plants"
+                                :plant="plant"
+                                :key="index"
+                                @clicked="ajoutMesOffres"
+                            ></plant-liste>
+                        </details> -->
 
                         <plant-liste
                             v-for="(plant, index) in mesPlants"
@@ -55,6 +68,7 @@
                             :key="index"
                             @clicked="ajoutMesOffres"
                         ></plant-liste>
+
                     </div>
                 </div>
                 <div class="col">
@@ -76,8 +90,15 @@
                         ></plant-liste>
                     </div>
 
-                    <h3>Potager de #user</h3>
+                    <div class="d-flex align-items-center">
+                        <img :src="jardinier.photo_mini" class="thumb-profil" />
+                        <h3 class="mb-0">Potager de {{ jardinier.first_name }}</h3>
+                    </div>
                     <div class="conteneur-contenu" style="min-height: 220px;">
+                        <div v-if="userPlants.length == 0" class="d-flex align-items-center justify-content-center position-absolute echange-bloc-vide">
+                            <span class="text-muted"><small>Wo wo Max !</small></span>
+                        </div>
+
                         <!-- <div class="row type-plants-sepatateur ml-0 mr-0 mb-2 mt-2">
                             <div class="col-10 pl-0 type-nom">
                                 <span>Tomates</span>
@@ -86,10 +107,6 @@
                                 <span>#</span>
                             </div>
                         </div> -->
-
-                        <div v-if="userPlants.length == 0" class="d-flex align-items-center justify-content-center position-absolute echange-bloc-vide">
-                            <span class="text-muted"><small>Wo wo Max !</small></span>
-                        </div>
 
                         <plant-liste
                             v-for="(plant, index) in userPlants"
@@ -132,6 +149,8 @@ export default {
             offre: [],
             demande: [],
             jardinier_id: Math.floor(Math.random() * 9) + 2, // À fixer
+            jardinier: {},
+            profile: {},
         }
     },  //data
     components: {
@@ -141,59 +160,53 @@ export default {
         plantListe,
     },  // components
     mounted() {
-        // console.log(this.plant_source);
         this.fetchMesPlants()
         this.fetchUtilisateurPlants()
-        // this.fetchDataUtilisateur() // À fixer
+        this.fetchDataUtilisateur() // À fixer
     },  // mounted
     methods: {
         fetchMesPlants() {
             axios.get(`/api/plants-utilisateur/${this.$store.state.user.id}`).then(data => {
+                // this.mesPlants = _.groupBy(data.data, plant => {
+                //     return plant.nom
+                // });
+
                 this.mesPlants = data.data
+                // console.log(this.mesPlants)
             })
         },
         fetchUtilisateurPlants() {
-            axios.get(`/api/plants-utilisateur/${this.jardinier_id}`).then(data => {
-                this.userPlants = data.data
+            axios.get(`/api/plants-utilisateur/${this.jardinier_id}`).then(resp => {
+                this.userPlants = resp.data
             })
         },
-        fetchDataUtilisateur() { // Obtenir user_id depuis plant_so
-            // axios.get(`/api/user/${this.jardinier_id}`).then(data => { // URL non définie
-            //     console.log(data)
-            // })
+        fetchDataUtilisateur() { // Obtenir user_id depuis plant_source
+            axios.get(`/api/profile/${this.jardinier_id}`).then(resp => {
+                this.jardinier = resp.data
+            })
+            axios.get(`/api/profile/${this.$store.state.user.id}`).then(resp => {
+                this.profile = resp.data
+            })
         },
         ajoutMesOffres(id) {
-            let plant = this.mesPlants.find(x => x.id === id)
-            plant.opt = 'minus'
-            this.offre.push(plant)
-            let index = this.mesPlants.indexOf(plant);
-            if (index !== -1) this.mesPlants.splice(index, 1);
-            this.offre.sort((a, b) => (a.nom > b.nom) ? 1 : -1)
+            this.bougerItems(id, this.mesPlants, this.offre, 'minus')
         },
         retirerMesOffres(id) {
-            let plant = this.offre.find(x => x.id === id)
-            this.mesPlants.push(plant)
-            plant.opt = 'add'
-            let index = this.offre.indexOf(plant)
-            if (index !== -1) this.offre.splice(index, 1)
-            this.mesPlants.sort((a, b) => (a.nom > b.nom) ? 1 : -1)
+            this.bougerItems(id, this.offre, this.mesPlants, 'add')
         },
         ajoutMesDemandes(id) {
-            let plant = this.userPlants.find(x => x.id === id)
-            this.demande.push(plant)
-            plant.opt = 'minus'
-            let index = this.userPlants.indexOf(plant)
-            if (index !== -1) this.userPlants.splice(index, 1)
-            this.demande.sort((a, b) => (a.nom > b.nom) ? 1 : -1)
+            this.bougerItems(id, this.userPlants, this.demande, 'minus')
         },
         retirerMesDemandes(id) {
-            let plant = this.demande.find(x => x.id === id)
-            this.userPlants.push(plant)
-            plant.opt = 'add'
-            let index = this.demande.indexOf(plant)
-            if (index !== -1) this.demande.splice(index, 1)
-            this.userPlants.sort((a, b) => (a.nom > b.nom) ? 1 : -1)
-
+            this.bougerItems(id, this.demande, this.userPlants, 'add')
+        },
+        bougerItems(id, liste_entree, liste_sortie, icone) {
+            let plant = liste_entree.find(x => x.id === id)
+            liste_sortie.push(plant)
+            plant.opt = icone
+            let index = liste_entree.indexOf(plant)
+            if (index !== -1) liste_entree.splice(index, 1)
+            liste_sortie.sort((a, b) => (a.nom > b.nom) ? 1 : -1)
         },
         envoyerEchange() { // Éléments exactes à définir selon Backend
             axios.put('/api/echange/new', {
@@ -232,6 +245,11 @@ export default {
                 return false
             }
         },
+        jardinier_fullname() {
+            if(Object.entries(this.jardinier).length > 0) {
+                return `${this.jardinier.first_name} ${this.jardinier.last_name}`
+            }
+        }
     }
 }
 </script>
@@ -248,6 +266,14 @@ export default {
         box-shadow: 0 5px 10px rgba(0,0,0,0.3);
         margin: 30px 0;
         position: relative;
+    }
+
+    .thumb-profil {
+        width: 40px;
+        height: 40px;
+        border: 1px solid green;
+        border-radius: 50%;
+        margin-right: 20px;
     }
 
     .echange-minus {

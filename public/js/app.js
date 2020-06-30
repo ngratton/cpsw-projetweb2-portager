@@ -2917,6 +2917,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2929,8 +2946,10 @@ __webpack_require__.r(__webpack_exports__);
       userPlants: [],
       offre: [],
       demande: [],
-      jardinier_id: Math.floor(Math.random() * 9) + 2 // À fixer
-
+      jardinier_id: Math.floor(Math.random() * 9) + 2,
+      // À fixer
+      jardinier: {},
+      profile: {}
     };
   },
   //data
@@ -2942,9 +2961,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   // components
   mounted: function mounted() {
-    // console.log(this.plant_source);
     this.fetchMesPlants();
-    this.fetchUtilisateurPlants(); // this.fetchDataUtilisateur() // À fixer
+    this.fetchUtilisateurPlants();
+    this.fetchDataUtilisateur(); // À fixer
   },
   // mounted
   methods: {
@@ -2952,71 +2971,56 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/api/plants-utilisateur/".concat(this.$store.state.user.id)).then(function (data) {
-        _this.mesPlants = data.data;
+        // this.mesPlants = _.groupBy(data.data, plant => {
+        //     return plant.nom
+        // });
+        _this.mesPlants = data.data; // console.log(this.mesPlants)
       });
     },
     fetchUtilisateurPlants: function fetchUtilisateurPlants() {
       var _this2 = this;
 
-      axios.get("/api/plants-utilisateur/".concat(this.jardinier_id)).then(function (data) {
-        _this2.userPlants = data.data;
+      axios.get("/api/plants-utilisateur/".concat(this.jardinier_id)).then(function (resp) {
+        _this2.userPlants = resp.data;
       });
     },
-    fetchDataUtilisateur: function fetchDataUtilisateur() {// Obtenir user_id depuis plant_so
-      // axios.get(`/api/user/${this.jardinier_id}`).then(data => { // URL non définie
-      //     console.log(data)
-      // })
+    fetchDataUtilisateur: function fetchDataUtilisateur() {
+      var _this3 = this;
+
+      // Obtenir user_id depuis plant_source
+      axios.get("/api/profile/".concat(this.jardinier_id)).then(function (resp) {
+        _this3.jardinier = resp.data;
+      });
+      axios.get("/api/profile/".concat(this.$store.state.user.id)).then(function (resp) {
+        _this3.profile = resp.data;
+      });
     },
     ajoutMesOffres: function ajoutMesOffres(id) {
-      var plant = this.mesPlants.find(function (x) {
-        return x.id === id;
-      });
-      plant.opt = 'minus';
-      this.offre.push(plant);
-      var index = this.mesPlants.indexOf(plant);
-      if (index !== -1) this.mesPlants.splice(index, 1);
-      this.offre.sort(function (a, b) {
-        return a.nom > b.nom ? 1 : -1;
-      });
+      this.bougerItems(id, this.mesPlants, this.offre, 'minus');
     },
     retirerMesOffres: function retirerMesOffres(id) {
-      var plant = this.offre.find(function (x) {
-        return x.id === id;
-      });
-      this.mesPlants.push(plant);
-      plant.opt = 'add';
-      var index = this.offre.indexOf(plant);
-      if (index !== -1) this.offre.splice(index, 1);
-      this.mesPlants.sort(function (a, b) {
-        return a.nom > b.nom ? 1 : -1;
-      });
+      this.bougerItems(id, this.offre, this.mesPlants, 'add');
     },
     ajoutMesDemandes: function ajoutMesDemandes(id) {
-      var plant = this.userPlants.find(function (x) {
-        return x.id === id;
-      });
-      this.demande.push(plant);
-      plant.opt = 'minus';
-      var index = this.userPlants.indexOf(plant);
-      if (index !== -1) this.userPlants.splice(index, 1);
-      this.demande.sort(function (a, b) {
-        return a.nom > b.nom ? 1 : -1;
-      });
+      this.bougerItems(id, this.userPlants, this.demande, 'minus');
     },
     retirerMesDemandes: function retirerMesDemandes(id) {
-      var plant = this.demande.find(function (x) {
+      this.bougerItems(id, this.demande, this.userPlants, 'add');
+    },
+    bougerItems: function bougerItems(id, liste_entree, liste_sortie, icone) {
+      var plant = liste_entree.find(function (x) {
         return x.id === id;
       });
-      this.userPlants.push(plant);
-      plant.opt = 'add';
-      var index = this.demande.indexOf(plant);
-      if (index !== -1) this.demande.splice(index, 1);
-      this.userPlants.sort(function (a, b) {
+      liste_sortie.push(plant);
+      plant.opt = icone;
+      var index = liste_entree.indexOf(plant);
+      if (index !== -1) liste_entree.splice(index, 1);
+      liste_sortie.sort(function (a, b) {
         return a.nom > b.nom ? 1 : -1;
       });
     },
     envoyerEchange: function envoyerEchange() {
-      var _this3 = this;
+      var _this4 = this;
 
       // Éléments exactes à définir selon Backend
       axios.put('/api/echange/new', {
@@ -3025,7 +3029,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         var echange_id = data.data;
 
-        var liste_items = _this3.offre.concat(_this3.demande);
+        var liste_items = _this4.offre.concat(_this4.demande);
 
         liste_items.forEach(function (ligne) {
           ligne.plant_id = ligne.id;
@@ -3034,7 +3038,7 @@ __webpack_require__.r(__webpack_exports__);
           echange_id: echange_id,
           items: liste_items
         }).then(function (resp) {
-          _this3.$router.push("echange/".concat(resp.data));
+          _this4.$router.push("echange/".concat(resp.data));
         })["catch"](function (error) {
           console.log(error);
         });
@@ -3053,6 +3057,11 @@ __webpack_require__.r(__webpack_exports__);
         return true;
       } else {
         return false;
+      }
+    },
+    jardinier_fullname: function jardinier_fullname() {
+      if (Object.entries(this.jardinier).length > 0) {
+        return "".concat(this.jardinier.first_name, " ").concat(this.jardinier.last_name);
       }
     }
   }
@@ -8257,7 +8266,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#conteneur-echange[data-v-5a49d606] {\n  margin: 50px auto;\n}\n.conteneur-contenu[data-v-5a49d606] {\n  background: white;\n  padding: 20px;\n  border-radius: 16px;\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);\n  margin: 30px 0;\n  position: relative;\n}\n.echange-minus[data-v-5a49d606] {\n  height: 25px;\n  width: auto;\n  color: #717C89;\n}\n.echange-fleches[data-v-5a49d606] {\n  height: 20px;\n  width: auto;\n}\n.echange-bloc-vide[data-v-5a49d606] {\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n}\n@media screen and (max-width: 468px) {\n.conteneur-contenu[data-v-5a49d606] {\n    padding: 10px;\n}\n}", ""]);
+exports.push([module.i, "#conteneur-echange[data-v-5a49d606] {\n  margin: 50px auto;\n}\n.conteneur-contenu[data-v-5a49d606] {\n  background: white;\n  padding: 20px;\n  border-radius: 16px;\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);\n  margin: 30px 0;\n  position: relative;\n}\n.thumb-profil[data-v-5a49d606] {\n  width: 40px;\n  height: 40px;\n  border: 1px solid green;\n  border-radius: 50%;\n  margin-right: 20px;\n}\n.echange-minus[data-v-5a49d606] {\n  height: 25px;\n  width: auto;\n  color: #717C89;\n}\n.echange-fleches[data-v-5a49d606] {\n  height: 20px;\n  width: auto;\n}\n.echange-bloc-vide[data-v-5a49d606] {\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n}\n@media screen and (max-width: 468px) {\n.conteneur-contenu[data-v-5a49d606] {\n    padding: 10px;\n}\n}", ""]);
 
 // exports
 
@@ -42546,7 +42555,14 @@ var render = function() {
                 2
               ),
               _vm._v(" "),
-              _c("h3", [_vm._v("Mon potager")]),
+              _c("div", { staticClass: "d-flex align-items-center" }, [
+                _c("img", {
+                  staticClass: "thumb-profil",
+                  attrs: { src: _vm.profile.photo_mini }
+                }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "mb-0" }, [_vm._v("Mon potager")])
+              ]),
               _vm._v(" "),
               _c(
                 "div",
@@ -42610,7 +42626,16 @@ var render = function() {
                 2
               ),
               _vm._v(" "),
-              _c("h3", [_vm._v("Potager de #user")]),
+              _c("div", { staticClass: "d-flex align-items-center" }, [
+                _c("img", {
+                  staticClass: "thumb-profil",
+                  attrs: { src: _vm.jardinier.photo_mini }
+                }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "mb-0" }, [
+                  _vm._v("Potager de " + _vm._s(_vm.jardinier.first_name))
+                ])
+              ]),
               _vm._v(" "),
               _c(
                 "div",
