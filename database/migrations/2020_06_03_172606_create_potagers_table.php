@@ -26,7 +26,7 @@ class CreatePotagersTable extends Migration
             $table->unsignedBigInteger('user_id')->unique();
             $table->tinyInteger('est_actif');
             $table->integer('potagers_visits')->nullable()->default(0);
-            $table->float('note_moy')->nullable();
+            $table->float('note_moy')->nullable()->default(0);
             $table->timestamps();
         });
 

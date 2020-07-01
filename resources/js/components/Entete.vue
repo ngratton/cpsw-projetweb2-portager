@@ -18,19 +18,17 @@
                         <li class="nav-item">
                             <a class="nav-link" href="https://boutique.portager.app">Boutique</a>
                         </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link" :to="{name: 'Echange'}">Échange</router-link>
-                        </li>
                         <li class="text-danger nav-item">
                             <a v-if="isLogged" class="nav-link" @click.prevent="deconnexion">Déconnexion</a>
                         </li>
                     </ul>
                 </div>
-                   <div class="col-2 bonjour">
-                       <p>Bonjour {{ utilisateur }} </p>
-                       <img src="/images/notifs.svg" alt="notifs">
-                       <img src="/images/user.svg" alt="user">
-                   </div>
+
+                <div v-if="isLogged" class="col-2 bonjour">
+                    <p>Bonjour {{ utilisateur }} </p>
+                    <!-- <img src="/images/notifs.svg" alt="notifs"> -->
+                    <img src="/images/user.svg" alt="user">
+                </div>
             </nav>
         </div>
     </div>
@@ -44,7 +42,7 @@
         name: 'Entete',
         data() {
             return {
-                utilisateur: 'Utilisateur',
+                utilisateur: this.$store.state.user.first_name,
             };
 
         },

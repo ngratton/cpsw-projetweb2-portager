@@ -160,6 +160,7 @@ export default {
         plantListe,
     },  // components
     mounted() {
+        this.$root.hitVisits(window.location)
         this.fetchMesPlants()
         this.fetchUtilisateurPlants()
         this.fetchDataUtilisateur()
@@ -213,7 +214,7 @@ export default {
         envoyerEchange() {
             axios.put('/api/echange/new', {
                 from_id: this.$store.state.user.id,
-                to_id: this.jardinier_id
+                to_id: this.jardinier_info.user_id
             })
                 .then(data => {
                     let echange_id = data.data

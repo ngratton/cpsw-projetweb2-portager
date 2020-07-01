@@ -139,3 +139,8 @@ Route::get('/echange/{echangeId}', 'EchangeController@show');
 
 Route::post('/echange/complete/{echangeId}', 'EchangeController@complete');
 Route::post('/echange/cancel/{echangeId}', 'EchangeController@cancel');
+
+/**
+ * VISITES (Site wide)
+ */
+Route::post('/visites', 'VisiteController@hit');

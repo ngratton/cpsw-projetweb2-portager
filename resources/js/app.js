@@ -47,7 +47,15 @@ const app = new Vue({
         //
     },
     methods: {
-        //
+        hitVisits(page) {
+            let id = this.$store.state.logged_in ? this.$store.state.user.id : 'visiteur'
+            // let id = this.state.user.id || 'visiteur'
+            let url = new URL(page)
+            axios.post('/api/visites', {
+                page: url.pathname,
+                visiteur: id
+            })
+        }
     },
     watch: {
         $route: {

@@ -26,10 +26,10 @@
                                     {{ errors.password[0] }}
                                 </span>
                             </div>
-                            <button type="submit" @click.prevent="connexion" class="btn btn-primary">CONNEXION</button>
-                            <a href="#">
-                                <p class="mt-3">J'ai oublié mon mot de passe</p>
-                            </a>
+                            <button type="submit" @click.prevent="connexion" class="btn btn-block btn-primary">CONNEXION</button>
+                            <router-link :to="{ name: 'Inscription' }">
+                                <p class="mt-3">Pas de compte? Inscrivez-vous !</p>
+                            </router-link>
                         </form>
                     </div>
                 </div>
@@ -53,24 +53,19 @@
                     password: 'portager',
                 },
                 errors: [],
-                user: {},
             }
         }, //data
         mounted() {
-            console.log(this.whereto)
+            //
         }, //mounted
         methods: {
             connexion() {
                 User.connexion(this.form)
                     .then(response => {
-                        let user = axios.get('api/user').then(user => {
+                        axios.get('api/user').then(user => {
+                            this.$store.dispatch('logsOut')
                             this.$store.dispatch('logsIn', user.data)
-
-                            if(this.whereto) {
-                                this.$router.push(this.whereto)
-                            } else {
-                                this.$router.push({name: 'Accueil'})
-                            }
+                            this.redirectionUtilisateur(user.data.user_role)
                         })
                     })
                     .catch(error => {
@@ -86,6 +81,20 @@
                         this.$router.go()
                     })
             },
+            redirectionUtilisateur(role) {
+                let url =  new URL(window.location)
+                let baseURL = url.protocol + '//' + url.host
+
+                if(role == 'Administrateur') { window.location.href = baseURL + '/administration' }
+                if(role == 'Commanditaire') { window.location.href = baseURL + '/commanditaire' }
+                else {
+                    if(this.whereto) {
+                        this.$router.push(this.whereto)
+                    } else {
+                        this.$router.push({name: 'Accueil'})
+                    }
+                }
+            }
         }, // methods
     }
 </script>
@@ -151,14 +160,9 @@
         color: #717C89;
     }
 
-    button {
-        width: 100%;
-    }
-
     a {
         text-align: center;
         color: #717C89;
-        font-size: 0.7rem;
     }
 }
 

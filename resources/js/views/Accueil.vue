@@ -54,6 +54,12 @@
             ProduitsBoutique,
             HeaderAccueil,
         },
+        mounted() {
+            this.$root.hitVisits(window.location)
+        },
+        methods: {
+            //
+        },
     }
 </script>
 

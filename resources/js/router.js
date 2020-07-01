@@ -10,6 +10,7 @@ import EchangeRevue from './views/EchangeRevue'
 import InscriptionJardinier from './views/InscriptionJardinier'
 import InscriptionPotager from './views/InscriptionPotager'
 import Recherche from './views/Recherche'
+import PageNotFound from './views/PageNotFound'
 
 Vue.use(VueRouter);
 
@@ -110,6 +111,15 @@ export default new VueRouter({
             component: Recherche,
             meta: {
                 title: "Résultats de recherche | Portager | Cultivez votre sens du partage",
+            },
+        },
+
+        {
+            path: "*",
+            name: '404',
+            component: PageNotFound,
+            meta: {
+                title: "Oops... Erreur 404 | Portager | Cultivez votre sens du partage",
             },
         },
 

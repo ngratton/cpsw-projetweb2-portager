@@ -7,12 +7,12 @@
                         <h5 class="card-title">{{ full_name }}</h5>
                         <p class="card-text">{{ potager.city }}</p>
                         <p class="card-text" style="text-align: right;">{{ potager.note_moy }}</p>
-                        <p v-if="!potager.not_moy" class="card-text" style="text-align: right;">
-                            <img src="images/star.png" class="rating-stars" />
-                            <img src="images/star.png" class="rating-stars" />
-                            <img src="images/star.png" class="rating-stars" />
-                            <img src="images/star.png" class="rating-stars" />
+                        <p class="card-text" style="text-align: right;">
+                            <img v-for="n in potager.note_moy" src="images/star.png" class="rating-stars" />
                         </p>
+                        <button class="btn btn-secondary btn-block" @click.prevent="navigateTo(potager.user_id)">
+                            Visiter le potager
+                        </button>
                     </div>
                 </router-link>
             </div>
@@ -31,6 +31,11 @@
         props: [
             'potager',
         ],
+        methods: {
+            navigateTo(id) {
+                this.$router.push(`/potager/${id}`)
+            }
+        },
         computed: {
             full_name() {
                 return `${this.potager.first_name} ${this.potager.last_name}`
