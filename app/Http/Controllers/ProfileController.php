@@ -35,7 +35,8 @@ class ProfileController extends Controller
         $profile->est_actif = 1;
 
         // Nom de la photo
-        $imageData = $request->get('photo');
+        // $imageData = $request->get('photo');
+        $imageData = $_FILES['photo']['tmp_name'];
 
         /**
          * Store l'image originale
@@ -43,8 +44,13 @@ class ProfileController extends Controller
         $imageOriginale = Image::make($imageData);
         $imgOgPath = 'storage/images/profile/';
         // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
-        $fileNameOriginale = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
-        $imageOriginale->save(public_path($imgOgPath).$fileNameOriginale);
+        // $extension = explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+        $extension = $_FILES['photo']['name'];
+        $extension = explode('.', $extension);
+        $extension = array_slice($extension, -1)[0];
+        $fileNameOriginale = Carbon::now()->timestamp . '_' . uniqid() . '.' . $extension;
+        // $imageOriginale->save(public_path($imgOgPath).$fileNameOriginale);
+        $imageOriginale->save(public_path('images/temp/').$fileNameOriginale);
         // Ajout à la base de données
         $profile->photo = './'.$imgOgPath . $fileNameOriginale;
 
@@ -72,7 +78,10 @@ class ProfileController extends Controller
      */
     public function show($userId)
     {
-        $profile = Profile::where('user_id', $userId)->first();
+        $profile = Profile::where('user_id', $userId)
+                    ->select('profiles.*', 'users.first_name', 'users.last_name')
+                    ->join('users', 'profiles.user_id', '=', 'users.id')
+                    ->first();
 
         // Transforme les tags de String à Array
         $tags = $profile->tags_jardiniers;
@@ -152,3 +161,7 @@ class ProfileController extends Controller
         $profile->save();
     }
 }
+
+
+
+

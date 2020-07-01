@@ -1,30 +1,7 @@
 <template>
 
 <div>
-    <div class="container-fluid" id="colHeaderProfil">
-            <div class="col-2">
-                <img id="logo" src="/images/portager_noir.svg">
-            </div>
-            <div class="col-6 offset-3">
-                <img id="barreProgression" src="/images/BarreProfil.PNG">
-            </div>
-    </div>
-    <div class="container-fluid" id="profil">
-        <div class="container-fluid" id="profilTitre">
-            <div class="row align-items-center" id="profilJardinierTitre">
-                <div class="col-5" id="completer">
-                    <h3>Complétez votre profil de jardinier, {{ prenom }}</h3>
-                </div>
-                <div class="col-2 offset-1" id="plusTard">
-                    <a href="#"><p>Compléter plus tard</p></a>
-                </div>
-                <div class="col-2 offset-1" id="suivant">
-                    <input type="submit" value="Passez à l'étape suivante" class="btn btn-primary" @click="ajoutPhoto(), ajoutAnneeJardinage(), ajoutBio()"></input><br>
-                </div>
-            </div>
-        </div>
-        <FormulaireJardinier></FormulaireJardinier>
-    </div>
+    <FormulaireJardinier></FormulaireJardinier>
 </div>
 
 </template>
@@ -215,6 +192,10 @@ nav {
 }
 
 #etiquetteProfilJardinier li:hover {
+    background-color: #9FCC3B;
+}
+
+#etiquetteProfilJardinier li.selected {
     background-color: #9FCC3B;
 }
 

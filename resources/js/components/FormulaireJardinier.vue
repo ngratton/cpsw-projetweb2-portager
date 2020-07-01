@@ -27,13 +27,13 @@
                 <div class="form-group">
                     <h4>Ajoutez une photo de profil</h4><br>
                     <img :src="photo_mini">
-                    <span class="btn btn-primary btn-file mt-4" v-model="photo">
-                        Téléverser une photo<input type="file" id="photo" name="photo" ref="photo" v-on:change="handleFileUpload()">
+                    <span class="btn btn-primary btn-file mt-4">
+                        Téléverser une photo<input type="file" id="photo" name="photo" ref="file" v-on:change="handleFileUpload()">
                     </span>
                 </div>
                 <div class="form-group">
                     <h4>Depuis quelle année jardinez-vous?</h4>
-                    <input type="text" class="form-control" id="jardine_depuis" name="jardine_depuis" v-model="jardine_depuis" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-control" id="jardine_depuis" name="jardine_depuis" v-model="jardine_depuis" aria-describedby="emailHelp">
                 </div>
             </div>
             <div class="col-3">
@@ -69,15 +69,14 @@
         name: 'FormulaireJardinier', 
         data() {
             return {
-                file: '',
-                photo: '',
+                photo: null,
                 photo_mini: "/images/profil_pardefault_100px.png",
                 jardine_depuis: '',
                 bio: '',
                 etiquettes1:["Amateur","Biologique","Conventionnel"],
                 etiquettes2:["Autosuffisant","Communautaire","Écologique"],
                 selected: false,
-                tags_jardinier: [],
+                tags_jardiniers: [],
             }
         }, //end data
         props: {
@@ -87,26 +86,42 @@
 
         },
         mounted() {
-
+            let file = document.querySelector('#photo')
         },
         methods: {
             envoiJardinier() {
-                Axios.put('/api/profile/new/1', {
-                    photo: this.photo,
-                    photo_mini: this.photo,
-                    jardine_depuis: this.jardine_depuis,
-                    bio: this.bio,
-                    tags_jardinier: this.tags_jardinier,
-                }).then(response => {
-                    console.log("success")
-                })
+                var photo = this.$refs.file.files[0]
+                let formData = new FormData();
+                const options = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+                formData.append('photo', photo);
+                formData.append('jardine_depuis', this.jardine_depuis);
+                formData.append('bio', this.bio);
+                formData.append('tags_jardiniers', this.tags_jardiniers);
+                axios.post('/api/profile/new/1', formData, options).then((data) => {
+                    this.mettreAJour();
+                }).catch(() => {
+                    console.log('FAILURE!!');
+                });
+            },
+
+            handleFileUpload(){
+                this.file = this.$refs.file.files[0];
             },
 
             toggleClass(e) {
                 e.target.classList.toggle("selected")
-                this.tags_jardinier.push(e.target.innerHTML)
-                console.log(this.tags_jardinier)
+
+                if (e.target.classList.contains("selected")) {
+                    this.tags_jardiniers.push(e.target.innerHTML)
+                } else {
+                    this.tags_jardiniers.pop(e.target.innerHTML)
+                }
+            console.log(this.tags_jardiniers)
             },
-        },
+        }, //end method
     }
 </script>

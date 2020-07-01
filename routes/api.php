@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  * Profil utilisateurs
  */
 Route::get('/profile/{userId}', 'ProfileController@show');              // Profile unique selon {{id}} de l'utilisateur
-Route::put('/profile/new/{userId}', 'ProfileController@store');             // Création d'un profile
+Route::post('/profile/new/{userId}', 'ProfileController@store');        // Création d'un profile
 Route::patch('/profile/{userId}', 'ProfileController@update');          // Modification d'un profile
 Route::delete('/profile/{userId}', 'ProfileController@destroy');        // Suppression d'un profil
 Route::post('/profile/{userId}/visit', 'ProfileController@addvisit');   // Ping de visite; lorsque la méthode est appelé, ajoute incrémente automatiquement de 1
@@ -39,7 +39,7 @@ Route::get('/type-plants/all', 'TypeController@index');                 // Obten
  */
 Route::get('/potagers', 'PotagerController@index');                     // Ensemble des potagers
 
-Route::put('/potager/new', 'PotagerController@store');                  // Création d'un potager
+Route::post('/potager/new', 'PotagerController@store');                  // Création d'un potager
 
 Route::get('/potager/{userId}', 'PotagerController@show');              // Potager unique lié à un utilisateur
 Route::patch('/potager/{userId}', 'PotagerController@update');          // Modification d'un potager
