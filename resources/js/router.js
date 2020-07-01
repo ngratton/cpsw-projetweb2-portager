@@ -39,6 +39,9 @@ export default new VueRouter({
             path: '/connexion',
             name: 'Connexion',
             component: Connexion,
+            props(route) {
+                return  route.query || {}
+            },
             meta: {
                 title: 'Connexion | Portager | Cultivez votre sens du partage',
             },

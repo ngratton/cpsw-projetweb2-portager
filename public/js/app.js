@@ -1940,12 +1940,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['plant'],
+  data: function data() {
+    return {
+      my_id: 0
+    };
+  },
+  mounted: function mounted() {
+    this.$store.state.user ? this.my_id = this.$store.state.user.id : this.my_id = 0;
+  },
   methods: {
     voirPlant: function voirPlant(id) {
       this.$router.push("plant/".concat(id));
     },
     lancerEchange: function lancerEchange(plant_id, user_id) {
-      if (user_id === this.$store.state.user.id) {
+      if (user_id === this.my_id) {
         alert('Vous ne pouvez pas échanger avec vous même !');
         return;
       }
@@ -1958,7 +1966,13 @@ __webpack_require__.r(__webpack_exports__);
             jardinier: user_id
           }
         });
-      } else {// this.
+      } else {
+        this.$router.push({
+          name: 'Connexion',
+          query: {
+            whereto: "/echange?plant=".concat(plant_id, "&jardinier=").concat(user_id)
+          }
+        });
       }
     }
   },
@@ -3029,6 +3043,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['whereto'],
   data: function data() {
     return {
       form: {
@@ -3040,7 +3055,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   //data
-  mounted: function mounted() {//
+  mounted: function mounted() {
+    console.log(this.whereto);
   },
   //mounted
   methods: {
@@ -3050,10 +3066,14 @@ __webpack_require__.r(__webpack_exports__);
       _api_User__WEBPACK_IMPORTED_MODULE_0__["default"].connexion(this.form).then(function (response) {
         var user = axios.get('api/user').then(function (user) {
           _this.$store.dispatch('logsIn', user.data);
-        });
 
-        _this.$router.push({
-          name: 'Accueil'
+          if (_this.whereto) {
+            _this.$router.push(_this.whereto);
+          } else {
+            _this.$router.push({
+              name: 'Accueil'
+            });
+          }
         });
       })["catch"](function (error) {
         if (error.response.status === 422) {
@@ -41911,9 +41931,7 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-block btn-primary",
-              attrs: {
-                disabled: _vm.plant.user_id === this.$store.state.user.id
-              },
+              attrs: { disabled: _vm.plant.user_id === _vm.my_id },
               on: {
                 click: function($event) {
                   $event.preventDefault()
@@ -63254,6 +63272,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/connexion',
     name: 'Connexion',
     component: _views_Connexion__WEBPACK_IMPORTED_MODULE_6__["default"],
+    props: function props(route) {
+      return route.query || {};
+    },
     meta: {
       title: 'Connexion | Portager | Cultivez votre sens du partage'
     }

@@ -43,7 +43,9 @@
     import User from '../api/User'
 
     export default {
-
+        props: [
+            'whereto'
+        ],
         data() {
             return {
                 form: {
@@ -55,7 +57,7 @@
             }
         }, //data
         mounted() {
-            //
+            console.log(this.whereto)
         }, //mounted
         methods: {
             connexion() {
@@ -63,8 +65,13 @@
                     .then(response => {
                         let user = axios.get('api/user').then(user => {
                             this.$store.dispatch('logsIn', user.data)
+
+                            if(this.whereto) {
+                                this.$router.push(this.whereto)
+                            } else {
+                                this.$router.push({name: 'Accueil'})
+                            }
                         })
-                        this.$router.push({name: 'Accueil'})
                     })
                     .catch(error => {
                         if(error.response.status === 422) {
