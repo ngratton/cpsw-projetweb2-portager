@@ -63,6 +63,7 @@
                 User.connexion(this.form)
                     .then(response => {
                         axios.get('api/user').then(user => {
+                            this.$store.dispatch('logsOut')
                             this.$store.dispatch('logsIn', user.data)
                             this.redirectionUtilisateur(user.data.user_role)
                         })

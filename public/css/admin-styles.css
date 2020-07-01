@@ -1,0 +1,94 @@
+@import url(https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap);@import url(https://rsms.me/inter/inter.css);html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F7FDFF;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-feature-settings: "salt";
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Roboto Slab", Arial, Helvetica, sans-serif;
+}
+
+h4,
+h5,
+h6 {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-feature-settings: "salt";
+}
+
+h6 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #717C89;
+}
+
+body,
+html {
+  background-color: #EAF5F9;
+}
+
+header {
+  height: 150px;
+  background-image: url("/images/hero/admin-header.jpg");
+  background-position: 0 70%;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+header h2 {
+  color: white;
+  text-transform: uppercase;
+}
+
+.nav-secondary {
+  background-color: #32373D;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: white;
+}
+
+.dashboard-cluster {
+  background-color: #A1CC14;
+  border-radius: 16px;
+  padding: 30px;
+  color: white;
+  height: 100%;
+}
+
+.dashboard-cluster h5 {
+  text-transform: uppercase;
+}
+
+.lg-num {
+  font-size: 4em;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/*****
+* HELPERS
+******/
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
