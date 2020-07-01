@@ -106,10 +106,11 @@
         name: 'Recherche',
         data() {
             return {
+                plants: [],
                 nbResultats: '0',
                 termeRecherche: 'Terme',
                 nomPlant: 'Nom du plant',
-                ville: 'ville',
+                ville: 'Villes',
                 nomJardinier: 'Nom jardinier',
                 note: 'Note',
             };
@@ -122,11 +123,19 @@
              Recherche,
         },
         mounted() {
-            //
+            console.log(this.$route.query.q)
+            this.apiPlants()
         },
+
         methods: {
-            //
+            apiPlants() {
+                axios.get(`/api/plants/`).then(data => {
+                    this.plants = data.data
+                    console.log(data.data)
+                })
+            }
         },
+        
         computed: {
             isLogged() {
                 return this.$store.state.logged_in
