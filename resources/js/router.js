@@ -84,6 +84,9 @@ export default new VueRouter({
             path: '/echange',
             name: 'Echange',
             component: Echange,
+            props(route) {
+                return  route.query || {}
+            },
             meta: {
                 title: 'Proposer un échange | Portager | Cultivez votre sens du partage',
             },

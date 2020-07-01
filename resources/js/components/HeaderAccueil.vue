@@ -46,6 +46,10 @@ export default {
         background-image: linear-gradient(to right, rgba(0,0,0, 0.8), rgba(255,255,255, 0)), url('/images/hero/accueil-logged-out.jpg');
         background-position: 0% 38%;
         background-size: cover;
+
+        button {
+            min-width: 175px;
+        }
     }
 
     .headerAccueilLoggedin {

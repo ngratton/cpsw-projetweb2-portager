@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="d-flex align-items-center">
-                        <img :src="profile.photo_mini" class="thumb-profil" />
+                        <img :src="profile_info.photo_mini" class="thumb-profil" />
                         <h3 class="mb-0">Mon potager</h3>
                     </div>
                     <div class="conteneur-contenu" style="min-height: 220px;">
@@ -91,8 +91,8 @@
                     </div>
 
                     <div class="d-flex align-items-center">
-                        <img :src="jardinier.photo_mini" class="thumb-profil" />
-                        <h3 class="mb-0">Potager de {{ jardinier.first_name }}</h3>
+                        <img :src="jardinier_info.photo_mini" class="thumb-profil" />
+                        <h3 class="mb-0">Potager de {{ jardinier_info.first_name }}</h3>
                     </div>
                     <div class="conteneur-contenu" style="min-height: 220px;">
                         <div v-if="userPlants.length == 0" class="d-flex align-items-center justify-content-center position-absolute echange-bloc-vide">
@@ -140,7 +140,8 @@ import plantListe from './components/Echange/PlantListe'
 
 export default {
     props: [
-        'plant_source'
+        'plant',
+        'jardinier',
     ],
     data() {
         return {
@@ -148,9 +149,8 @@ export default {
             userPlants: [],
             offre: [],
             demande: [],
-            jardinier_id: Math.floor(Math.random() * 9) + 2, // À fixer
-            jardinier: {},
-            profile: {},
+            jardinier_info: {},
+            profile_info: {},
         }
     },  //data
     components: {
@@ -162,31 +162,33 @@ export default {
     mounted() {
         this.fetchMesPlants()
         this.fetchUtilisateurPlants()
-        this.fetchDataUtilisateur() // À fixer
+        this.fetchDataUtilisateur()
     },  // mounted
     methods: {
         fetchMesPlants() {
             axios.get(`/api/plants-utilisateur/${this.$store.state.user.id}`).then(data => {
-                // this.mesPlants = _.groupBy(data.data, plant => {
-                //     return plant.nom
-                // });
-
                 this.mesPlants = data.data
-                // console.log(this.mesPlants)
             })
         },
         fetchUtilisateurPlants() {
-            axios.get(`/api/plants-utilisateur/${this.jardinier_id}`).then(resp => {
+            axios.get(`/api/plants-utilisateur/${this.jardinier}`).then(resp => {
                 this.userPlants = resp.data
+                this.autoAjoutPlant()
             })
         },
-        fetchDataUtilisateur() { // Obtenir user_id depuis plant_source
-            axios.get(`/api/profile/${this.jardinier_id}`).then(resp => {
-                this.jardinier = resp.data
+        fetchDataUtilisateur() {
+            axios.get(`/api/profile/${this.jardinier}`).then(resp => {
+                this.jardinier_info = resp.data
             })
             axios.get(`/api/profile/${this.$store.state.user.id}`).then(resp => {
-                this.profile = resp.data
+                this.profile_info = resp.data
             })
+        },
+        autoAjoutPlant() {
+            if(this.plant) {
+                console.log(this.plant)
+                this.ajoutMesDemandes(this.plant)
+            }
         },
         ajoutMesOffres(id) {
             this.bougerItems(id, this.mesPlants, this.offre, 'minus')
@@ -208,7 +210,7 @@ export default {
             if (index !== -1) liste_entree.splice(index, 1)
             liste_sortie.sort((a, b) => (a.nom > b.nom) ? 1 : -1)
         },
-        envoyerEchange() { // Éléments exactes à définir selon Backend
+        envoyerEchange() {
             axios.put('/api/echange/new', {
                 from_id: this.$store.state.user.id,
                 to_id: this.jardinier_id
@@ -246,8 +248,8 @@ export default {
             }
         },
         jardinier_fullname() {
-            if(Object.entries(this.jardinier).length > 0) {
-                return `${this.jardinier.first_name} ${this.jardinier.last_name}`
+            if(Object.entries(this.jardinier_info).length > 0) {
+                return `${this.jardinier_info.first_name} ${this.jardinier_info.last_name}`
             }
         }
     }

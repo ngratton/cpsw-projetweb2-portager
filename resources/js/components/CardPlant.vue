@@ -9,7 +9,7 @@
                 <p class="card-text" style="text-align: right;">Note: {{ plant.note_jard }}</p>
                 <div>
                     <button class="btn btn-block btn-secondary" @click.prevent="voirPlant(plant.id)">Voir le plant</button>
-                    <button class="btn btn-block btn-primary" @click.prevent="lancerEchange(plant.id, plant.user_id)">Offrir un échange</button>
+                    <button class="btn btn-block btn-primary" :disabled="plant.user_id === this.$store.state.user.id" @click.prevent="lancerEchange(plant.id, plant.user_id)">Offrir un échange</button>
                 </div>
             </div>
         </div>
@@ -26,8 +26,12 @@ export default {
             this.$router.push(`plant/${id}`)
         },
         lancerEchange(plant_id, user_id) {
+            if(user_id === this.$store.state.user.id) {
+                alert('Vous ne pouvez pas échanger avec vous même !')
+                return
+            }
             if(this.$store.state.logged_in) {
-                this.$router.push({ name: 'Echange' })
+                this.$router.push({path: '/echange', query: {plant: plant_id, jardinier: user_id}})
             } else {
                 // this.
             }

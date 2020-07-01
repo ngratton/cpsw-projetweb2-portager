@@ -1945,9 +1945,18 @@ __webpack_require__.r(__webpack_exports__);
       this.$router.push("plant/".concat(id));
     },
     lancerEchange: function lancerEchange(plant_id, user_id) {
+      if (user_id === this.$store.state.user.id) {
+        alert('Vous ne pouvez pas échanger avec vous même !');
+        return;
+      }
+
       if (this.$store.state.logged_in) {
         this.$router.push({
-          name: 'Echange'
+          path: '/echange',
+          query: {
+            plant: plant_id,
+            jardinier: user_id
+          }
         });
       } else {// this.
       }
@@ -3219,17 +3228,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['plant_source'],
+  props: ['plant', 'jardinier'],
   data: function data() {
     return {
       mesPlants: [],
       userPlants: [],
       offre: [],
       demande: [],
-      jardinier_id: Math.floor(Math.random() * 9) + 2,
-      // À fixer
-      jardinier: {},
-      profile: {}
+      jardinier_info: {},
+      profile_info: {}
     };
   },
   //data
@@ -3243,7 +3250,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.fetchMesPlants();
     this.fetchUtilisateurPlants();
-    this.fetchDataUtilisateur(); // À fixer
+    this.fetchDataUtilisateur();
   },
   // mounted
   methods: {
@@ -3251,29 +3258,33 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/api/plants-utilisateur/".concat(this.$store.state.user.id)).then(function (data) {
-        // this.mesPlants = _.groupBy(data.data, plant => {
-        //     return plant.nom
-        // });
-        _this.mesPlants = data.data; // console.log(this.mesPlants)
+        _this.mesPlants = data.data;
       });
     },
     fetchUtilisateurPlants: function fetchUtilisateurPlants() {
       var _this2 = this;
 
-      axios.get("/api/plants-utilisateur/".concat(this.jardinier_id)).then(function (resp) {
+      axios.get("/api/plants-utilisateur/".concat(this.jardinier)).then(function (resp) {
         _this2.userPlants = resp.data;
+
+        _this2.autoAjoutPlant();
       });
     },
     fetchDataUtilisateur: function fetchDataUtilisateur() {
       var _this3 = this;
 
-      // Obtenir user_id depuis plant_source
-      axios.get("/api/profile/".concat(this.jardinier_id)).then(function (resp) {
-        _this3.jardinier = resp.data;
+      axios.get("/api/profile/".concat(this.jardinier)).then(function (resp) {
+        _this3.jardinier_info = resp.data;
       });
       axios.get("/api/profile/".concat(this.$store.state.user.id)).then(function (resp) {
-        _this3.profile = resp.data;
+        _this3.profile_info = resp.data;
       });
+    },
+    autoAjoutPlant: function autoAjoutPlant() {
+      if (this.plant) {
+        console.log(this.plant);
+        this.ajoutMesDemandes(this.plant);
+      }
     },
     ajoutMesOffres: function ajoutMesOffres(id) {
       this.bougerItems(id, this.mesPlants, this.offre, 'minus');
@@ -3302,7 +3313,6 @@ __webpack_require__.r(__webpack_exports__);
     envoyerEchange: function envoyerEchange() {
       var _this4 = this;
 
-      // Éléments exactes à définir selon Backend
       axios.put('/api/echange/new', {
         from_id: this.$store.state.user.id,
         to_id: this.jardinier_id
@@ -3340,8 +3350,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     jardinier_fullname: function jardinier_fullname() {
-      if (Object.entries(this.jardinier).length > 0) {
-        return "".concat(this.jardinier.first_name, " ").concat(this.jardinier.last_name);
+      if (Object.entries(this.jardinier_info).length > 0) {
+        return "".concat(this.jardinier_info.first_name, " ").concat(this.jardinier_info.last_name);
       }
     }
   }
@@ -8741,7 +8751,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".headerAccueilLoggedout[data-v-30c0c48c] {\n  color: white;\n  z-index: -5;\n  height: 480px;\n  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0)), url(\"/images/hero/accueil-logged-out.jpg\");\n  background-position: 0% 38%;\n  background-size: cover;\n}\n.headerAccueilLoggedin[data-v-30c0c48c] {\n  color: white;\n  z-index: -5;\n  height: 340px;\n  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0)), url(\"/images/hero/accueil-logged-in.jpg\");\n  background-position: 0% 28%;\n  background-size: cover;\n}", ""]);
+exports.push([module.i, ".headerAccueilLoggedout[data-v-30c0c48c] {\n  color: white;\n  z-index: -5;\n  height: 480px;\n  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0)), url(\"/images/hero/accueil-logged-out.jpg\");\n  background-position: 0% 38%;\n  background-size: cover;\n}\n.headerAccueilLoggedout button[data-v-30c0c48c] {\n  min-width: 175px;\n}\n.headerAccueilLoggedin[data-v-30c0c48c] {\n  color: white;\n  z-index: -5;\n  height: 340px;\n  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0)), url(\"/images/hero/accueil-logged-in.jpg\");\n  background-position: 0% 28%;\n  background-size: cover;\n}", ""]);
 
 // exports
 
@@ -40957,47 +40967,10 @@ if(false) {}
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Recherche.vue?vue&type=style&index=0&lang=scss&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Recherche.vue?vue&type=style&index=0&lang=scss& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./Recherche.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Recherche.vue?vue&type=style&index=0&lang=scss&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/components/Echange/PlantListe.vue?vue&type=style&index=0&lang=scss& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-=======
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Connexion.vue?vue&type=style&index=0&lang=scss& ***!
   \******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
->>>>>>> queries-accueil
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41153,6 +41126,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./InscriptionPotager.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/InscriptionPotager.vue?vue&type=style&index=0&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Recherche.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Recherche.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./Recherche.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Recherche.vue?vue&type=style&index=0&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -41908,6 +41911,9 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-block btn-primary",
+              attrs: {
+                disabled: _vm.plant.user_id === this.$store.state.user.id
+              },
               on: {
                 click: function($event) {
                   $event.preventDefault()
@@ -43666,7 +43672,7 @@ var render = function() {
               _c("div", { staticClass: "d-flex align-items-center" }, [
                 _c("img", {
                   staticClass: "thumb-profil",
-                  attrs: { src: _vm.profile.photo_mini }
+                  attrs: { src: _vm.profile_info.photo_mini }
                 }),
                 _vm._v(" "),
                 _c("h3", { staticClass: "mb-0" }, [_vm._v("Mon potager")])
@@ -43737,11 +43743,11 @@ var render = function() {
               _c("div", { staticClass: "d-flex align-items-center" }, [
                 _c("img", {
                   staticClass: "thumb-profil",
-                  attrs: { src: _vm.jardinier.photo_mini }
+                  attrs: { src: _vm.jardinier_info.photo_mini }
                 }),
                 _vm._v(" "),
                 _c("h3", { staticClass: "mb-0" }, [
-                  _vm._v("Potager de " + _vm._s(_vm.jardinier.first_name))
+                  _vm._v("Potager de " + _vm._s(_vm.jardinier_info.first_name))
                 ])
               ]),
               _vm._v(" "),
@@ -63283,6 +63289,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/echange',
     name: 'Echange',
     component: _views_Echange__WEBPACK_IMPORTED_MODULE_7__["default"],
+    props: function props(route) {
+      return route.query || {};
+    },
     meta: {
       title: 'Proposer un échange | Portager | Cultivez votre sens du partage'
     }
@@ -64247,8 +64256,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\portager\portager\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\portager\portager\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\H20\582-N61-MA PROJET WEB 2\www\portager\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\H20\582-N61-MA PROJET WEB 2\www\portager\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
