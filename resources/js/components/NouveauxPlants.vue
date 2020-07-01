@@ -3,11 +3,11 @@
 <div>
     <div class="row mt-5 mb-3">
             <div class="col">
-                <h3>Nouveaux plants près de chez vous</h3>
+                <h3>Nouveaux plants</h3>
             </div>
         </div>
 
-    <div class="row">
+    <div class="row d-flex flex-wrap">
         <card-plant
             v-for="(plant,index) in plants"
             :key="index"
@@ -15,7 +15,7 @@
         ></card-plant>
 
         <div class="col">
-            <div class="card h-100">
+            <div class="card h-100" style="min-width: 210px;">
                 <router-link tag="div" :to="`/potagers`" class="h-100 d-flex align-items-center justify-content-center">
                     <span>Plus...</span>
                 </router-link>
@@ -41,6 +41,10 @@ export default {
     },
     mounted() {
         this.fetchPotagers()
+
+        setInterval(() => {
+            this.fetchPotagers()
+        }, 15000)
     },
     methods: {
         fetchPotagers() {

@@ -137,7 +137,7 @@ export default {
     .grosseImageInscription {
         height: 100%;
         width: 100%;
-        background-image: url("/images/hero/gardener.jpg");
+        background-image: url("/images/hero/accueil-logged-out.jpg");
         background-repeat: no-repeat;
         background-position: 80%;
         background-size: cover;
