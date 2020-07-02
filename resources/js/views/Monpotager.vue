@@ -13,9 +13,9 @@
         <recherche></recherche>
     </div>
     <div class="container">
-        <un-potager :userID="userID"></un-potager>
+        <un-potager v-if="userID" :userID="userID"></un-potager>
     </div>
-    <pied-page></pied-page>
+        <pied-page></pied-page>
     </div>
 </template>
 
@@ -29,7 +29,7 @@
         name: 'Potager',
         data() {
             return {
-                userID: this.$route.params.userID,
+                userID: null,
             };
 
         },
@@ -44,10 +44,11 @@
             PiedPage,
         },
         mounted() {
-            console.log(this.$route.params)
+            this.userID = this.$store.state.user.id
+            console.log("yyy", this.userID)
         },
         methods: {
-
+           
         },
     }
 </script>

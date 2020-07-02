@@ -1,6 +1,6 @@
 <template lang="fr">
     <div class="col-sm">
-        <div class="card" style="min-width: 210px;">
+        <div class="card" style="min-width: 210px;" v-if="plant">
             <img :src="plant.photo_mini" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{ plant.nom }}</h5>
