@@ -15,10 +15,12 @@
                     <h3>Complétez votre profil de jardinier</h3>
                 </div>
                 <div class="col-2 offset-1" id="plusTard">
-                    <a href="#"><p>Compléter plus tard</p></a>
+                    <a href="/"><p>Compléter plus tard</p></a>
                 </div>
                 <div class="col-2 offset-1" id="suivant">
-                    <button type="submit" class="btn btn-primary">Passez à l'étape suivante</button><br>
+                    <!-- <router-link tag="div" :to="`/inscriptionpotager`" class="h-100 d-flex align-items-center justify-content-center"> -->
+                        <button type="submit" class="btn btn-primary">Passez à l'étape suivante</button><br>
+                    <!-- </router-link> -->
                 </div>
             </div>
         </div>

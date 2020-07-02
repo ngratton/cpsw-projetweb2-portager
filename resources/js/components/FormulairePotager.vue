@@ -16,7 +16,7 @@
                     <h3>Créer votre potager</h3>
                 </div>
                 <div class="col-2 offset-3" id="plusTard">
-                    <a href="#"><p>Compléter plus tard</p></a>
+                    <a href="/"><p>Compléter plus tard</p></a>
                 </div>
                 <div class="col-2 offset-1">
                     <button type="submit" class="btn btn-primary">Passez à l'étape suivante</button><br>
