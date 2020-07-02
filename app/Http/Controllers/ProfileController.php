@@ -35,7 +35,8 @@ class ProfileController extends Controller
         $profile->est_actif = 1;
 
         // Nom de la photo
-        $imageData = $request->get('photo');
+        // $imageData = $request->get('photo');
+        $imageData = $_FILES['photo']['tmp_name'];
 
         /**
          * Store l'image originale
@@ -43,10 +44,15 @@ class ProfileController extends Controller
         $imageOriginale = Image::make($imageData);
         $imgOgPath = 'storage/images/profile/';
         // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
-        $fileNameOriginale = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
-        $imageOriginale->save(public_path($imgOgPath).$fileNameOriginale);
+        // $extension = explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+        $extension = $_FILES['photo']['name'];
+        $extension = explode('.', $extension);
+        $extension = array_slice($extension, -1)[0];
+        $fileNameOriginale = Carbon::now()->timestamp . '_' . uniqid() . '.' . $extension;
+        // $imageOriginale->save(public_path($imgOgPath).$fileNameOriginale);
+        $imageOriginale->save(public_path('images/temp/').$fileNameOriginale);
         // Ajout à la base de données
-        $profile->photo = './'.$imgOgPath . $fileNameOriginale;
+        $profile->photo = '/'.$imgOgPath . $fileNameOriginale;
 
         /**
          * Store une image miniature
@@ -55,10 +61,15 @@ class ProfileController extends Controller
         $imageMiniature = Image::make($imageData)->fit(210, 210, null, 'center');
         $imgMiniPath = 'storage/images/profil/miniatures/';
         // Renomme l'image selon TIMESTAMP et ID UNIQUE + extension
-        $fileNameMiniature = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
-        $imageMiniature->save(public_path($imgMiniPath).$fileNameMiniature);
+        // $fileNameMiniature = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+        $extension = $_FILES['photo']['name'];
+        $extension = explode('.', $extension);
+        $extension = array_slice($extension, -1)[0];
+        $fileNameMiniature = Carbon::now()->timestamp . '_' . uniqid() . '.' . $extension;
+        // $imageMiniature->save(public_path($imgMiniPath).$fileNameMiniature);
+        $imageMiniature->save(public_path('images/temp/').$fileNameMiniature);
         // Ajout à la base de données
-        $profile->photo_mini = './'.$imgMiniPath . $fileNameMiniature;
+        $profile->photo_mini = '/'.$imgMiniPath . $fileNameMiniature;
 
 
         $profile->save();
@@ -155,3 +166,7 @@ class ProfileController extends Controller
         $profile->save();
     }
 }
+
+
+
+

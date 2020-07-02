@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Accueil from './views/Accueil';
-import Potager from './views/Potager';
+import Potager from './views/potager';
+import Monpotager from './views/Monpotager';
 import ProfilUtilisateur from './views/ProfilUtilisateur';
 import Inscription from './views/Inscription'
 import Connexion from './views/Connexion'
@@ -49,11 +50,20 @@ export default new VueRouter({
         },
 
         {
-            path: '/potager',
+            path: '/potager/:userID',
             name: 'Potager',
             component: Potager,
             meta: {
                 title: 'Potager | Portager | Cultivez votre sens du partage',
+            },
+        },
+
+        {
+            path: '/monpotager',
+            name: 'Monpotager',
+            component: Monpotager,
+            meta: {
+                title: 'Mon potager | Portager | Cultivez votre sens du partage',
             },
         },
 
