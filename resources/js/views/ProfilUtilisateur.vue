@@ -77,7 +77,7 @@
                     <h2> {{ username }} </h2>
                     <p>Jardine depuis  {{ jardineDepuis }} </p>
                 </div>                
-                 <div class="etoiles" @mouseover="mouseOver">
+                 <div class="col-3" id="etoiles" @mouseover="mouseOver">
                     <img id="etoile" src="/images/star.png"  v-for="item in etoiles" :key="item.id">
                     <div id="activeCote" v-bind:class="{ active: isActive }">
                   <p>  {{ cote }} sur 5. </p>
@@ -86,7 +86,7 @@
                 
                 <div class="btn-group-vertical">
                     <button type="button" class="btn btn-primary" style="background-color: #9BC53D; color: white; margin-bottom: 20px; border: none;">Évaluer ce jardinier</button>
-                    <button type="button" class="btn btn-secondary" style="background-color: #FFDD00; color: #332E0A; border: none;" v-on:click="toggle(convo)">Contacter  jardinier </button>
+                    <button type="button" class="btn btn-secondary" style="background-color: #FFDD00; color: #332E0A; border: none;" v-on:click="toggle()">Contacter  jardinier </button>
                 </div>
             </div>
         </div>
@@ -155,7 +155,7 @@
             </div>
         </div>
     </div>
-    <messagerie :jardinier="user"></messagerie>
+    <messagerie :jardinierUser="user" v-bind:class="{ convoActive: convoIsActive }"></messagerie>
     </div>
 </template>
 
@@ -168,7 +168,7 @@
             return {  
                 data: 0,
                 user: {},
-                userId: 3, // temporairement, changer le id ici pour changer de profile de jardinier
+                userId: 6, // temporairement, changer le id ici pour changer de profile de jardinier
                 profile: '',
                 username: '',
                 jardineDepuis: '',
@@ -177,9 +177,10 @@
                 miniImg: '',
                 ratings: '',
                 profileId: '',
-                cote: 3.6,
+                cote: 3.6,    // temporairement, changer la cote ici le temps que des cotes soient entrees dans la database
                 etoiles: '',
                 isActive: true,
+                convoIsActive: true,
             };
         
         },
@@ -204,7 +205,7 @@
                     this.tags = this.profile.tags_jardiniers
                     this.miniImg = './' + this.profile.photo_mini  // A revoir
                     this.profileId = this.profile.id
-                    // this.cote = this.profile.note_moy  
+                    // this.cote = this.profile.note_moy   A decommenter lorsque  des notes seront dans la database
                     
                     if (this.cote != null) {
 
@@ -253,6 +254,10 @@
             reverse() {
                 this.isActive = true                
             },
+
+            toggle() {
+                 this.convoIsActive = false
+            },
         },
     }
 </script>
@@ -261,18 +266,22 @@
 
 .etoiles {
     margin-left: 5%;
-    display:flex;
-    flex-direction: row;
-    width: 200px;
-    height: 50px;
+    /* display:flex; */
+    /* flex-direction: row; */
+    /* width: 200px;
+    height: 50px; */
 }
 
 #etoile {
-    height: 20px;
-    width: 20px;
+    max-height: 20px;
+    max-width: 20px;
 }
 
 .active {
+  display: none;
+}
+
+.convoActive {
   display: none;
 }
 

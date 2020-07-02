@@ -9,6 +9,7 @@ import Echange from './views/Echange'
 import EchangeRevue from './views/EchangeRevue'
 import InscriptionJardinier from './views/InscriptionJardinier'
 import InscriptionPotager from './views/InscriptionPotager'
+import Messagerie from './components/Messagerie'
 
 Vue.use(VueRouter);
 
@@ -96,7 +97,6 @@ export default new VueRouter({
                 title: "Résume de l'échange | Portager | Cultivez votre sens du partage",
             },
         },
-
     ],
     mode: 'history',
 });

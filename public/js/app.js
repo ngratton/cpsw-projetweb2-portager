@@ -2215,29 +2215,38 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    props: ['jardinier']
+    jardinierUser: Object
   },
   components: {},
   mounted: function mounted() {
-    this.getData();
+    var _this = this;
+
+    // Remplacer par le watch de jardinierUser
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users").then(function (response) {
+      _this.user = response.data;
+      _this.username = _this.user.first_name;
+      _this.userId = response.data.id;
+
+      _this.getLinkedUsers();
+    });
+  },
+  watch: {
+    jardinierUser: function jardinierUser(new_value) {
+      if (new_value.first_name) {
+        this.getData();
+        this.toggle(new_value);
+      }
+    }
   },
   methods: {
     getData: function getData() {
-      var _this = this;
+      var _this2 = this;
 
-      console.log(this.jardinier); // Selectionne l'utilisateur connecte
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users").then(function (response) {
-        _this.user = response.data;
-        _this.username = _this.user.first_name;
-        _this.userId = response.data.id;
-
-        _this.getLinkedUsers();
-      }); // Selectionne les utilisateurs ayant des messages avec l'utilisateur connecte
-
+      // Selectionne les utilisateurs ayant des messages avec l'utilisateur connecte
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/messages_avec/" + this.userId).then(function (response) {
-        _this.lesUsers = response.data;
-        _this.test = _this.lesUsers.first_name + ' ' + _this.lesUsers.last_name;
+        _this2.lesUsers = response.data;
+
+        _this2.lesUsers.unshift(_this2.jardinierUser);
       });
     },
     // Lorsque l'utilisateur selectionne une conversation
@@ -2246,47 +2255,51 @@ __webpack_require__.r(__webpack_exports__);
       this.toUserName = convo.first_name + ' ' + convo.last_name;
       this.toUserFirstName = convo.first_name;
       this.toUserId = convo.id;
-      console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id);
       this.listeMessages();
     },
     // Lorsque l'utilisateur envoi un message
     envoiMessage: function envoiMessage() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/messages/store", {
         contenu: this.contenu,
         from_id: this.userId,
         to_id: this.toUserId
       }).then(function (response) {
-        _this2.listeMessages();
+        _this3.listeMessages();
       });
       this.contenu = "";
     },
     // Selectionne les messages selon les id des utilisateurs dans la conversation
     listeMessages: function listeMessages() {
-      var _this3 = this;
+      var _this4 = this;
 
+      console.log("/api/messages/" + this.userId + "/" + this.toUserId);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId + "/" + this.toUserId).then(function (response) {
-        _this3.message = response.data;
+        _this4.message = response.data;
 
-        _this3.$nextTick(function () {
-          _this3.scrollToEnd();
+        _this4.$nextTick(function () {
+          _this4.scrollToEnd();
         });
       });
     },
     // Transorme le format de l'heure d'envoi d'un message
     transformerDate: function transformerDate(temps) {
-      return temps.substring(0, 10);
+      // if (temps !== undefined) {
+      // return 'ceci est date'
+      return temps.substring(0, 10); // }     
     },
     transformerHeure: function transformerHeure(temps) {
-      return temps.substring(11, 16);
+      //  if (temps !== undefined) {
+      // return 'ceci est heure'
+      return temps.substring(11, 16); //  }
     },
     // Selectionne les utilisateurs avec qui l'utilisateur connecte a des messages
     getLinkedUsers: function getLinkedUsers() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/messages_avec/" + this.userId).then(function (response) {
-        _this4.lesUsers = response.data;
+        _this5.lesUsers = response.data;
       });
     },
     // Permet d'afficher les conversations a partir du bas (messages plus recents)
@@ -3741,7 +3754,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       data: 0,
       user: {},
-      userId: 3,
+      userId: 6,
       // temporairement, changer le id ici pour changer de profile de jardinier
       profile: '',
       username: '',
@@ -3752,8 +3765,10 @@ __webpack_require__.r(__webpack_exports__);
       ratings: '',
       profileId: '',
       cote: 3.6,
+      // temporairement, changer la cote ici le temps que des cotes soient entrees dans la database
       etoiles: '',
-      isActive: true
+      isActive: true,
+      convoIsActive: true
     };
   },
   props: {},
@@ -3775,7 +3790,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.tags = _this.profile.tags_jardiniers;
         _this.miniImg = './' + _this.profile.photo_mini; // A revoir
 
-        _this.profileId = _this.profile.id; // this.cote = this.profile.note_moy  
+        _this.profileId = _this.profile.id; // this.cote = this.profile.note_moy   A decommenter lorsque  des notes seront dans la database
 
         if (_this.cote != null) {
           if (_this.cote <= 1) {
@@ -3814,6 +3829,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     reverse: function reverse() {
       this.isActive = true;
+    },
+    toggle: function toggle() {
+      this.convoIsActive = false;
     }
   }
 });
@@ -8461,7 +8479,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#messagerie {\r\n  overflow: hidden;\r\n  border: solid yellowgreen 2px;\r\n  max-height: 100000px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\r\n  max-height: 600px;\r\n  overflow-y: scroll;\n}\n#conversation {\r\n  width: 100%;\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  margin-left: auto;\r\n  float: right;\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n#messagerie {\r\n  overflow: hidden;\r\n  border: solid yellowgreen 2px;\r\n  max-height: 100000px;\n}\n#haut-messagerie {\r\n  background-color: rgb(197, 201, 152);\n}\n#conversations {\r\n  width: 100%;\r\n  border-bottom: solid yellowgreen 0.5px;\r\n  padding-top: 5px;\n}\n#liste-conversations{\r\n  background-color: rgb(242, 245, 238);\r\n  width: 100%;\n}\n#conversation-active{\r\n  background-color: rgb(255, 255, 255);\r\n  max-height: 600px;\r\n  overflow-y: scroll;\n}\n#conversation {\r\n  width: 100%;\r\n  background-color: rgb(250, 250, 250);\n}\n#liste-conversations :hover {\r\n  background-color: rgb(227, 243, 208);\n}\n#text-container {\r\n  margin: 0px;\r\n  width: 100%;\n}\n#un-message-from{\r\n  margin-left: auto;\r\n  float: right;\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(194, 235, 129);\r\n  padding: 4px;\r\n  margin-top: 5px;\n}\n#un-message-to {\r\n  color: rgb(10, 6, 6);\r\n  border-radius: 10px;\r\n  background-color: rgb(127, 189, 194);\r\n  padding: 10px;\r\n  margin: 5px;\n}\n.btn-success {\r\n  margin: 5px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -8480,7 +8498,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.etoiles {\r\n    margin-left: 5%;\r\n    display:flex;\r\n    flex-direction: row;\r\n    width: 200px;\r\n    height: 50px;\n}\n#etoile {\r\n    height: 20px;\r\n    width: 20px;\n}\n.active {\r\n  display: none;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.etoiles {\r\n    margin-left: 5%;\r\n    /* display:flex; */\r\n    /* flex-direction: row; */\r\n    /* width: 200px;\r\n    height: 50px; */\n}\n#etoile {\r\n    max-height: 20px;\r\n    max-width: 20px;\n}\n.active {\r\n  display: none;\n}\n.convoActive {\r\n  display: none;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -41592,116 +41610,145 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "row justify-content-between" }, [
-              _c(
-                "div",
-                { attrs: { id: "conversation" } },
-                _vm._l(_vm.message, function(item) {
-                  return _c("div", { key: item.id, staticClass: "message" }, [
-                    _c("div", { staticClass: "col-12 overflow-auto" }, [
-                      item.from_id == _vm.userId
-                        ? _c(
-                            "div",
-                            {
-                              staticClass: "col-4",
-                              attrs: { id: "un-message-from" }
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "row justify-content-between" },
-                                [
-                                  _c("div", { staticClass: "col-6" }, [
+              _vm.userId
+                ? _c(
+                    "div",
+                    { attrs: { id: "conversation" } },
+                    _vm._l(_vm.message, function(item) {
+                      return _c(
+                        "div",
+                        { key: item.id, staticClass: "message" },
+                        [
+                          _c("div", { staticClass: "col-12 overflow-auto" }, [
+                            item.from_id == _vm.userId
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "col-4",
+                                    attrs: { id: "un-message-from" }
+                                  },
+                                  [
                                     _c(
-                                      "p",
-                                      { staticClass: "nom-utilisateur" },
-                                      [_vm._v(_vm._s(_vm.username))]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-6" }, [
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "row justify-content-between"
+                                      },
+                                      [
+                                        _c("div", { staticClass: "col-6" }, [
+                                          _c(
+                                            "p",
+                                            { staticClass: "nom-utilisateur" },
+                                            [_vm._v(_vm._s(_vm.username))]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "col-6" }, [
+                                          _c("p", { staticClass: "date" }, [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.transformerHeure(
+                                                  item.created_at
+                                                )
+                                              )
+                                            )
+                                          ])
+                                        ])
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-auto" }, [
+                                      _c("p", { staticClass: "contenu" }, [
+                                        _vm._v(_vm._s(item.contenu))
+                                      ]),
+                                      _c("br")
+                                    ]),
+                                    _vm._v(" "),
                                     _c("p", { staticClass: "date" }, [
                                       _vm._v(
                                         _vm._s(
-                                          _vm.transformerHeure(item.created_at)
+                                          _vm.transformerDate(item.created_at)
                                         )
                                       )
                                     ])
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-auto" }, [
-                                _c("p", { staticClass: "contenu" }, [
-                                  _vm._v(_vm._s(item.contenu))
-                                ]),
-                                _c("br")
-                              ]),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "date" }, [
-                                _vm._v(
-                                  _vm._s(_vm.transformerDate(item.created_at))
+                                  ]
                                 )
-                              ])
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("br")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-12 overflow-auto" }, [
-                      item.from_id != _vm.userId
-                        ? _c(
-                            "div",
-                            {
-                              staticClass: "col-4",
-                              attrs: { id: "un-message-to" }
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "row justify-content-between" },
-                                [
-                                  _c("div", { staticClass: "col-6" }, [
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("br")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-12 overflow-auto" }, [
+                            item.from_id != _vm.userId
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "col-4",
+                                    attrs: { id: "un-message-to" }
+                                  },
+                                  [
                                     _c(
-                                      "p",
-                                      { staticClass: "nom-utilisateur" },
-                                      [_vm._v(_vm._s(_vm.toUserFirstName))]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-6" }, [
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "row justify-content-between"
+                                      },
+                                      [
+                                        _c("div", { staticClass: "col-6" }, [
+                                          _c(
+                                            "p",
+                                            { staticClass: "nom-utilisateur" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(_vm.toUserFirstName)
+                                              )
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "col-6" }, [
+                                          _vm._v(
+                                            "\n                    " +
+                                              _vm._s(item) +
+                                              " efijefiwjefowiejfjfwoefjowefij\n                    "
+                                          ),
+                                          _c("p", { staticClass: "date" }, [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.transformerHeure(
+                                                  item.created_at
+                                                )
+                                              )
+                                            )
+                                          ])
+                                        ])
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("p", { staticClass: "contenu" }, [
+                                      _vm._v(_vm._s(item.contenu))
+                                    ]),
+                                    _c("br"),
+                                    _vm._v(" "),
                                     _c("p", { staticClass: "date" }, [
                                       _vm._v(
                                         _vm._s(
-                                          _vm.transformerHeure(item.created_at)
+                                          _vm.transformerDate(item.created_at)
                                         )
                                       )
                                     ])
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "contenu" }, [
-                                _vm._v(_vm._s(item.contenu))
-                              ]),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "date" }, [
-                                _vm._v(
-                                  _vm._s(_vm.transformerDate(item.created_at))
+                                  ]
                                 )
-                              ])
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("br")
-                    ])
-                  ])
-                }),
-                0
-              )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("br")
+                          ])
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c(
@@ -44049,7 +44096,11 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "etoiles", on: { mouseover: _vm.mouseOver } },
+                  {
+                    staticClass: "col-3",
+                    attrs: { id: "etoiles" },
+                    on: { mouseover: _vm.mouseOver }
+                  },
                   [
                     _vm._l(_vm.etoiles, function(item) {
                       return _c("img", {
@@ -44098,7 +44149,7 @@ var render = function() {
                       attrs: { type: "button" },
                       on: {
                         click: function($event) {
-                          return _vm.toggle(_vm.convo)
+                          return _vm.toggle()
                         }
                       }
                     },
@@ -44178,7 +44229,10 @@ var render = function() {
       _vm._v(" "),
       _vm._m(9),
       _vm._v(" "),
-      _c("messagerie", { attrs: { jardinier: _vm.user } })
+      _c("messagerie", {
+        class: { convoActive: _vm.convoIsActive },
+        attrs: { jardinierUser: _vm.user }
+      })
     ],
     1
   )
@@ -61782,6 +61836,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_EchangeRevue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/EchangeRevue */ "./resources/js/views/EchangeRevue.vue");
 /* harmony import */ var _views_InscriptionJardinier__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/InscriptionJardinier */ "./resources/js/views/InscriptionJardinier.vue");
 /* harmony import */ var _views_InscriptionPotager__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./views/InscriptionPotager */ "./resources/js/views/InscriptionPotager.vue");
+/* harmony import */ var _components_Messagerie__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Messagerie */ "./resources/js/components/Messagerie.vue");
+
 
 
 
