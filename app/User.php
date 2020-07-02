@@ -45,4 +45,16 @@ class User extends Authenticatable
     public function ratingProfiles() {
         return $this->hasMany('App\RatingProfile');
     }
+
+    public function profile() {
+        return $this->hasOne('App\Profile');
+    }
+
+    public function potager() {
+        return $this->hasOne('App\Potager');
+    }
+
+    public function plants() {
+        return $this->hasMany('App\Plant');
+    }
 }

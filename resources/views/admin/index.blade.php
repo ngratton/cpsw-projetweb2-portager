@@ -47,7 +47,7 @@
             <div class="dashboard-cluster">
                 <h5>Visites</h5>
                 <div class="flex flex-column align-items-center">
-                    <span>Total</span>
+                    <span>Total (hits)</span>
                     <span class="lg-num">{{ $page_populaire }}</span>
                 </div>
             </div>
