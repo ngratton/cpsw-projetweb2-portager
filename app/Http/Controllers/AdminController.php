@@ -6,6 +6,7 @@ use App\User;
 use App\Plant;
 use App\Visite;
 use App\Echange;
+use App\Potager;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -18,10 +19,12 @@ class AdminController extends Controller
         $total_plants = Plant::all()->count();
         $total_plants = is_null($total_plants) ? 0 : $total_plants;
 
-        $total_echanges = Echange::all()->count() || 0;
+        $total_echanges = Echange::all()->count();
         $total_echanges = is_null($total_echanges) ? 0 : $total_echanges;
 
         $page_populaire = Visite::all()->count();
+
+        $users_wk = User::all();
 
         return view('admin.index', [
             'total_users' => $total_users,
@@ -40,11 +43,23 @@ class AdminController extends Controller
 
     public function userShow($userId)
     {
-        return view('admin.user', ['titre' => 'userShow']);
+        $user = User::find($userId);
+        $user_profile = User::find($userId)->profile;
+        $user_potager = User::find($userId)->potager;
+        $user_plants = User::find($userId)->plants;
+
+        return view('admin.user', [
+            'user' => $user,
+            'profile' => $user_profile,
+            'potager' => $user_potager,
+            'plants' => $user_plants,
+        ]);
     }
 
     public function potagersIndex()
     {
+        $potagers = Potager::all();
+
         return view('admin.index', ['titre' => 'potagersIndex']);
     }
 

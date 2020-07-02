@@ -21,4 +21,13 @@ class Plant extends Model
         'potager_id',
         'user_id',
     ];
+
+
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
+
+    public function type() {
+        return $this->hasOne('App\Type');
+    }
 }

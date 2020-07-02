@@ -1,14 +1,14 @@
 @extends('admin.master')
 
 @section('title')
-    Tous les utilisateurs | Administation | Portager
+    Tous les potagers | Administation | Portager
 @endsection
 
 @section('content')
 
     <div class="row mt-5 mb-3">
         <div class="col">
-        <h2>Tous les utilisateurs</h2>
+        <h2>Tous les potagers</h2>
         </div>
     </div>
 
@@ -20,20 +20,16 @@
             <th scope="col">Nom</th>
             <th scope="col">Courriel</th>
             <th scope="col">Rôle</th>
-            <th scope="col">Inscription</th>
+            <th scope="col">Création</th>
             <th scope="col">Statut</th>
-            <th scope="col">Liens Portager</th>
+            <th scope="col">Profil</th>
           </tr>
         </thead>
         <tbody>
 
             @foreach ($users as $user)
                 <tr>
-                    <th scope="row">
-                        <a href="/administration/utilisateur/{{ $user->id }}">
-                            {{ $user->id }}
-                        </a>
-                    </th>
+                    <th scope="row">{{ $user->id }}</th>
                     <td>{{ $user->first_name }}</td>
                     <td>{{ $user->last_name }}</td>
                     <td>{{ $user->email }}</td>
