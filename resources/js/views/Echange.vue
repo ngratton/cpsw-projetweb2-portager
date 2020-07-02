@@ -10,7 +10,9 @@
         </div>
 
         <div class="container-fluid">
+
             <recherche></recherche>
+
         </div>
 
         <div class="container" id="conteneur-echange">
@@ -42,25 +44,6 @@
                         <div v-if="mesPlants.length == 0" class="d-flex align-items-center justify-content-center position-absolute echange-bloc-vide">
                             <span class="text-muted"><small>Wo wo Max !</small></span>
                         </div>
-
-                        <!-- <details v-for="(plants, index) in mesPlants" open>
-                            <summary class=" type-plants-sepatateur ml-0 mr-0 mb-2 mt-3">
-                                <div class="row m-0">
-                                    <div class="col-10 pl-0 type-nom">
-                                        <span>{{ index }}</span>
-                                    </div>
-                                    <div class="col-2 d-flex justify-content-end align-items-center">
-                                        <span>{{ plants.length }}</span>
-                                    </div>
-                                </div>
-                            </summary>
-                            <plant-liste
-                                v-for="(plant, index) in plants"
-                                :plant="plant"
-                                :key="index"
-                                @clicked="ajoutMesOffres"
-                            ></plant-liste>
-                        </details> -->
 
                         <plant-liste
                             v-for="(plant, index) in mesPlants"
@@ -98,15 +81,6 @@
                         <div v-if="userPlants.length == 0" class="d-flex align-items-center justify-content-center position-absolute echange-bloc-vide">
                             <span class="text-muted"><small>Wo wo Max !</small></span>
                         </div>
-
-                        <!-- <div class="row type-plants-sepatateur ml-0 mr-0 mb-2 mt-2">
-                            <div class="col-10 pl-0 type-nom">
-                                <span>Tomates</span>
-                            </div>
-                            <div class="col-2 d-flex justify-content-end align-items-center">
-                                <span>#</span>
-                            </div>
-                        </div> -->
 
                         <plant-liste
                             v-for="(plant, index) in userPlants"
@@ -187,7 +161,6 @@ export default {
         },
         autoAjoutPlant() {
             if(this.plant) {
-                console.log(this.plant)
                 this.ajoutMesDemandes(this.plant)
             }
         },
@@ -260,15 +233,6 @@ export default {
 <style lang="scss" scoped>
     #conteneur-echange {
         margin: 50px auto;
-    }
-
-    .conteneur-contenu {
-        background: white;
-        padding: 20px;
-        border-radius: 16px;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-        margin: 30px 0;
-        position: relative;
     }
 
     .thumb-profil {

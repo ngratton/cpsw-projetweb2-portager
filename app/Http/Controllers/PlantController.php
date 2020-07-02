@@ -76,7 +76,14 @@ class PlantController extends Controller
      */
     public function show(Plant $plant, $plantId)
     {
-        return Plant::find($plantId);
+        $plant = (object) Plant::select('plants.*', 'types.*', 'profiles.note_moy AS note_user', 'users.first_name', 'users.last_name')
+            ->where('plants.id', $plantId)
+            ->join('types', 'plants.type_id', '=', 'types.id')
+            ->join('profiles', 'plants.user_id', '=', 'profiles.id')
+            ->join('users', 'plants.user_id', '=', 'users.id')
+            ->first();
+
+        return $plant;
     }
 
     /**

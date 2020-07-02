@@ -50,6 +50,10 @@ export default {
         button {
             min-width: 175px;
         }
+
+        h1 {
+            color: white;
+        }
     }
 
     .headerAccueilLoggedin {
@@ -59,5 +63,9 @@ export default {
         background-image: linear-gradient(to right, rgba(0,0,0, 0.8), rgba(255,255,255, 0)), url('/images/hero/accueil-logged-in.jpg');
         background-position: 0% 28%;
         background-size: cover;
+
+        h1 {
+            color: white;
+        }
     }
 </style>

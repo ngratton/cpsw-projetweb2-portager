@@ -28,6 +28,6 @@ class Plant extends Model
     }
 
     public function type() {
-        return $this->hasOne('App\Type');
+        return $this->belongsTo('App\Type');
     }
 }

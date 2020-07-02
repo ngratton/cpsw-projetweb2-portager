@@ -11,6 +11,7 @@ import InscriptionJardinier from './views/InscriptionJardinier'
 import InscriptionPotager from './views/InscriptionPotager'
 import Recherche from './views/Recherche'
 import PageNotFound from './views/PageNotFound'
+import Plant from './views/Plant'
 
 Vue.use(VueRouter);
 
@@ -102,6 +103,15 @@ export default new VueRouter({
             component: EchangeRevue,
             meta: {
                 title: "Résume de l'échange | Portager | Cultivez votre sens du partage",
+            },
+        },
+
+        {
+            path: '/plant/:plant_id',
+            name: 'Plant',
+            component: Plant,
+            meta: {
+                title: "Plant | Portager | Cultivez votre sens du partage",
             },
         },
 
