@@ -98,10 +98,11 @@
                     }
                 }
                 formData.append('photo', photo);
+                formData.append('photo_mini', photo);
                 formData.append('jardine_depuis', this.jardine_depuis);
                 formData.append('bio', this.bio);
                 formData.append('tags_jardiniers', this.tags_jardiniers);
-                axios.post('/api/profile/new/1', formData, options).then((data) => {
+                axios.post('/api/profile/new/100', formData, options).then((data) => {
                     this.mettreAJour();
                 }).catch(() => {
                     console.log('FAILURE!!');
@@ -120,7 +121,6 @@
                 } else {
                     this.tags_jardiniers.pop(e.target.innerHTML)
                 }
-            console.log(this.tags_jardiniers)
             },
         }, //end method
     }
