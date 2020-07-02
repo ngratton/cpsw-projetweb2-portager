@@ -1,34 +1,111 @@
 <template>
 
 <div>
-    <FormulairePotager></FormulairePotager>
+    <div class="container-fluid" id="colHeaderProfil">
+            <div class="col-2">
+                <img id="logo" src="/images/portager_noir.svg">
+            </div>
+            <div class="col-6 offset-3">
+                <img id="barreProgression" src="/images/BarreProfilPotager.PNG">
+            </div>
+    </div>
+    <div class="container-fluid" id="profilPotager">
+        <div class="container-fluid" id="profilTitre">
+            <div class="row align-items-center" id="profilPotagerTitre">
+                <div class="col-3">
+                    <h3>Créer votre potager</h3>
+                </div>
+                <div class="col-2 offset-3" id="plusTard">
+                    <a href="#"><p>Compléter plus tard</p></a>
+                </div>
+                <div class="col-2 offset-1">
+                    <button type="button" class="btn btn-primary">Passez à l'étape suivante</button><br>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="creationPotager">
+            <div class="col-4">
+                <form>
+                    <div class="form-row">
+                        <div class="col">
+                            <h6>Indiquez-nous où se trouve votre potager</h6><br>
+                            <label for="adresse">Adresse</label>
+                            <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp"><br>
+                            <input type="text" class="form-control" id="adresse" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col mt-4">
+                            <label for="ville">Ville</label>
+                            <input type="text" class="form-control" id="ville" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="form-row" id="pays">
+                        <div class="col-md-5 mt-4">
+                            <label for="province">Province</label>
+                            <input type="text" class="form-control" id="province" aria-describedby="emailHelp">
+                        </div>
+                        <div class="col-md-5 mt-4">
+                            <label for="pays">Pays</label>
+                            <input type="text" class="form-control" id="pays" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="form-row" id="trouver">
+                        <div class="col-md-5 mt-4">
+                            <label for="codePostal">Code postal</label>
+                            <input type="text" class="form-control" id="codePostal" aria-describedby="emailHelp" style="width: 160px;">
+                        </div>
+                        <div class="col-md-5 mt-4">
+                            <span class="btn btn-primary btn-file mt-4">
+                                Trouver<input type="file">
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-3 ml-5" id="profilPotagerImages">
+                <h6>Ajouter des photos de votre potager</h6>
+                <p style="font-size:12px;">Téléverser jusqu'à {{ X }} photos; au moins une est requise.</p>
+                <img src="/images/potager_pardefault_100px.png">
+                <img src="/images/potager_pardefault_100px.png">
+                <img src="/images/potager_pardefault_100px.png">
+                <img src="/images/potager_pardefault_100px.png">
+                <img src="/images/potager_pardefault_100px.png">
+                <img src="/images/potager_pardefault_100px.png">
+                <span class="btn btn-primary btn-file mr-4 mt-3">
+                    Téléverser une photo<input type="file">
+                </span>
+            </div>
+            <div class="col-3 offset-1" id="etiquettesPotager">
+                <h6 class="ml-5">Quel type de potager est-ce ?</h6>
+                <p class="ml-5">Cochez tous ceux qui s'appliquent.</p>
+                <table width="100%" id="etiquetteProfilJardinier">
+                    <tr>
+                    <td>
+                    <ul>
+                        <li>Biologique</li>
+                        <li>Intérieur</li>
+                        <li>En pot</li>
+                        <li>Communautaire</li>
+                        <li>En terre</li>
+                    </ul>
+                    </td>
+                        <td><ul>
+                        <li>Conventionel</li>
+                        <li>En serre</li>
+                        <li>En bacs</li>
+                        <li>Urbain</li>
+                        <li>Monoculture</li>
+                    </ul>
+                    </td>
+                    </tr>
+                </table>
+            </div>
+         </div>
+    </div>
 </div>
 
 </template>
-
-<script>
-    import FormulairePotager from '../components/FormulairePotager';
-    export default {
-        name: 'InscriptionPotager', 
-        data() {
-            return {  
-                data: 0,
-            };
-        },
-        props: {
-
-        },
-        components: {
-            FormulairePotager
-        },
-        mounted() {
-
-        },
-        methods: {
-
-        },
-    }
-</script>
 
 
 <style lang="scss">
@@ -194,10 +271,6 @@ nav {
 }
 
 #etiquetteProfilJardinier li:hover {
-    background-color: #9FCC3B;
-}
-
-#etiquetteProfilJardinier li.selected {
     background-color: #9FCC3B;
 }
 

@@ -25,7 +25,7 @@
 
         },
         methods: {
-
+            
         },
     }
 </script>
@@ -196,7 +196,7 @@ nav {
 }
 
 #etiquetteProfilJardinier li.selected {
-    background-color: #9FCC3B;
+    background-color: #9FCC3B; 
 }
 
 #profilPotager {
