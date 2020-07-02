@@ -1,7 +1,7 @@
 <template>
-  
+
     <div>
-       <div class="container-fluid" id="footer"> <!-- footer -->
+       <div class="container-fluid mt-5" id="footer"> <!-- footer -->
         <div class="container">
             <div class="row">
                 <div class="col offset-9">
@@ -16,12 +16,12 @@
 
 <script>
     export default {
-        name: 'PiedPage', 
+        name: 'PiedPage',
         data() {
-            return {  
+            return {
                 data: 0,
             };
-        
+
         },
         props: {
 

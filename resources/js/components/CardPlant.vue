@@ -5,8 +5,8 @@
             <div class="card-body">
                 <h5 class="card-title">{{ plant.nom }}</h5>
                 <p class="card-text">{{ plant.city }}</p>
-                <p class="card-text" style="text-align: right;">{{ full_name }}</p>
-                <p class="card-text" style="text-align: right;">Note: {{ plant.note_jard }}</p>
+                <p v-if="plant.first_name" class="card-text" style="text-align: right;">{{ full_name }}</p>
+                <p v-if="plant.note_jard" class="card-text" style="text-align: right;">Note: {{ plant.note_jard }}</p>
                 <div>
                     <button class="btn btn-block btn-secondary" @click.prevent="voirPlant(plant.id)">Voir le plant</button>
                     <button class="btn btn-block btn-primary" :disabled="plant.user_id === my_id" @click.prevent="lancerEchange(plant.id, plant.user_id)">Offrir un échange</button>
@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         voirPlant(id) {
-            this.$router.push(`plant/${id}`)
+            this.$router.push(`/plant/${id}`)
         },
         lancerEchange(plant_id, user_id) {
             if(user_id === this.my_id) {
