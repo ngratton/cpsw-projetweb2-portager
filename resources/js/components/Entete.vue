@@ -15,7 +15,7 @@
                             <a class="nav-link" href="#">Plants</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Carte des potagers</a>
+                            <a class="nav-link" href="/carte">Carte des potagers</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://boutique.portager.app">Boutique</a>

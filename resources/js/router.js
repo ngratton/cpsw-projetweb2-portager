@@ -13,6 +13,8 @@ import InscriptionPotager from './views/InscriptionPotager'
 import Recherche from './views/Recherche'
 import PageNotFound from './views/PageNotFound'
 import Plant from './views/Plant'
+import Carte from './views/Carte'
+import Categories from './views/Categories'
 
 Vue.use(VueRouter);
 
@@ -140,6 +142,24 @@ export default new VueRouter({
             component: PageNotFound,
             meta: {
                 title: "Oops... Erreur 404 | Portager | Cultivez votre sens du partage",
+            }
+        },
+
+        {
+            path: '/carte',
+            name: 'Carte',
+            component: Carte,
+            meta: {
+                title: "Carte des potagers | Portager | Cultivez votre sens du partage",
+            },
+        },
+
+        {
+            path: '/categories',
+            name: 'Categories',
+            component: Categories,
+            meta: {
+                title: "Filtre par catégories | Portager | Cultivez votre sens du partage",
             },
         },
 
