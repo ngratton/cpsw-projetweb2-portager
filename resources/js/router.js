@@ -8,11 +8,13 @@ import Inscription from './views/Inscription'
 import Connexion from './views/Connexion'
 import Echange from './views/Echange'
 import EchangeRevue from './views/EchangeRevue'
-import InscriptionJardinier from './views/InscriptionJardinier'
-import InscriptionPotager from './views/InscriptionPotager'
+import Inscriptionjardinier from './views/Inscriptionjardinier'
+import Inscriptionpotager from './views/Inscriptionpotager'
 import Recherche from './views/Recherche'
 import PageNotFound from './views/PageNotFound'
 import Plant from './views/Plant'
+import Carte from './views/Carte'
+import Categories from './views/Categories'
 
 Vue.use(VueRouter);
 
@@ -60,7 +62,7 @@ export default new VueRouter({
         },
 
         {
-            path: '/monpotager',
+            path: '/mon-potager',
             name: 'Monpotager',
             component: Monpotager,
             meta: {
@@ -78,18 +80,18 @@ export default new VueRouter({
         },
 
         {
-            path: '/inscriptionjardinier',
+            path: '/inscription/creation-profil/:id',
             name: 'InscriptionJardinier',
-            component: InscriptionJardinier,
+            component: Inscriptionjardinier,
             meta: {
                 title: 'Profil | Portager | Cultivez votre sens du partage',
             },
         },
 
         {
-            path: '/inscriptionpotager',
+            path: '/inscription/creation-potager/:id',
             name: 'InscriptionPotager',
-            component: InscriptionPotager,
+            component: Inscriptionpotager,
             meta: {
                 title: 'Profil | Portager | Cultivez votre sens du partage',
             },
@@ -140,6 +142,24 @@ export default new VueRouter({
             component: PageNotFound,
             meta: {
                 title: "Oops... Erreur 404 | Portager | Cultivez votre sens du partage",
+            }
+        },
+
+        {
+            path: '/carte',
+            name: 'Carte',
+            component: Carte,
+            meta: {
+                title: "Carte des potagers | Portager | Cultivez votre sens du partage",
+            },
+        },
+
+        {
+            path: '/categories',
+            name: 'Categories',
+            component: Categories,
+            meta: {
+                title: "Filtre par catégories | Portager | Cultivez votre sens du partage",
             },
         },
 

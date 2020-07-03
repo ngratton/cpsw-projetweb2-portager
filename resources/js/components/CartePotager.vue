@@ -26,7 +26,6 @@
             return {
                 data: 0,
             };
-
         },
         props: [
             'potager',

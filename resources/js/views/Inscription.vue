@@ -84,6 +84,7 @@ export default {
                 password: '',
             },
             errors: [],
+            created_id: null,
         }
     }, // data
 
@@ -94,12 +95,16 @@ export default {
     methods: {
         inscription() {
             User.inscription(this.form) // Envoi du formulaire d'inscription au backend
-                .then(()  => {
+                .then(resp  => {
                     User.connexion({    // Connexion automatique s'il n'y a pas d'erreur
                         email: this.email,
                         password: this.password,
-                    }).then(() => {
-                        this.$router.push({name: 'Accueil'}) // Redirection temp. Sera dirigé vers "Création du Profil"
+                    }).then(resp => {
+                        axios.get('api/user').then(user => {
+                            this.$store.dispatch('logout')
+                            this.$store.dispatch('login', user.data)
+                            this.$router.push(`/inscription/creation-profil/${user.data.id}`) // Redirection temp. Sera dirigé vers "Création du Profil"
+                        })
                     })
                 })
                 .catch(error => { // Affiche les erreurs dans le formulaire
@@ -154,7 +159,7 @@ export default {
             width: 100%;
 
             input {
-                width: 100%;
+                width: 90%;
 
                 &:focus {
                     border: 1px solid #9FCC3B;

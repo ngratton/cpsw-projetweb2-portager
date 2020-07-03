@@ -1,5 +1,5 @@
 <template>
-<form action="/api/potager/new/" @submit.prevent="envoiPotager" enctype="multipart/form-data">
+<form enctype="multipart/form-data">
 <div>
     <div class="container-fluid" id="colHeaderProfil">
             <div class="col-2">
@@ -19,7 +19,7 @@
                     <a href="/"><p>Compléter plus tard</p></a>
                 </div>
                 <div class="col-2 offset-1">
-                    <button type="submit" class="btn btn-primary">Passez à l'étape suivante</button><br>
+                    <button type="submit" class="btn btn-primary" @click.prevent="envoiPotager">Passez à l'étape suivante</button>
                 </div>
             </div>
         </div>
@@ -55,28 +55,17 @@
                             <label for="codePostal">Code postal</label>
                             <input type="text" class="form-control" id="postal_code" name="postal_code" v-model="postal_code" aria-describedby="emailHelp" style="width: 160px;">
                         </div>
-                        <div class="col-md-5 mt-4">
-                            <span class="btn btn-primary btn-file mt-4">
-                                Trouver<input type="file">
-                            </span>
-                        </div>
                     </div>
                 </form>
             </div>
-            <div class="col-3 ml-5" id="profilPotagerImages">
-                <h6>Ajouter des photos de votre potager</h6>
-                <p style="font-size:12px;">Téléverser jusqu'à {{ X }} photos; au moins une est requise.</p>
-                <img src="/images/potager_pardefault_100px.png">
-                <img src="/images/potager_pardefault_100px.png">
-                <img src="/images/potager_pardefault_100px.png">
-                <img src="/images/potager_pardefault_100px.png">
-                <img src="/images/potager_pardefault_100px.png">
-                <img src="/images/potager_pardefault_100px.png">
+            <div class="col-4" id="profilPotagerImages">
+                <h6>Ajouter une photo de votre potager</h6>
+                <img :src="photo_show" id="miniature_uploaded_photo_potager">
                 <span class="btn btn-primary btn-file mr-4 mt-3">
                     Téléverser une photo<input type="file" id="photo_path" name="photo_path" ref="file" v-on:change="handleFileUpload()">
                 </span>
             </div>
-            <div class="col-3 offset-1" id="etiquettesPotager">
+            <div class="col-4" id="etiquettesPotager">
                 <h6 class="ml-5">Quel type de potager est-ce ?</h6>
                 <p class="ml-5">Cochez tous ceux qui s'appliquent.</p>
                 <table width="100%" id="etiquetteProfilJardinier">
@@ -103,7 +92,7 @@
 <script>
     import Axios from "axios";
     export default {
-        name: 'FormulairePotager', 
+        name: 'FormulairePotager',
         data() {
             return {
                 address_1: '',
@@ -112,26 +101,22 @@
                 prov: '',
                 country: '',
                 postal_code: '',
-                photo_path: null,
+                photos_path: null,
                 tags_potagers: [],
                 etiquettes1:["Biologique","Intérieur","En pot","Communautaire","En terre"],
                 etiquettes2:["Conventionel","En serre","En bacs","Urbain","Monoculture"],
                 selected: false,
-                X: 6,
+                photo_show: '/images/potager_pardefault_100px.png',
             }
         }, //end data
-        props: {
-
-        },
-        components: {
-
-        },
+        props: [
+            'user_id',
+        ],
         mounted() {
-            let file = document.querySelector('#photo')
+            //
         },
         methods: {
             envoiPotager() {
-                var photo = this.$refs.file.files[0]
                 let formData = new FormData();
                 const options = {
                     headers: {
@@ -144,17 +129,29 @@
                 formData.append('prov', this.prov);
                 formData.append('country', this.country);
                 formData.append('postal_code', this.postal_code);
-                formData.append('photo_path', photo_path);
+                formData.append('photo_path', this.photos_path);
                 formData.append('tags_potagers', this.tags_potagers);
-                axios.post('/api/potager/new/', formData, options).then((data) => {
-                    this.mettreAJour();
-                }).catch(() => {
-                    console.log('FAILURE!!');
-                });
+
+                axios.post(`/api/potager/new/${this.user_id}`, formData, options)
+                    .then((data) => {
+                        this.$router.push(`/mon-profile`)
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             },
 
             handleFileUpload(){
-                this.file = this.$refs.file.files[0];
+                this.photos_path = this.$refs.file.files[0];
+                this.createImage(this.photos_path)
+            },
+
+            createImage(img) {
+                let reader = new FileReader();
+                reader.addEventListener('load', (e) => {
+                    this.photo_show = e.target.result;
+                });
+                reader.readAsDataURL(img);
             },
 
             toggleClass(e) {
@@ -165,8 +162,17 @@
                 } else {
                     this.tags_potagers.pop(e.target.innerHTML)
                 }
-            console.log(this.tags_potagers)
             },
         }, //end method
     }
 </script>
+
+<style lang="scss" scoped>
+    #miniature_uploaded_photo_potager {
+        width: 210px;
+        max-width: 210px;
+        height: auto;
+        border: 1px solid #9FCC3B;
+        border-radius: 16px;
+    }
+</style>

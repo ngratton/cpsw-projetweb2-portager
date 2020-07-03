@@ -145,7 +145,7 @@
         width: 100%;
 
         input {
-            width: 100%;
+            width: 90%;
 
             &:focus {
                 border: 1px solid #9FCC3B;
