@@ -27,7 +27,7 @@
 
                             <h5 class="mt-4">Jardinier</h5>
                             <span>
-                                <router-link :to="`/profile/${plant.user_id}`">
+                                <router-link :to="`/profil/${plant.user_id}`">
                                     {{ full_name }}
                                 </router-link>
                             </span>

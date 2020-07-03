@@ -71,7 +71,7 @@ export default new VueRouter({
         },
 
         {
-            path: '/profil',
+            path: '/profil/:id',
             name: 'ProfilUtilisateur',
             component: ProfilUtilisateur,
             meta: {

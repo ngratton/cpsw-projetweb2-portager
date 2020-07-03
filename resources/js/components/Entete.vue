@@ -30,6 +30,7 @@
                             <img src="/images/user.svg" alt="user" id="profile-dropdown">
                         </button>
                         <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="dropdownMenuButton">
+                            <router-link to="/mon-profil" class="dropdown-item">Mon profil</router-link>
                             <router-link to="/mon-potager" class="dropdown-item">Mon potager</router-link>
                             <router-link to="/mes-echanges" class="dropdown-item">Mes échanges</router-link>
                             <div class="dropdown-divider"></div>

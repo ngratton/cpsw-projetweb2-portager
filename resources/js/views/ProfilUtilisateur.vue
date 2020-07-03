@@ -38,7 +38,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <div class="form-check form-check-inline">
-                                <p>Rechercher par            
+                                <p>Rechercher par
                                     <input class="form-check-input" type="radio" id="inlineCheckbox1" value="option1">
                                     <label class="form-check-label" for="inlineCheckbox1">Plants</label>
                                     <input class="form-check-input" type="radio" id="inlineCheckbox2" value="option2">
@@ -76,14 +76,14 @@
                 <div>
                     <h2> {{ username }} </h2>
                     <p>Jardine depuis  {{ jardineDepuis }} </p>
-                </div>                
+                </div>
                  <div class="etoiles" @mouseover="mouseOver">
                     <img id="etoile" src="/images/star.png"  v-for="item in etoiles" :key="item.id">
                     <div id="activeCote" v-bind:class="{ active: isActive }">
                   <p>  {{ cote }} sur 5. </p>
                 </div>
                 </div>
-                
+
                 <div class="btn-group-vertical">
                     <button type="button" class="btn btn-primary" style="background-color: #9BC53D; color: white; margin-bottom: 20px; border: none;">Évaluer ce jardinier</button>
                     <button type="button" class="btn btn-secondary" style="background-color: #FFDD00; color: #332E0A; border: none;">Contacter  jardinier </button>
@@ -98,7 +98,7 @@
             <div class="col-2 offset-1" id="etiquettes">
                 <h3>Étiquettes</h3>
                 <ul v-for="item in tags" :key="item.id">
-                    <li>{{ item }}</li>                 
+                    <li>{{ item }}</li>
                 </ul>
             </div>
         </div>
@@ -134,7 +134,7 @@
             </div>
         </div>
         <div class="row">
-             <div class="col" id="evaluations" v-for="item in ratings" :key="item.id"> 
+             <div class="col" id="evaluations" v-for="item in ratings" :key="item.id">
                 <p> {{ item.user.first_name  }} {{ item.user.last_name }}</p>
                 <hr>
                 <p>{{ item.comment }}</p>
@@ -161,9 +161,9 @@
 <script>
     import Axios from "axios";
     export default {
-        name: 'ProfilUtilisateur', 
+        name: 'ProfilUtilisateur',
         data() {
-            return {  
+            return {
                 data: 0,
                 user: '',
                 userId: 3, // temporairement, changer le id ici pour changer de profile de jardinier
@@ -179,7 +179,7 @@
                 etoiles: '',
                 isActive: true,
             };
-        
+
         },
         props: {
 
@@ -188,6 +188,7 @@
 
         },
         mounted() {
+            this.userId = this.$route.params.id
             this.getData()
         },
         methods: {
@@ -202,8 +203,8 @@
                     this.tags = this.profile.tags_jardiniers
                     this.miniImg = './' + this.profile.photo_mini  // A revoir
                     this.profileId = this.profile.id
-                    // this.cote = this.profile.note_moy  
-                    
+                    // this.cote = this.profile.note_moy
+
                     if (this.cote != null) {
 
                         if (this.cote <= 1) {
@@ -228,28 +229,28 @@
                  Axios.get("/api/users/" + this.userId).then(response => {
                     this.user = response.data[0]
                     this.username = this.user.first_name + ' ' + this.user.last_name
-                });             
-            },     
-            
+                });
+            },
+
              // Get les ratings du profile selon le id
 
             getComments() {
                 Axios.get("/api/evaluation/profile/" + this.profileId).then(response => {
-                    this.ratings = response.data                      
+                    this.ratings = response.data
                 });
-            },  
-         
+            },
+
         //  Lorsque le curseur passe sur les etoiles
-        
+
             mouseOver() {
-               
+
                  this.isActive = false
 
-                setTimeout(this.reverse, 3000) 
+                setTimeout(this.reverse, 3000)
             },
 
             reverse() {
-                this.isActive = true                
+                this.isActive = true
             },
         },
     }

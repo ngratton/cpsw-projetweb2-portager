@@ -4,8 +4,8 @@
             <div class="container" id="search"> <!-- recherche -->
                 <div class="row align-items-center">
                     <form action="/recherche" class="col" method="get">
-                        <div class="form-group form-check-inline">
-                            <input class="form-control form-control-lg" type="text" placeholder="Recherche...1">
+                        <div class="form-group form-check-inline recheche-box">
+                            <input class="form-control form-control-lg" type="text" placeholder="Recherche...">
                             <button type="submit" class="btn btn-secondary">Chercher</button>
                         </div>
                         <div class="row align-items-center">
@@ -51,3 +51,9 @@
         },
     }
 </script>
+
+<style lang="scss">
+    .recheche-box {
+        width: 80%;
+    }
+</style>
