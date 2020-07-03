@@ -119,9 +119,9 @@
           // Selectionne les utilisateurs ayant des messages avec l'utilisateur connecte
             Axios.get("/api/users/messages_avec/" + this.userId).then(response => {
               this.lesUsers = response.data
-              this.lesUsers.unshift(this.jardinierUser)   
-            });     
-            
+              console.log(this.lesUsers)
+              // this.lesUsers.Object.unshift(this.jardinierUser)   Possiblement a retirer
+            });               
           },
 
           // Lorsque l'utilisateur selectionne une conversation
@@ -151,7 +151,6 @@
             
             // Selectionne les messages selon les id des utilisateurs dans la conversation
             listeMessages() {
-              console.log("/api/messages/" + this.userId + "/" + this.toUserId)
                Axios.get("/api/messages/" + this.userId + "/" + this.toUserId).then(response => {              
                    this.message = response.data
                    this.$nextTick(() => {
@@ -162,19 +161,11 @@
 
             // Transorme le format de l'heure d'envoi d'un message
             transformerDate(temps) {
-              // if (temps !== undefined) {
-                // return 'ceci est date'
                 return temps.substring(0,10)
-              // }     
-              
             },
 
              transformerHeure(temps) {
-              //  if (temps !== undefined) {
-                // return 'ceci est heure'
                  return temps.substring(11,16)
-              //  }
-              
             },
 
             // Selectionne les utilisateurs avec qui l'utilisateur connecte a des messages

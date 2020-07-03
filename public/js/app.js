@@ -2245,8 +2245,7 @@ __webpack_require__.r(__webpack_exports__);
       // Selectionne les utilisateurs ayant des messages avec l'utilisateur connecte
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/messages_avec/" + this.userId).then(function (response) {
         _this2.lesUsers = response.data;
-
-        _this2.lesUsers.unshift(_this2.jardinierUser);
+        console.log(_this2.lesUsers); // this.lesUsers.Object.unshift(this.jardinierUser)   Possiblement a retirer
       });
     },
     // Lorsque l'utilisateur selectionne une conversation
@@ -2274,7 +2273,6 @@ __webpack_require__.r(__webpack_exports__);
     listeMessages: function listeMessages() {
       var _this4 = this;
 
-      console.log("/api/messages/" + this.userId + "/" + this.toUserId);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/messages/" + this.userId + "/" + this.toUserId).then(function (response) {
         _this4.message = response.data;
 
@@ -2285,14 +2283,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Transorme le format de l'heure d'envoi d'un message
     transformerDate: function transformerDate(temps) {
-      // if (temps !== undefined) {
-      // return 'ceci est date'
-      return temps.substring(0, 10); // }     
+      return temps.substring(0, 10);
     },
     transformerHeure: function transformerHeure(temps) {
-      //  if (temps !== undefined) {
-      // return 'ceci est heure'
-      return temps.substring(11, 16); //  }
+      return temps.substring(11, 16);
     },
     // Selectionne les utilisateurs avec qui l'utilisateur connecte a des messages
     getLinkedUsers: function getLinkedUsers() {
