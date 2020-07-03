@@ -2256,6 +2256,189 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FormulairePotager.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FormulairePotager.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'FormulairePotager',
+  data: function data() {
+    return {
+      address_1: '',
+      address_2: '',
+      city: '',
+      prov: '',
+      country: '',
+      postal_code: '',
+      photo_path: null,
+      tags_potagers: [],
+      etiquettes1: ["Biologique", "Intérieur", "En pot", "Communautaire", "En terre"],
+      etiquettes2: ["Conventionel", "En serre", "En bacs", "Urbain", "Monoculture"],
+      selected: false,
+      X: 6
+    };
+  },
+  //end data
+  props: {},
+  components: {},
+  mounted: function mounted() {
+    var file = document.querySelector('#photo');
+  },
+  methods: {
+    envoiPotager: function envoiPotager() {
+      var _this = this;
+
+      var photo = this.$refs.file.files[0];
+      var formData = new FormData();
+      var options = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      };
+      formData.append('address_1', this.address_1);
+      formData.append('address_2', this.address_2);
+      formData.append('city', this.city);
+      formData.append('prov', this.prov);
+      formData.append('country', this.country);
+      formData.append('postal_code', this.postal_code);
+      formData.append('photo_path', photo_path);
+      formData.append('tags_potagers', this.tags_potagers);
+      axios.post('/api/potager/new/', formData, options).then(function (data) {
+        _this.mettreAJour();
+      })["catch"](function () {
+        console.log('FAILURE!!');
+      });
+    },
+    handleFileUpload: function handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+    },
+    toggleClass: function toggleClass(e) {
+      e.target.classList.toggle("selected");
+
+      if (e.target.classList.contains("selected")) {
+        this.tags_potagers.push(e.target.innerHTML);
+      } else {
+        this.tags_potagers.pop(e.target.innerHTML);
+      }
+
+      console.log(this.tags_potagers);
+    }
+  } //end method
+
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HeaderAccueil.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/HeaderAccueil.vue?vue&type=script&lang=js& ***!
@@ -3832,6 +4015,42 @@ __webpack_require__.r(__webpack_exports__);
   props: {},
   components: {
     FormulaireJardinier: _components_FormulaireJardinier__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/InscriptionPotager.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/InscriptionPotager.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_FormulairePotager__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/FormulairePotager */ "./resources/js/components/FormulairePotager.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'InscriptionPotager',
+  data: function data() {
+    return {
+      data: 0
+    };
+  },
+  props: {},
+  components: {
+    FormulairePotager: _components_FormulairePotager__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mounted: function mounted() {},
   methods: {}
@@ -42722,6 +42941,491 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FormulairePotager.vue?vue&type=template&id=df38f592&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FormulairePotager.vue?vue&type=template&id=df38f592& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "form",
+    {
+      attrs: { action: "/api/potager/new/", enctype: "multipart/form-data" },
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.envoiPotager($event)
+        }
+      }
+    },
+    [
+      _c("div", [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "container-fluid", attrs: { id: "profilPotager" } },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row", attrs: { id: "creationPotager" } },
+              [
+                _c("div", { staticClass: "col-4" }, [
+                  _c("form", [
+                    _c("div", { staticClass: "form-row" }, [
+                      _c("div", { staticClass: "col" }, [
+                        _c("h6", [
+                          _vm._v("Indiquez-nous où se trouve votre potager")
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("label", { attrs: { for: "adresse" } }, [
+                          _vm._v("Adresse")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.address_1,
+                              expression: "address_1"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "address_1",
+                            name: "address_1",
+                            "aria-describedby": "emailHelp"
+                          },
+                          domProps: { value: _vm.address_1 },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.address_1 = $event.target.value
+                            }
+                          }
+                        }),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.address_2,
+                              expression: "address_2"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "address_2",
+                            name: "address_2",
+                            "aria-describedby": "emailHelp"
+                          },
+                          domProps: { value: _vm.address_2 },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.address_2 = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-row" }, [
+                      _c("div", { staticClass: "col mt-4" }, [
+                        _c("label", { attrs: { for: "ville" } }, [
+                          _vm._v("Ville")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.city,
+                              expression: "city"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "city",
+                            name: "city",
+                            "aria-describedby": "emailHelp"
+                          },
+                          domProps: { value: _vm.city },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.city = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-row", attrs: { id: "pays" } },
+                      [
+                        _c("div", { staticClass: "col-md-5 mt-4" }, [
+                          _c("label", { attrs: { for: "province" } }, [
+                            _vm._v("Province")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prov,
+                                expression: "prov"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "prov",
+                              name: "prov",
+                              "aria-describedby": "emailHelp"
+                            },
+                            domProps: { value: _vm.prov },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.prov = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-5 mt-4" }, [
+                          _c("label", { attrs: { for: "pays" } }, [
+                            _vm._v("Pays")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.country,
+                                expression: "country"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "country",
+                              name: "country",
+                              "aria-describedby": "emailHelp"
+                            },
+                            domProps: { value: _vm.country },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.country = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-row", attrs: { id: "trouver" } },
+                      [
+                        _c("div", { staticClass: "col-md-5 mt-4" }, [
+                          _c("label", { attrs: { for: "codePostal" } }, [
+                            _vm._v("Code postal")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postal_code,
+                                expression: "postal_code"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            staticStyle: { width: "160px" },
+                            attrs: {
+                              type: "text",
+                              id: "postal_code",
+                              name: "postal_code",
+                              "aria-describedby": "emailHelp"
+                            },
+                            domProps: { value: _vm.postal_code },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.postal_code = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(2)
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-3 ml-5",
+                    attrs: { id: "profilPotagerImages" }
+                  },
+                  [
+                    _c("h6", [_vm._v("Ajouter des photos de votre potager")]),
+                    _vm._v(" "),
+                    _c("p", { staticStyle: { "font-size": "12px" } }, [
+                      _vm._v(
+                        "Téléverser jusqu'à " +
+                          _vm._s(_vm.X) +
+                          " photos; au moins une est requise."
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("img", {
+                      attrs: { src: "/images/potager_pardefault_100px.png" }
+                    }),
+                    _vm._v(" "),
+                    _c("img", {
+                      attrs: { src: "/images/potager_pardefault_100px.png" }
+                    }),
+                    _vm._v(" "),
+                    _c("img", {
+                      attrs: { src: "/images/potager_pardefault_100px.png" }
+                    }),
+                    _vm._v(" "),
+                    _c("img", {
+                      attrs: { src: "/images/potager_pardefault_100px.png" }
+                    }),
+                    _vm._v(" "),
+                    _c("img", {
+                      attrs: { src: "/images/potager_pardefault_100px.png" }
+                    }),
+                    _vm._v(" "),
+                    _c("img", {
+                      attrs: { src: "/images/potager_pardefault_100px.png" }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { staticClass: "btn btn-primary btn-file mr-4 mt-3" },
+                      [
+                        _vm._v("\r\n                    Téléverser une photo"),
+                        _c("input", {
+                          ref: "file",
+                          attrs: {
+                            type: "file",
+                            id: "photo_path",
+                            name: "photo_path"
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.handleFileUpload()
+                            }
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-3 offset-1",
+                    attrs: { id: "etiquettesPotager" }
+                  },
+                  [
+                    _c("h6", { staticClass: "ml-5" }, [
+                      _vm._v("Quel type de potager est-ce ?")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "ml-5" }, [
+                      _vm._v("Cochez tous ceux qui s'appliquent.")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "table",
+                      {
+                        attrs: { width: "100%", id: "etiquetteProfilJardinier" }
+                      },
+                      [
+                        _c("tr", [
+                          _c("td", [
+                            _c(
+                              "ul",
+                              _vm._l(_vm.etiquettes1, function(
+                                etiquette1,
+                                index
+                              ) {
+                                return _c(
+                                  "li",
+                                  {
+                                    key: index,
+                                    class: { selected: _vm.selected },
+                                    on: { click: _vm.toggleClass }
+                                  },
+                                  [_vm._v(_vm._s(etiquette1))]
+                                )
+                              }),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "ul",
+                              _vm._l(_vm.etiquettes2, function(
+                                etiquette2,
+                                index
+                              ) {
+                                return _c(
+                                  "li",
+                                  {
+                                    key: index,
+                                    class: { selected: _vm.selected },
+                                    on: { click: _vm.toggleClass }
+                                  },
+                                  [_vm._v(_vm._s(etiquette2))]
+                                )
+                              }),
+                              0
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
+          ]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "colHeaderProfil" } },
+      [
+        _c("div", { staticClass: "col-2" }, [
+          _c("img", { attrs: { id: "logo", src: "/images/portager_noir.svg" } })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-6 offset-3" }, [
+          _c("img", {
+            attrs: {
+              id: "barreProgression",
+              src: "/images/BarreProfilPotager.PNG"
+            }
+          })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "profilTitre" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "row align-items-center",
+            attrs: { id: "profilPotagerTitre" }
+          },
+          [
+            _c("div", { staticClass: "col-3" }, [
+              _c("h3", [_vm._v("Créer votre potager")])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-2 offset-3", attrs: { id: "plusTard" } },
+              [
+                _c("a", { attrs: { href: "/" } }, [
+                  _c("p", [_vm._v("Compléter plus tard")])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-2 offset-1" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                [_vm._v("Passez à l'étape suivante")]
+              ),
+              _c("br")
+            ])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-5 mt-4" }, [
+      _c("span", { staticClass: "btn btn-primary btn-file mt-4" }, [
+        _vm._v("\r\n                                Trouver"),
+        _c("input", { attrs: { type: "file" } })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HeaderAccueil.vue?vue&type=template&id=30c0c48c&scoped=true&lang=true&":
 /*!**************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/HeaderAccueil.vue?vue&type=template&id=30c0c48c&scoped=true&lang=true& ***!
@@ -44800,300 +45504,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "container-fluid", attrs: { id: "profilPotager" } },
-      [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "row", attrs: { id: "creationPotager" } }, [
-          _vm._m(2),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-3 ml-5", attrs: { id: "profilPotagerImages" } },
-            [
-              _c("h6", [_vm._v("Ajouter des photos de votre potager")]),
-              _vm._v(" "),
-              _c("p", { staticStyle: { "font-size": "12px" } }, [
-                _vm._v(
-                  "Téléverser jusqu'à " +
-                    _vm._s(_vm.X) +
-                    " photos; au moins une est requise."
-                )
-              ]),
-              _vm._v(" "),
-              _c("img", {
-                attrs: { src: "/images/potager_pardefault_100px.png" }
-              }),
-              _vm._v(" "),
-              _c("img", {
-                attrs: { src: "/images/potager_pardefault_100px.png" }
-              }),
-              _vm._v(" "),
-              _c("img", {
-                attrs: { src: "/images/potager_pardefault_100px.png" }
-              }),
-              _vm._v(" "),
-              _c("img", {
-                attrs: { src: "/images/potager_pardefault_100px.png" }
-              }),
-              _vm._v(" "),
-              _c("img", {
-                attrs: { src: "/images/potager_pardefault_100px.png" }
-              }),
-              _vm._v(" "),
-              _c("img", {
-                attrs: { src: "/images/potager_pardefault_100px.png" }
-              }),
-              _vm._v(" "),
-              _vm._m(3)
-            ]
-          ),
-          _vm._v(" "),
-          _vm._m(4)
-        ])
-      ]
-    )
-  ])
+  return _c("div", [_c("FormulairePotager")], 1)
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "container-fluid", attrs: { id: "colHeaderProfil" } },
-      [
-        _c("div", { staticClass: "col-2" }, [
-          _c("img", { attrs: { id: "logo", src: "/images/portager_noir.svg" } })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-6 offset-3" }, [
-          _c("img", {
-            attrs: {
-              id: "barreProgression",
-              src: "/images/BarreProfilPotager.PNG"
-            }
-          })
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "container-fluid", attrs: { id: "profilTitre" } },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "row align-items-center",
-            attrs: { id: "profilPotagerTitre" }
-          },
-          [
-            _c("div", { staticClass: "col-3" }, [
-              _c("h3", [_vm._v("Créer votre potager")])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-2 offset-3", attrs: { id: "plusTard" } },
-              [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("p", [_vm._v("Compléter plus tard")])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-2 offset-1" }, [
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                [_vm._v("Passez à l'étape suivante")]
-              ),
-              _c("br")
-            ])
-          ]
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4" }, [
-      _c("form", [
-        _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("h6", [_vm._v("Indiquez-nous où se trouve votre potager")]),
-            _c("br"),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "adresse" } }, [_vm._v("Adresse")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "adresse",
-                "aria-describedby": "emailHelp"
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "adresse",
-                "aria-describedby": "emailHelp"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
-          _c("div", { staticClass: "col mt-4" }, [
-            _c("label", { attrs: { for: "ville" } }, [_vm._v("Ville")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "ville",
-                "aria-describedby": "emailHelp"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row", attrs: { id: "pays" } }, [
-          _c("div", { staticClass: "col-md-5 mt-4" }, [
-            _c("label", { attrs: { for: "province" } }, [_vm._v("Province")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "province",
-                "aria-describedby": "emailHelp"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-5 mt-4" }, [
-            _c("label", { attrs: { for: "pays" } }, [_vm._v("Pays")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "pays",
-                "aria-describedby": "emailHelp"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row", attrs: { id: "trouver" } }, [
-          _c("div", { staticClass: "col-md-5 mt-4" }, [
-            _c("label", { attrs: { for: "codePostal" } }, [
-              _vm._v("Code postal")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              staticStyle: { width: "160px" },
-              attrs: {
-                type: "text",
-                id: "codePostal",
-                "aria-describedby": "emailHelp"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-5 mt-4" }, [
-            _c("span", { staticClass: "btn btn-primary btn-file mt-4" }, [
-              _vm._v("\r\n                                Trouver"),
-              _c("input", { attrs: { type: "file" } })
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "btn btn-primary btn-file mr-4 mt-3" }, [
-      _vm._v("\r\n                    Téléverser une photo"),
-      _c("input", { attrs: { type: "file" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "col-3 offset-1", attrs: { id: "etiquettesPotager" } },
-      [
-        _c("h6", { staticClass: "ml-5" }, [
-          _vm._v("Quel type de potager est-ce ?")
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "ml-5" }, [
-          _vm._v("Cochez tous ceux qui s'appliquent.")
-        ]),
-        _vm._v(" "),
-        _c(
-          "table",
-          { attrs: { width: "100%", id: "etiquetteProfilJardinier" } },
-          [
-            _c("tr", [
-              _c("td", [
-                _c("ul", [
-                  _c("li", [_vm._v("Biologique")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("Intérieur")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("En pot")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("Communautaire")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("En terre")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("ul", [
-                  _c("li", [_vm._v("Conventionel")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("En serre")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("En bacs")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("Urbain")]),
-                  _vm._v(" "),
-                  _c("li", [_vm._v("Monoculture")])
-                ])
-              ])
-            ])
-          ]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -62913,6 +63326,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/FormulairePotager.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/FormulairePotager.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FormulairePotager_vue_vue_type_template_id_df38f592___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormulairePotager.vue?vue&type=template&id=df38f592& */ "./resources/js/components/FormulairePotager.vue?vue&type=template&id=df38f592&");
+/* harmony import */ var _FormulairePotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormulairePotager.vue?vue&type=script&lang=js& */ "./resources/js/components/FormulairePotager.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FormulairePotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FormulairePotager_vue_vue_type_template_id_df38f592___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FormulairePotager_vue_vue_type_template_id_df38f592___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FormulairePotager.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FormulairePotager.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/FormulairePotager.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormulairePotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./FormulairePotager.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FormulairePotager.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormulairePotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FormulairePotager.vue?vue&type=template&id=df38f592&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/FormulairePotager.vue?vue&type=template&id=df38f592& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormulairePotager_vue_vue_type_template_id_df38f592___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FormulairePotager.vue?vue&type=template&id=df38f592& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FormulairePotager.vue?vue&type=template&id=df38f592&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormulairePotager_vue_vue_type_template_id_df38f592___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormulairePotager_vue_vue_type_template_id_df38f592___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/HeaderAccueil.vue":
 /*!***************************************************!*\
   !*** ./resources/js/components/HeaderAccueil.vue ***!
@@ -64325,17 +64807,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InscriptionPotager_vue_vue_type_template_id_d194a0e2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InscriptionPotager.vue?vue&type=template&id=d194a0e2& */ "./resources/js/views/InscriptionPotager.vue?vue&type=template&id=d194a0e2&");
-/* harmony import */ var _InscriptionPotager_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InscriptionPotager.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/views/InscriptionPotager.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _InscriptionPotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InscriptionPotager.vue?vue&type=script&lang=js& */ "./resources/js/views/InscriptionPotager.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _InscriptionPotager_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InscriptionPotager.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/views/InscriptionPotager.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _InscriptionPotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _InscriptionPotager_vue_vue_type_template_id_d194a0e2___WEBPACK_IMPORTED_MODULE_0__["render"],
   _InscriptionPotager_vue_vue_type_template_id_d194a0e2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -64349,6 +64833,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/views/InscriptionPotager.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/InscriptionPotager.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/views/InscriptionPotager.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InscriptionPotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InscriptionPotager.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/InscriptionPotager.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InscriptionPotager_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
