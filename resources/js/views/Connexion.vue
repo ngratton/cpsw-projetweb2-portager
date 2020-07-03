@@ -63,8 +63,8 @@
                 User.connexion(this.form)
                     .then(response => {
                         axios.get('api/user').then(user => {
-                            this.$store.dispatch('login')
-                            this.$store.dispatch('logout', user.data)
+                            this.$store.dispatch('logout')
+                            this.$store.dispatch('login', user.data)
                             this.redirectionUtilisateur(user.data.user_role)
                         })
                     })
@@ -77,7 +77,7 @@
             deconnexion() {
                 User.deconnexion()
                     .then(() => {
-                        this.$store.dispatch('logsOut')
+                        this.$store.dispatch('login')
                         this.$router.go()
                     })
             },
