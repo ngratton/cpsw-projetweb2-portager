@@ -1,7 +1,9 @@
 <template>
 
 <div>
-    <FormulaireJardinier></FormulaireJardinier>
+    <FormulaireJardinier
+        :user_id="user_id"
+    ></FormulaireJardinier>
 </div>
 
 </template>
@@ -9,74 +11,25 @@
 <script>
     import FormulaireJardinier from '../components/FormulaireJardinier';
     export default {
-        name: 'InscriptionJardinier', 
+        name: 'InscriptionJardinier',
         data() {
-            return {  
-                data: 0,
+            return {
+                user_id: null,
             };
-        },
-        props: {
-
         },
         components: {
             FormulaireJardinier
         },
         mounted() {
-
+            this.user_id = this.$route.params.id
         },
         methods: {
-            
+
         },
     }
 </script>
 
 <style lang="scss">
-body {
-    background-color: #F7FDFF !important;
-    margin: 0;
-    padding: 0;
-}
-
-nav {
-    width: 80%;
-}
-
-#colHeader {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100px;
-}
-
-.form-group {
-    margin-top: 10px;
-    margin-left: 20px;
-    text-align: left;
-}
-
-#colHeaderProfil {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100px;
-}
-
-#colHeader img {
-    width: 248.27px;
-    height: 89.99px;
-}
-
-#logo {
-    width: 248.27px;
-    height: 89.99px;
-    margin-left: 90px;
-}
-
-#barreProgression {
-    float: right;
-    width: 60%;
-}
-
 #profil {
     margin-top: 100px;
     text-align: center;
@@ -95,7 +48,7 @@ nav {
 
 #profilTitre button {
     font-weight: bold;
-    background-color: #FFDD00; 
+    background-color: #FFDD00;
     color: #332E0A;
     border: none;
     margin-left: 5%;
@@ -196,7 +149,7 @@ nav {
 }
 
 #etiquetteProfilJardinier li.selected {
-    background-color: #9FCC3B; 
+    background-color: #9FCC3B;
 }
 
 #profilPotager {
@@ -311,7 +264,7 @@ nav {
     text-align: right;
     filter: alpha(opacity=0);
     opacity: 0;
-    outline: none;   
+    outline: none;
     cursor: inherit;
     display: block;
 }
