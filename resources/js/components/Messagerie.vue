@@ -43,7 +43,6 @@
                         <p class="nom-utilisateur">{{ toUserFirstName }}</p>
                       </div>
                       <div class="col-6">
-                        {{ item }} efijefiwjefowiejfjfwoefjowefij
                         <p class="date">{{ transformerHeure(item.created_at) }}</p>
                       </div>                    
                     </div>                     
@@ -119,7 +118,6 @@
           // Selectionne les utilisateurs ayant des messages avec l'utilisateur connecte
             Axios.get("/api/users/messages_avec/" + this.userId).then(response => {
               this.lesUsers = response.data
-              console.log(this.lesUsers)
               // this.lesUsers.Object.unshift(this.jardinierUser)   Possiblement a retirer
             });               
           },
