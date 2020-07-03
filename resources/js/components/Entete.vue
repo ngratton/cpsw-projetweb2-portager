@@ -12,7 +12,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Plants</a>
+                            <a class="nav-link" href="/categories">Catégories</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/carte">Carte des potagers</a>
