@@ -23,7 +23,7 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        logsIn({ commit }, user) {
+        login({ commit }, user) {
             commit('logsIn', user)
         },
         logout({ commit }) {

@@ -60,7 +60,7 @@ export default new VueRouter({
         },
 
         {
-            path: '/monpotager',
+            path: '/mon-potager',
             name: 'Monpotager',
             component: Monpotager,
             meta: {
@@ -78,7 +78,7 @@ export default new VueRouter({
         },
 
         {
-            path: '/inscriptionjardinier',
+            path: '/inscription/creation-profil/:id',
             name: 'InscriptionJardinier',
             component: InscriptionJardinier,
             meta: {
@@ -87,7 +87,7 @@ export default new VueRouter({
         },
 
         {
-            path: '/inscriptionpotager',
+            path: '/inscription/creation-potager/:id',
             name: 'InscriptionPotager',
             component: InscriptionPotager,
             meta: {

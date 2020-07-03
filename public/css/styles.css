@@ -182,18 +182,6 @@ nav {
     margin-left: 10px;
 }
 
-.form-group {
-    width: 70%;
-    height: auto;
-    flex-direction: row;
-}
-
-.form-group button {
-    width: 20%;
-    height: 20%;
-    padding: 10px;
-}
-
 .form-check {
     text-align: center;
 }
