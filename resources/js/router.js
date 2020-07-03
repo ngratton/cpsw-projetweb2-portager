@@ -82,7 +82,7 @@ export default new VueRouter({
         {
             path: '/inscription/creation-profil/:id',
             name: 'InscriptionJardinier',
-            component: InscriptionJardinier,
+            component: Inscriptionjardinier,
             meta: {
                 title: 'Profil | Portager | Cultivez votre sens du partage',
             },
@@ -91,7 +91,7 @@ export default new VueRouter({
         {
             path: '/inscription/creation-potager/:id',
             name: 'InscriptionPotager',
-            component: InscriptionPotager,
+            component: Inscriptionpotager,
             meta: {
                 title: 'Profil | Portager | Cultivez votre sens du partage',
             },
