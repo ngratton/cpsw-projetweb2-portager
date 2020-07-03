@@ -2776,25 +2776,33 @@ __webpack_require__.r(__webpack_exports__);
     Entete: _components_Entete__WEBPACK_IMPORTED_MODULE_0__["default"],
     Recherche: _components_Recherche__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  mounted: function mounted() {//
+  mounted: function mounted() {
+    this.maCarte();
   },
-  methods: {// var carte = window.onload = function() {
-    // console.log('Page Chargée!')
-    // var mymap = L.map('mapid').setView([52.476089, -71.825867], 6);
-    // var tileStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    //     maxZoom: 18,
-    //     id: 'mapbox/streets-v11',
-    //     tileSize: 512,
-    //     zoomOffset: -1,
-    //     accessToken: 'pk.eyJ1IjoibWlsYW5taWxhbm92aWMxNyIsImEiOiJja2I5dzFhajIwOXc2Mnlxa2s2cXJtZjJqIn0.WVAb9fHvVqoqxWogsnk4Ng'
-    // });
-    // tileStreets.addTo(mymap);
-    // var marker = L.marker([52.476089, -71.825867]).addTo(mymap);
-    // marker.bindPopup("Je suis un popUp");
-    // var marker = L.marker([46.2634, -74.7687]).addTo(mymap);
-    // marker.bindPopup("Je suis un autre popUp");
-    // }
+  methods: {
+    maCarte: function maCarte() {
+      window.onload = function () {
+        console.log('Page Chargée!');
+        var mymap = L.map('mapid').setView([52.476089, -71.825867], 6);
+        var tileStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: 'mapbox/streets-v11',
+          tileSize: 512,
+          zoomOffset: -1,
+          accessToken: 'pk.eyJ1IjoibWlsYW5taWxhbm92aWMxNyIsImEiOiJja2I5dzFhajIwOXc2Mnlxa2s2cXJtZjJqIn0.WVAb9fHvVqoqxWogsnk4Ng'
+        });
+        tileStreets.addTo(mymap);
+        var marker = L.marker([52.476089, -71.825867]).addTo(mymap);
+        marker.bindPopup("Je suis un popUp");
+        var marker = L.marker([55.476089, -71.825867]).addTo(mymap);
+        marker.bindPopup("Je suis un popUp");
+        var marker = L.marker([52.476089, -65.825867]).addTo(mymap);
+        marker.bindPopup("Je suis un popUp");
+        var marker = L.marker([46.2634, -74.7687]).addTo(mymap);
+        marker.bindPopup("Je suis un autre popUp");
+      };
+    }
   },
   computed: {//
   }
@@ -8701,7 +8709,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".imgEntete {\n  width: 100%;\n  height: 315px;\n}\n.recherche {\n  margin-bottom: 50px;\n}", ""]);
+exports.push([module.i, ".cartePotager {\n  margin-left: 200px;\n}\n.imgEntete {\n  width: 100%;\n  height: 315px;\n}\n.recherche {\n  margin-bottom: 50px;\n}", ""]);
 
 // exports
 
@@ -42950,7 +42958,24 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [_c("entete"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)],
+    [
+      _c("entete"),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("h1", { staticClass: "cartePotager" }, [_vm._v("Carte des potagers")]),
+      _vm._v(" "),
+      _c("div", {
+        staticStyle: {
+          width: "1100px",
+          height: "480px",
+          "margin-left": "200px"
+        },
+        attrs: { id: "mapid" }
+      })
+    ],
     1
   )
 }

@@ -45,9 +45,9 @@
 
        <!-- Map -->
 
-        <!-- <h1>OpenStreetMaps</h1>
+        <h1 class="cartePotager">Carte des potagers</h1>
 
-        <div id="mapid" style="width: 640px; height: 480px;"></div> -->
+        <div id="mapid" style="width: 1100px; height: 480px; margin-left: 200px;"></div>
     
         </div>
 </template>
@@ -71,34 +71,42 @@
              Recherche,
         },
         mounted() {
-            //
+            this.maCarte()
         },
 
         methods: {
+
+            maCarte() {
+
+                window.onload = function() {
+    
+                console.log('Page Chargée!')
+    
+                var mymap = L.map('mapid').setView([52.476089, -71.825867], 6);
+    
+                var tileStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 18,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken: 'pk.eyJ1IjoibWlsYW5taWxhbm92aWMxNyIsImEiOiJja2I5dzFhajIwOXc2Mnlxa2s2cXJtZjJqIn0.WVAb9fHvVqoqxWogsnk4Ng'
+                });
+                
+                tileStreets.addTo(mymap);
+    
+                var marker = L.marker([52.476089, -71.825867]).addTo(mymap);
+                marker.bindPopup("Je suis un popUp");
+                var marker = L.marker([55.476089, -71.825867]).addTo(mymap);
+                marker.bindPopup("Je suis un popUp");
+                var marker = L.marker([52.476089, -65.825867]).addTo(mymap);
+                marker.bindPopup("Je suis un popUp");
+                var marker = L.marker([46.2634, -74.7687]).addTo(mymap);
+                marker.bindPopup("Je suis un autre popUp");
+            }
             
-            // var carte = window.onload = function() {
 
-            // console.log('Page Chargée!')
-
-            // var mymap = L.map('mapid').setView([52.476089, -71.825867], 6);
-
-            // var tileStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            //     maxZoom: 18,
-            //     id: 'mapbox/streets-v11',
-            //     tileSize: 512,
-            //     zoomOffset: -1,
-            //     accessToken: 'pk.eyJ1IjoibWlsYW5taWxhbm92aWMxNyIsImEiOiJja2I5dzFhajIwOXc2Mnlxa2s2cXJtZjJqIn0.WVAb9fHvVqoqxWogsnk4Ng'
-            // });
-            
-            // tileStreets.addTo(mymap);
-
-            // var marker = L.marker([52.476089, -71.825867]).addTo(mymap);
-            // marker.bindPopup("Je suis un popUp");
-            // var marker = L.marker([46.2634, -74.7687]).addTo(mymap);
-            // marker.bindPopup("Je suis un autre popUp");
-
-        // }
+            }
         },
         
         computed: {
@@ -109,6 +117,10 @@
 
 
 <style lang="scss">
+
+.cartePotager {
+    margin-left: 200px;
+}
 
 .imgEntete {
     width: 100%;
