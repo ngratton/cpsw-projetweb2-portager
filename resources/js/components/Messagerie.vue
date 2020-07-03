@@ -15,10 +15,10 @@
             <div v-on:click="toggle(convo)" class="container" id="conversations" v-for="convo in lesUsers" :key="convo.id">
               <h4>{{ convo.first_name }} {{ convo.last_name }}</h4> <br>
             </div>
-            </div>
+          </div>
             <div class="col-9" id="conversation-active" ref="messagesContainer">
               <div class="row justify-content-between">
-              <div id="conversation">
+              <div id="conversation" v-if="userId"> 
                 <div class="message" v-for="item in message" :key="item.id">
                   <div class="col-12 overflow-auto">
                   <div class="col-4" v-if="item.from_id == userId" id="un-message-from">
@@ -32,8 +32,7 @@
                     </div>  
                     <div class="col-md-auto">
                       <p class="contenu">{{ item.contenu }}</p><br>
-                    </div>                   
-                  
+                    </div>                  
                   <p class="date">{{ transformerDate(item.created_at) }}</p>
                   </div> <br>
                   </div>
@@ -88,32 +87,39 @@
         },
         props: {
 
+             jardinierUser: Object,
+          
         },
         components: {
 
         },
         mounted() {
-          this.getData()
           
-        },
-        methods: {
-
-          getData() {
-
-            // Selectionne l'utilisateur connecte
-             Axios.get("/api/users").then(response => {
+          // Remplacer par le watch de jardinierUser
+            Axios.get("/api/users").then(response => {
               this.user = response.data
               this.username = this.user.first_name
               this.userId = response.data.id
               this.getLinkedUsers()
             });
+        },
+        watch: {
+          jardinierUser(new_value) {
+            if (new_value.first_name) {
+              this.getData()
+              this.toggle(new_value)
+            } 
+          }
+        },
+        methods: {
+
+          getData() {
         
           // Selectionne les utilisateurs ayant des messages avec l'utilisateur connecte
             Axios.get("/api/users/messages_avec/" + this.userId).then(response => {
               this.lesUsers = response.data
-              this.test = this.lesUsers.first_name + ' ' + this.lesUsers.last_name       
-            });     
-            
+              // this.lesUsers.Object.unshift(this.jardinierUser)   Possiblement a retirer
+            });               
           },
 
           // Lorsque l'utilisateur selectionne une conversation
@@ -122,7 +128,6 @@
               this.toUserName = convo.first_name + ' ' + convo.last_name
               this.toUserFirstName = convo.first_name
               this.toUserId = convo.id
-              console.log('vous avez choisi ' + convo.first_name + ' ' + convo.last_name, convo.id)
 
               this.listeMessages()
 
@@ -154,11 +159,11 @@
 
             // Transorme le format de l'heure d'envoi d'un message
             transformerDate(temps) {
-              return temps.substring(0,10)
+                return temps.substring(0,10)
             },
 
              transformerHeure(temps) {
-              return temps.substring(11,16)
+                 return temps.substring(11,16)
             },
 
             // Selectionne les utilisateurs avec qui l'utilisateur connecte a des messages
@@ -191,6 +196,7 @@
 #conversations {
   width: 100%;
   border-bottom: solid yellowgreen 0.5px;
+  padding-top: 5px;
 }
 
 #liste-conversations{
