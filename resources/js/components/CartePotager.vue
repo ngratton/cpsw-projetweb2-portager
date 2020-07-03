@@ -1,7 +1,6 @@
 <template>
   
     <div>
-        <entete></entete>
        
                 <div class="card" id="cardPotager">
                     <img src="/images/Plants_placeholders/GRAFTED-VEG.jpg" class="card-img-top" alt="...">
