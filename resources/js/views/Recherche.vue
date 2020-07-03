@@ -78,19 +78,49 @@
 
            <div class="col-2">
                <div class="plantRechercher">
-                   
+                    <img src="/images/imgEntete.png" alt="">
+                    <p class="nomPlant">{{ nomPlant }}</p>
+                    <p class="ville">{{ ville }}</p>
+                    <div class="jardinier">
+                        <p> {{ nomJardinier }} </p>
+                        <p>{{ note }}</p>
+                    </div>
+                    <div class="liens">
+                        <a class="voirPlant" href="#">Voir le plant</a>
+                        <a class="offreEchange" href="#">Offrir un échange</a>
+                    </div>
                </div>
            </div>
 
            <div class="col-2">
             <div class="plantRechercher">
-                
+                 <img src="/images/imgEntete.png" alt="">
+                    <p class="nomPlant">{{ nomPlant }}</p>
+                    <p class="ville">{{ ville }}</p>
+                    <div class="jardinier">
+                        <p> {{ nomJardinier }} </p>
+                        <p>{{ note }}</p>
+                    </div>
+                    <div class="liens">
+                        <a class="voirPlant" href="#">Voir le plant</a>
+                        <a class="offreEchange" href="#">Offrir un échange</a>
+                    </div>
             </div>
         </div>
 
         <div class="col-2">
             <div class="plantRechercher">
-                
+                 <img src="/images/imgEntete.png" alt="">
+                    <p class="nomPlant">{{ nomPlant }}</p>
+                    <p class="ville">{{ ville }}</p>
+                    <div class="jardinier">
+                        <p> {{ nomJardinier }} </p>
+                        <p>{{ note }}</p>
+                    </div>
+                    <div class="liens">
+                        <a class="voirPlant" href="#">Voir le plant</a>
+                        <a class="offreEchange" href="#">Offrir un échange</a>
+                    </div>
             </div>
         </div>
        </div>
@@ -107,8 +137,8 @@
         data() {
             return {
                 plants: [],
-                nbResultats: '0',
-                termeRecherche: 'Terme',
+                nbResultats: '4',
+                termeRecherche: ' [Terme] ',
                 nomPlant: 'Nom du plant',
                 ville: 'Villes',
                 nomJardinier: 'Nom jardinier',

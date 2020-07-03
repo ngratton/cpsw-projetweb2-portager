@@ -10,6 +10,8 @@ import EchangeRevue from './views/EchangeRevue'
 import InscriptionJardinier from './views/InscriptionJardinier'
 import InscriptionPotager from './views/InscriptionPotager'
 import Recherche from './views/Recherche'
+import Carte from './views/Carte'
+import Categories from './views/Categories'
 
 Vue.use(VueRouter);
 
@@ -104,6 +106,25 @@ export default new VueRouter({
             component: Recherche,
             meta: {
                 title: "Résultats de recherche | Portager | Cultivez votre sens du partage",
+            },
+        },
+
+        
+        {
+            path: '/carte',
+            name: 'Carte',
+            component: Carte,
+            meta: {
+                title: "Carte des potagers | Portager | Cultivez votre sens du partage",
+            },
+        },
+
+        {
+            path: '/categories',
+            name: 'Categories',
+            component: Categories,
+            meta: {
+                title: "Filtre par catégories | Portager | Cultivez votre sens du partage",
             },
         },
 
