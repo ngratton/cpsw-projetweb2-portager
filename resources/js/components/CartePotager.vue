@@ -25,16 +25,16 @@
         
         },
         props: {
-
+            //
         },
         components: {
-
+            //
         },
         mounted() {
-
+            //
         },
         methods: {
-
+            //
         },
     }
 </script>

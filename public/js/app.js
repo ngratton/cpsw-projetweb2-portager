@@ -1944,10 +1944,14 @@ __webpack_require__.r(__webpack_exports__);
       data: 0
     };
   },
-  props: {},
-  components: {},
-  mounted: function mounted() {},
-  methods: {}
+  props: {//
+  },
+  components: {//
+  },
+  mounted: function mounted() {//
+  },
+  methods: {//
+  }
 });
 
 /***/ }),
