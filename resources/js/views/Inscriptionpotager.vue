@@ -1,7 +1,9 @@
 <template>
 
 <div>
-    <FormulairePotager></FormulairePotager>
+    <FormulairePotager
+        :user_id="user_id"
+    ></FormulairePotager>
 </div>
 
 </template>
@@ -9,23 +11,17 @@
 <script>
     import FormulairePotager from '../components/FormulairePotager';
     export default {
-        name: 'InscriptionPotager', 
+        name: 'InscriptionPotager',
         data() {
-            return {  
-                data: 0,
+            return {
+                user_id: null,
             };
-        },
-        props: {
-
         },
         components: {
             FormulairePotager
         },
         mounted() {
-
-        },
-        methods: {
-            
+            this.user_id = this.$route.params.id
         },
     }
 </script>
@@ -97,7 +93,7 @@ nav {
 
 #profilTitre button {
     font-weight: bold;
-    background-color: #FFDD00; 
+    background-color: #FFDD00;
     color: #332E0A;
     border: none;
     margin-left: 5%;
@@ -321,7 +317,7 @@ nav {
     text-align: right;
     filter: alpha(opacity=0);
     opacity: 0;
-    outline: none;   
+    outline: none;
     cursor: inherit;
     display: block;
 }

@@ -39,7 +39,7 @@ Route::get('/type-plants/all', 'TypeController@index');                 // Obten
  */
 Route::get('/potagers', 'PotagerController@index');                     // Ensemble des potagers
 
-Route::post('/potager/new', 'PotagerController@store');                  // Création d'un potager
+Route::post('/potager/new/{userId}', 'PotagerController@store');                  // Création d'un potager
 
 Route::get('/potager/{userId}', 'PotagerController@show');              // Potager unique lié à un utilisateur
 Route::patch('/potager/{userId}', 'PotagerController@update');          // Modification d'un potager

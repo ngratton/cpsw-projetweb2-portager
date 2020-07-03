@@ -23,9 +23,6 @@
         mounted() {
             this.user_id = this.$route.params.id
         },
-        methods: {
-
-        },
     }
 </script>
 
