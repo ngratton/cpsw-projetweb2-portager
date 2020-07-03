@@ -41707,9 +41707,50 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "card", attrs: { id: "cardPotager" } }, [
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: {
+            src: "/images/Plants_placeholders/GRAFTED-VEG.jpg",
+            alt: "..."
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("h5", { staticClass: "card-title" }, [_vm._v("Nom du plant")]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              staticStyle: { "background-color": "#9FCC3B" },
+              attrs: { type: "button" }
+            },
+            [_vm._v("Voir le plant")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary",
+              staticStyle: { "background-color": "#FFDD00", color: "#332E0A" },
+              attrs: { type: "button" }
+            },
+            [_vm._v("Offrir un échange")]
+          )
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
